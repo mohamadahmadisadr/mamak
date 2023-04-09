@@ -1,0 +1,61 @@
+name: mamak
+description: mamakschool
+
+
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    path: core
+  feature:
+    path: feature
+  json_annotation: ^4.7.0
+  shared_preferences: ^2.0.11
+  rxdart: ^0.27.3
+  flutter_localizations:
+    sdk: flutter
+  localization: ^2.1.0
+  persian_number_utility: ^1.1.2
+  image_picker: ^0.8.5
+  flutter_svg: ^1.0.3
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
+  lottie: ^2.1.0
+  connectivity_plus: ^3.0.3
+  flutter_launcher_icons: ^0.12.0
+  get_it: ^7.2.0
+  http: ^0.13.5
+  get: ^4.6.5
+  shimmer: ^2.0.0
+  syncfusion_flutter_sliders: ^20.3.60
+  flutter_downloader: ^1.9.1
+  url_launcher: ^6.1.8
+  firebase_core: ^2.4.1
+  firebase_messaging: ^14.2.1
+  package_info_plus: ^3.0.2
+  badges: ^3.0.2
+  url_strategy: ^0.2.0
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  json_serializable: ^6.5.4
+  build_runner: ^2.1.7
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: dana
+      fonts:
+        - asset: fonts/dana_m.ttf
