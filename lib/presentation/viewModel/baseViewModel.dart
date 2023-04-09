@@ -1,11 +1,13 @@
 // ignore_for_file: file_names
 
+import 'package:feature/messagingService/MessagingService.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BaseViewModel extends Cubit<AppState> {
-  // var messageService = GetIt.I.get<MessagingServiceImpl>();
+  var messageService = GetIt.I.get<MessagingServiceImpl>();
 
   final message = BehaviorSubject<String>();
 
