@@ -1,18 +1,20 @@
-// ignore_for_file: file_names
+import 'baseViewModel.dart';
 
-import 'package:feature/messagingService/MessagingService.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:mamak/presentation/state/app_state.dart';
-import 'package:rxdart/rxdart.dart';
+export 'package:core/utils/flow/MyFlow.dart';
+export 'package:feature/messagingService/MessagingService.dart';
+export 'package:feature/navigation/NavigationService.dart';
+export 'package:feature/session/LocalSessionImpl.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+export 'package:get_it/get_it.dart';
+export 'package:mamak/common/user/UserSessionConst.dart';
+export 'package:mamak/config/appData/route/AppRoute.dart';
+export 'package:mamak/presentation/state/NetworkExtensions.dart';
+export 'package:mamak/presentation/state/app_state.dart';
 
 class BaseViewModel extends Cubit<AppState> {
   var messageService = GetIt.I.get<MessagingServiceImpl>();
 
-  final message = BehaviorSubject<String>();
-
-  // final model = GetIt.I.get<BaseModel>();
-  // final session = GetIt.I.get<SessionManager>();
+  final session = GetIt.I.get<LocalSessionImpl>();
 
   BaseViewModel(super.initialState);
 

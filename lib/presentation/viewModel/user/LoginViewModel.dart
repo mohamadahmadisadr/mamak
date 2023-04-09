@@ -1,15 +1,9 @@
-import 'package:core/utils/flow/MyFlow.dart';
-import 'package:feature/navigation/NavigationService.dart';
-import 'package:feature/session/LocalSessionImpl.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mamak/data/serializer/SignInResponse.dart';
-import 'package:mamak/presentation/state/NetworkExtensions.dart';
 import 'package:mamak/presentation/state/formState/user/LoginFormState.dart';
+import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/user/LoginUseCase.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:mamak/presentation/viewModel/baseViewModel.dart';
-import 'package:mamak/config/appData/route/AppRoute.dart';
 
 class LoginViewModel extends BaseViewModel {
   var navigationService = GetIt.I.get<NavigationServiceImpl>();
@@ -24,7 +18,7 @@ class LoginViewModel extends BaseViewModel {
     // getExtra();
   }
 
-  // void getExtra() {
+  // void getExtra() {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
   //   Logger.d('getting extra');
   //   var modal = Get.arguments;
   //   Logger.d(modal.toString());
@@ -42,12 +36,6 @@ class LoginViewModel extends BaseViewModel {
   Function(String) get onPasswordChange =>
       (value) => loginFormState.value.password = value;
 
-  @override
-  Future<void> close() {
-    return super.close();
-  }
-
-
   Function() loginUser() {
     return () {
       if (isValid) {
@@ -58,7 +46,7 @@ class LoginViewModel extends BaseViewModel {
               var registerResponse = state.getData as SignInResponse;
               var user = registerResponse.data;
               if (user != null) {
-                  saveUserData(user);
+                saveUserData(user);
               } else {
                 navigationService.replaceTo(AppRoute.verification, user);
               }
@@ -72,14 +60,12 @@ class LoginViewModel extends BaseViewModel {
   }
 
   Future<bool> saveUserData(User user) {
-    // var map = {
-    //   UserSessionConst.id: user.id?.toString() ?? '0',
-    //   UserSessionConst.fullName: '${user.firstName} ${user.lastName}',
-    //   UserSessionConst.paye: user.groupName ?? '',
-    //   UserSessionConst.nationalCode: user.nationalCode?.toString() ?? '',
-    //   UserSessionConst.mobile: user.mobile ?? '',
-    // };
-    // sessionManager.insertData(map);
+    var map = {
+      UserSessionConst.id: user.userId?.toString() ?? '0',
+      UserSessionConst.fullName: '${user.fullName}',
+      UserSessionConst.mobile: user.mobile ?? '',
+    };
+    sessionManager.insertData(map);
     return Future.value(true);
   }
 
