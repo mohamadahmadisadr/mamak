@@ -1,3 +1,4 @@
+import 'package:http/http.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
 export 'dart:convert';
@@ -15,5 +16,42 @@ export 'package:mamak/presentation/state/app_state.dart';
 abstract class BaseUseCase {
   ApiServiceImpl apiServiceImpl = GetIt.I.get<ApiServiceImpl>();
 
-  void invoke(MyFlow<AppState> flow);
+  void invoke(MyFlow<AppState> flow,{Object? data});
+
+
+  Uri createUri({String? path, Map<String, dynamic>? body}) {
+    return UriCreator.createUriWithUrl(
+        url: BaseUrls.baseUrl,
+        path: BaseUrls.basePath + (path ?? ''),
+        body: body);
+  }
+}
+
+extension FlowExtension on MyFlow<AppState> {
+  void throwCatch() {
+    emit(
+      AppState.error(
+        const ErrorModel(
+          state: ErrorState.Message,
+          message: ErrorMessages.ErrorMessage_Connection,
+        ),
+      ),
+    );
+  }
+
+  void throwError(Response response) {
+    emit(
+      AppState.error(
+        ErrorHandlerImpl().makeError(response),
+      ),
+    );
+  }
+
+  void emitLoading() {
+    emit(AppState.loading);
+  }
+
+  void emitData(Object data) {
+    emit(AppState.success(data));
+  }
 }

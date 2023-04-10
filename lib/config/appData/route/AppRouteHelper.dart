@@ -13,6 +13,7 @@ class AppRouteHelper {
     GetPage(name: AppRoute.login, page: () => const LoginUi()),
     GetPage(name: AppRoute.register, page: () => const RegisterUi()),
     GetPage(name: AppRoute.home, page: () => const MainPageUI()),
+    GetPage(name: AppRoute.root, page: () => const MainPageUI()),
     GetPage(name: AppRoute.packageDetail, page: () => const PackageDetailUI()),
   ];
 }

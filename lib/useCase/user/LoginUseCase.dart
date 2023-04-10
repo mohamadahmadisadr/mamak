@@ -1,6 +1,5 @@
-
 import 'package:mamak/config/apiRoute/user/UserUrls.dart';
-import 'package:mamak/data/body/LoginBody.dart';
+import 'package:mamak/data/body/user/login/LoginBody.dart';
 import 'package:mamak/data/serializer/SignInResponse.dart';
 import 'package:mamak/presentation/state/formState/user/LoginFormState.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
@@ -11,37 +10,25 @@ class LoginUseCase extends BaseUseCase {
   LoginFormState loginFormState;
 
   @override
-  void invoke(MyFlow<AppState> flow) async {
+  void invoke(MyFlow<AppState> flow, {Object? data}) async {
     try {
-      flow.emit(AppState.loading);
+      flow.emitLoading();
       LoginBody loginBody = LoginBody(
         mobile: loginFormState.mobile,
         password: loginFormState.password,
       );
 
-      Uri uri = UriCreator.createUriWithUrl(
-          url: BaseUrls.baseUrl, path: BaseUrls.basePath + UserUrls.signIn);
+      Uri uri = createUri(path: UserUrls.signIn);
       var response = await apiServiceImpl.post2(uri, jsonEncode(loginBody));
       if (response.isSuccessful) {
         var registerResponse = signInResponseFromJson(response.body);
-        flow.emit(AppState.success(registerResponse));
+        flow.emitData(registerResponse);
       } else {
-        flow.emit(
-          AppState.error(
-            ErrorHandlerImpl().makeError(response),
-          ),
-        );
+        flow.throwError(response);
       }
     } catch (e) {
       Logger.e(e);
-      flow.emit(
-        AppState.error(
-          const ErrorModel(
-            state: ErrorState.Message,
-            message: ErrorMessages.ErrorMessage_Connection,
-          ),
-        ),
-      );
+      flow.throwCatch();
     }
   }
 }

@@ -7,8 +7,8 @@ import 'ApiServiceRepository.dart';
 
 class ApiServiceImpl extends ApiServiceRepository {
   var headers = {
-    // HttpHeaders.acceptHeader: "application/json",
-    HttpHeaders.contentTypeHeader: "application/json",
+    "accept": "application/json",
+    HttpHeaders.contentTypeHeader: "application/json; charset=utf-8",
     'Access-Control-Allow-Origin': "*",
     'Access-Control-Allow-Credentials': "false",
     // "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
