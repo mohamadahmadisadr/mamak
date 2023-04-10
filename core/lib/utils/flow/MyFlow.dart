@@ -6,4 +6,5 @@ class MyFlow<T> {
   void emit(T appState) {
     flow.call(appState);
   }
+
 }

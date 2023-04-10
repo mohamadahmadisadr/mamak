@@ -9,5 +9,8 @@ class LoginBody {
     required this.password,
   });
 
+  LoginBody fromJson(Map<String, dynamic> json) => _$LoginBodyFromJson(json);
+  Map<String, dynamic> toJson() => _$LoginBodyToJson(this);
+
   final String mobile, password;
 }

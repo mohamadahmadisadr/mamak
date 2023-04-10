@@ -17,6 +17,11 @@ class SignUpBody {
     required this.subscribeId,
     required this.terms,
   });
+
+  SignUpBody fromJson(Map<String, dynamic> json) => _$SignUpBodyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SignUpBodyToJson(this);
+
 // "isSuccess": true,
 // "statusMessage": "string",
 }

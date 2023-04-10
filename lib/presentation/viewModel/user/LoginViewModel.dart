@@ -7,7 +7,6 @@ import 'package:rxdart/rxdart.dart';
 
 class LoginViewModel extends BaseViewModel {
   var navigationService = GetIt.I.get<NavigationServiceImpl>();
-  var sessionManager = GetIt.I.get<LocalSessionImpl>();
   var formKey = GlobalKey<FormState>();
   var loginFormState = BehaviorSubject<LoginFormState>();
   late final loginUseCase =
@@ -59,13 +58,17 @@ class LoginViewModel extends BaseViewModel {
     };
   }
 
+  Function() gotoSignUpPage() => () {
+        navigationService.replaceTo(AppRoute.register);
+      };
+
   Future<bool> saveUserData(User user) {
     var map = {
       UserSessionConst.id: user.userId?.toString() ?? '0',
       UserSessionConst.fullName: '${user.fullName}',
       UserSessionConst.mobile: user.mobile ?? '',
     };
-    sessionManager.insertData(map);
+    session.insertData(map);
     return Future.value(true);
   }
 

@@ -51,4 +51,11 @@ class BaseViewModel extends Cubit<AppState> {
     }
     updateState(AppState.success(data));
   }
+
+  MyFlow<AppState> get mainFlow => MyFlow(flow: (mainState) {
+        postResult(mainState);
+        if (mainState.isFailed) {
+          messageService.showSnackBar(mainState.getErrorModel?.message ?? '');
+        }
+      });
 }

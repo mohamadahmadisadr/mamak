@@ -1,15 +1,16 @@
-import 'package:feature/form/validator/login/MobileValidator.dart';
-import 'package:feature/form/validator/NameValidator.dart';
 import 'package:feature/form/validator/LastNameValidator.dart';
+import 'package:feature/form/validator/NameValidator.dart';
+import 'package:feature/form/validator/login/MobileValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
-import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
+import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/SignUpViewModel.dart';
 
 import 'SubscribesPickerFormField.dart';
@@ -84,7 +85,7 @@ class RegisterUi extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                          onPressed: () {},
+                          onPressed: bloc.gotoLoginPage.call(),
                           child: Text(
                             'حساب کاربری دارم',
                             style: context.textTheme.caption,
@@ -97,12 +98,14 @@ class RegisterUi extends StatelessWidget {
                   ExamTimePickerFormField(
                     state: bloc.subscribesState,
                     onValueChange: bloc.onItemChanged.call(),
-                    selectedItem: bloc.selectedItem,
+                    selectedItem: bloc.formState.subscribeId,
                   ),
                   20.dpv,
                   ElevatedButton(
                       onPressed: bloc.register.call(),
-                      child: const Text('مرحله بعد'))
+                      child: bloc.state.isLoading
+                          ? const MyLoader(color: Colors.black)
+                          : const Text('مرحله بعد'))
                 ],
               ),
             ),

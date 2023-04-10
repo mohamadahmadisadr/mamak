@@ -22,7 +22,12 @@ class LoginUseCase extends BaseUseCase {
       var response = await apiServiceImpl.post2(uri, jsonEncode(loginBody));
       if (response.isSuccessful) {
         var registerResponse = signInResponseFromJson(response.body);
-        flow.emitData(registerResponse);
+        if(registerResponse.isSuccess == true){
+          flow.emitData(registerResponse);
+        }else{
+          flow.throwMessage(registerResponse.message ?? '');
+        }
+
       } else {
         flow.throwError(response);
       }

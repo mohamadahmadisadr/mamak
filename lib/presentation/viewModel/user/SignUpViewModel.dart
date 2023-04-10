@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mamak/presentation/state/formState/user/RegisterFormState.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/subscribe/GetSubscribeUseCase.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:mamak/useCase/user/SignUpUseCase.dart';
 
 class SignUpViewModel extends BaseViewModel {
-  var formKey = GlobalKey<FormState>();
-  BehaviorSubject<RegisterFormState> formState = BehaviorSubject();
+  NavigationServiceImpl navigationServiceImpl = GetIt.I.get<NavigationServiceImpl>();
 
-  int selectedItem = 0;
+  var formKey = GlobalKey<FormState>();
+  RegisterFormState formState = RegisterFormState();
 
   SignUpViewModel(super.initialState) {
     fetchSubscribes();
@@ -28,34 +28,49 @@ class SignUpViewModel extends BaseViewModel {
 
   bool get isValid => formKey.currentState?.validate() == true;
 
-  Function(String) get onMobileChange =>
-      (value) => formState.value.mobile = value;
+  Function(String) get onMobileChange => (value) => formState.mobile = value;
 
   Function(String) get onFirstNameChange =>
-      (value) => formState.value.firstName = value;
+      (value) => formState.firstName = value;
 
   Function(String) get onLastNameChange =>
-      (value) => formState.value.lastName = value;
+      (value) => formState.lastName = value;
 
   Function(String) get onPasswordChange =>
-      (value) => formState.value.password = value;
+      (value) => formState.password = value;
 
-  Function(String) get onRePswChange =>
-      (value) => formState.value.rePassword = value;
+  Function(String) get onRePswChange => (value) => formState.rePassword = value;
 
-  Function(bool) get onTermsChange => (value) => formState.value.terms = value;
+  Function(bool) get onTermsChange => (value) => formState.terms = value;
 
   Function() register() {
     return () {
-      if (isValid) {}
+      if (isValid) {
+        if (formState.password != formState.rePassword) {
+          messageService.showSnackBar('گذرواژه ها باید یکی باشند');
+          return;
+        }
+
+        if (formState.subscribeId == 0) {
+          messageService.showSnackBar('اشتراک موردنظر را انتخاب کنید');
+          return;
+        }
+
+        SignUpUseCase().invoke(mainFlow, data: formState.getBody());
+      }
     };
   }
 
   Function(int?) onItemChanged() {
     return (value) {
       if (value != null) {
-        selectedItem = value;
+        formState.subscribeId = value;
       }
     };
   }
+
+
+  Function() gotoLoginPage() => (){
+    navigationServiceImpl.replaceTo(AppRoute.login);
+  };
 }

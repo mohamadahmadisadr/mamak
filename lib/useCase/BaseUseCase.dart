@@ -16,8 +16,7 @@ export 'package:mamak/presentation/state/app_state.dart';
 abstract class BaseUseCase {
   ApiServiceImpl apiServiceImpl = GetIt.I.get<ApiServiceImpl>();
 
-  void invoke(MyFlow<AppState> flow,{Object? data});
-
+  void invoke(MyFlow<AppState> flow, {Object? data});
 
   Uri createUri({String? path, Map<String, dynamic>? body}) {
     return UriCreator.createUriWithUrl(
@@ -44,6 +43,12 @@ extension FlowExtension on MyFlow<AppState> {
       AppState.error(
         ErrorHandlerImpl().makeError(response),
       ),
+    );
+  }
+
+  void throwMessage(String msg) {
+    emit(
+      AppState.error(ErrorModel(state: ErrorState.Message, message: msg)),
     );
   }
 

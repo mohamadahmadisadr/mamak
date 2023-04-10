@@ -2,9 +2,11 @@ import 'package:feature/form/validator/login/MobileValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/presentation/state/NetworkExtensions.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
+import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
@@ -62,17 +64,19 @@ class LoginUi extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: bloc.gotoSignUpPage.call(),
                       child: Text(
-                        'ایجاد جساب کاربری جدید',
-                        style: context.textTheme.bodySmall,
-                      ),
+                              'ایجاد جساب کاربری جدید',
+                              style: context.textTheme.bodySmall,
+                            ),
                     ),
                   ],
                 ),
                 4.dpv,
                 ElevatedButton(
-                    onPressed: bloc.loginUser.call(), child: const Text('ورود'))
+                    onPressed: bloc.loginUser.call(), child: bloc.state.isLoading
+                    ? const MyLoader(color: Colors.black)
+                    : const Text('ورود'))
               ],
             ),
           ),
