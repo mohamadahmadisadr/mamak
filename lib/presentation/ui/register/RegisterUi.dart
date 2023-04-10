@@ -1,4 +1,6 @@
 import 'package:feature/form/validator/login/MobileValidator.dart';
+import 'package:feature/form/validator/NameValidator.dart';
+import 'package:feature/form/validator/LastNameValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
@@ -23,78 +25,86 @@ class RegisterUi extends StatelessWidget {
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(WidgetSize.pagePaddingSize),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                20.dpv,
-                Text(
-                  "ایجاد حساب کاربری",
-                  style: context.textTheme.titleSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                20.dpv,
-                const MamakLogo(),
-                20.dpv,
-                const FormTitleWithStar(title: "شماره همراه"),
-                4.dpv,
-                TextFormFieldHelper(
-                  label: "شماره همراه",
-                  hint: "شماره همراه",
-                  keyboardType: TextInputType.phone,
-                  onChangeValue: (value) {},
-                  validator: MobileValidator(),
-                ),
-                10.dpv,
-                const FormTitleWithStar(title: "نام"),
-                4.dpv,
-                TextFormFieldHelper(
-                  label: "نام",
-                  hint: "نام",
-                  keyboardType: TextInputType.text,
-                  onChangeValue: (value) {},
-                ),
-                10.dpv,
-                const FormTitleWithStar(title: "نام خانوادگی"),
-                4.dpv,
-                TextFormFieldHelper(
-                  label: "نام خانوادگی",
-                  hint: "نام خانوادگی",
-                  keyboardType: TextInputType.text,
-                  onChangeValue: (value) {},
-                ),
-                10.dpv,
-                const FormTitleWithStar(title: "رمز عبور"),
-                4.dpv,
-                PasswordFieldHelper(onChangeValue: (value) {}),
-                10.dpv,
-                const FormTitleWithStar(title: "تکرار رمز عبور"),
-                4.dpv,
-                PasswordFieldHelper(onChangeValue: (value) {}),
-                20.dpv,
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'حساب کاربری دارم',
-                          style: context.textTheme.caption,
-                        ))
-                  ],
-                ),
-                20.dpv,
-                const FormTitleWithStar(title: 'اشتراک'),
-                4.dpv,
-                ExamTimePickerFormField(
-                  state: bloc.subscribesState,
-                  onValueChange: bloc.onItemChanged.call(),
-                  selectedItem: bloc.selectedItem,
-                ),
-                20.dpv,
-                ElevatedButton(onPressed: () {}, child: const Text('مرحله بعد'))
-              ],
+            child: Form(
+              key: bloc.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  20.dpv,
+                  Text(
+                    "ایجاد حساب کاربری",
+                    style: context.textTheme.titleSmall
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  20.dpv,
+                  const MamakLogo(),
+                  20.dpv,
+                  const FormTitleWithStar(title: "شماره همراه"),
+                  4.dpv,
+                  TextFormFieldHelper(
+                    label: "شماره همراه",
+                    hint: "شماره همراه",
+                    keyboardType: TextInputType.phone,
+                    onChangeValue: bloc.onMobileChange,
+                    validator: MobileValidator(),
+                  ),
+                  10.dpv,
+                  const FormTitleWithStar(title: "نام"),
+                  4.dpv,
+                  TextFormFieldHelper(
+                    label: "نام",
+                    hint: "نام",
+                    keyboardType: TextInputType.text,
+                    onChangeValue: bloc.onFirstNameChange,
+                    validator: NameValidator(),
+                  ),
+                  10.dpv,
+                  const FormTitleWithStar(title: "نام خانوادگی"),
+                  4.dpv,
+                  TextFormFieldHelper(
+                    label: "نام خانوادگی",
+                    hint: "نام خانوادگی",
+                    keyboardType: TextInputType.text,
+                    onChangeValue: bloc.onLastNameChange,
+                    validator: LastNameValidator(),
+                  ),
+                  10.dpv,
+                  const FormTitleWithStar(title: "رمز عبور"),
+                  4.dpv,
+                  PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),
+                  10.dpv,
+                  const FormTitleWithStar(title: "تکرار رمز عبور"),
+                  4.dpv,
+                  PasswordFieldHelper(
+                      onChangeValue: bloc.onRePswChange, isRePsw: true),
+                  20.dpv,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'حساب کاربری دارم',
+                            style: context.textTheme.caption,
+                          ))
+                    ],
+                  ),
+                  20.dpv,
+                  const FormTitleWithStar(title: 'اشتراک'),
+                  4.dpv,
+                  ExamTimePickerFormField(
+                    state: bloc.subscribesState,
+                    onValueChange: bloc.onItemChanged.call(),
+                    selectedItem: bloc.selectedItem,
+                  ),
+                  20.dpv,
+                  ElevatedButton(
+                      onPressed: bloc.register.call(),
+                      child: const Text('مرحله بعد'))
+                ],
+              ),
             ),
           ),
         );

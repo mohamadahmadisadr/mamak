@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PasswordFieldHelper extends StatefulWidget {
-  const PasswordFieldHelper({Key? key, required this.onChangeValue})
+  const PasswordFieldHelper(
+      {Key? key, required this.onChangeValue, this.isRePsw = false})
       : super(key: key);
   final Function(String) onChangeValue;
+  final bool isRePsw;
 
   @override
   State<PasswordFieldHelper> createState() => _PasswordFieldHelperState();
@@ -35,7 +37,7 @@ class _PasswordFieldHelperState extends State<PasswordFieldHelper> {
       ),
       obscureText: obscureText,
       onChanged: widget.onChangeValue,
-      validator: (value) => PasswordValidator().validate(value ?? '').msg,
+      validator: (value) => PasswordValidator(widget.isRePsw).validate(value ?? '').msg,
     );
   }
 }
