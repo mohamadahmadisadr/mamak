@@ -9,6 +9,7 @@ class TextFormFieldHelper extends StatelessWidget {
     this.icon,
     required this.keyboardType,
     required this.onChangeValue,
+    this.onCompleted,
     this.validator,
     this.maxLength,
     this.initValue,
@@ -28,6 +29,7 @@ class TextFormFieldHelper extends StatelessWidget {
   final Validator? validator;
   final TextInputType keyboardType;
   final Function(String) onChangeValue;
+  final Function()? onCompleted;
   final int? maxLength;
   final int? maxLine;
   final int? minLine;
@@ -62,6 +64,7 @@ class TextFormFieldHelper extends StatelessWidget {
       minLines: minLine,
       textAlignVertical: TextAlignVertical.top,
       style: labelStyle,
+      onEditingComplete: onCompleted,
     );
   }
 }
