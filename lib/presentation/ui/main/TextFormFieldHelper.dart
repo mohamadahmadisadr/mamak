@@ -19,6 +19,7 @@ class TextFormFieldHelper extends StatelessWidget {
     this.onTap,
     this.controller,
     this.textInputAction,
+    this.labelStyle,
   }) : super(key: key);
   final String label;
   final String? initValue;
@@ -35,6 +36,7 @@ class TextFormFieldHelper extends StatelessWidget {
   final Function()? onTap;
   final TextEditingController? controller;
   final TextInputAction? textInputAction;
+  final TextStyle? labelStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class TextFormFieldHelper extends StatelessWidget {
         label: Text(label),
         hintText: hint,
         prefixIcon: icon != null ? Icon(icon) : null,
+        labelStyle: labelStyle,
       ),
       maxLength: maxLength,
       validator: (value) => validator?.validate(value ?? '').msg,
@@ -58,6 +61,7 @@ class TextFormFieldHelper extends StatelessWidget {
       maxLines: maxLine,
       minLines: minLine,
       textAlignVertical: TextAlignVertical.top,
+      style: labelStyle,
     );
   }
 }

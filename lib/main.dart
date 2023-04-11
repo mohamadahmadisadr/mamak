@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoute.register,
+      initialRoute: AppRoute.forgetPassword,
       darkTheme: AppTheme.myTheme(),
       getPages: AppRouteHelper.router,
       title: 'Mamak',
