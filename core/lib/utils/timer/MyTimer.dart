@@ -44,6 +44,10 @@ class MyTimer {
   void pushUpdate() {
     flow?.onchange(start);
   }
+
+  String? formatTime(){
+    return formatMMSS(start);
+  }
 }
 
 abstract class OnTimerChange {

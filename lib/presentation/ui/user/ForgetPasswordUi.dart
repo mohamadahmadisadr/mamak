@@ -2,7 +2,6 @@ import 'package:feature/form/validator/login/MobileValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
-import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
@@ -34,7 +33,7 @@ class ForgetPasswordUi extends StatelessWidget {
                 ),
                 20.dpv,
                 const FormTitleWithStar(title: "شماره همراه یا ایمیل"),
-                20.dpv,
+                4.dpv,
                 TextFormFieldHelper(
                   label: "شماره همراه یا ایمیل",
                   hint: "شماره همراه یا ایمیل",
@@ -54,10 +53,12 @@ class ForgetPasswordUi extends StatelessWidget {
                               ? const MyLoader()
                               : const Text('ارسال کد'));
                     }
-                    return Text(
-                      'کد تایید ارسال شد ${snapshot.data}',
-                      textAlign: TextAlign.center,
-                    );
+                    return bloc.state.isLoading
+                        ? const MyLoader()
+                        : Text(
+                            'کد تایید ارسال شد ${bloc.myTimer.formatTime()}',
+                            textAlign: TextAlign.center,
+                          );
                   },
                 ),
                 10.dpv,

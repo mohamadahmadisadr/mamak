@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:core/utils/logger/Logger.dart';
+import 'package:core/utils/timer/MyTimer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/user/ConfirmCodeUseCase.dart';
 import 'package:mamak/useCase/user/SendCodeUseCase.dart';
-import 'package:core/utils/timer/MyTimer.dart';
 
 class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
   ForgetPasswordViewModel(super.initialState) {
@@ -25,10 +25,10 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
       (mobile) => mobileController.text = mobile;
 
   Function(String) get onCodeChange => (code) {
-    Logger.d(code.length);
+        Logger.d(code.length);
         confirmCodeController.text = code;
         if (code.length == 5) {
-          confirmCode();
+          confirmCodeUseCaseCaller();
         }
       };
 
@@ -49,6 +49,9 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
       };
 
   Function() confirmCode() => () {
+        if (state.isLoading) {
+          return;
+        }
         if (mobileController.text.isEmpty) {
           messageService.showSnackBar('شماره موبایل را وارد کنید');
           return;
@@ -59,22 +62,25 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
           return;
         }
 
-        var data = {
-          'mobile': mobileController.text,
-          'confirmCode': confirmCodeController.text
-        };
-
-        ConfirmCodeUseCase().invoke(MyFlow(flow: (appState) {
-          postResult(appState);
-          if (appState.isSuccess) {
-            //TODO navigate
-            Logger.d('success');
-          }
-          if (appState.isFailed) {
-            messageService.showSnackBar(appState.getErrorModel?.message ?? '');
-          }
-        }), data: data);
+        confirmCodeUseCaseCaller();
       };
+
+  void confirmCodeUseCaseCaller() {
+    var data = {
+      'mobile': mobileController.text,
+      'confirmCode': confirmCodeController.text
+    };
+    ConfirmCodeUseCase().invoke(MyFlow(flow: (appState) {
+      postResult(appState);
+      if (appState.isSuccess) {
+        //TODO navigate
+        Logger.d('success');
+      }
+      if (appState.isFailed) {
+        messageService.showSnackBar(appState.getErrorModel?.message ?? '');
+      }
+    }), data: data);
+  }
 
   @override
   void onchange(int value) {
