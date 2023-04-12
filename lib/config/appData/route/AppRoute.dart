@@ -1,4 +1,4 @@
-class AppRoute{
+class AppRoute {
   static const root = '/';
   static const home = '/home';
   static const splash = '/splash';
@@ -6,5 +6,6 @@ class AppRoute{
   static const register = '/register';
   static const verification = '/verification';
   static const forgetPassword = '/forgetPassword';
+  static const changePassword = '/changePassword';
   static const packageDetail = '/packageDetail';
 }

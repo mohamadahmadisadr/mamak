@@ -15,6 +15,7 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
   final int _start = 120;
   late var myTimer = MyTimer(start: _start);
   final StreamController<int> _controller = StreamController();
+  final formState = GlobalKey<FormState>();
 
   Stream<int> get timerStream => _controller.stream;
 
@@ -37,32 +38,33 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
           messageService.showSnackBar('شماره موبایل را وارد کنید');
           return;
         }
-        SendCodeUseCase().invoke(MyFlow(flow: (appState) {
-          postResult(appState);
-          if (appState.isSuccess) {
-            myTimer.startTimer();
-          }
-          if (appState.isFailed) {
-            messageService.showSnackBar(appState.getErrorModel?.message ?? '');
-          }
-        }), data: mobileController.text);
+        SendCodeUseCase().invoke(
+          MyFlow(flow: (appState) {
+            postResult(appState);
+            if (appState.isSuccess) {
+              myTimer.startTimer();
+            }
+            if (appState.isFailed) {
+              messageService
+                  .showSnackBar(appState.getErrorModel?.message ?? '');
+            }
+          }),
+          data: mobileController.text,
+        );
       };
 
   Function() confirmCode() => () {
         if (state.isLoading) {
           return;
         }
-        if (mobileController.text.isEmpty) {
-          messageService.showSnackBar('شماره موبایل را وارد کنید');
-          return;
-        }
+        if (formState.currentState?.validate() == true) {
+          if (confirmCodeController.text.isEmpty) {
+            messageService.showSnackBar(' کد تایید را وارد کنید');
+            return;
+          }
 
-        if (confirmCodeController.text.isEmpty) {
-          messageService.showSnackBar(' کد تایید را وارد کنید');
-          return;
+          confirmCodeUseCaseCaller();
         }
-
-        confirmCodeUseCaseCaller();
       };
 
   void confirmCodeUseCaseCaller() {
