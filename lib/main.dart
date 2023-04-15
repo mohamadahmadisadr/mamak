@@ -47,12 +47,11 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppDefaultLocale.supportedLocale,
       localizationsDelegates: AppDefaultLocale.localizationDelegate,
       localeResolutionCallback: (_, __) => AppDefaultLocale.getAppLocale,
-      builder: rootTransitionBuilder(),
+      builder: rootTransitionBuilder,
       scaffoldMessengerKey: GetIt.I.get<MessagingServiceImpl>().messageService,
     );
   }
 
-  TransitionBuilder rootTransitionBuilder() {
-    return (context, child) => Scaffold(body: child);
-  }
+  TransitionBuilder get rootTransitionBuilder => (context, child) => Scaffold(body: child);
+
 }

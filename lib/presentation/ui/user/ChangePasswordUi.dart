@@ -43,22 +43,22 @@ class ChangePasswordUi extends StatelessWidget {
                   title: "رمز عبور قبلی",
                 ),
                 4.dpv,
-                PasswordFieldHelper(onChangeValue: (value) {}),
+                PasswordFieldHelper(onChangeValue: bloc.onCurrentPasswordChange),
                 10.dpv,
                 const FormTitleWithStar(
                   title: "رمز عبور جدید",
                 ),
                 4.dpv,
-                PasswordFieldHelper(onChangeValue: (value) {}),
+                PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),
                 10.dpv,
                 const FormTitleWithStar(
                   title: "تکرار رمز عبور جدید",
                 ),
                 4.dpv,
-                PasswordFieldHelper(onChangeValue: (value) {}),
+                PasswordFieldHelper(onChangeValue: bloc.onConfirmPasswordChange),
                 20.dpv,
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: bloc.onSubmitClick,
                     child: bloc.state.isLoading
                         ? const MyLoader(color: Colors.black)
                         : const Text('ثبت'))
