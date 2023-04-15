@@ -10,9 +10,12 @@ class ChangePasswordViewModel extends BaseViewModel {
 
 
 
-  Function(String) get onOldPasswordChange =>
+  Function(String) get onCurrentPasswordChange =>
           (mobile) => formState.password = mobile;
 
   Function(String) get onPasswordChange =>
+          (mobile) => formState.confirmPassword = mobile;
+
+  Function(String) get oncONFIRMPasswordChange =>
           (mobile) => formState.confirmPassword = mobile;
 }

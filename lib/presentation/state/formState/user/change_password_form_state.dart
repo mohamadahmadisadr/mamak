@@ -1,9 +1,9 @@
 class ChangePasswordFormState {
-  String? mobile, verifyCode, password, confirmPassword;
+  String? mobile, currentPassword, password, confirmPassword;
 
   ChangePasswordFormState({
     this.mobile = '',
-    this.verifyCode = '',
+    this.currentPassword = '',
     this.password = '',
     this.confirmPassword = '',
   });
