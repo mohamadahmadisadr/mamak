@@ -10,22 +10,23 @@ import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/Set
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/WorkBookEstimateNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/WorkBookNavigationModel.dart';
 
-class BottomNavigationObject{
+class BottomNavigationObject {
   static final homeNavigationItems = [
     SubscriptionNavigationModel(),
     IntroductionNavigationModel(),
     MoreNavigationModel(),
     HomePageNavigationModel(),
-    EstimateNavigationModel(),
+    WorkBookNavigationModel(),
   ];
 
   static final secondNavigationItems = [
     ExtraNavigationModel(),
     ContactUsNavigationModel(),
     SettingNavigationModel(),
-    WorkBookNavigationModel(),
     WorkBookEstimateNavigationModel(),
   ];
+
   static List<HomeNavigationModel> get homeMenu => homeNavigationItems;
+
   static List<HomeNavigationModel> get secondHomeMenu => secondNavigationItems;
 }

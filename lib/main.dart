@@ -9,6 +9,7 @@ import 'config/appData/appTheme/AppTheme.dart';
 import 'config/appData/locales/AppDefaultLocale.dart';
 import 'config/appData/route/AppRoute.dart';
 import 'config/appData/route/AppRouteHelper.dart';
+import 'presentation/ui/Home/HomeAppbar.dart';
 import 'presentation/viewModel/app/appViewModel.dart';
 
 void main() {
@@ -52,6 +53,6 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  TransitionBuilder get rootTransitionBuilder =>
-      (context, child) => Scaffold(body: child);
+  TransitionBuilder get rootTransitionBuilder => (context, child) =>
+      Scaffold(appBar: AppBar(flexibleSpace: const HomeAppBar()), body: child);
 }

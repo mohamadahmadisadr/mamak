@@ -69,7 +69,7 @@ extension HomeNavigationEnumExtension on HomeNavigationEnum {
         return const SizedBox();
       case HomeNavigationEnum.Home:
         return const HomeUI();
-      case HomeNavigationEnum.Estimate:
+      case HomeNavigationEnum.WorkBook:
         return const EstimateUI();
       default:
         return const SizedBox.shrink();

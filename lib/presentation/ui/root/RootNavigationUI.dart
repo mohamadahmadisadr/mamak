@@ -41,7 +41,9 @@ class RootNavigationUI extends StatelessWidget {
                       badgeContent: Text(hbnI.getBadge,
                           style: const TextStyle(color: Colors.white)),
                       showBadge: (hbnI.getBadge.isBlank == false),
-                      child: Icon(hbnI.getIcon),
+                      child: Icon(
+                        hbnI.getIcon,
+                      ),
                     ),
               label: hbnI.getName,
             ),

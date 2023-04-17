@@ -7,12 +7,13 @@ class ChangePasswordUseCase extends BaseUseCase {
   @override
   void invoke(MyFlow<AppState> flow, {Object? data}) async {
     assert(data != null && data is ChangePasswordBody);
-    assert((data as ChangePasswordBody).mobile != '','The mobile have not to empty');
+    assert((data as ChangePasswordBody).mobile != '',
+        'The mobile have not to empty');
 
     try {
       flow.emitLoading();
 
-      var uri = createUri(path: UserUrls.postRecoveryPassword);
+      var uri = createUri(path: UserUrls.postChangePassword);
       var response = await apiServiceImpl.post2(uri, jsonEncode(data));
       if (response.isSuccessful) {
         var chanePasswordResponse =

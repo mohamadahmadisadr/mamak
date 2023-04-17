@@ -4,4 +4,5 @@ class UserUrls{
   static const forgetPsw = "/AuthenticationApi/PostForgotPassword";
   static const confirmCode = "/AuthenticationApi/PostChangePassword";
   static const postRecoveryPassword = "/AuthenticationApi/PostRecoveryPassword";
+  static const postChangePassword = "/AuthenticationApi/PostChangePassword";
 }
