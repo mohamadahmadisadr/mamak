@@ -54,5 +54,5 @@ class MyApp extends StatelessWidget {
   }
 
   TransitionBuilder get rootTransitionBuilder => (context, child) =>
-      Scaffold(appBar: AppBar(flexibleSpace: const HomeAppBar()), body: child);
+      Scaffold(body: child);
 }

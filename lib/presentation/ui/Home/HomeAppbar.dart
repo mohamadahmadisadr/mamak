@@ -21,9 +21,11 @@ class HomeAppBar extends StatelessWidget {
               FutureBuilder(
                 future: getUserFullName,
                 builder: (context, snapshot) {
-                  return Text(snapshot.hasData
-                      ? snapshot.data?.toString() ?? ''
-                      : 'نام کاربر');
+                  return Text(
+                    snapshot.hasData
+                        ? snapshot.data?.toString() ?? ''
+                        : 'نام کاربر',
+                  );
                 },
               ),
               8.dph,
