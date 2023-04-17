@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/presentation/ui/login/LoginUi.dart';
 import 'package:mamak/presentation/ui/package/PackageDetailUI.dart';
 import 'package:mamak/presentation/ui/register/RegisterUi.dart';
 import 'package:mamak/presentation/ui/root/MainPageUI.dart';
+import 'package:mamak/presentation/ui/splash/SplashUi.dart';
 import 'package:mamak/presentation/ui/user/ChangePasswordUi.dart';
 import 'package:mamak/presentation/ui/user/ForgetPasswordUi.dart';
 
@@ -15,6 +15,7 @@ class AppRouteHelper {
     GetPage(name: AppRoute.register, page: () => const RegisterUi()),
     GetPage(name: AppRoute.home, page: () => const MainPageUI()),
     GetPage(name: AppRoute.root, page: () => const MainPageUI()),
+    GetPage(name: AppRoute.splash, page: () => const SplashUi()),
     GetPage(name: AppRoute.packageDetail, page: () => const PackageDetailUI()),
     GetPage(
         name: AppRoute.forgetPassword, page: () => const ForgetPasswordUi()),

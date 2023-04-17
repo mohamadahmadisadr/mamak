@@ -39,13 +39,14 @@ class LoginViewModel extends BaseViewModel {
     return () {
       if (isValid) {
         loginUseCase.invoke(
-          MyFlow(flow: (state) {
+          MyFlow(flow: (state) async {
             postResult(state);
             if (state.isSuccess && state.getData is SignInResponse) {
               var registerResponse = state.getData as SignInResponse;
               var user = registerResponse.data;
               if (user != null) {
-                saveUserData(user);
+                await saveUserData(user);
+                navigationService.replaceTo(AppRoute.home);
               } else {
                 navigationService.replaceTo(AppRoute.verification, user);
               }

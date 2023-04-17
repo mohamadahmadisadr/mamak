@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class MyVideoPlayer extends StatefulWidget {
-  const MyVideoPlayer({Key? key}) : super(key: key);
+  const MyVideoPlayer(
+      {Key? key,
+      this.link =
+          'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'})
+      : super(key: key);
+  final String link;
 
   @override
   State<MyVideoPlayer> createState() => _MyVideoPlayerState();
@@ -19,8 +24,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   }
 
   void init() {
-    videoPlayerController = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4')
+    videoPlayerController = VideoPlayerController.network(widget.link)
       ..initialize().then((_) => setState(() {}));
     videoPlayerController.setLooping(true);
     videoPlayerController.addListener(() => setState(() {}));
@@ -34,55 +38,64 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Container(
       alignment: Alignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16.0),
-          clipBehavior: Clip.hardEdge,
-          child: AspectRatio(
-            aspectRatio: videoPlayerController.value.aspectRatio,
-            child: VideoPlayer(videoPlayerController),
+      margin: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        border: Border.all(color: Colors.grey),
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16.0),
+            clipBehavior: Clip.hardEdge,
+            child: AspectRatio(
+              aspectRatio: videoPlayerController.value.aspectRatio,
+              child: VideoPlayer(videoPlayerController),
+            ),
           ),
-        ),
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                showController = true;
-              });
-              Future.delayed(const Duration(seconds: 3)).then((value) {
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
                 setState(() {
-                  showController = false;
+                  showController = true;
                 });
-              });
-            },
+                Future.delayed(const Duration(seconds: 3)).then((value) {
+                  setState(() {
+                    showController = false;
+                  });
+                });
+              },
+            ),
           ),
-        ),
-        IconButton(
-            onPressed: () {
-              if (videoPlayerController.value.isPlaying) {
-                videoPlayerController.pause();
-              } else {
-                videoPlayerController.play();
-              }
-              setState(() {});
-            },
-            icon: AnimatedOpacity(
-              duration: const Duration(seconds: 1),
-              opacity:
-                  (!videoPlayerController.value.isPlaying || showController)
-                      ? 1
-                      : 0,
-              child: Icon(
-                videoPlayerController.value.isPlaying
-                    ? Icons.pause_circle_outline
-                    : Icons.play_circle_outline,
-                size: 50.0,
-                color: Colors.grey.shade100,
-              ),
-            ))
-      ],
+          IconButton(
+              onPressed: () {
+                if (videoPlayerController.value.isPlaying) {
+                  videoPlayerController.pause();
+                } else {
+                  videoPlayerController.play();
+                }
+                setState(() {});
+              },
+              icon: AnimatedOpacity(
+                duration: const Duration(seconds: 1),
+                opacity:
+                    (!videoPlayerController.value.isPlaying || showController)
+                        ? 1
+                        : 0,
+                child: Icon(
+                  videoPlayerController.value.isPlaying
+                      ? Icons.pause_circle_outline
+                      : Icons.play_circle_outline,
+                  size: 50.0,
+                  color: Colors.grey.shade100,
+                ),
+              ))
+        ],
+      ),
     );
   }
 }

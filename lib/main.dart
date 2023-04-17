@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoute.changePassword,
+      initialRoute: AppRoute.splash,
       darkTheme: AppTheme.myTheme(),
       getPages: AppRouteHelper.router,
       title: 'Mamak',
@@ -52,6 +52,6 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  TransitionBuilder get rootTransitionBuilder => (context, child) => Scaffold(body: child);
-
+  TransitionBuilder get rootTransitionBuilder =>
+      (context, child) => Scaffold(body: child);
 }
