@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mamak/presentation/ui/Home/HomeUI.dart';
 import 'package:mamak/presentation/ui/Introduction/IntroductionUI.dart';
-import 'package:mamak/presentation/ui/estimate/EstimateUI.dart';
 import 'package:mamak/presentation/ui/subscription/SubscriptionUI.dart';
+import 'package:mamak/presentation/ui/workBook/MothersWorkBookUi.dart';
 
 abstract class HomeNavigationModel {
   String name();
@@ -27,12 +27,12 @@ enum HomeNavigationEnum {
   Introduction(1),
   More(2),
   Home(3),
-  Estimate(4),
+  Workbook(4),
   SecondMore(5),
   ContactUs(6),
   Setting(7),
-  WorkBook(8),
-  WorkbookEstimate(9);
+  WorkbookEstimate(9),
+  Estimate(10);
 
   final int value;
 
@@ -51,7 +51,7 @@ extension HomeNavigationExtension on int {
       case 3:
         return HomeNavigationEnum.Home;
       case 4:
-        return HomeNavigationEnum.Estimate;
+        return HomeNavigationEnum.Workbook;
       default:
         return HomeNavigationEnum.Home;
     }
@@ -69,8 +69,8 @@ extension HomeNavigationEnumExtension on HomeNavigationEnum {
         return const SizedBox();
       case HomeNavigationEnum.Home:
         return const HomeUI();
-      case HomeNavigationEnum.WorkBook:
-        return const EstimateUI();
+      case HomeNavigationEnum.Workbook:
+        return const MothersWorkBookUi();
       default:
         return const SizedBox.shrink();
     }

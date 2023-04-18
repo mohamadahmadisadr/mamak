@@ -20,7 +20,7 @@ class WorkBookNavigationModel extends HomeNavigationModel{
 
   @override
   HomeNavigationEnum value() {
-    return HomeNavigationEnum.WorkBook;
+    return HomeNavigationEnum.Workbook;
   }
 
 }

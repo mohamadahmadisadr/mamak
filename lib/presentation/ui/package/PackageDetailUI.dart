@@ -2,6 +2,7 @@ import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:feature/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/presentation/ui/main/SubscribeButton.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 
 class PackageDetailUI extends StatelessWidget {
@@ -48,10 +49,7 @@ class PackageDetailUI extends StatelessWidget {
           const Divider(),
           const DescriptionItemUI(),
           16.dpv,
-          Padding(
-            padding: 8.dpeh,
-            child: ElevatedButton(onPressed: () {}, child: Text('خرید اشتراک')),
-          ),
+          const SubscribeButton(),
           16.dpv,
         ],
       ),
