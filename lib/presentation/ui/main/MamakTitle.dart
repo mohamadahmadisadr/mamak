@@ -13,6 +13,7 @@ class MamakTitle extends StatelessWidget {
         fontSize: 30,
         color: Colors.black,
       ),
+      textAlign: TextAlign.center,
     );
   }
 }
