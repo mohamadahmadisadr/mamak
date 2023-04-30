@@ -5,7 +5,8 @@ import 'package:mamak/useCase/subscribe/GetSubscribeUseCase.dart';
 import 'package:mamak/useCase/user/SignUpUseCase.dart';
 
 class SignUpViewModel extends BaseViewModel {
-  NavigationServiceImpl navigationServiceImpl = GetIt.I.get<NavigationServiceImpl>();
+  NavigationServiceImpl navigationServiceImpl =
+      GetIt.I.get<NavigationServiceImpl>();
 
   var formKey = GlobalKey<FormState>();
   RegisterFormState formState = RegisterFormState();
@@ -39,24 +40,28 @@ class SignUpViewModel extends BaseViewModel {
   Function(String) get onPasswordChange =>
       (value) => formState.password = value;
 
-  Function(String) get onRePswChange => (value) => formState.rePassword = value;
+  Function(String) get onConfirmPasswordChange =>
+      (value) => formState.confirmPassword = value;
 
-  Function(bool) get onTermsChange => (value) => formState.terms = value;
+  Function(String) get onEmailChange => (value) => formState.email = value;
+
+  // Function(bool) get onTermsChange => (value) => formState.terms = value;
 
   Function() register() {
     return () {
       if (isValid) {
-        if (formState.password != formState.rePassword) {
+        if (formState.password != formState.confirmPassword) {
           messageService.showSnackBar('گذرواژه ها باید یکی باشند');
           return;
         }
 
-        if (formState.subscribeId == 0) {
-          messageService.showSnackBar('اشتراک موردنظر را انتخاب کنید');
-          return;
-        }
-
-        SignUpUseCase().invoke(mainFlow, data: formState.getBody());
+        SignUpUseCase().invoke(MyFlow(flow: (appState) {
+          if (appState.isSuccess) {
+            navigationServiceImpl.replaceTo(
+                AppRoute.verification, formState.mobile);
+          }
+          mainFlow.emit(appState);
+        }), data: formState.getBody());
       }
     };
   }
@@ -64,13 +69,12 @@ class SignUpViewModel extends BaseViewModel {
   Function(int?) onItemChanged() {
     return (value) {
       if (value != null) {
-        formState.subscribeId = value;
+        // formState.subscribeId = value;
       }
     };
   }
 
-
-  Function() gotoLoginPage() => (){
-    navigationServiceImpl.replaceTo(AppRoute.login);
-  };
+  Function() gotoLoginPage() => () {
+        navigationServiceImpl.replaceTo(AppRoute.login);
+      };
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/icon_data.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 
-class WorkBookEstimateNavigationModel extends HomeNavigationModel{
+class ProfileNavigationModel extends HomeNavigationModel {
   @override
   String badge() {
     return '';
@@ -10,17 +9,16 @@ class WorkBookEstimateNavigationModel extends HomeNavigationModel{
 
   @override
   IconData icon() {
-    return CupertinoIcons.list_bullet_below_rectangle;
+    return CupertinoIcons.person;
   }
 
   @override
   String name() {
-    return 'گزارش ارزیابی';
+    return 'پروفایل';
   }
 
   @override
   HomeNavigationEnum value() {
-    return HomeNavigationEnum.WorkbookEstimate;
+    return HomeNavigationEnum.Profile;
   }
-
 }

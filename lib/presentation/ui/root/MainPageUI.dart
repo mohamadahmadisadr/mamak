@@ -22,7 +22,7 @@ class _MainPageUIState extends State<MainPageUI> {
           body: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              bloc.currentIndex.toHomeNavigationEnum().getPage(),
+              bloc.currentValue.toHomeNavigationEnum().getPage(),
               // if (bloc.showSecondMenu)
                 AnimatedOpacity(
                   opacity: bloc.showSecondMenu ? 1 : 0,
@@ -30,15 +30,15 @@ class _MainPageUIState extends State<MainPageUI> {
                   child: RootNavigationUI(
                     isShownSecondMenu: false,
                     menu: bloc.secondHomeMenu,
-                    onHomeIndexChange: (p0) {},
-                    currentIndex: 0,
+                    onHomeIndexChange: bloc.onIndexChange.call(),
+                    currentIndex: bloc.currentValue,
                   ),
                 )
             ],
           ),
           bottomNavigationBar: RootNavigationUI(
             menu: bloc.homeMenu,
-            currentIndex: bloc.currentIndex,
+            currentIndex: bloc.currentValue,
             onHomeIndexChange: bloc.onIndexChange.call(),
             isShownSecondMenu: bloc.showSecondMenu,
           ),

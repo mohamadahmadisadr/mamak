@@ -1,6 +1,6 @@
 import 'package:mamak/config/apiRoute/user/UserUrls.dart';
 import 'package:mamak/data/body/user/login/LoginBody.dart';
-import 'package:mamak/data/serializer/SignInResponse.dart';
+import 'package:mamak/data/serializer/user/User.dart';
 import 'package:mamak/presentation/state/formState/user/LoginFormState.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
@@ -14,20 +14,19 @@ class LoginUseCase extends BaseUseCase {
     try {
       flow.emitLoading();
       LoginBody loginBody = LoginBody(
-        mobile: loginFormState.mobile,
+        username: loginFormState.username,
         password: loginFormState.password,
       );
 
       Uri uri = createUri(path: UserUrls.signIn);
       var response = await apiServiceImpl.post2(uri, jsonEncode(loginBody));
       if (response.isSuccessful) {
-        var registerResponse = signInResponseFromJson(response.body);
-        if(registerResponse.isSuccess == true){
-          flow.emitData(registerResponse);
-        }else{
-          flow.throwMessage(registerResponse.message ?? '');
+        var result = response.result;
+        if (result.isSuccessFull) {
+          flow.emitData(userFromJson(result.result ?? ''));
+        } else {
+          flow.throwMessage(result.concatErrorMessages);
         }
-
       } else {
         flow.throwError(response);
       }

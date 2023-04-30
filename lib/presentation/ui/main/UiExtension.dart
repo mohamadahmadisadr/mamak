@@ -13,4 +13,5 @@ extension UiExtension on num {
   EdgeInsets get dpev => EdgeInsets.symmetric(vertical: toDouble());
   EdgeInsets get dpeh => EdgeInsets.symmetric(horizontal: toDouble());
   Radius get radius => Radius.circular(toDouble());
+  BorderRadius get bRadius => BorderRadius.circular(toDouble());
 }

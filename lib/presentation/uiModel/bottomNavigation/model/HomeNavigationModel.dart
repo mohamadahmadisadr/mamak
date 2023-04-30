@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mamak/presentation/ui/Home/HomeUI.dart';
 import 'package:mamak/presentation/ui/Introduction/IntroductionUI.dart';
+import 'package:mamak/presentation/ui/contactUs/ContactUsUi.dart';
 import 'package:mamak/presentation/ui/subscription/SubscriptionUI.dart';
+import 'package:mamak/presentation/ui/user/profile/ProfileUi.dart';
 import 'package:mamak/presentation/ui/workBook/MothersWorkBookUi.dart';
+import 'package:mamak/presentation/ui/workBook/WorkBookUi.dart';
+import 'package:mamak/presentation/ui/workShop/MyWorkShops.dart';
 
 abstract class HomeNavigationModel {
   String name();
@@ -31,8 +35,9 @@ enum HomeNavigationEnum {
   SecondMore(5),
   ContactUs(6),
   Setting(7),
-  WorkbookEstimate(9),
-  Estimate(10);
+  WorkShops(9),
+  Estimate(10),
+  Profile(11);
 
   final int value;
 
@@ -52,6 +57,12 @@ extension HomeNavigationExtension on int {
         return HomeNavigationEnum.Home;
       case 4:
         return HomeNavigationEnum.Workbook;
+      case 6:
+        return HomeNavigationEnum.ContactUs;
+      case 11:
+        return HomeNavigationEnum.Profile;
+      case 9:
+        return HomeNavigationEnum.WorkShops;
       default:
         return HomeNavigationEnum.Home;
     }
@@ -60,6 +71,8 @@ extension HomeNavigationExtension on int {
 
 extension HomeNavigationEnumExtension on HomeNavigationEnum {
   Widget getPage() {
+    print(this);
+    print(this.value);
     switch (this) {
       case HomeNavigationEnum.Subscription:
         return const SubscriptionUI();
@@ -70,7 +83,13 @@ extension HomeNavigationEnumExtension on HomeNavigationEnum {
       case HomeNavigationEnum.Home:
         return const HomeUI();
       case HomeNavigationEnum.Workbook:
-        return const MothersWorkBookUi();
+        return const WorkBookUi();
+      case HomeNavigationEnum.Profile:
+        return const ProfileUi();
+      case HomeNavigationEnum.WorkShops:
+        return const MyWorkShops();
+      case HomeNavigationEnum.ContactUs:
+        return const ContactUsUi();
       default:
         return const SizedBox.shrink();
     }

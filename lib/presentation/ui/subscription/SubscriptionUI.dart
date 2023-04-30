@@ -1,12 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mamak/data/serializer/subscribe/SubscribesResponse.dart';
+import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/data/serializer/subscribe/AllSubscriptionResponse.dart';
+import 'package:mamak/data/serializer/subscribe/CurrentPackageResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
-import 'package:mamak/presentation/ui/Home/HomeAppbar.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
+import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
+import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/ui/register/RegisterUi.dart';
 import 'package:mamak/presentation/viewModel/subscription/SubscriptionViewModel.dart';
+
+import '../main/MamakTitle.dart';
 
 class SubscriptionUI extends StatelessWidget {
   const SubscriptionUI({Key? key}) : super(key: key);
@@ -16,13 +24,10 @@ class SubscriptionUI extends StatelessWidget {
     return CubitProvider(
       create: (context) => SubscriptionViewModel(AppState.idle),
       builder: (bloc, state) {
-        return ConditionalUI<List<SubscribeItem>>(
-          state: state,
+        return ConditionalUI<List<AllSubscriptionItem>>(
+          state: bloc.uiState,
           onSuccess: (data) {
-            return Scaffold(
-              appBar: AppBar(
-                flexibleSpace: const HomeAppBar(),
-              ),
+            return MamakScaffold(
               body: Padding(
                 padding: 8.dpe,
                 child: Column(
@@ -40,41 +45,93 @@ class SubscriptionUI extends StatelessWidget {
                           height: 10,
                           margin: 2.dpeh,
                         ),
-                        const Text('برای تغییر اشتراک کلیک کنید'),
+                        const MamakTitle(
+                          title: 'اشتراک',
+                        )
                       ],
                     ),
                     const Divider(),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('مرحله یعد'),
+                    ConditionalUI<CurrentPackageResponse>(
+                      state: bloc.mySubscriptionState,
+                      onSuccess: (currentSubscription) {
+                        return Container(
+                          alignment: Alignment.center,
+                          padding: 16.dpe,
+                          margin: 8.dpe,
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: 8.bRadius),
+                          child: Text(
+                              '${currentSubscription.title ?? ''} تا ${currentSubscription.persianEndDate ?? ''} فعال میباشد.'),
+                        );
+                      },
                     ),
                     16.dpv,
+                    // Row(
+                    //   children: [
+                    //     Container(
+                    //       decoration: const BoxDecoration(
+                    //         shape: BoxShape.circle,
+                    //         color: Colors.blue,
+                    //       ),
+                    //       width: 10,
+                    //       height: 10,
+                    //       margin: 2.dpeh,
+                    //     ),
+                    //     const Text('برای تغییر اشتراک کلیک کنید'),
+                    //   ],
+                    // ),
+                    4.dpv,
+                    const FormTitleWithStar(
+                      title: 'اشتراک',
+                    ),
+                    8.dpv,
+                    DropDownPackageFields(
+                      selectedItem: bloc.selectedItem,
+                      items: data,
+                      name: 'نوع اشتراک خود را انتخاب کنید.',
+                      onValueChange: bloc.onChangeSelectedItem,
+                    ),
+                    8.dpv,
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.blue,
-                          ),
-                          width: 10,
-                          height: 10,
-                          margin: 2.dpeh,
+                        Expanded(
+                          child: TextFormFieldHelper(
+                              label: 'کدتخفیف',
+                              hint: 'کدتخفیف',
+                              keyboardType: TextInputType.text,
+                              onChangeValue: (value) {}),
                         ),
-                        const Text('برای تغییر اشتراک کلیک کنید'),
+                        8.dp,
+                        ElevatedButton(
+                            onPressed: () {}, child: const Text('اعمال')),
                       ],
                     ),
-                    4.dpv,
-                    ListView.builder(
-                      itemExtent: 150,
-                      itemCount: data.length,
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => PackageItemUi(
-                        color: Colors.yellow,
-                        item: data[index],
-                      ),
-                    )
+                    8.dpv,
+                    if (bloc.selectedItem != null)
+                      Row(
+                        children: [
+                          const Text(
+                            'مبلغ قابل پرداخت : ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, color: Colors.red),
+                          ),
+                          8.dph,
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              '${bloc.selectedItem?.price ?? 0} تومان',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: WidgetSize.normalTitle,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                          )
+                        ],
+                      )
                   ],
                 ),
               ),
@@ -86,45 +143,51 @@ class SubscriptionUI extends StatelessWidget {
   }
 }
 
-class PackageItemUi extends StatelessWidget {
-  const PackageItemUi({
-    Key? key,
-    required this.color,
-    required this.item,
-  }) : super(key: key);
-  final SubscribeItem item;
-  final Color color;
+class DropDownPackageFields extends StatelessWidget {
+  const DropDownPackageFields(
+      {Key? key,
+      required this.selectedItem,
+      required this.items,
+      required this.name,
+      required this.onValueChange})
+      : super(key: key);
+  final AllSubscriptionItem? selectedItem;
+  final List<AllSubscriptionItem> items;
+  final String name;
+  final Function(AllSubscriptionItem?) onValueChange;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: 8.dpe,
-      margin: 8.dpe,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(item.title ?? '',
-                  style: context.textTheme.titleSmall
-                      ?.copyWith(color: Colors.white)),
-              const SizedBox.shrink()
-            ],
-          ),
-          8.dpv,
-          const Divider(color: Colors.white, height: 2),
-          Text(item.price?.toString() ?? '',
-              style:
-                  context.textTheme.titleMedium?.copyWith(color: Colors.white))
-        ],
+    print(jsonEncode(items));
+    return ButtonTheme(
+      alignedDropdown: true,
+      child: DropdownButtonFormField<AllSubscriptionItem>(
+        value: selectedItem,
+        menuMaxHeight: 200,
+        isDense: false,
+        isExpanded: false,
+        borderRadius: const BorderRadius.all(
+            Radius.circular(WidgetSize.textFieldRadiusSize)),
+        hint: Text(
+          name,
+          style: context.textTheme.bodySmall,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textScaleFactor: .9,
+        ),
+        onChanged: onValueChange,
+        items: List.generate(items.length, (index) {
+          var item = items.elementAt(index);
+          return DropdownMenuItem<AllSubscriptionItem>(
+            value: item,
+            child: Text(
+              '${item.title} ${item.price?.toString()}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textScaleFactor: .9,
+            ),
+          );
+        }),
       ),
     );
   }

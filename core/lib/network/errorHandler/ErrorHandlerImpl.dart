@@ -11,7 +11,10 @@ import 'ErrorHandlerImpl.dart';
 class ErrorHandlerImpl extends ErrorHandlerRepository {
   @override
   ErrorModel makeError(Response response) {
-    switch (response.statusCode) {
+    return createErrorByStatusCode(response.statusCode);
+  }
+  ErrorModel createErrorByStatusCode(int statusCode){
+    switch (statusCode) {
       case 200:
         return const ErrorModel(
             state: ErrorState.Message, message: ErrorMessages.ErrorMessage_App);
@@ -36,6 +39,11 @@ class ErrorHandlerImpl extends ErrorHandlerRepository {
             state: ErrorState.Message,
             message: ErrorMessages.ErrorMessage_Connection);
     }
+  }
+
+  @override
+  ErrorModel makeErrorByStatusCode(int statusCode) {
+    return createErrorByStatusCode(statusCode);
   }
 
 }

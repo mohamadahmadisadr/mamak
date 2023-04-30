@@ -17,10 +17,16 @@ class MothersWorkBookUi extends StatefulWidget {
 class _MothersWorkBookUiState extends State<MothersWorkBookUi>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  var index = 0;
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        index = _tabController.index;
+      });
+    });
     super.initState();
   }
 
@@ -51,27 +57,31 @@ class _MothersWorkBookUiState extends State<MothersWorkBookUi>
                         padding: 4.dpe,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(32.0),
-                          color: Colors.grey.withOpacity(.3),
+                          color: Colors.grey.withOpacity(.4),
                         ),
                         child: TabBar(
                           controller: _tabController,
                           indicator: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(25.0)),
+                              borderRadius: getBorderByIndex(index)),
                           tabs: const [
-                            Tab(child: Text('فرزند اول')),
-                            Tab(
-                              child: Text('ف رزند دوم'),
+                            WorkBookTabUi(
+                              name: 'فرزند اول',
                             ),
+                            WorkBookTabUi(
+                              name: 'فرزند دوم',
+                            )
                           ],
                         ),
                       ),
+                      4.dpv,
+                      const Text('۴ سال')
                     ],
                   ),
                 ),
               ),
               ListView.separated(
-                padding: 8.dpe,
+                padding: 16.dpe,
                 shrinkWrap: true,
                 itemCount: 5,
                 itemBuilder: (context, index) {
@@ -79,9 +89,11 @@ class _MothersWorkBookUiState extends State<MothersWorkBookUi>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(
-                          height: 50,
-                          width: 50,
-                          child: ImageLoader(url: 'url')),
+                          height: 30,
+                          width: 30,
+                          child: ImageLoader(
+                              url:
+                                  'http://185.88.153.239:8000/images/WorkshopImage/638087784422316987riazi.png')),
                       8.dph,
                       const Text('ریاضی'),
                       const Spacer(),
@@ -92,9 +104,9 @@ class _MothersWorkBookUiState extends State<MothersWorkBookUi>
                         ),
                         child: TextButton.icon(
                           style: ElevatedButton.styleFrom(
-                            side: BorderSide(color: Colors.grey),
+                            side: const BorderSide(color: Colors.grey),
                           ),
-                          onPressed: () {},
+                          onPressed: bloc.gotoDetailView,
                           icon: const Icon(Icons.remove_red_eye,
                               color: Colors.grey),
                           label: const Text(
@@ -115,4 +127,42 @@ class _MothersWorkBookUiState extends State<MothersWorkBookUi>
       },
     );
   }
+}
+
+class WorkBookTabUi extends StatelessWidget {
+  const WorkBookTabUi({Key? key, required this.name}) : super(key: key);
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 40,
+      child: Tab(
+        child: Text(
+          name,
+          style: const TextStyle(fontSize: 12),
+        ),
+      ),
+    );
+  }
+}
+
+BorderRadius getBorderByIndex(int index) {
+  if (index == 0) {
+    return const BorderRadius.only(
+      topRight: Radius.circular(32.0),
+      bottomRight: Radius.circular(32.0),
+      topLeft: Radius.circular(4.0),
+      bottomLeft: Radius.circular(4.0),
+    );
+  }
+  if (index == 1) {
+    return const BorderRadius.only(
+      topLeft: Radius.circular(32.0),
+      bottomLeft: Radius.circular(32.0),
+      topRight: Radius.circular(4.0),
+      bottomRight: Radius.circular(4.0),
+    );
+  }
+  return BorderRadius.zero;
 }

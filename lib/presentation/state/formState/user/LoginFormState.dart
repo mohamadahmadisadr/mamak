@@ -1,12 +1,12 @@
 class LoginFormState {
   LoginFormState({
-    this.mobile = '',
+    this.username = '',
     this.mobileError,
     this.password = '',
     this.passwordError,
   });
 
-  String mobile;
+  String username;
   String? mobileError;
   String password;
   String? passwordError;

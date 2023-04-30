@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:core/utils/logger/Logger.dart';
 import 'package:core/utils/timer/MyTimer.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mamak/presentation/state/formState/user/recovery_password_form_state.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/user/ConfirmCodeUseCase.dart';
 import 'package:mamak/useCase/user/SendCodeUseCase.dart';
@@ -16,6 +17,7 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
   late var myTimer = MyTimer(start: _start);
   final StreamController<int> _controller = StreamController();
   final formState = GlobalKey<FormState>();
+  final NavigationServiceImpl _navigationServiceImpl = GetIt.I.get();
 
   Stream<int> get timerStream => _controller.stream;
 
@@ -29,7 +31,7 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
         Logger.d(code.length);
         confirmCodeController.text = code;
         if (code.length == 5) {
-          confirmCodeUseCaseCaller();
+          confirmCode();
         }
       };
 
@@ -63,7 +65,12 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
             return;
           }
 
-          confirmCodeUseCaseCaller();
+          RecoveryPasswordFormState formState = RecoveryPasswordFormState(
+              mobile: mobileController.text,
+              activationCode: confirmCodeController.text);
+
+          _navigationServiceImpl.navigateTo(
+              AppRoute.recoveryPassword, formState);
         }
       };
 

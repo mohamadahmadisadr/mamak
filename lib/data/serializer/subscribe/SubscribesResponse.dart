@@ -1,61 +1,73 @@
 // To parse this JSON data, do
 //
-//     final subscribesItem = subscribesItemFromJson(jsonString);
+//     final subscribeItem = subscribeItemFromJson(jsonString);
 
 import 'dart:convert';
 
-List<SubscribeItem> subscribesResponseFromJson(String str) => List<SubscribeItem>.from(json.decode(str).map((x) => SubscribeItem.fromJson(x)));
+List<SubscribeItem> subscribesResponseFromJson(String str) =>
+    List<SubscribeItem>.from(
+        json.decode(str).map((x) => SubscribeItem.fromJson(x)));
 
-String subscribesItemToJson(List<SubscribeItem> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String subscribeItemToJson(List<SubscribeItem> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class SubscribeItem {
-  SubscribeItem({
-    this.id,
-    this.title,
-    this.description,
-    this.discountPrice,
-    this.price,
-    this.durationDay,
-    this.isActive,
-    this.adminId,
-    this.iconUrl,
-    this.file,
-  });
-
-  int? id;
+  dynamic ageDomain;
   String? title;
   String? description;
-  int? discountPrice;
-  int? price;
-  int? durationDay;
   bool? isActive;
-  int? adminId;
-  String? iconUrl;
-  String? file;
+  int? ageDomainId;
+  int? id;
+  List<dynamic>? errorMessages;
+  int? statusCode;
+  List<dynamic>? successfulMessages;
+
+  SubscribeItem({
+    this.ageDomain,
+    this.title,
+    this.description,
+    this.isActive,
+    this.ageDomainId,
+    this.id,
+    this.errorMessages,
+    this.statusCode,
+    this.successfulMessages,
+  });
 
   factory SubscribeItem.fromJson(Map<String, dynamic> json) => SubscribeItem(
-    id: json["id"],
-    title: json["title"],
-    description: json["description"],
-    discountPrice: json["discountPrice"],
-    price: json["price"],
-    durationDay: json["durationDay"],
-    isActive: json["isActive"],
-    adminId: json["adminId"],
-    iconUrl: json["iconUrl"],
-    file: json["file"],
-  );
+        ageDomain: json["ageDomain"],
+        title: json["title"],
+        description: json["description"],
+        isActive: json["isActive"],
+        ageDomainId: json["ageDomainId"],
+        id: json["id"],
+        errorMessages: json["errorMessages"] == null
+            ? []
+            : List<dynamic>.from(json["errorMessages"]!.map((x) => x)),
+        statusCode: json["statusCode"],
+        successfulMessages: json["successfulMessages"] == null
+            ? []
+            : List<dynamic>.from(json["successfulMessages"]!.map((x) => x)),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "title": title,
-    "description": description,
-    "discountPrice": discountPrice,
-    "price": price,
-    "durationDay": durationDay,
-    "isActive": isActive,
-    "adminId": adminId,
-    "iconUrl": iconUrl,
-    "file": file,
-  };
+        "ageDomain": ageDomain,
+        "title": title,
+        "description": description,
+        "isActive": isActive,
+        "ageDomainId": ageDomainId,
+        "id": id,
+        "errorMessages": errorMessages == null
+            ? []
+            : List<dynamic>.from(errorMessages!.map((x) => x)),
+        "statusCode": statusCode,
+        "successfulMessages": successfulMessages == null
+            ? []
+            : List<dynamic>.from(successfulMessages!.map((x) => x)),
+      };
+}
+
+extension SubscribeItemExtension on SubscribeItem {
+  bool isValidForChild(String? childPackageId) =>
+      id?.toString() == childPackageId;
 }

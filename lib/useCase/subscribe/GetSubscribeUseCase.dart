@@ -11,13 +11,17 @@ class GetSubscribeUseCase extends BaseUseCase {
       Uri uri = createUri(path: SubscribeUrls.getSubscribe);
       Response response = await apiServiceImpl.get(uri);
       if (response.isSuccessful) {
-        List<SubscribeItem> subscribeResponse =
-            subscribesResponseFromJson(response.body);
-        flow.emitData(subscribeResponse);
+        var result = response.result;
+        if (result.isSuccessFull) {
+          flow.emitData(subscribesResponseFromJson(result.result));
+        } else {
+          flow.throwMessage(result.concatErrorMessages);
+        }
       } else {
         flow.throwError(response);
       }
     } catch (e) {
+      Logger.e(e);
       flow.throwCatch();
     }
   }

@@ -6,6 +6,11 @@ import 'package:http/http.dart';
 import 'ApiServiceRepository.dart';
 
 class ApiServiceImpl extends ApiServiceRepository {
+  String interceptor = '';
+
+  ApiServiceImpl({required this.interceptor}){
+    setToken(interceptor);
+  }
   var headers = {
     "accept": "application/json",
     HttpHeaders.contentTypeHeader: "application/json; charset=utf-8",
@@ -31,4 +36,9 @@ class ApiServiceImpl extends ApiServiceRepository {
   Future<Response> post2(Uri uri, Object body) async {
     return client.post(uri, body: body, headers: headers);
   }
+
+  void setToken(String token) {
+    headers['Authorization'] = token;
+  }
+
 }

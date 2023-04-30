@@ -3,7 +3,7 @@ import 'package:mamak/useCase/home/HomeUseCase.dart';
 
 class HomeViewModel extends BaseViewModel {
   HomeViewModel(super.initialState) {
-    getHomeData();
+    // getHomeData();
   }
 
   void getHomeData() {

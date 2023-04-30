@@ -7,11 +7,11 @@ part of 'LoginBody.dart';
 // **************************************************************************
 
 LoginBody _$LoginBodyFromJson(Map<String, dynamic> json) => LoginBody(
-      mobile: json['mobile'] as String,
+      username: json['username'] as String,
       password: json['password'] as String,
     );
 
 Map<String, dynamic> _$LoginBodyToJson(LoginBody instance) => <String, dynamic>{
-      'mobile': instance.mobile,
+      'username': instance.username,
       'password': instance.password,
     };

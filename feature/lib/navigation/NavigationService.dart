@@ -11,7 +11,6 @@ class NavigationServiceImpl implements NavigationServiceRepository {
     Get.back(result: result);
   }
 
-
   @override
   Future? replaceTo<T>(String routeName, [T? result]) {
     return Get.offNamed(routeName, arguments: result);
@@ -20,6 +19,12 @@ class NavigationServiceImpl implements NavigationServiceRepository {
   @override
   Future? off<T>(String routeName, [T? result]) {
     return Get.offAllNamed(routeName, arguments: result);
+  }
+
+  @override
+  T? getArgs<T>() {
+    if (Get.arguments != null && Get.arguments is T) return Get.arguments as T;
+    return null;
   }
 }
 
@@ -31,4 +36,6 @@ abstract class NavigationServiceRepository {
   Future<dynamic>? off<T>(String routeName, [T? result]);
 
   void pop<T>([T? result]);
+
+  T? getArgs<T>();
 }

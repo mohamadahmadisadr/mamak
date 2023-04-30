@@ -1,8 +1,11 @@
-class UserUrls{
-  static const signIn = "/AuthenticationApi/PostSignin";
-  static const signUp = "/AuthenticationApi/PostSignup";
-  static const forgetPsw = "/AuthenticationApi/PostForgotPassword";
-  static const confirmCode = "/AuthenticationApi/PostChangePassword";
-  static const postRecoveryPassword = "/AuthenticationApi/PostRecoveryPassword";
-  static const postChangePassword = "/AuthenticationApi/PostChangePassword";
+class UserUrls {
+  static const signIn = "/Authentication/Login";
+  static const signUp = "/User/PostRegister";
+  static const forgetPsw = "/User/PostForgotPassword";
+  static const confirmCode = "/User/PostChangePassword";
+  static const postRecoveryPassword = "/User/PostRecoveryPassword";
+  static const postChangePassword = "/User/PostChangePassword";
+  static const verification = "/User/PostActivateAccount";
+  static const setUserAvatar = "/User/SetUserAvatar";
+  static const getUserProfile = "/User/GetUserProfile";
 }

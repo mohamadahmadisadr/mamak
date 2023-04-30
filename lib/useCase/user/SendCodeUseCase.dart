@@ -8,8 +8,8 @@ class SendCodeUseCase extends BaseUseCase {
     assert(data != null && data is String);
     try {
       flow.emitLoading();
-      var uri = createUri(path: UserUrls.forgetPsw, body: {'mobile': data});
-      var response = await apiServiceImpl.post(uri);
+      var uri = createUri(path: UserUrls.forgetPsw);
+      var response = await apiServiceImpl.post2(uri,jsonEncode({'mobile': data}));
       if (response.isSuccessful) {
         ForgetPasswordResponse forgetPasswordResponse =
             forgetPasswordResponseFromJson(response.body);

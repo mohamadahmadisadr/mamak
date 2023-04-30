@@ -8,7 +8,7 @@ class MamakScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(flexibleSpace: const HomeAppBar()),
+      appBar: AppBar(title: const HomeAppBar()),
       body: body,
     );
   }

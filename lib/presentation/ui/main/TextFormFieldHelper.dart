@@ -50,7 +50,7 @@ class TextFormFieldHelper extends StatelessWidget {
       initialValue: initValue,
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
-        label: Text(label),
+        label: Text(label,textAlign: TextAlign.start),
         hintText: hint,
         prefixIcon: icon != null ? Icon(icon) : null,
         labelStyle: labelStyle,

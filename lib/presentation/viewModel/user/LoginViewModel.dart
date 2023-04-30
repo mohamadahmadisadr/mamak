@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mamak/data/serializer/SignInResponse.dart';
+import 'package:mamak/data/serializer/user/User.dart';
 import 'package:mamak/presentation/state/formState/user/LoginFormState.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
+import 'package:mamak/useCase/BaseUseCase.dart';
 import 'package:mamak/useCase/user/LoginUseCase.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -30,7 +31,7 @@ class LoginViewModel extends BaseViewModel {
   bool get isValid => formKey.currentState?.validate() == true;
 
   Function(String) get onMobileChange =>
-      (value) => loginFormState.value.mobile = value;
+      (value) => loginFormState.value.username = value;
 
   Function(String) get onPasswordChange =>
       (value) => loginFormState.value.password = value;
@@ -41,14 +42,13 @@ class LoginViewModel extends BaseViewModel {
         loginUseCase.invoke(
           MyFlow(flow: (state) async {
             postResult(state);
-            if (state.isSuccess && state.getData is SignInResponse) {
-              var registerResponse = state.getData as SignInResponse;
-              var user = registerResponse.data;
-              if (user != null) {
+            if (state.isSuccess && state.getData is User) {
+              var user = state.getData as User;
+              if (user.isActive == true) {
                 await saveUserData(user);
                 navigationService.replaceTo(AppRoute.home);
               } else {
-                navigationService.replaceTo(AppRoute.verification, user);
+                navigationService.replaceTo(AppRoute.verification, loginFormState.value.username);
               }
             } else if (state.isFailed) {
               messageService.showSnackBar(state.getErrorModel?.message ?? '');
@@ -64,10 +64,12 @@ class LoginViewModel extends BaseViewModel {
       };
 
   Future<bool> saveUserData(User user) {
+    GetIt.I.get<ApiServiceImpl>().setToken(user.token ?? '');
     var map = {
-      UserSessionConst.id: user.userId?.toString() ?? '0',
+      UserSessionConst.token: '${user.token}',
       UserSessionConst.fullName: '${user.fullName}',
       UserSessionConst.mobile: user.mobile ?? '',
+      UserSessionConst.email: user.email ?? '',
     };
     session.insertData(map);
     return Future.value(true);

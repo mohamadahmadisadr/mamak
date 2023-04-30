@@ -13,11 +13,11 @@ class SignUpUseCase extends BaseUseCase {
       var uri = createUri(path: UserUrls.signUp);
       var response = await apiServiceImpl.post2(uri, jsonEncode(data));
       if (response.isSuccessful) {
-        var signUpResponse = signUpResponseFromJson(response.body);
-        if (signUpResponse.isSuccess == true) {
-          flow.emitData(signUpResponse);
+        var result = response.result;
+        if (result.resultFlag == true) {
+          flow.emitData(result);
         } else {
-          flow.throwMessage(signUpResponse.message ?? '');
+          flow.throwMessage(result.concatErrorMessages);
         }
       } else {
         flow.throwError(response);

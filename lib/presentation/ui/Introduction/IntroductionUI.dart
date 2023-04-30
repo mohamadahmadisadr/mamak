@@ -5,6 +5,7 @@ import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/Home/HomeAppbar.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
+import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/home/HomeViewModel.dart';
 
@@ -16,35 +17,31 @@ class IntroductionUI extends StatelessWidget {
     return CubitProvider(
       create: (_) => HomeViewModel(AppState.idle),
       builder: (bloc, state) {
-        return ConditionalUI<HomeResponse>(
-          onSuccess: (data) {
-            return Scaffold(
-              appBar: AppBar(flexibleSpace: const HomeAppBar()),
-              body: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  8.dpv,
-                  const Text(
-                    'درباره ما',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.black),
-                    textAlign: TextAlign.center,
-                  ),
-                  8.dpv,
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade100),
-                        borderRadius: BorderRadius.circular(8.0)),
-                    child: ImageLoader(url: 'data'),
-                  )
-                ],
-              ),
-            );
-          },
-          state: state,
-        );
+        return MamakScaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                8.dpv,
+                const Text(
+                  'درباره ما',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+                8.dpv,
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade100),
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: ImageLoader(url: 'http://62.106.95.127/StaticFiles/AboutUs.jpg'),
+                )
+              ],
+            ),
+          ),
+        );;
       },
     );
   }

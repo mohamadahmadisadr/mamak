@@ -38,12 +38,21 @@ extension FlowExtension on MyFlow<AppState> {
     );
   }
 
-  void throwError(Response response) {
-    emit(
-      AppState.error(
-        ErrorHandlerImpl().makeError(response),
-      ),
-    );
+  void throwError(Response? response, {int? statusCode}) {
+    if (response != null) {
+      emit(
+        AppState.error(
+          ErrorHandlerImpl().makeError(response),
+        ),
+      );
+    }
+    if (statusCode != null) {
+      emit(
+        AppState.error(
+          ErrorHandlerImpl().makeErrorByStatusCode(statusCode),
+        ),
+      );
+    }
   }
 
   void throwMessage(String msg) {
@@ -56,7 +65,7 @@ extension FlowExtension on MyFlow<AppState> {
     emit(AppState.loading);
   }
 
-  void emitData(Object data) {
+  void emitData(dynamic data) {
     emit(AppState.success(data));
   }
 }

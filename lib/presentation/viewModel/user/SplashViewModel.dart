@@ -18,5 +18,5 @@ class SplashViewModel extends BaseViewModel {
   }
 
   Future<bool> get loggedIn async =>
-      await session.getData(UserSessionConst.id) != '';
+      await session.getData(UserSessionConst.mobile) != '';
 }

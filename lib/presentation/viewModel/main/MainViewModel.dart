@@ -1,4 +1,5 @@
 import 'package:flutter/animation.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/MoreNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/object/BottomNavigationObject.dart';
@@ -13,16 +14,24 @@ class MainViewModel extends BaseViewModel {
   final secondHomeMenu = BottomNavigationObject.secondHomeMenu;
   var _index = HomeNavigationEnum.Home.value;
 
-  int get currentIndex => _index;
+  int get currentValue => _index;
+
+  List<HomeNavigationModel> get totalMenu => homeMenu + secondHomeMenu;
 
   Function(int) onIndexChange() {
     return (value) {
-      if (homeMenu[value] is MoreNavigationModel) {
-        onChangeSecondMenuState();
-      } else {
-        _index = value;
-        updateScreen(time: value.toDouble());
+
+      var item = totalMenu.firstWhereOrNull((element) => element.value().value == value);
+      if(item != null){
+        print(value);
+        if (item is MoreNavigationModel) {
+          onChangeSecondMenuState();
+        } else {
+          _index = item.value().value;
+          updateScreen(time: value.toDouble());
+        }
       }
+
     };
   }
 

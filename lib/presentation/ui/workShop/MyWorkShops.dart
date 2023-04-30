@@ -1,0 +1,153 @@
+import 'package:flutter/material.dart';
+import 'package:mamak/config/uiCommon/MyTheme.dart';
+import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/data/serializer/child/ChildsResponse.dart';
+import 'package:mamak/data/serializer/child/WorkShopOfUserResponse.dart';
+import 'package:mamak/presentation/ui/child/ChildHorizontalListViewUi.dart';
+import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
+import 'package:mamak/presentation/ui/main/CubitProvider.dart';
+import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
+import 'package:mamak/presentation/ui/main/MamakTitle.dart';
+import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/uiModel/assessmeny/AssessmentParamsModel.dart';
+import 'package:mamak/presentation/viewModel/baseViewModel.dart';
+import 'package:mamak/presentation/viewModel/workBook/MyWorkShopsViewModel.dart';
+
+class MyWorkShops extends StatelessWidget {
+  const MyWorkShops({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MamakScaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(32.0),
+                  bottomRight: Radius.circular(32.0),
+                ),
+                color: MyTheme.purple,
+              ),
+              child: Padding(
+                padding: 16.dpe,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const MamakTitle(title: 'کارگاه های من'),
+                    16.dpv,
+                    ChildHorizontalListViewUi(
+                      onSelectedItem: (child) {},
+                      isAssessment: true,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            8.dpv,
+            const Text('موضوع سوال مربوط به ارزیابی را انتخاب کنید'),
+            8.dpv,
+            CubitProvider(
+              create: (context) => MyWorkShopsViewModel(AppState.idle),
+              builder: (bloc, state) {
+                return ConditionalUI<WorkShopOfUserResponse>(
+                  state: state,
+                  onSuccess: (data) {
+                    List<ChildWorkShops> items =
+                        (data.activeUserChildWorkShops ?? []) +
+                            (data.inActiveUserChildWorkShops ?? []);
+                    return ListView.builder(
+                      padding: 8.dpeh,
+                      itemBuilder: (context, index) => MyWorkShopItemUi(
+                        item: items[index],
+                        childsItem: bloc.selectedChild,
+                      ),
+                      itemCount: items.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyWorkShopItemUi extends StatelessWidget {
+  const MyWorkShopItemUi({
+    Key? key,
+    required this.item,
+    required this.childsItem,
+  }) : super(key: key);
+  final ChildWorkShops item;
+  final ChildsItem childsItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Opacity(
+            opacity: item.isActive == true ? 1.0 : .5,
+            child: Container(
+              padding: 8.dpe,
+              margin: 8.dpe,
+              decoration: BoxDecoration(
+                  borderRadius: 8.bRadius,
+                  color: item.isActive == true
+                      ? MyTheme.purple
+                      : Colors.grey.shade100),
+              child: InkWell(
+                borderRadius: 8.bRadius,
+                onTap: () {
+                  AssessmentParamsModel assessmentParam = AssessmentParamsModel(
+                      name: childsItem.childFirstName ?? '',
+                      id: item.id?.toString() ??
+                          ''
+                              '',
+                      course: item.workShopTitle ?? '');
+                  GetIt.I
+                      .get<NavigationServiceImpl>()
+                      .navigateTo(AppRoute.assessments, assessmentParam);
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(item.workShopTitle ?? '',
+                        textScaleFactor: 1.0,
+                        style:
+                            const TextStyle(fontSize: WidgetSize.smallTitle)),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Text(
+                        item.packageAgeDomain ?? '',
+                        textScaleFactor: 1.0,
+                        style: const TextStyle(
+                          fontSize: WidgetSize.smallTitle,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${item.questionCount} سوال',
+                      textScaleFactor: 1.0,
+                      style: const TextStyle(fontSize: WidgetSize.smallTitle),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.play_circle_outline_outlined))
+      ],
+    );
+  }
+}

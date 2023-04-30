@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class MamakTitle extends StatelessWidget {
-  const MamakTitle({Key? key, required this.title}) : super(key: key);
+  const MamakTitle({Key? key, required this.title, this.fontSize = 30}) : super(key: key);
   final String title;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 30,
+        fontSize: fontSize,
         color: Colors.black,
       ),
       textAlign: TextAlign.center,

@@ -29,7 +29,7 @@ class RootNavigationUI extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
       unselectedItemColor: Colors.grey,
-      selectedItemColor: context.theme.primaryColor,
+      selectedItemColor:absIndex == -1 ? Colors.grey :  context.theme.primaryColor,
       items: menu
           .map(
             (hbnI) => BottomNavigationBarItem(
@@ -49,9 +49,19 @@ class RootNavigationUI extends StatelessWidget {
             ),
           )
           .toList(),
-      currentIndex: currentIndex,
-      onTap: onHomeIndexChange,
+      currentIndex: index,
+      onTap: (value){
+        onHomeIndexChange.call(menu[value].value().value);
+      },
     );
+  }
+
+  int get absIndex  {
+    return menu.indexWhere((element) => element.index == currentIndex);
+  }
+  int get index  {
+    var index = absIndex;
+    return index == -1 ? 0 : index;
   }
 }
 

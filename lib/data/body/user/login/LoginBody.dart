@@ -5,12 +5,12 @@ part 'LoginBody.g.dart';
 @JsonSerializable(explicitToJson: true)
 class LoginBody {
   LoginBody({
-    required this.mobile,
+    required this.username,
     required this.password,
   });
 
   LoginBody fromJson(Map<String, dynamic> json) => _$LoginBodyFromJson(json);
   Map<String, dynamic> toJson() => _$LoginBodyToJson(this);
 
-  final String mobile, password;
+  final String username, password;
 }

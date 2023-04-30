@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ir.mamakschool.mamak">
-   <application
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <application
         android:label="mamak"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

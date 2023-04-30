@@ -5,7 +5,7 @@ import 'package:mamak/data/serializer/home/HomeResponse.dart';
 
 class HomeSliderUi extends StatefulWidget {
   const HomeSliderUi({Key? key, required this.images}) : super(key: key);
-  final List<MainImage> images;
+  final List<String> images;
 
   @override
   State<HomeSliderUi> createState() => _HomeSliderUiState();
@@ -32,8 +32,7 @@ class _HomeSliderUiState extends State<HomeSliderUi> {
             (image) => SizedBox(
               height: 270.0,
               child: ImageLoader(
-                url: BaseUrls.storagePath +
-                    (image.src?.replaceAll("\\", "/") ?? ''),
+                url: image,
               ),
             ),
           )

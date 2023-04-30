@@ -6,8 +6,9 @@ import 'package:mamak/presentation/uiModel/bottomNavigation/model/MoreNavigation
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/SubscriptionNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/ContactUsNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/ExtraNavigationModel.dart';
+import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/ProfileNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/SettingNavigationModel.dart';
-import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/WorkBookEstimateNavigationModel.dart';
+import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/MyWorkShopsNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/secondMenu/WorkBookNavigationModel.dart';
 
 class BottomNavigationObject {
@@ -22,8 +23,8 @@ class BottomNavigationObject {
   static final secondNavigationItems = [
     ExtraNavigationModel(),
     ContactUsNavigationModel(),
-    SettingNavigationModel(),
-    WorkBookEstimateNavigationModel(),
+    ProfileNavigationModel(),
+    MyWorkShopsNavigationModel(),
   ];
 
   static List<HomeNavigationModel> get homeMenu => homeNavigationItems;

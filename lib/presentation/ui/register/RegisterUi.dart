@@ -1,6 +1,7 @@
 import 'package:feature/form/validator/LastNameValidator.dart';
 import 'package:feature/form/validator/NameValidator.dart';
 import 'package:feature/form/validator/login/MobileValidator.dart';
+import 'package:feature/form/validator/login/EmailValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
@@ -51,6 +52,16 @@ class RegisterUi extends StatelessWidget {
                     validator: MobileValidator(),
                   ),
                   10.dpv,
+                  const FormTitleWithStar(title: "ایمیل"),
+                  4.dpv,
+                  TextFormFieldHelper(
+                    label: "ایمیل",
+                    hint: "ایمیل",
+                    keyboardType: TextInputType.emailAddress,
+                    onChangeValue: bloc.onEmailChange,
+                    validator: EmailValidator(),
+                  ),
+                  10.dpv,
                   const FormTitleWithStar(title: "نام"),
                   4.dpv,
                   TextFormFieldHelper(
@@ -78,7 +89,7 @@ class RegisterUi extends StatelessWidget {
                   const FormTitleWithStar(title: "تکرار رمز عبور"),
                   4.dpv,
                   PasswordFieldHelper(
-                      onChangeValue: bloc.onRePswChange, isRePsw: true),
+                      onChangeValue: bloc.onConfirmPasswordChange, isRePsw: true),
                   20.dpv,
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -92,14 +103,14 @@ class RegisterUi extends StatelessWidget {
                           ))
                     ],
                   ),
-                  20.dpv,
-                  const FormTitleWithStar(title: 'اشتراک'),
-                  4.dpv,
-                  ExamTimePickerFormField(
-                    state: bloc.subscribesState,
-                    onValueChange: bloc.onItemChanged.call(),
-                    selectedItem: bloc.formState.subscribeId,
-                  ),
+                  // 20.dpv,
+                  // const FormTitleWithStar(title: 'اشتراک'),
+                  // 4.dpv,
+                  // ExamTimePickerFormField(
+                  //   state: bloc.subscribesState,
+                  //   onValueChange: bloc.onItemChanged.call(),
+                  //   selectedItem: bloc.formState.subscribeId,
+                  // ),
                   20.dpv,
                   ElevatedButton(
                       onPressed: bloc.register.call(),

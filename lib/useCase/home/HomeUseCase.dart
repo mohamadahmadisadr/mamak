@@ -7,7 +7,7 @@ class HomeUseCase extends BaseUseCase {
   void invoke(MyFlow<AppState> flow, {Object? data}) async {
     try {
       flow.emitLoading();
-      var uri = createUri(path: HomeUrls.home);
+      var uri = UriCreator.createUriWithUrl(url: 'mamakschool.ir',path: '/api${HomeUrls.home}');
       var response = await apiServiceImpl.get(uri);
       if (response.isSuccessful) {
         var homeResponse = homeResponseFromJson(response.body);

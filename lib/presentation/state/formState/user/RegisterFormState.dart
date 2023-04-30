@@ -1,17 +1,15 @@
 import 'package:mamak/data/body/user/register/SignUpBody.dart';
 
 class RegisterFormState {
-  String firstName, lastName, mobile, password, rePassword;
+  String firstName, lastName, mobile, email, password, confirmPassword;
   String? firstNameError,
       lastNameError,
       mobileError,
       passwordError,
-      rePasswordError,
-      subscribeIdError,
+      confirmPasswordError,
+      emailError,
       termsError;
 
-  int subscribeId;
-  bool terms;
 
   RegisterFormState(
       {this.firstName = '',
@@ -20,13 +18,12 @@ class RegisterFormState {
       this.lastNameError,
       this.mobile = '',
       this.mobileError,
+        this.email = '',
+      this.emailError,
       this.password = '',
       this.passwordError,
-      this.rePassword = '',
-      this.rePasswordError,
-      this.subscribeId = 0,
-      this.subscribeIdError,
-      this.terms = false,
+      this.confirmPassword = '',
+      this.confirmPasswordError,
       this.termsError});
 
   SignUpBody getBody() {
@@ -35,8 +32,8 @@ class RegisterFormState {
         lastName: lastName,
         mobile: mobile,
         password: password,
-        rePassword: rePassword,
-        subscribeId: subscribeId,
-        terms: terms);
+        confirmPassword: confirmPassword,
+        email: email,
+    );
   }
 }

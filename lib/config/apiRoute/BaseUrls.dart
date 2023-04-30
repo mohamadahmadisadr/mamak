@@ -1,6 +1,6 @@
 class BaseUrls {
-  static const baseUrl = "185.88.153.239:8000";
-  static const storagePath = "http://185.88.153.239:8000/";
-  static const basePath = "/api";
+  static const baseUrl = "62.106.95.127";
+  static const storagePath = "http://62.106.95.127/StaticFiles";
+  static const basePath = "/MamakTalentSearchSystem/api";
   static const url = baseUrl + basePath;
 }
