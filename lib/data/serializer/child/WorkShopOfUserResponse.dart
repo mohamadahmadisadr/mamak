@@ -78,6 +78,7 @@ class ChildWorkShops {
     this.questionCount,
     this.questionKind,
     this.id,
+    this.workShopId,
     this.statusCode,
     this.isActive
   });
@@ -87,7 +88,7 @@ class ChildWorkShops {
     packageAgeDomain = json['packageAgeDomain'];
     questionCount = json['questionCount'];
     questionKind = json['questionKind'];
-    id = json['id'];
+    workShopId = json['workShopId'];
     statusCode = json['statusCode'];
     isActive = json['isActive'];
   }
@@ -97,6 +98,7 @@ class ChildWorkShops {
   num? questionCount;
   dynamic questionKind;
   num? id;
+  num? workShopId;
   num? statusCode;
   bool? isActive;
 
@@ -107,6 +109,7 @@ class ChildWorkShops {
     map['questionCount'] = questionCount;
     map['questionKind'] = questionKind;
     map['id'] = id;
+    map['workShopId'] = workShopId;
     map['statusCode'] = statusCode;
     return map;
   }

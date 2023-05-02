@@ -2,6 +2,7 @@ import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/apiRoute/BaseUrls.dart';
+import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/data/serializer/home/CategoryResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
@@ -20,7 +21,7 @@ class CategoriesHorizontalListUi extends StatelessWidget {
         return ConditionalUI<List<Category>>(
           skeleton: Container(
             width: MediaQuery.of(context).size.width,
-            height: 120,
+            height: 130,
             margin: 8.dpe,
             padding: 8.dpe,
             decoration: BoxDecoration(
@@ -48,7 +49,7 @@ class CategoriesHorizontalListUi extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 80,
-                          height: 80,
+                          height: 100,
                           child: ImageLoader(
                               url: BaseUrls.storagePath +
                                   '/categories/${data[index].id}.png'),
@@ -59,8 +60,10 @@ class CategoriesHorizontalListUi extends StatelessWidget {
                             data[index].title ?? '',
                             style: context.textTheme.bodySmall?.copyWith(
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: WidgetSize.smallTitle,
                             ),
+                            textScaleFactor: 1.0,
+                            maxLines: 1,
                           ),
                         ),
                       ],

@@ -19,7 +19,6 @@ class SetUserAvatarUseCase extends BaseUseCase {
 
       if (response.isSuccessful) {
         var result = response.result;
-        print(jsonEncode(result));
         if (result.isSuccessFull) {
           flow.emitData('');
         } else {

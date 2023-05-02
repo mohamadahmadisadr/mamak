@@ -11,7 +11,7 @@ String allSubscriptionItemToJson(List<AllSubscriptionItem> data) => json.encode(
 class AllSubscriptionItem {
   int? id;
   String? title;
-  int? price;
+  int? price, discount;
   int? durationDay;
   List<dynamic>? errorMessages;
   int? statusCode;

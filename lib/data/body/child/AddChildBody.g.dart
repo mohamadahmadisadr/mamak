@@ -22,6 +22,5 @@ Map<String, dynamic> _$AddChildBodyToJson(AddChildBody instance) =>
       'childLastName': instance.childLastName,
       'birtDate': instance.birtDate,
       'mobileNumber': instance.mobileNumber,
-      if (instance.childPicture != null)
-        'childPicture': instance.childPicture?.toJson(),
+      'childPicture': instance.childPicture?.toJson(),
     };

@@ -24,10 +24,15 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   }
 
   void init() {
-    videoPlayerController = VideoPlayerController.network(widget.link)
+    videoPlayerController = VideoPlayerController.network(widget.link,)
       ..initialize().then((_) => setState(() {}));
     videoPlayerController.setLooping(true);
-    videoPlayerController.addListener(() => setState(() {}));
+    videoPlayerController.addListener(() {
+      if(videoPlayerController.value.isInitialized){
+        videoPlayerController.seekTo(const Duration(seconds: 3));
+      }
+      setState(() {});
+    });
   }
 
   @override
@@ -39,37 +44,30 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 300.0,
       alignment: Alignment.center,
       margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
         borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         border: Border.all(color: Colors.grey),
       ),
       child: Stack(
         alignment: Alignment.center,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16.0),
-            clipBehavior: Clip.hardEdge,
-            child: AspectRatio(
-              aspectRatio: videoPlayerController.value.aspectRatio,
-              child: VideoPlayer(videoPlayerController),
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
+          AspectRatio(
+              aspectRatio: videoPlayerController.value.aspectRatio * 2,
+              child: VideoPlayer(videoPlayerController)),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                showController = true;
+              });
+              Future.delayed(const Duration(seconds: 3)).then((value) {
                 setState(() {
-                  showController = true;
+                  showController = false;
                 });
-                Future.delayed(const Duration(seconds: 3)).then((value) {
-                  setState(() {
-                    showController = false;
-                  });
-                });
-              },
-            ),
+              });
+            },
           ),
           IconButton(
               onPressed: () {

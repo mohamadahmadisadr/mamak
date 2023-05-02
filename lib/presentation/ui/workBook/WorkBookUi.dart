@@ -8,7 +8,11 @@ import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/MamakTitle.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/ui/workBook/MothersWorkBookTabsUi.dart';
 import 'package:mamak/presentation/viewModel/workBook/MyWorkShopsViewModel.dart';
+
+
+
 
 class WorkBookUi extends StatelessWidget {
   const WorkBookUi({Key? key}) : super(key: key);
@@ -18,30 +22,8 @@ class WorkBookUi extends StatelessWidget {
     return MamakScaffold(
       body: Column(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(32.0),
-                bottomRight: Radius.circular(32.0),
-              ),
-              color: Colors.blue,
-            ),
-            child: Padding(
-              padding: 16.dpe,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const MamakTitle(title: 'کارنامه'),
-                  16.dpv,
-                  ChildHorizontalListViewUi(
-                    onSelectedItem: (ChildsItem) {},
-                    isAssessment: false,
-                  ),
-                  4.dpv,
-                  // const Text('۴ سال')
-                ],
-              ),
-            ),
+          WorkBookTabBar(
+            onSelectedItem: (ChildsItem) {},
           ),
           CubitProvider(
             create: (context) => MyWorkShopsViewModel(AppState.idle),
@@ -50,8 +32,7 @@ class WorkBookUi extends StatelessWidget {
                 state: state,
                 onSuccess: (data) {
                   List<ChildWorkShops> items =
-                      (data.activeUserChildWorkShops ?? []) +
-                          (data.inActiveUserChildWorkShops ?? []);
+                      data.inActiveUserChildWorkShops ?? [];
                   return ListView.separated(
                     padding: 16.dpe,
                     shrinkWrap: true,
@@ -76,7 +57,7 @@ class WorkBookUi extends StatelessWidget {
                             ),
                             child: TextButton.icon(
                               onPressed: () {
-                                bloc.gotoDetailView(items[index].id);
+                                bloc.gotoDetailView(items[index].workShopId);
                               },
                               icon: const Icon(Icons.remove_red_eye,
                                   color: Colors.grey),

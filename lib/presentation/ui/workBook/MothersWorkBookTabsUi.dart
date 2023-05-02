@@ -1,0 +1,174 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mamak/config/uiCommon/MyTheme.dart';
+import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/data/serializer/child/ChildsResponse.dart';
+import 'package:mamak/presentation/state/app_state.dart';
+import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
+import 'package:mamak/presentation/ui/main/CubitProvider.dart';
+import 'package:mamak/presentation/ui/main/MamakTitle.dart';
+import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/viewModel/child/GetChildsViewModel.dart';
+
+class WorkBookTabBar extends StatelessWidget {
+  const WorkBookTabBar({Key? key, required this.onSelectedItem})
+      : super(key: key);
+  final Function(ChildsItem) onSelectedItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return CubitProvider(
+      create: (context) => GetChildViewModel(AppState.idle),
+      builder: (bloc, state) {
+        return Column(
+          children: [
+            ConditionalUI<List<ChildsItem>>(
+              skeleton: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 30,
+                margin: 8.dpe,
+                padding: 8.dpe,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: 8.bRadius,
+                ),
+              ),
+              state: bloc.uiState,
+              onSuccess: (data) {
+                if (data.isEmpty) {
+                  return Text(
+                    'در هیچ ارزیابی شرکت نکرده اید. کارنامه ای برای نمایش وجود ندارد',
+                    style: context.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: WidgetSize.smallTitle,
+                        color: Colors.white),
+                    textAlign: TextAlign.start,
+                  );
+                }
+                return MothersWorkBookTabsUi(
+                  items: data,
+                  onSelectedItem: (cItem) {},
+                );
+              },
+            ),
+            4.dpv,
+          ],
+        );
+      },
+    );
+  }
+}
+
+class MothersWorkBookTabsUi extends StatefulWidget {
+  const MothersWorkBookTabsUi(
+      {Key? key, required this.items, required this.onSelectedItem})
+      : super(key: key);
+  final List<ChildsItem> items;
+  final Function(ChildsItem) onSelectedItem;
+
+  @override
+  State<MothersWorkBookTabsUi> createState() => _MothersWorkBookTabsUiState();
+}
+
+class _MothersWorkBookTabsUiState extends State<MothersWorkBookTabsUi>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
+  var index = 0;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: widget.items.length, vsync: this);
+    _tabController.addListener(() {
+      widget.onSelectedItem.call(widget.items.elementAt(_tabController.index));
+      setState(() {
+        index = _tabController.index;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(32.0),
+          bottomRight: Radius.circular(32.0),
+        ),
+        color: MyTheme.blue,
+      ),
+      child: Padding(
+        padding: 16.dpe,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const MamakTitle(title: 'کارنامه'),
+            16.dpv,
+            Container(
+              padding: 4.dpe,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32.0),
+                color: Colors.grey.withOpacity(.4),
+              ),
+              child: TabBar(
+                controller: _tabController,
+                indicator: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: widget.items.length == 1
+                        ? getBorderByZeroIndex()
+                        : getBorderByIndex(index)),
+                tabs: widget.items
+                    .map((e) => WorkBookTabUi(
+                          name: e.childFirstName ?? '',
+                        ))
+                    .toList(),
+              ),
+            ),
+            4.dpv,
+            const Text('۴ سال')
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WorkBookTabUi extends StatelessWidget {
+  const WorkBookTabUi({Key? key, required this.name}) : super(key: key);
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 40,
+      child: Tab(
+        child: Text(
+          name,
+          style: const TextStyle(fontSize: 12),
+        ),
+      ),
+    );
+  }
+}
+
+BorderRadius getBorderByZeroIndex() => BorderRadius.all(Radius.circular(32.0));
+
+BorderRadius getBorderByIndex(int index) {
+  if (index == 0) {
+    return const BorderRadius.only(
+      topRight: Radius.circular(32.0),
+      bottomRight: Radius.circular(32.0),
+      topLeft: Radius.circular(4.0),
+      bottomLeft: Radius.circular(4.0),
+    );
+  }
+  if (index == 1) {
+    return const BorderRadius.only(
+      topLeft: Radius.circular(32.0),
+      bottomLeft: Radius.circular(32.0),
+      topRight: Radius.circular(4.0),
+      bottomRight: Radius.circular(4.0),
+    );
+  }
+  return BorderRadius.zero;
+}

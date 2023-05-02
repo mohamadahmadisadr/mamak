@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:mamak/data/serializer/app/ContactUsResponse.dart';
 import 'package:mamak/presentation/state/formState/app/ContactUsFormState.dart';
+import 'package:mamak/presentation/uiModel/app/ContactUsUiModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/app/ContactUsUseCase.dart';
+import 'package:mamak/useCase/app/GetContactUsUseCase.dart';
 
 class ContactUsViewModel extends BaseViewModel {
-  ContactUsViewModel(super.initialState);
+  ContactUsViewModel(super.initialState) {
+    getData();
+  }
+
+  ContactUsUiModel contactUsData = ContactUsUiModel();
+  final MapController mapController = MapController();
+
+  AppState formUiState = AppState.idle;
+  AppState dataState = AppState.idle;
 
   ContactUsFormState formState = ContactUsFormState();
   final formKey = GlobalKey<FormState>();
@@ -18,6 +31,31 @@ class ContactUsViewModel extends BaseViewModel {
   onSubChange(String sub) => formState.subject = sub;
 
   onTextChange(String text) => formState.message = text;
+
+  void refresh() {
+    updateScreen(time: DateTime.now().microsecondsSinceEpoch.toDouble());
+  }
+
+  void getData() {
+    GetContactUsUseCase().invoke(MyFlow(flow: (appState) {
+      if (appState.isSuccess && appState.getData is ContactUsResponse) {
+        ContactUsResponse data = appState.getData;
+        print('lat : ${data.latitude} lng : ${data.longitude}');
+        LatLng latLng = LatLng(
+            double.tryParse(data.latitude?.toString() ?? '0') ?? 0.0,
+            double.tryParse(data.longitude?.toString() ?? '0') ?? 0.0);
+
+        mapController.move(latLng, 15.0);
+        contactUsData = ContactUsUiModel(
+          address: data.address ?? '',
+          phone: data.tellNumber ?? '',
+          latLng: latLng,
+        );
+      }
+      dataState = appState;
+      refresh();
+    }));
+  }
 
   void submitForm() {
     if (formState.subject == '') {
@@ -34,7 +72,9 @@ class ContactUsViewModel extends BaseViewModel {
         if (appState.isSuccess) {
           messageService.showSnackBar('با موفقیت ارسال شد');
         }
-        mainFlow.emit(appState);
+
+        formUiState = appState;
+        refresh();
       }), data: formState.createBody());
     }
   }

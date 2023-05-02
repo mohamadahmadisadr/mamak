@@ -72,7 +72,19 @@ class RadarChartPainter extends CustomPainter {
             CommonPaintUtils.getStrokePaint(Colors.grey, 200, 1));
         canvas.drawCircle(Offset(x, y) + center, 6,
             CommonPaintUtils.getFillPaint(element.color, alpha: 80));
+        // RadarChartDrawUtils.drawLabels(
+        //     canvas,
+        //     center,
+        //     valuePoints.map((e) => '۱ از ۱').toList(),
+        //     valuePoints,
+        //     CommonPaintUtils.getTextSize(size / 1.2, textScaleFactor),
+        //     labelWidth ??
+        //         CommonPaintUtils.getDefaultLabelWidth(size, center, angle),
+        //     maxLinesForLabels ??
+        //         CommonPaintUtils.getDefaultMaxLinesForLabels(size),
+        //     labelColor);
       }
+
 
       outerPoints = RadarChartDrawUtils.drawChartOutline(
           spaceCount,

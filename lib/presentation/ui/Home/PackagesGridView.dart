@@ -26,7 +26,8 @@ class PackagesGridView extends StatelessWidget {
       itemCount: packages.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisExtent: 120,
+        mainAxisExtent: 130,
+        mainAxisSpacing: 16.0
       ),
       itemBuilder: (context, index) => PackagesItemUI(
         package: packages[index],
@@ -58,7 +59,6 @@ class PackagesItemUI extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.all(8.0),
-        width: 120,
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: const BorderRadius.all(Radius.circular(16.0)),

@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:mamak/presentation/ui/Home/HomeUI.dart';
 import 'package:mamak/presentation/ui/Introduction/IntroductionUI.dart';
 import 'package:mamak/presentation/ui/contactUs/ContactUsUi.dart';
+import 'package:mamak/presentation/ui/more/MoreNewUi.dart';
 import 'package:mamak/presentation/ui/subscription/SubscriptionUI.dart';
 import 'package:mamak/presentation/ui/user/profile/ProfileUi.dart';
-import 'package:mamak/presentation/ui/workBook/MothersWorkBookUi.dart';
+import 'package:mamak/presentation/ui/workBook/MothersWorkBookTabsUi.dart';
 import 'package:mamak/presentation/ui/workBook/WorkBookUi.dart';
 import 'package:mamak/presentation/ui/workShop/MyWorkShops.dart';
 
@@ -57,6 +58,8 @@ extension HomeNavigationExtension on int {
         return HomeNavigationEnum.Home;
       case 4:
         return HomeNavigationEnum.Workbook;
+      case 5:
+        return HomeNavigationEnum.SecondMore;
       case 6:
         return HomeNavigationEnum.ContactUs;
       case 11:
@@ -79,7 +82,7 @@ extension HomeNavigationEnumExtension on HomeNavigationEnum {
       case HomeNavigationEnum.Introduction:
         return const IntroductionUI();
       case HomeNavigationEnum.More:
-        return const SizedBox();
+        return const SizedBox.shrink();
       case HomeNavigationEnum.Home:
         return const HomeUI();
       case HomeNavigationEnum.Workbook:
@@ -90,6 +93,8 @@ extension HomeNavigationEnumExtension on HomeNavigationEnum {
         return const MyWorkShops();
       case HomeNavigationEnum.ContactUs:
         return const ContactUsUi();
+        case HomeNavigationEnum.SecondMore:
+        return const MoreHomeNewUi();
       default:
         return const SizedBox.shrink();
     }

@@ -39,8 +39,10 @@ class ContactUsUi extends StatelessWidget {
                     children: [
                       const Icon(Icons.location_on),
                       4.dph,
-                      const Text(
-                          'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ')
+                      Expanded(
+                        child: Text(
+                            bloc.contactUsData.address),
+                      )
                     ],
                   ),
                   8.dpv,
@@ -56,8 +58,8 @@ class ContactUsUi extends StatelessWidget {
                       children: [
                         const Icon(Icons.call),
                         4.dph,
-                        const Text(
-                          '2222222',
+                        Text(
+                          bloc.contactUsData.phone,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -74,7 +76,7 @@ class ContactUsUi extends StatelessWidget {
                           border: Border.all(color: Colors.grey),
                           borderRadius: 8.bRadius),
                       height: 300,
-                      child: const MamakMapUi(),
+                      child: MamakMapUi(controller: bloc.mapController,marker: bloc.contactUsData.latLng),
                     ),
                   ),
                   ContactUsFormUi(
@@ -87,7 +89,7 @@ class ContactUsUi extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: bloc.submitForm,
-                      child: bloc.state.isLoading
+                      child: bloc.formUiState.isLoading
                           ? const MyLoader()
                           : const Text('ارسال پیام')),
                   16.dpv

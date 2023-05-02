@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mamak/presentation/ui/app/ShotViewrUi.dart';
 import 'package:mamak/presentation/ui/category/CategoryDetailUI.dart';
 import 'package:mamak/presentation/ui/child/AddChildUi.dart';
 import 'package:mamak/presentation/ui/login/LoginUi.dart';
@@ -38,5 +39,6 @@ class AppRouteHelper {
     GetPage(name: AppRoute.addChild, page: () => const AddChildUi()),
     GetPage(
         name: AppRoute.categoryDetail, page: () => const CategoryDetailUI()),
+    GetPage(name: AppRoute.shotViewer, page: () => const ShotViewerUi()),
   ];
 }

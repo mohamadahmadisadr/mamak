@@ -5,13 +5,14 @@ import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/data/serializer/subscribe/AllSubscriptionResponse.dart';
 import 'package:mamak/data/serializer/subscribe/CurrentPackageResponse.dart';
-import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
+import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/register/RegisterUi.dart';
+import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/subscription/SubscriptionViewModel.dart';
 
 import '../main/MamakTitle.dart';
@@ -102,11 +103,14 @@ class SubscriptionUI extends StatelessWidget {
                               label: 'کدتخفیف',
                               hint: 'کدتخفیف',
                               keyboardType: TextInputType.text,
-                              onChangeValue: (value) {}),
+                              onChangeValue: bloc.onChangeCode),
                         ),
                         8.dp,
                         ElevatedButton(
-                            onPressed: () {}, child: const Text('اعمال')),
+                            onPressed: bloc.submitCode,
+                            child: bloc.discountCodeState.isLoading
+                                ? const MyLoader()
+                                : const Text('اعمال')),
                       ],
                     ),
                     8.dpv,
@@ -122,8 +126,10 @@ class SubscriptionUI extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              '${bloc.selectedItem?.price ?? 0} تومان',
-                              style: TextStyle(
+                              bloc.selectedItem?.discount == null
+                                  ? '${bloc.selectedItem?.price ?? 0} تومان'
+                                  : '${bloc.selectedItem?.discount ?? 0} تومان',
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: WidgetSize.normalTitle,
                               ),
@@ -131,7 +137,16 @@ class SubscriptionUI extends StatelessWidget {
                             ),
                           )
                         ],
-                      )
+                      ),
+                    16.dpv,
+                    Padding(
+                      padding: 8.dpe,
+                      child: ElevatedButton(
+                          onPressed: bloc.submitSubscribe,
+                          child: bloc.adSubscribeState.isLoading
+                              ? const MyLoader()
+                              : const Text('مرحله بعد')),
+                    )
                   ],
                 ),
               ),

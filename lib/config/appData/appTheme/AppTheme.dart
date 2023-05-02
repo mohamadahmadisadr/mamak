@@ -15,11 +15,16 @@ class AppTheme {
         iconColor: Colors.white,
       ),
       textButtonTheme: TextButtonThemeData(
-          style: ButtonStyle(
-              textStyle: MaterialStateProperty.all(const TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'dana',
-                  fontWeight: FontWeight.bold)))),
+        style: ButtonStyle(
+          textStyle: MaterialStateProperty.all(
+            const TextStyle(
+              color: Colors.black,
+              fontFamily: 'yekan',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
       buttonTheme: ButtonThemeData(
         buttonColor: MyTheme.color,
       ),

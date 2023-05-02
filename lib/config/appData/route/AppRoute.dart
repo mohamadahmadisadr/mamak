@@ -13,4 +13,5 @@ class AppRoute {
   static const assessments = '/assessments';
   static const addChild = '/addChild';
   static const categoryDetail = '/categoryDetail';
+  static const shotViewer = '/shotViewer';
 }

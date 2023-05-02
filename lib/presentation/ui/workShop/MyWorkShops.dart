@@ -8,6 +8,7 @@ import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/MamakTitle.dart';
+import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/uiModel/assessmeny/AssessmentParamsModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -52,6 +53,7 @@ class MyWorkShops extends StatelessWidget {
               create: (context) => MyWorkShopsViewModel(AppState.idle),
               builder: (bloc, state) {
                 return ConditionalUI<WorkShopOfUserResponse>(
+                skeleton: MyLoader(),
                   state: state,
                   onSuccess: (data) {
                     List<ChildWorkShops> items =

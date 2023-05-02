@@ -2,6 +2,7 @@ import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/presentation/state/NetworkExtensions.dart';
 import 'package:mamak/presentation/state/app_state.dart';
+import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:shimmer/shimmer.dart';
 
 
@@ -10,7 +11,7 @@ class ConditionalUI<T> extends StatelessWidget {
     Key? key,
     required this.state,
     required this.onSuccess,
-    this.skeleton = const BaseSkeleton(),
+    this.skeleton = const Center(child: MyLoader()),
     this.showError = true,
   }) : super(key: key);
   final bool showError;

@@ -66,7 +66,7 @@ class LoginUi extends StatelessWidget {
                     TextButton(
                       onPressed: bloc.gotoSignUpPage.call(),
                       child: Text(
-                              'ایجاد جساب کاربری جدید',
+                              'ایجاد حساب کاربری جدید',
                               style: context.textTheme.bodySmall,
                             ),
                     ),
