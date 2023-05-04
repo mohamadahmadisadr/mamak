@@ -3,5 +3,6 @@ class ChildUrls{
   static const getChilds = "/UserChild/GetChildrenOfUser";
   static const getWorkShopsOfChildUser = "/UserChild/GetWorkShopsOfChildUser";
   static const getAllUserChildWithPackages = "/userChild/GetAllUserChildWithPackages";
+  static const postEditChildOfParentUser = "/UserChild/PostEditChildOfParentUser";
 
 }

@@ -9,141 +9,130 @@ import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/home/CategoriesViewModel.dart';
+import 'package:mamak/presentation/viewModel/workBook/TotalWorkBookViewModel.dart';
 import 'package:sprintf/sprintf.dart';
 
 class TotalWorkBookChartUi extends StatelessWidget {
   const TotalWorkBookChartUi({
     Key? key,
     this.cards,
-    required this.title,
+    required this.title, required this.categories,
   }) : super(key: key);
   final List<GeneralReportCard>? cards;
+  final List<WorkShopCategory> categories;
   final String title;
 
   @override
   Widget build(BuildContext context) {
     return CubitProvider(
-      create: (context) => CategoriesViewModel(AppState.idle),
+      create: (context) => TotalWorkBookViewModel(AppState.idle),
       builder: (bloc, state) {
-        return ConditionalUI<List<Category>>(
-          skeleton: Container(
-            height: MediaQuery.of(context).size.width,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey.shade200,
-            ),
-          ),
-          state: state,
-          onSuccess: (categories) {
-            var data = bloc.getTotalChartData(cards ?? [], categories);
-            print(data.name);
-            print(data.values);
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  8.dpv,
-                  FutureBuilder(
-                    builder: (context, snapshot) {
-                      List<String> workShops = bloc.getUserWorkShops(cards);
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+        var data = bloc.getTotalChartData(cards ?? [], categories);
+        print(data.name);
+        print(data.values);
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              8.dpv,
+              FutureBuilder(
+                builder: (context, snapshot) {
+                  List<String> workShops = bloc.getUserWorkShops(cards);
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 10,
-                                height: 10,
-                                decoration: const BoxDecoration(
-                                  color: Colors.red,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              4.dph,
-                              Text(
-                                sprintf(title, [
-                                  workShops.length.toString(),
-                                  categories.length.toString()
-                                ]),
-                                style: context.textTheme.titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                          Container(
+                            width: 10,
+                            height: 10,
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
                           ),
-                          4.dpv,
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 10,
-                                height: 10,
-                                decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              4.dph,
-                              Expanded(
-                                child: Text(
-                                  sprintf('%s حوزه یادگیری عبارت است از %s', [
-                                    categories.length.toString(),
-                                    categories.map((e) => e.title ?? '').toList().join(',')
-                                  ]),
-                                  style: context.textTheme.bodyMedium,
-                                ),
-                              ),
-                            ],
-                          ),
-                          8.dpv,
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 10,
-                                height: 10,
-                                decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              4.dph,
-                              Expanded(
-                                child: Text(
-                                  sprintf(
-                                      'شما تا کنون در %s حوزه کودکتان را ارزیابی کرده اید‌: %s',
-                                      [
-                                        workShops.length.toString(),
-                                        workShops.join(',')
-                                      ]),
-                                  style: context.textTheme.bodyMedium,
-                                ),
-                              ),
-                            ],
+                          4.dph,
+                          Text(
+                            sprintf(title, [
+                              workShops.toSet().toList().length.toString(),
+                              categories.length.toString()
+                            ]),
+                            style: context.textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
-                      );
-                    },
-                  ),
-                  8.dpv,
-                  RadarChart(
-                    spaceCount: 2,
-                    textScaleFactor: .03,
-                    strokeColor: Colors.grey,
-                    values: [
-                      ChartModel(values: data.values, color: Colors.blue),
+                      ),
+                      4.dpv,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 10,
+                            height: 10,
+                            decoration: const BoxDecoration(
+                              color: Colors.green,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          4.dph,
+                          Expanded(
+                            child: Text(
+                              sprintf('%s حوزه یادگیری عبارت است از %s', [
+                                categories.length.toString(),
+                                categories.map((e) => e.name ?? '').toList().join(',')
+                              ]),
+                              style: context.textTheme.bodyMedium,
+                            ),
+                          ),
+                        ],
+                      ),
+                      8.dpv,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 10,
+                            height: 10,
+                            decoration: const BoxDecoration(
+                              color: Colors.green,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          4.dph,
+                          Expanded(
+                            child: Text(
+                              sprintf(
+                                  'شما تا کنون در %s حوزه کودکتان را ارزیابی کرده اید‌: %s',
+                                  [
+                                    workShops.toSet().toList().length.toString(),
+                                    workShops.toSet().toList().join(',')
+                                  ]),
+                              style: context.textTheme.bodyMedium,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
-                    labels: data.name,
-                    maxValue: data.maxValue.toDouble(),
-                    fillColor: Colors.blue,
-                    maxLinesForLabels: 2,
-                    maxWidth: MediaQuery.of(context).size.width - 50,
-                    maxHeight: MediaQuery.of(context).size.width - 50,
-                  ),
-                ],
+                  );
+                },
               ),
-            );
-          },
+              8.dpv,
+              RadarChart(
+                spaceCount: data.maxValue ~/ 5,
+                textScaleFactor: .03,
+                strokeColor: Colors.grey,
+                values: [
+                  ChartModel(values: data.values, color: Colors.blue),
+                ],
+                labels: data.name,
+                maxValue: data.maxValue.toDouble(),
+                fillColor: Colors.blue,
+                maxLinesForLabels: 2,
+                maxWidth: MediaQuery.of(context).size.width - 50,
+                maxHeight: MediaQuery.of(context).size.width - 50,
+              ),
+            ],
+          ),
         );
       },
     );

@@ -84,6 +84,7 @@ class ChildWorkShops {
   });
 
   ChildWorkShops.fromJson(dynamic json) {
+    id = json['id'];
     workShopTitle = json['workShopTitle'];
     packageAgeDomain = json['packageAgeDomain'];
     questionCount = json['questionCount'];

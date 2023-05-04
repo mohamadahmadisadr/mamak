@@ -1,10 +1,18 @@
+import 'package:core/utils/logger/Logger.dart';
 import 'package:flutter/material.dart';
+import 'package:mamak/data/serializer/child/ChildsResponse.dart';
 import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
+import 'package:mamak/presentation/state/NetworkExtensions.dart';
+import 'package:mamak/presentation/state/app_state.dart';
+import 'package:mamak/presentation/ui/main/CubitProvider.dart';
+import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/viewModel/child/EditChilViewModel.dart';
+import 'package:mamak/presentation/viewModel/user/ProfileViewModel.dart';
 
 class ChildsProfileUi extends StatefulWidget {
   const ChildsProfileUi({Key? key, required this.children}) : super(key: key);
-  final List<Children> children;
+  final List<ChildsItem> children;
 
   @override
   State<ChildsProfileUi> createState() => _ChildsProfileUiState();
@@ -13,12 +21,18 @@ class ChildsProfileUi extends StatefulWidget {
 class _ChildsProfileUiState extends State<ChildsProfileUi>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  late EditChildDataViewModel viewModel;
   var index = 0;
 
   @override
   void initState() {
+    viewModel = EditChildDataViewModel(AppState.idle);
+    if(viewModel.selectedChild == null && widget.children.isNotEmpty){
+      viewModel.changeSelectedChild(widget.children.first);
+    }
     _tabController = TabController(length: widget.children.length, vsync: this);
     _tabController.addListener(() {
+      viewModel.changeSelectedChild(widget.children[_tabController.index]);
       setState(() {
         index = _tabController.index;
       });
@@ -28,45 +42,111 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TabBar(
-          indicator: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(16.0),
-                topLeft: Radius.circular(16.0),
-              )),
-          controller: _tabController,
-          tabs: List.generate(
-            widget.children.length,
-            (index) => SizedBox(
-              height: 40,
-              child: Tab(
-                child: Text(
-                  widget.children[index].fullName ?? '',
-                  style: const TextStyle(fontSize: 12),
+    // Logger.d(msg)
+    return CubitProvider(
+      create: (context) => viewModel,
+      builder: (bloc, state) {
+        return Column(
+          children: [
+            TabBar(
+              indicator: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(16.0),
+                    topLeft: Radius.circular(16.0),
+                  )),
+              controller: _tabController,
+              tabs: List.generate(
+                widget.children.length,
+                (index) => SizedBox(
+                  height: 40,
+                  child: Tab(
+                    child: Text(
+                      '${widget.children[index].childFirstName} ${widget.children[index].childLastName}',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-        if (widget.children.isNotEmpty)
-          Container(
-            padding: 16.dpe,
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-            child: Row(
-              children: [
-                SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircleAvatar(backgroundColor: Colors.blue)),
-                8.dph,
-                Text(widget.children[index].age?.toString() ?? '')
-              ],
-            ),
-          )
-      ],
+            if (widget.children.isNotEmpty)
+              Container(
+                padding: 16.dpe,
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.grey)),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          Positioned(
+                            left: 0,
+                            bottom: 0,
+                            right: 10,
+                            child: SizedBox(
+                                width: 60,
+                                height: 60,
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.blue,
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: bloc.selectedImage?.content == null && bloc.selectedImage?.content.isEmpty == true
+                                        ? const Icon(
+                                            Icons.person,
+                                            color: Colors.white,
+                                            size: 40,
+                                          )
+                                        : ClipRRect(
+                                            borderRadius: 45.bRadius,
+                                            child: Image.memory(
+                                              bloc.selectedImage!
+                                                  .getFileFormBase64(),
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                  ),
+                                )),
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: InkWell(
+                              onTap: bloc.pickImage,
+                              borderRadius: 30.bRadius,
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 30,
+                                width: 30,
+                                padding: 4.dpe,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.grey)
+                                ),
+                                child: bloc.uploadState.isLoading
+                                    ? const MyLoader(radius: 7.0)
+                                    : const Icon(
+                                        Icons.edit,
+                                        size: 20,
+                                      ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    8.dph,
+                    Text('${widget.children[index].childAge?.toString()} سال')
+                  ],
+                ),
+              )
+          ],
+        );
+      },
     );
   }
 }

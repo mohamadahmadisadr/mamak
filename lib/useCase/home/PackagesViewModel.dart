@@ -40,7 +40,11 @@ class PackagesViewModel extends BaseViewModel {
         .toDouble());
   }
 
-  ChildPackage? getChildPackageData(String subscribeId) =>
-      childPackages.firstWhereOrNull((element) => element.id?.toString() ==
-          subscribeId);
+  ChildPackage? getChildPackageData(String subscribeId) {
+    print(subscribeId);
+    return childPackages.firstWhereOrNull((element) => element.packages?.id?.toString() ==
+        subscribeId);
+  }
+
+
 }

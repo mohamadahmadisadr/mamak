@@ -53,7 +53,7 @@ class MyWorkShops extends StatelessWidget {
               create: (context) => MyWorkShopsViewModel(AppState.idle),
               builder: (bloc, state) {
                 return ConditionalUI<WorkShopOfUserResponse>(
-                skeleton: MyLoader(),
+                  skeleton: MyLoader(),
                   state: state,
                   onSuccess: (data) {
                     List<ChildWorkShops> items =
@@ -107,12 +107,16 @@ class MyWorkShopItemUi extends StatelessWidget {
               child: InkWell(
                 borderRadius: 8.bRadius,
                 onTap: () {
+                  print(item.toJson());
                   AssessmentParamsModel assessmentParam = AssessmentParamsModel(
-                      name: childsItem.childFirstName ?? '',
-                      id: item.id?.toString() ??
-                          ''
-                              '',
-                      course: item.workShopTitle ?? '');
+                    name: childsItem.childFirstName ?? '',
+                    id: item.id?.toString() ??
+                        ''
+                            '',
+                    childId: childsItem.id?.toString() ?? '',
+                    workShopId: item.workShopId?.toString() ?? '',
+                    course: item.workShopTitle ?? '',
+                  );
                   GetIt.I
                       .get<NavigationServiceImpl>()
                       .navigateTo(AppRoute.assessments, assessmentParam);

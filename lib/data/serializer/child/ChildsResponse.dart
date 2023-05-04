@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
 import 'package:mamak/presentation/uiModel/assessmeny/AssessmentParamsModel.dart';
 
 List<ChildsItem> childsItemFromJson(String str) => List<ChildsItem>.from(json.decode(str).map((x) => ChildsItem.fromJson(x)));
@@ -14,6 +15,8 @@ class ChildsItem {
   dynamic parentUser;
   String? avatar;
   String? childFirstName;
+  num? childAge;
+  UserAvatar? childPicture;
   String? childLastName;
   DateTime? birtDate;
   String? parentUserId;
@@ -26,6 +29,8 @@ class ChildsItem {
   ChildsItem({
     this.parentUser,
     this.avatar,
+    this.childAge,
+    this.childPicture,
     this.childFirstName,
     this.childLastName,
     this.birtDate,
@@ -40,8 +45,10 @@ class ChildsItem {
   factory ChildsItem.fromJson(Map<String, dynamic> json) => ChildsItem(
     parentUser: json["parentUser"],
     avatar: json["avatar"],
+    childAge: json["childAge"],
     childFirstName: json["childFirstName"],
     childLastName: json["childLastName"],
+    childPicture: json["childPicture"] != null ? UserAvatar.fromJson(json["childPicture"]) : null,
     birtDate: json["birtDate"] == null ? null : DateTime.parse(json["birtDate"]),
     parentUserId: json["parentUserId"],
     mobileNumber: json["mobileNumber"],

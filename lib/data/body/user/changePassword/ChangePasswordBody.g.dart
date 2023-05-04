@@ -8,16 +8,14 @@ part of 'ChangePasswordBody.dart';
 
 ChangePasswordBody _$ChangePasswordBodyFromJson(Map<String, dynamic> json) =>
     ChangePasswordBody(
-      mobile: json['mobile'] as String,
-      currentPassword: json['currentPassword'] as String,
-      password: json['password'] as String,
-      confirmPassword: json['confirmPassword'] as String,
+      CurrentPassword: json['CurrentPassword'],
+      NewPassword: json['NewPassword'],
+      ConfirmNewPassword: json['ConfirmNewPassword'],
     );
 
 Map<String, dynamic> _$ChangePasswordBodyToJson(ChangePasswordBody instance) =>
     <String, dynamic>{
-      'mobile': instance.mobile,
-      'currentPassword': instance.currentPassword,
-      'password': instance.password,
-      'confirmPassword': instance.confirmPassword,
+      'CurrentPassword': instance.CurrentPassword,
+      'NewPassword': instance.NewPassword,
+      'ConfirmNewPassword': instance.ConfirmNewPassword,
     };

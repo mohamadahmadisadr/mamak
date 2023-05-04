@@ -185,7 +185,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
       if(result != null){
         if(result == "400"){
           messageService.showSnackBar('پرداخت انجام نشد.');
-        }else if(result == "100"){
+        }else if(result == "200"){
           messageService.showSnackBar('پرداخت با موفقیت انجام شد.');
         }
       }

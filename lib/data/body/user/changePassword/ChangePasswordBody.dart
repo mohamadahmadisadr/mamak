@@ -4,13 +4,12 @@ part 'ChangePasswordBody.g.dart';
 
 @JsonSerializable()
 class ChangePasswordBody {
-  final String mobile, currentPassword, password, confirmPassword;
+  final CurrentPassword, NewPassword, ConfirmNewPassword;
 
   const ChangePasswordBody({
-    required this.mobile,
-    required this.currentPassword,
-    required this.password,
-    required this.confirmPassword,
+    required this.CurrentPassword,
+    required this.NewPassword,
+    required this.ConfirmNewPassword,
   });
 
   Map<String, dynamic> toJson() => _$ChangePasswordBodyToJson(this);

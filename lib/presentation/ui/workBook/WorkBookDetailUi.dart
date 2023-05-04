@@ -237,6 +237,7 @@ class WorkBookDetailUi extends StatelessWidget {
                             // ),
                             TotalWorkBookChartUi(
                               cards: data.cards,
+                              categories: data.categories,
                               title: data.totalWorkBookTitle,
                             ),
                           ],
@@ -251,7 +252,7 @@ class WorkBookDetailUi extends StatelessWidget {
                           textAlign: TextAlign.start,
                         ),
                       ),
-                      WorkBookTableUi(tableData: data.tableData),
+                      WorkBookTableUi(tableData: data.tableData,categories:data.categories),
                       Container(
                         padding: 8.dpe,
                         child: Text(

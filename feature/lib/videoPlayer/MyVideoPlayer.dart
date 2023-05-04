@@ -24,13 +24,14 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   }
 
   void init() {
-    videoPlayerController = VideoPlayerController.network(widget.link,)
-      ..initialize().then((_) => setState(() {}));
+    videoPlayerController = VideoPlayerController.network(
+      widget.link,
+    )..initialize().then((_) => setState(() {}));
     videoPlayerController.setLooping(true);
     videoPlayerController.addListener(() {
-      if(videoPlayerController.value.isInitialized){
-        videoPlayerController.seekTo(const Duration(seconds: 3));
-      }
+      // if (videoPlayerController.value.isInitialized) {
+      //   videoPlayerController.seekTo(const Duration(seconds: 3));
+      // }
       setState(() {});
     });
   }
@@ -44,55 +45,58 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300.0,
       alignment: Alignment.center,
       margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         border: Border.all(color: Colors.grey),
       ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          AspectRatio(
-              aspectRatio: videoPlayerController.value.aspectRatio * 2,
-              child: VideoPlayer(videoPlayerController)),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                showController = true;
-              });
-              Future.delayed(const Duration(seconds: 3)).then((value) {
+      child: ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            AspectRatio(
+              aspectRatio: videoPlayerController.value.aspectRatio,
+              child: VideoPlayer(videoPlayerController),
+            ),
+            GestureDetector(
+              onTap: () {
                 setState(() {
-                  showController = false;
+                  showController = true;
                 });
-              });
-            },
-          ),
-          IconButton(
-              onPressed: () {
-                if (videoPlayerController.value.isPlaying) {
-                  videoPlayerController.pause();
-                } else {
-                  videoPlayerController.play();
-                }
-                setState(() {});
+                Future.delayed(const Duration(seconds: 3)).then((value) {
+                  setState(() {
+                    showController = false;
+                  });
+                });
               },
-              icon: AnimatedOpacity(
-                duration: const Duration(seconds: 1),
-                opacity:
-                    (!videoPlayerController.value.isPlaying || showController)
-                        ? 1
-                        : 0,
-                child: Icon(
-                  videoPlayerController.value.isPlaying
-                      ? Icons.pause_circle_outline
-                      : Icons.play_circle_outline,
-                  size: 50.0,
-                  color: Colors.grey.shade100,
-                ),
-              ))
-        ],
+            ),
+            IconButton(
+                onPressed: () {
+                  if (videoPlayerController.value.isPlaying) {
+                    videoPlayerController.pause();
+                  } else {
+                    videoPlayerController.play();
+                  }
+                  setState(() {});
+                },
+                icon: AnimatedOpacity(
+                  duration: const Duration(seconds: 1),
+                  opacity:
+                      (!videoPlayerController.value.isPlaying || showController)
+                          ? 1
+                          : 0,
+                  child: Icon(
+                    videoPlayerController.value.isPlaying
+                        ? Icons.pause_circle_outline
+                        : Icons.play_circle_outline,
+                    size: 50.0,
+                    color: Colors.grey.shade100,
+                  ),
+                ))
+          ],
+        ),
       ),
     );
   }

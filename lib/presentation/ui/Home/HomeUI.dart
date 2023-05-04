@@ -67,7 +67,7 @@ class HomeUI extends StatelessWidget {
                 8.dpv,
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 200,
+                  height: 300,
                   margin: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),

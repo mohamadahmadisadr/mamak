@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:core/Notification/MyNotification.dart';
 import 'package:mamak/data/body/assessment/ParticipateAssessmentBody.dart';
 import 'package:mamak/data/serializer/assessment/QuestionsResponse.dart';
 import 'package:mamak/presentation/uiModel/QuestionModel.dart';
 import 'package:mamak/presentation/uiModel/assessmeny/AssessmentParamsModel.dart';
+import 'package:mamak/presentation/uiModel/workBook/WorkBookParamsModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/assessment/GetAssessmentQuestionsUseCase.dart';
 import 'package:mamak/useCase/assessment/ParticipateAssessmentUseCase.dart';
@@ -13,6 +15,7 @@ class AssessmentsViewModel extends BaseViewModel {
   List<QuestionModel> questions = List.empty(growable: true);
   List<QuestionsObject> questionsWithCategory = List.empty(growable: true);
   AssessmentParamsModel? assessmentParamsModel;
+  final MyNotification _notification = GetIt.I.get();
 
   AppState apiState = AppState.idle;
   AppState sendDataState = AppState.idle;
@@ -61,6 +64,9 @@ class AssessmentsViewModel extends BaseViewModel {
   void getExtra() {
     var id = _navigationServiceImpl.getArgs();
     if (id != null && id is AssessmentParamsModel) {
+      print(id.id);
+      print(id.name);
+      print(id.course);
       assessmentParamsModel = id;
       body.userChildWorkshopId = id.id;
       getQuestions(id.id);
@@ -106,7 +112,13 @@ class AssessmentsViewModel extends BaseViewModel {
             messageService.showSnackBar(appState.getErrorModel?.message ?? '');
           }
           if (appState.isSuccess) {
+            _notification.publish('MyWorkShopsViewModel', true);
             messageService.showSnackBar('ارزیابی فرزند با موفقیت انجام شد');
+            WorkBookParamsModel model = WorkBookParamsModel(
+              userChildId: assessmentParamsModel?.childId ?? '',
+              workShopId: assessmentParamsModel?.workShopId ?? '',
+            );
+            _navigationServiceImpl.replaceTo(AppRoute.workBookDetail,model);
           }
           sendDataState = appState;
           refresh();

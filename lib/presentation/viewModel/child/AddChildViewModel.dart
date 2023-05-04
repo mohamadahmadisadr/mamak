@@ -1,3 +1,4 @@
+import 'package:core/Notification/MyNotification.dart';
 import 'package:core/imagePicker/ImageFileModel.dart';
 import 'package:core/imagePicker/MyImagePicker.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:mamak/useCase/child/AddChildUseCase.dart';
 
 class AddChildViewModel extends BaseViewModel {
   AddChildViewModel(super.initialState);
-
+  final MyNotification _notification = GetIt.I.get();
   AppState uiState = AppState.idle;
 
   ImageFileModel? selectedImage;
@@ -46,6 +47,7 @@ class AddChildViewModel extends BaseViewModel {
           messageService.showSnackBar(appState.getErrorModel?.message ?? '');
         }
         if (appState.isSuccess) {
+          _notification.publish('GetChildViewModel', true);
           _navigationServiceImpl.pop();
         }
         uiState = appState;

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/data/serializer/child/ChildsResponse.dart';
 import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
@@ -8,6 +9,7 @@ import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
+import 'package:mamak/presentation/viewModel/child/GetChildsViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/ProfileViewModel.dart';
 
 import 'ChildsProfileUi.dart';
@@ -157,11 +159,22 @@ class ProfileUi extends StatelessWidget {
                       8.dpv,
                       ConditionalUI<GetUserProfileResponse>(
                         state: bloc.userState,
-                        onSuccess: (userData) => userData
-                                    .children?.isNotEmpty ==
-                                true
-                            ? ChildsProfileUi(children: userData.children ?? [])
-                            : const Text('هنوز هیچ فرزندی ثبت نشده است'),
+                        onSuccess: (userData) =>
+                            userData.children?.isNotEmpty == true
+                                ? CubitProvider(
+                                    create: (context) =>
+                                        GetChildViewModel(AppState.idle),
+                                    builder: (bloc, state) {
+                                      return ConditionalUI<List<ChildsItem>>(
+                                        state: bloc.uiState,
+                                        onSuccess: (children) {
+                                          return ChildsProfileUi(
+                                              children: children);
+                                        },
+                                      );
+                                    },
+                                  )
+                                : const Text('هنوز هیچ فرزندی ثبت نشده است'),
                         skeleton: Container(
                           height: 200,
                           margin: 8.dpe,
@@ -185,7 +198,7 @@ class ProfileUi extends StatelessWidget {
                         textAlign: TextAlign.start,
                       ),
                       4.dpv,
-                      const FactorsTableUi(),
+                      FactorsTableUi(),
                       const Divider(),
                     ],
                   ),
@@ -200,7 +213,13 @@ class ProfileUi extends StatelessWidget {
 }
 
 class FactorsTableUi extends StatelessWidget {
-  const FactorsTableUi({Key? key}) : super(key: key);
+  FactorsTableUi({Key? key}) : super(key: key);
+  final List<String> columns = [
+    'شماره فاکتور',
+    'تاریخ',
+    'مبلغ',
+    'کد تخفیف',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -208,22 +227,22 @@ class FactorsTableUi extends StatelessWidget {
       fit: BoxFit.fitWidth,
       child: DataTable(
         columns: List.generate(
-          4,
+          columns.length,
           (index) => DataColumn(
             label: index == 3
                 ? const SizedBox()
-                : const Text(
-                    'ردیف',
+                : Text(
+                    columns[index],
                   ),
           ),
         ),
         rows: List.generate(
-          2,
+          1,
           (index) => DataRow(
             cells: List.generate(
-              4,
+              columns.length,
               (index) => DataCell(
-                index == 3 ? const FactorDetailButton() : const Text('1234'),
+                index == 3 ? const FactorDetailButton() :  Text('-'),
               ),
             ),
           ),

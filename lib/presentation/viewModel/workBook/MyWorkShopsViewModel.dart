@@ -21,16 +21,25 @@ class MyWorkShopsViewModel extends BaseViewModel
   }
 
   getWorkShopsByChildId(String childId) {
-    GetWorkShopsOfChildUserUseCase().invoke(mainFlow, data: childId.toString());
+    print(childId);
+    if(!state.isLoading) {
+      GetWorkShopsOfChildUserUseCase().invoke(mainFlow, data: childId.toString());
+    }
   }
 
   @override
   void onReceiveData(data) {
     print(jsonEncode(data));
-    if (data != null && data is ChildsItem) {
-      selectedChild = data;
-      model.userChildId = (data).id.toString();
-      getWorkShopsByChildId((data).id.toString());
+    if (data != null) {
+      if(data is ChildsItem){
+        selectedChild = data;
+        model.userChildId = (data).id.toString();
+        getWorkShopsByChildId((data).id.toString());
+      }
+      if(data is bool && data == true){
+        getWorkShopsByChildId(model.userChildId);
+      }
+
     }
   }
 

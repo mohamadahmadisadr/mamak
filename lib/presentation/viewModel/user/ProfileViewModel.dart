@@ -23,7 +23,7 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void getImage() async {
-    var avatarId = selectedImage?.Id ?? '';
+    var avatarId = selectedImage?.Id ?? '00000000-0000-0000-0000-000000000000';
     selectedImage = await _myImagePicker.pickImage();
     selectedImage?.Id = avatarId;
     if (!uploadState.isLoading && selectedImage != null) {
@@ -56,7 +56,7 @@ class ProfileViewModel extends BaseViewModel {
               name: res.userAvatar?.fileName ?? '',
               mimType: res.userAvatar?.mimeType ?? '',
               content: res.userAvatar?.content ?? '',
-              Id: res.userAvatar?.id ?? '');
+              Id: res.userAvatar?.id ?? '00000000-0000-0000-0000-000000000000');
         }
       }
       userState = appState;

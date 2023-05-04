@@ -11,6 +11,6 @@ class ChangePasswordFormState {
   });
 
   ChangePasswordBody createBody(){
-    return ChangePasswordBody(mobile: mobile, currentPassword: currentPassword, password: password, confirmPassword: confirmPassword);
+    return ChangePasswordBody(CurrentPassword: currentPassword, NewPassword: password, ConfirmNewPassword: confirmPassword);
   }
 }

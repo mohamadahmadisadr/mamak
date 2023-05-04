@@ -36,10 +36,15 @@ class CategoriesViewModel extends BaseViewModel {
     List<double> values = categories.map((e) {
       var id = e.id ?? 0;
       var currentValue = getTotalWorkBookThirdRate(id, cards);
+      print('current : $currentValue');
       var correct = currentValue?.thirdRateAnswersCount ?? 0;
+      print('correct $correct');
       var all = currentValue?.allQuestionsCount ?? 0;
+      print('all : $all');
       lableData.add('$correct از $all');
-      return (all == 0 ? 0 : (maxValue * correct) / all).toDouble();
+      var result = (all == 0 ? 0 : (maxValue * correct) / all).toDouble();
+      print('result : $result');
+      return result;
     }).toList();
 
     return ChartDataModel(maxValue: maxValue, name: names, values: values,lableData: lableData);

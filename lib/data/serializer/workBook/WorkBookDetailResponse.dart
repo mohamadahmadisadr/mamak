@@ -15,6 +15,7 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:mamak/presentation/uiModel/workBook/ChartDataModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookParamsModel.dart';
@@ -115,7 +116,7 @@ class WorkBookDetailResponse {
 }
 
 class GeneralReportCardDetails {
-  Dictionary? allWorkShopsDictionary;
+  Map<String, String>? allWorkShopsDictionary;
   int? allWorkShopsCount;
   int? participatedWorkShopsCount;
   int? id;
@@ -134,10 +135,12 @@ class GeneralReportCardDetails {
   });
 
   factory GeneralReportCardDetails.fromJson(Map<String, dynamic> json) =>
+
       GeneralReportCardDetails(
         allWorkShopsDictionary: json["allWorkShopsDictionary"] == null
             ? null
-            : Dictionary.fromJson(json["allWorkShopsDictionary"]),
+            : Map.from(json["allWorkShopsDictionary"])
+            .map((k, v) => MapEntry<String, String>(k, v)),
         allWorkShopsCount: json["allWorkShopsCount"],
         participatedWorkShopsCount: json["participatedWorkShopsCount"],
         id: json["id"],
@@ -151,7 +154,6 @@ class GeneralReportCardDetails {
       );
 
   Map<String, dynamic> toJson() => {
-        "allWorkShopsDictionary": allWorkShopsDictionary?.toJson(),
         "allWorkShopsCount": allWorkShopsCount,
         "participatedWorkShopsCount": participatedWorkShopsCount,
         "id": id,
@@ -233,6 +235,7 @@ class WorkShopReportCard {
   int? firstRateAnswersCount;
   int? secondRateAnswersCount;
   int? thirdRateAnswersCount;
+  int? userParticipateAssessmentCount;
   int? id;
   List<dynamic>? errorMessages;
   int? statusCode;
@@ -245,6 +248,7 @@ class WorkShopReportCard {
     this.firstRateAnswersCount,
     this.secondRateAnswersCount,
     this.thirdRateAnswersCount,
+    this.userParticipateAssessmentCount,
     this.id,
     this.errorMessages,
     this.statusCode,
@@ -262,6 +266,7 @@ class WorkShopReportCard {
         firstRateAnswersCount: json["firstRateAnswersCount"],
         secondRateAnswersCount: json["secondRateAnswersCount"],
         thirdRateAnswersCount: json["thirdRateAnswersCount"],
+        userParticipateAssessmentCount: json["userParticipateAssessmentCount"],
         id: json["id"],
         errorMessages: json["errorMessages"] == null
             ? []
@@ -282,6 +287,7 @@ class WorkShopReportCard {
         "firstRateAnswersCount": firstRateAnswersCount,
         "secondRateAnswersCount": secondRateAnswersCount,
         "thirdRateAnswersCount": thirdRateAnswersCount,
+        "userParticipateAssessmentCount": userParticipateAssessmentCount,
         "id": id,
         "errorMessages": errorMessages == null
             ? []
@@ -394,6 +400,15 @@ class WorkShopReportCardDetail {
 }
 
 extension WorkBookDetailExtension on WorkBookDetailResponse {
+
+  List<WorkShopCategory> get workShopCategories {
+    return generalReportCardDetails?.allWorkShopsDictionary?.keys.map((e) {
+      var name = generalReportCardDetails?.allWorkShopsDictionary?[e] ?? '';
+      return WorkShopCategory(name: name, id: e);
+    }).toList() ?? [];
+  }
+
+
   WorkBookDetailUiModel createUiModel(WorkBookParamsModel model) {
     List<String> headerTitle = [
       'نام مادر',
@@ -450,30 +465,34 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
     print(names);
     print(values);
     List<List<WorkBookTableModel>> tableData = [];
-    var prev = 0;
     generalReportCards?.forEach((e) {
       List<WorkBookTableModel> worksShops = [];
       e.workShopReportCards?.forEach((element) {
+
         worksShops.add(
           WorkBookTableModel(
             id: element.workShopDictionary?.keys.first ?? '0',
-            previousThree: prev,
+            previousThree: 0,
             three: element.thirdRateAnswersCount ?? 0,
-            count: element.allQuestionsCount?.toString() ?? '',
+            count: (element.allQuestionsCount ?? 0).toString(),
           ),
         );
-        prev = element.thirdRateAnswersCount ?? 0;
       });
       tableData.add(worksShops);
     });
 
-    ChartDataModel workShopChartData =
-        ChartDataModel(maxValue: maxValue, name: names, values: values,lableData: lableData);
-    var counter = 'ارزیابی ۱';
+
+    ChartDataModel workShopChartData = ChartDataModel(
+        maxValue: maxValue, name: names, values: values, lableData: lableData);
+
+    var userParticipateAssessmentCount =
+        workShopReportCard?.userParticipateAssessmentCount ?? 0;
+    var counter = 'ارزیابی $userParticipateAssessmentCount';
     return WorkBookDetailUiModel(
       headerTitle: headerTitle,
       header: header,
       reviews: reviews,
+      categories: workShopCategories,
       workShop: workShopName,
       workShopWorkBookTitle: workShopWorkBookTitle,
       workShopWorkBookDescription: workShopDescription,
@@ -495,4 +514,13 @@ extension WorkShopReportExtension on List<WorkShopReportCard>? {
                   ? previousValue
                   : (element.allQuestionsCount ?? 0)) ??
       0;
+}
+
+class WorkShopCategory {
+  final String name, id;
+
+  const WorkShopCategory({
+    required this.name,
+    required this.id,
+  });
 }

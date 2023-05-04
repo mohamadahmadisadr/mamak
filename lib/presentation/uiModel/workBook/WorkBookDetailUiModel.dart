@@ -6,6 +6,7 @@ class WorkBookDetailUiModel {
   final List<String> headerTitle;
   final List<String> header;
   final List<WorkBookDetailReviews> reviews;
+  final List<WorkShopCategory> categories;
   final String workShop,
       workShopWorkBookTitle,
       workShopWorkBookDescription,
@@ -19,6 +20,7 @@ class WorkBookDetailUiModel {
     required this.headerTitle,
     required this.header,
     required this.reviews,
+    required this.categories,
     required this.workShop,
     required this.workShopWorkBookTitle,
     required this.workShopWorkBookDescription,

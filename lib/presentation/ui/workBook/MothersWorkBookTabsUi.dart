@@ -47,7 +47,7 @@ class WorkBookTabBar extends StatelessWidget {
                 }
                 return MothersWorkBookTabsUi(
                   items: data,
-                  onSelectedItem: (cItem) {},
+                  onSelectedItem: onSelectedItem,
                 );
               },
             ),
@@ -79,10 +79,12 @@ class _MothersWorkBookTabsUiState extends State<MothersWorkBookTabsUi>
   void initState() {
     _tabController = TabController(length: widget.items.length, vsync: this);
     _tabController.addListener(() {
-      widget.onSelectedItem.call(widget.items.elementAt(_tabController.index));
-      setState(() {
+      if (!_tabController.indexIsChanging) {
+        widget.onSelectedItem
+            .call(widget.items.elementAt(_tabController.index));
         index = _tabController.index;
-      });
+        setState(() {});
+      }
     });
     super.initState();
   }
@@ -114,9 +116,7 @@ class _MothersWorkBookTabsUiState extends State<MothersWorkBookTabsUi>
                 controller: _tabController,
                 indicator: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: widget.items.length == 1
-                        ? getBorderByZeroIndex()
-                        : getBorderByIndex(index)),
+                    borderRadius: getBorderByZeroIndex()),
                 tabs: widget.items
                     .map((e) => WorkBookTabUi(
                           name: e.childFirstName ?? '',
@@ -125,7 +125,6 @@ class _MothersWorkBookTabsUiState extends State<MothersWorkBookTabsUi>
               ),
             ),
             4.dpv,
-            const Text('۴ سال')
           ],
         ),
       ),

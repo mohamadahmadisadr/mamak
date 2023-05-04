@@ -7,13 +7,11 @@ import 'ImageResponse.dart';
 List<ChildPackage> childPackageFromJson(String str) => List<ChildPackage>.from(
     json.decode(str).map((x) => ChildPackage.fromJson(x)));
 
-String childPackageToJson(List<ChildPackage> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ChildPackage {
   String? childName;
   ImageResponse? childPicture;
-  List<Package>? packages;
+  Package? packages;
   int? id;
   List<dynamic>? errorMessages;
   int? statusCode;
@@ -34,10 +32,9 @@ class ChildPackage {
         childPicture: json["childPicture"] != null
             ? imageResponseFromJson(jsonEncode(json["childPicture"]))
             : null,
-        packages: json["packages"] == null
-            ? []
-            : List<Package>.from(
-                json["packages"]!.map((x) => Package.fromJson(x))),
+        packages: json["package"] == null
+            ? null
+            : Package.fromJson(json["package"]),
         id: json["id"],
         errorMessages: json["errorMessages"] == null
             ? []
@@ -48,21 +45,6 @@ class ChildPackage {
             : List<dynamic>.from(json["successfulMessages"]!.map((x) => x)),
       );
 
-  Map<String, dynamic> toJson() => {
-        "childName": childName,
-        "childPicture": childPicture,
-        "packages": packages == null
-            ? []
-            : List<dynamic>.from(packages!.map((x) => x.toJson())),
-        "id": id,
-        "errorMessages": errorMessages == null
-            ? []
-            : List<dynamic>.from(errorMessages!.map((x) => x)),
-        "statusCode": statusCode,
-        "successfulMessages": successfulMessages == null
-            ? []
-            : List<dynamic>.from(successfulMessages!.map((x) => x)),
-      };
 }
 
 class Package {
@@ -119,6 +101,7 @@ class Package {
 
 extension ChildListPackageExtension on List<ChildPackage> {
   ChildPackage? getChildPackage(String? subscribeId) {
-    return firstWhereOrNull((element) => element.id?.toString() == subscribeId);
+    print(subscribeId);
+    return firstWhereOrNull((element) => element.packages?.id?.toString() == subscribeId);
   }
 }
