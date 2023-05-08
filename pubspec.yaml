@@ -48,6 +48,7 @@ dependencies:
   shamsi_date: ^1.0.1
   sprintf: ^7.0.0
   uni_links: ^0.5.1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -56,8 +57,13 @@ dev_dependencies:
   build_runner: ^2.1.7
   flutter_lints: ^2.0.0
 
+
+
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/icon_title.png
 
   fonts:
     - family: dana

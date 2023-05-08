@@ -26,12 +26,13 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   void init() {
     videoPlayerController = VideoPlayerController.network(
       widget.link,
-    )..initialize().then((_) => setState(() {}));
+    )..initialize().then((_) => setState(() {
+          if (videoPlayerController.value.isInitialized) {
+            videoPlayerController.seekTo(const Duration(seconds: 3));
+          }
+        }));
     videoPlayerController.setLooping(true);
     videoPlayerController.addListener(() {
-      // if (videoPlayerController.value.isInitialized) {
-      //   videoPlayerController.seekTo(const Duration(seconds: 3));
-      // }
       setState(() {});
     });
   }
@@ -52,12 +53,13 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
         border: Border.all(color: Colors.grey),
       ),
       child: ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         child: Stack(
           alignment: Alignment.center,
           children: [
-            AspectRatio(
-              aspectRatio: videoPlayerController.value.aspectRatio,
+            SizedBox(
+              width: videoPlayerController.value.size.width,
+              height: videoPlayerController.value.size.height,
               child: VideoPlayer(videoPlayerController),
             ),
             GestureDetector(

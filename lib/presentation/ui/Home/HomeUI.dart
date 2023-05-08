@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:feature/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/subscribe/SubscribesResponse.dart';
@@ -28,9 +29,9 @@ class HomeUI extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(
-                  height: 270.0,
-                  child: HomeSliderUi(
+                SizedBox(
+                  height: MediaQuery.of(context).size.width/2,
+                  child: const HomeSliderUi(
                     images: [
                       'http://62.106.95.127/StaticFiles/banner1.jpg',
                       'http://62.106.95.127/StaticFiles/banner1.jpg'
@@ -39,7 +40,7 @@ class HomeUI extends StatelessWidget {
                 ),
                 4.dp,
                 SizedBox(
-                  height: 150,
+                  height: (MediaQuery.of(context).size.width/4) + 40,
                   width: MediaQuery.of(context).size.width,
                   child: const CategoriesHorizontalListUi(),
                 ),
@@ -49,8 +50,6 @@ class HomeUI extends StatelessWidget {
                   builder: (bloc, state) {
                     return ConditionalUI<List<SubscribeItem>>(
                       skeleton: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 120,
                         margin: 8.dpe,
                         padding: 8.dpe,
                         decoration: BoxDecoration(
@@ -67,7 +66,7 @@ class HomeUI extends StatelessWidget {
                 8.dpv,
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 300,
+                  height: 280,
                   margin: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),
@@ -93,16 +92,18 @@ class HomeUI extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Text(
-                            'برنامه راهبردی',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.indigo,
+                          const Expanded(
+                            child: AutoSizeText(
+                              'برنامه راهبردی',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                                color: Colors.indigo,
+                              ),
                             ),
                           ),
                           8.dph,
-                          const MamakLogo(),
+                          const Expanded(child: MamakLogo()),
                         ],
                       ),
                     ),

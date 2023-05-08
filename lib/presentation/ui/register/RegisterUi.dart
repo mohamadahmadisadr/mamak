@@ -40,7 +40,12 @@ class RegisterUi extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   20.dpv,
-                  const MamakLogo(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MamakLogo(),
+                    ],
+                  ),
                   20.dpv,
                   const FormTitleWithStar(title: "شماره همراه"),
                   4.dpv,
@@ -52,7 +57,11 @@ class RegisterUi extends StatelessWidget {
                     validator: MobileValidator(),
                   ),
                   10.dpv,
-                  const FormTitleWithStar(title: "ایمیل"),
+                  Text(
+                    'ایمیل',
+                    style: context.textTheme.titleSmall
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
                   4.dpv,
                   TextFormFieldHelper(
                     label: "ایمیل",

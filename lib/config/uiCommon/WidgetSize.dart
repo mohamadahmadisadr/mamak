@@ -9,4 +9,5 @@ class WidgetSize{
   static const elevatedButtonRadiusSize = 12.0;
   static const smallTitle = 13.0;
   static const normalTitle = 20.0;
+  static const autoTitle = 15.0;
 }

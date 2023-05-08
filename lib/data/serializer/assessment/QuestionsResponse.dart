@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
+
 List<Questions> questionsFromJson(String str) => List<Questions>.from(json.decode(str).map((x) => Questions.fromJson(x)));
 
 String questionsToJson(List<Questions> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -51,6 +53,7 @@ class Questions {
 class Question {
   int? questionId;
   String? questionTitle;
+  UserAvatar? questionPicture;
   List<Option>? options;
   int? id;
   List<dynamic>? errorMessages;
@@ -59,6 +62,7 @@ class Question {
 
   Question({
     this.questionId,
+    this.questionPicture,
     this.questionTitle,
     this.options,
     this.id,
@@ -69,6 +73,7 @@ class Question {
 
   factory Question.fromJson(Map<String, dynamic> json) => Question(
     questionId: json["questionId"],
+    questionPicture: json["questionPicture"] != null ? UserAvatar.fromJson(json["questionPicture"])  : null,
     questionTitle: json["questionTitle"],
     options: json["options"] == null ? [] : List<Option>.from(json["options"]!.map((x) => Option.fromJson(x))),
     id: json["id"],

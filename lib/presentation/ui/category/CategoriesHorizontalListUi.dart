@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class CategoriesHorizontalListUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width/5;
     return CubitProvider(
       create: (context) => CategoriesViewModel(AppState.idle),
       builder: (bloc, state) {
@@ -32,38 +34,40 @@ class CategoriesHorizontalListUi extends StatelessWidget {
           state: state,
           onSuccess: (data) {
             return ListView.builder(
+            padding: 8.dpe,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: data.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                onTap: (){
-                  bloc.gotoDetail(data.elementAt(index).id?.toString());
-                },
+                  onTap: () {
+                    bloc.gotoDetail(data.elementAt(index).id?.toString());
+                  },
                   child: Container(
                     margin: const EdgeInsets.all(8.0),
-                    width: 90,
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 80,
-                          height: 100,
+                          width: width,
                           child: ImageLoader(
-                              url: BaseUrls.storagePath +
-                                  '/categories/${data[index].id}.png'),
+                            url: '${BaseUrls.storagePath}/categories/${data[index].id}.png',
+                            fitModel: BoxFit.contain,
+                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            data[index].title ?? '',
-                            style: context.textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: WidgetSize.smallTitle,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: AutoSizeText(
+                              data[index].title ?? '',
+                              style: context.textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: WidgetSize.autoTitle,
+                              ),
+                              textScaleFactor: 1.0,
+                              maxLines: 1,
                             ),
-                            textScaleFactor: 1.0,
-                            maxLines: 1,
                           ),
                         ),
                       ],

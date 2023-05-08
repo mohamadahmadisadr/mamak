@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:feature/navigation/NavigationService.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/config/appData/route/AppRoute.dart';
+import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/data/serializer/child/GetAllUserChilPackageResponse.dart';
 import 'package:mamak/data/serializer/subscribe/SubscribesResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
@@ -24,11 +26,8 @@ class PackagesGridView extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: packages.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        mainAxisExtent: 130,
-        mainAxisSpacing: 16.0
-      ),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, mainAxisSpacing: 8.0,mainAxisExtent: (MediaQuery.of(context).size.width/3) + 30),
       itemBuilder: (context, index) => PackagesItemUI(
         package: packages[index],
         childPackage: childPackage.getChildPackage(
@@ -49,7 +48,7 @@ class PackagesItemUI extends StatelessWidget {
   final ChildPackage? childPackage;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     print(childPackage);
     return InkWell(
       onTap: () {
@@ -73,16 +72,21 @@ class PackagesItemUI extends StatelessWidget {
                   topRight: Radius.circular(16.0),
                   topLeft: Radius.circular(16.0)),
               child: SizedBox(
-                height: 50,
                 child: ImageLoader(
-                    url: '${BaseUrls.storagePath}/packages/${package?.id}.png'),
+                  url: '${BaseUrls.storagePath}/packages/${package?.id}.png'
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Text(package?.title ?? '',
-                  style: context.textTheme.bodySmall
-                      ?.copyWith(fontWeight: FontWeight.bold)),
+            const Spacer(),
+            AutoSizeText(
+              package?.title ?? '',
+              style: context.textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: WidgetSize.autoTitle,
+              ),
+              textScaleFactor: 1.0,
+              maxLines: 1,
+              textAlign: TextAlign.center,
             ),
             // Padding(
             //   padding: const EdgeInsets.all(4.0),
@@ -114,12 +118,18 @@ class PackagesItemUI extends StatelessWidget {
                             size: 12,
                           ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      childPackage?.childName ?? '',
-                      style: context.textTheme.bodySmall
-                          ?.copyWith(color: Colors.grey),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: AutoSizeText(
+                        childPackage?.childName ?? '',
+                        style: context.textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: WidgetSize.autoTitle,
+                        ),
+                        textScaleFactor: 1.0,
+                        maxLines: 1,
+                      ),
                     ),
                   ),
                 ],

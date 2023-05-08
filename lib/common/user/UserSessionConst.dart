@@ -1,6 +1,7 @@
 class UserSessionConst {
   static const id = 'id';
   static const token = 'token';
+  static const image = 'image';
   static const fullName = 'fullName';
   static const paye = 'paye';
   static const mobile = 'mobile';

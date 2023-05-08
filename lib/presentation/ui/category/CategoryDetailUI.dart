@@ -87,7 +87,7 @@ class CategoryDetailUI extends StatelessWidget {
                           ),
                           16.dpv,
                           SizedBox(
-                          height: 300,
+                          height: 280,
                             child: MyVideoPlayer(
                                 link: '${BaseUrls.storagePath}/Categories/${bloc.id}.mp4'),
                           ),

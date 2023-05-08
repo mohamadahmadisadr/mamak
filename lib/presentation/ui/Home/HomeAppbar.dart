@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
-import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 
@@ -9,7 +10,7 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    margin: const EdgeInsets.only(right: 50.0),
+      margin: const EdgeInsets.only(right: 50.0),
       child: Padding(
         padding: 8.dpeh,
         child: Row(
@@ -31,7 +32,28 @@ class HomeAppBar extends StatelessWidget {
                   },
                 ),
                 8.dph,
-                const Icon(CupertinoIcons.person_alt_circle)
+                FutureBuilder(
+                  future: getContent,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData &&
+                        snapshot.data != null &&
+                        snapshot.data is String &&
+                        snapshot.data != '') {
+                      return SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: ClipRRect(
+                          borderRadius: 45.bRadius,
+                          child: Image.memory(
+                            base64Decode(snapshot.data!),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      );
+                    }
+                    return const Icon(CupertinoIcons.person_alt_circle);
+                  },
+                )
               ],
             )
           ],
@@ -42,4 +64,7 @@ class HomeAppBar extends StatelessWidget {
 
   Future<String> get getUserFullName async =>
       GetIt.I.get<LocalSessionImpl>().getData(UserSessionConst.fullName);
+
+  Future<String> get getContent async =>
+      GetIt.I.get<LocalSessionImpl>().getData(UserSessionConst.image);
 }

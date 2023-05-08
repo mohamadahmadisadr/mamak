@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyTheme{
   static Color rgbColor = const Color(0xffffd511);
+  static Color purple = const Color(0xff6360fe);
   static MaterialColor color = getMaterialColor(rgbColor);
   static const backGroundColor = Colors.white;
 

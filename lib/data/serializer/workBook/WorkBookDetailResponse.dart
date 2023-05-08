@@ -15,7 +15,6 @@
 
 import 'dart:convert';
 
-import 'package:get/get.dart';
 import 'package:mamak/presentation/uiModel/workBook/ChartDataModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookParamsModel.dart';
@@ -135,12 +134,11 @@ class GeneralReportCardDetails {
   });
 
   factory GeneralReportCardDetails.fromJson(Map<String, dynamic> json) =>
-
       GeneralReportCardDetails(
         allWorkShopsDictionary: json["allWorkShopsDictionary"] == null
             ? null
             : Map.from(json["allWorkShopsDictionary"])
-            .map((k, v) => MapEntry<String, String>(k, v)),
+                .map((k, v) => MapEntry<String, String>(k, v)),
         allWorkShopsCount: json["allWorkShopsCount"],
         participatedWorkShopsCount: json["participatedWorkShopsCount"],
         id: json["id"],
@@ -357,6 +355,8 @@ class ReportCardHeader {
 class WorkShopReportCardDetail {
   String? question;
   String? answer;
+  String? solutionFileId;
+  String? answerRate;
   int? id;
   List<dynamic>? errorMessages;
   int? statusCode;
@@ -365,6 +365,8 @@ class WorkShopReportCardDetail {
   WorkShopReportCardDetail({
     this.question,
     this.answer,
+    this.solutionFileId,
+    this.answerRate,
     this.id,
     this.errorMessages,
     this.statusCode,
@@ -374,6 +376,8 @@ class WorkShopReportCardDetail {
   factory WorkShopReportCardDetail.fromJson(Map<String, dynamic> json) =>
       WorkShopReportCardDetail(
         question: json["question"],
+        solutionFileId: json["solutionFileId"],
+        answerRate: json["answerRate"],
         answer: json["answer"],
         id: json["id"],
         errorMessages: json["errorMessages"] == null
@@ -388,6 +392,8 @@ class WorkShopReportCardDetail {
   Map<String, dynamic> toJson() => {
         "question": question,
         "answer": answer,
+        "solutionFileId": solutionFileId,
+        "answerRate": answerRate,
         "id": id,
         "errorMessages": errorMessages == null
             ? []
@@ -400,14 +406,13 @@ class WorkShopReportCardDetail {
 }
 
 extension WorkBookDetailExtension on WorkBookDetailResponse {
-
   List<WorkShopCategory> get workShopCategories {
     return generalReportCardDetails?.allWorkShopsDictionary?.keys.map((e) {
-      var name = generalReportCardDetails?.allWorkShopsDictionary?[e] ?? '';
-      return WorkShopCategory(name: name, id: e);
-    }).toList() ?? [];
+          var name = generalReportCardDetails?.allWorkShopsDictionary?[e] ?? '';
+          return WorkShopCategory(name: name, id: e);
+        }).toList() ??
+        [];
   }
-
 
   WorkBookDetailUiModel createUiModel(WorkBookParamsModel model) {
     List<String> headerTitle = [
@@ -424,7 +429,10 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
     ];
     List<WorkBookDetailReviews> reviews = workShopReportCardDetails
             ?.map((e) => WorkBookDetailReviews(
-                question: e.question ?? '', comment: e.answer ?? ''))
+                question: e.question ?? '',
+                comment: e.answer ?? '',
+                fileDataId: e.solutionFileId,
+                answerRate: e.answerRate ?? ''))
             .toList() ??
         [];
     print(model.workShopId);
@@ -468,7 +476,6 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
     generalReportCards?.forEach((e) {
       List<WorkBookTableModel> worksShops = [];
       e.workShopReportCards?.forEach((element) {
-
         worksShops.add(
           WorkBookTableModel(
             id: element.workShopDictionary?.keys.first ?? '0',
@@ -480,7 +487,6 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
       });
       tableData.add(worksShops);
     });
-
 
     ChartDataModel workShopChartData = ChartDataModel(
         maxValue: maxValue, name: names, values: values, lableData: lableData);

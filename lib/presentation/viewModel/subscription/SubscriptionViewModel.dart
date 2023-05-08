@@ -137,7 +137,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   }
 
   Future<void> _launchUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication,)) {
       throw Exception('Could not launch $url');
     }
   }

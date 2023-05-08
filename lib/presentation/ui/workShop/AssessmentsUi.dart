@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/MyTheme.dart';
@@ -167,6 +169,20 @@ class AssessmentItemUi extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        4.dpv,
+        if (item?.questionPicture != null &&
+            item?.questionPicture?.content != null)
+          ClipRRect(
+          borderRadius: 16.bRadius,
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 150.0,
+                child: Image.memory(
+                  base64Decode(item!.questionPicture!.content!),
+                  fit: BoxFit.contain,
+                )),
+          ),
+        8.dpv,
         Container(
           padding: 16.dpe,
           margin: 4.dpe,
@@ -220,7 +236,7 @@ class AssessmentItemUi extends StatelessWidget {
         ),
         8.dpv,
         SizedBox(
-          height: 150,
+          height: 100,
           child: TextFormFieldHelper(
             hint: getDescriptionText(index ?? 0),
             keyboardType: TextInputType.text,
@@ -231,7 +247,7 @@ class AssessmentItemUi extends StatelessWidget {
             expand: true,
             textAlign: TextAlign.start,
           ),
-        )
+        ),
       ],
     );
   }

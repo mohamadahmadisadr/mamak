@@ -33,7 +33,8 @@ class WorkBookDetailUiModel {
 }
 
 class WorkBookDetailReviews {
-  final String question, comment;
+  final String question, comment, answerRate;
+  String? fileDataId;
 
-  const WorkBookDetailReviews({required this.question, required this.comment});
+  WorkBookDetailReviews({required this.question, required this.comment, required this.answerRate, this.fileDataId});
 }

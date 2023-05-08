@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NavigationServiceImpl implements NavigationServiceRepository {
@@ -26,6 +27,11 @@ class NavigationServiceImpl implements NavigationServiceRepository {
     if (Get.arguments != null && Get.arguments is T) return Get.arguments as T;
     return null;
   }
+
+  @override
+  void dialog<T>(Widget widget) {
+    Get.dialog(widget);
+  }
 }
 
 abstract class NavigationServiceRepository {
@@ -36,6 +42,8 @@ abstract class NavigationServiceRepository {
   Future<dynamic>? off<T>(String routeName, [T? result]);
 
   void pop<T>([T? result]);
+
+  void dialog<T>(Widget widget);
 
   T? getArgs<T>();
 }

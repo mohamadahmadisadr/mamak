@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/config/appData/appTheme/MyTheme.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
@@ -17,11 +18,11 @@ class SplashUi extends StatelessWidget {
         return Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: RadialGradient(
               colors: [
-                Color.fromRGBO(181, 233, 231, 1),
-                Color.fromRGBO(29, 188, 188, 1)
+                MyTheme.purple.withOpacity(.5),
+                MyTheme.purple
               ],
               focalRadius: .5,
             ),

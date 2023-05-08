@@ -5,7 +5,7 @@ class ImageLoader extends StatelessWidget {
   const ImageLoader({
     Key? key,
     required this.url,
-    this.fitModel = BoxFit.fill
+    this.fitModel = BoxFit.cover
   }) : super(key: key);
   final String url;
   final BoxFit fitModel;
@@ -14,11 +14,12 @@ class ImageLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: url,
-      placeholder: (_, __) => Icon(Icons.wallpaper,color: Colors.grey.shade50),
+      // placeholder: (_, __) => Icon(Icons.wallpaper,color: Colors.grey.shade50),
       errorWidget: (_, __, exception) {
         return Icon(Icons.error,color: Colors.grey.shade50,);
       },
       fit: fitModel,
+      cacheKey: url,
     );
   }
 }

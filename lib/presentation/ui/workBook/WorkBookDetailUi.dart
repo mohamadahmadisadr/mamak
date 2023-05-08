@@ -27,7 +27,7 @@ class WorkBookDetailUi extends StatelessWidget {
             return MamakScaffold(
               body: SingleChildScrollView(
                 child: RepaintBoundary(
-                key: bloc.key,
+                  key: bloc.key,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -53,7 +53,8 @@ class WorkBookDetailUi extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     8.dpv,
                                     const MamakTitle(
@@ -62,7 +63,8 @@ class WorkBookDetailUi extends StatelessWidget {
                                     Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(32.0),
+                                        borderRadius:
+                                            BorderRadius.circular(32.0),
                                         border: Border.all(
                                             color: Colors.grey, width: 1),
                                       ),
@@ -79,9 +81,10 @@ class WorkBookDetailUi extends StatelessWidget {
                                                       20) /
                                                   (data.header.length + 1),
                                               child: Padding(
-                                                padding: const EdgeInsets.symmetric(
-                                                    vertical: 4.0,
-                                                    horizontal: 8.0),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 4.0,
+                                                        horizontal: 8.0),
                                                 child: Text(
                                                   data.headerTitle[index],
                                                   textScaleFactor: 1,
@@ -101,7 +104,8 @@ class WorkBookDetailUi extends StatelessWidget {
                                     Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(32.0),
+                                        borderRadius:
+                                            BorderRadius.circular(32.0),
                                         border: Border.all(
                                             color: Colors.grey, width: 1),
                                       ),
@@ -118,9 +122,10 @@ class WorkBookDetailUi extends StatelessWidget {
                                                       20) /
                                                   (data.header.length + 1),
                                               child: Padding(
-                                                padding: const EdgeInsets.symmetric(
-                                                    vertical: 4.0,
-                                                    horizontal: 8.0),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 4.0,
+                                                        horizontal: 8.0),
                                                 child: Text(
                                                   data.header[index],
                                                   textScaleFactor: 1,
@@ -147,7 +152,8 @@ class WorkBookDetailUi extends StatelessWidget {
                                 children: [
                                   Text(
                                     data.workShop,
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   4.dph,
                                   Directionality(
@@ -162,7 +168,8 @@ class WorkBookDetailUi extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         width: 10,
@@ -185,7 +192,8 @@ class WorkBookDetailUi extends StatelessWidget {
                                   ),
                                   4.dpv,
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         width: 10,
@@ -252,7 +260,9 @@ class WorkBookDetailUi extends StatelessWidget {
                           textAlign: TextAlign.start,
                         ),
                       ),
-                      WorkBookTableUi(tableData: data.tableData,categories:data.categories),
+                      WorkBookTableUi(
+                          tableData: data.tableData,
+                          categories: data.categories),
                       Container(
                         padding: 8.dpe,
                         child: Text(
@@ -264,8 +274,14 @@ class WorkBookDetailUi extends StatelessWidget {
                       ),
                       8.dpv,
                       ListView.builder(
-                        itemBuilder: (context, index) =>
-                            SuggestionItemUi(index: index + 1,item: data.reviews.elementAt(index)),
+                        itemBuilder: (context, index) => SuggestionItemUi(
+                          index: index + 1,
+                          item: data.reviews.elementAt(index),
+                          onItemClick: () {
+                            bloc.onSolutionItemClick(
+                                data.reviews.elementAt(index));
+                          },
+                        ),
                         shrinkWrap: true,
                         itemCount: data.reviews.length,
                         physics: const NeverScrollableScrollPhysics(),
@@ -273,7 +289,9 @@ class WorkBookDetailUi extends StatelessWidget {
                       8.dpv,
                       Padding(
                         padding: 16.dpe,
-                        child: ElevatedButton(onPressed: bloc.getWorkBookShot, child: const Text('دانلود کارنامه')),
+                        child: ElevatedButton(
+                            onPressed: bloc.getWorkBookShot,
+                            child: const Text('دانلود کارنامه')),
                       )
                     ],
                   ),
@@ -360,9 +378,15 @@ class WorkBookModel {
 }
 
 class SuggestionItemUi extends StatelessWidget {
-  const SuggestionItemUi({Key? key, required this.item, required this.index}) : super(key: key);
+  const SuggestionItemUi(
+      {Key? key,
+      required this.item,
+      required this.index,
+      required this.onItemClick})
+      : super(key: key);
   final WorkBookDetailReviews item;
   final int index;
+  final Function() onItemClick;
 
   @override
   Widget build(BuildContext context) {
@@ -417,11 +441,17 @@ class SuggestionItemUi extends StatelessWidget {
             ),
           ),
           16.dpv,
-          ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(primary: MyTheme.purple),
-              onPressed: () {},
-              icon: const Icon(Icons.list_alt_sharp),
-              label: const Text('دریافت راهکار'))
+          if (item.answerRate != '' &&
+              item.answerRate == '3' &&
+              item.fileDataId != null)
+            ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    primary: MyTheme.purple, backgroundColor: MyTheme.purple),
+                onPressed: onItemClick,
+                icon: const Icon(Icons.list_alt_sharp),
+                label: const Text(
+                  'دریافت راهکار',
+                ))
         ],
       ),
     );

@@ -33,6 +33,7 @@ class _HomeSliderUiState extends State<HomeSliderUi> {
               height: 270.0,
               child: ImageLoader(
                 url: image,
+                fitModel: BoxFit.contain,
               ),
             ),
           )

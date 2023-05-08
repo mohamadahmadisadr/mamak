@@ -17,6 +17,7 @@ class ProfileViewModel extends BaseViewModel {
   final MyImagePicker _myImagePicker = GetIt.I.get();
   final NavigationServiceImpl _navigationServiceImpl =
       GetIt.I.get<NavigationServiceImpl>();
+  final LocalSessionImpl _localSessionImpl = GetIt.I.get();
 
   ProfileViewModel(super.initialState) {
     getUseData();
@@ -30,6 +31,10 @@ class ProfileViewModel extends BaseViewModel {
       SetUserAvatarUseCase().invoke(
         MyFlow(
           flow: (appState) {
+            if (appState.isSuccess) {
+              _localSessionImpl
+                  .insertData({UserSessionConst.image: selectedImage!.content});
+            }
             if (appState.isFailed) {
               messageService
                   .showSnackBar(appState.getErrorModel?.message ?? '');
@@ -57,6 +62,8 @@ class ProfileViewModel extends BaseViewModel {
               mimType: res.userAvatar?.mimeType ?? '',
               content: res.userAvatar?.content ?? '',
               Id: res.userAvatar?.id ?? '00000000-0000-0000-0000-000000000000');
+          _localSessionImpl
+              .insertData({UserSessionConst.image: res.userAvatar!.content!});
         }
       }
       userState = appState;

@@ -4,16 +4,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mamak/firebase/PushNotificationImpl.dart';
 
 import 'config/appData/appTheme/AppTheme.dart';
 import 'config/appData/locales/AppDefaultLocale.dart';
 import 'config/appData/route/AppRoute.dart';
 import 'config/appData/route/AppRouteHelper.dart';
-import 'presentation/ui/Home/HomeAppbar.dart';
 import 'presentation/viewModel/app/appViewModel.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  PushNotificationImpl.invoke();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.white,
@@ -53,6 +54,6 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  TransitionBuilder get rootTransitionBuilder => (context, child) =>
-      Scaffold(body: child);
+  TransitionBuilder get rootTransitionBuilder =>
+      (context, child) => Scaffold(body: child);
 }

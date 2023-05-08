@@ -10,30 +10,28 @@ class MamakMapUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: FlutterMap(
-        mapController: controller,
-        options: MapOptions(
-          center: LatLng(32.4279, 53.6880),
-          zoom: 16.0,
-        ),
-        children: [
-          TileLayer(
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-          ),
-          if (marker != null)
-            MarkerLayer(markers: [
-              Marker(
-                point: marker!,
-                builder: (context) => const Icon(
-                  Icons.location_on,
-                  color: Colors.red,
-                ),
-              )
-            ]),
-        ],
+    return FlutterMap(
+      mapController: controller,
+      options: MapOptions(
+        center: LatLng(32.4279, 53.6880),
+        zoom: 16.0,
       ),
+      children: [
+        TileLayer(
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+        ),
+        if (marker != null)
+          MarkerLayer(markers: [
+            Marker(
+              point: marker!,
+              builder: (context) => const Icon(
+                Icons.location_on,
+                color: Colors.red,
+              ),
+            )
+          ]),
+      ],
     );
   }
 }
