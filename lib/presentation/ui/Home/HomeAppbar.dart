@@ -15,10 +15,32 @@ class HomeAppBar extends StatelessWidget {
         padding: 8.dpeh,
         child: Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // const MamakLogo(width: 100),
+            FutureBuilder(
+              future: getContent,
+              builder: (context, snapshot) {
+                if (snapshot.hasData &&
+                    snapshot.data != null &&
+                    snapshot.data is String &&
+                    snapshot.data != '') {
+                  return SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: ClipRRect(
+                      borderRadius: 45.bRadius,
+                      child: Image.memory(
+                        base64Decode(snapshot.data!),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                }
+                return const Icon(CupertinoIcons.person_alt_circle);
+              },
+            ),
+            8.dph,
             Row(
               children: [
                 FutureBuilder(
@@ -31,29 +53,6 @@ class HomeAppBar extends StatelessWidget {
                     );
                   },
                 ),
-                8.dph,
-                FutureBuilder(
-                  future: getContent,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData &&
-                        snapshot.data != null &&
-                        snapshot.data is String &&
-                        snapshot.data != '') {
-                      return SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: ClipRRect(
-                          borderRadius: 45.bRadius,
-                          child: Image.memory(
-                            base64Decode(snapshot.data!),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      );
-                    }
-                    return const Icon(CupertinoIcons.person_alt_circle);
-                  },
-                )
               ],
             )
           ],

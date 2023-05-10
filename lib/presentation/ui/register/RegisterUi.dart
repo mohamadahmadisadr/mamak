@@ -68,7 +68,7 @@ class RegisterUi extends StatelessWidget {
                     hint: "ایمیل",
                     keyboardType: TextInputType.emailAddress,
                     onChangeValue: bloc.onEmailChange,
-                    validator: EmailValidator(),
+                    // validator: EmailValidator(),
                   ),
                   10.dpv,
                   const FormTitleWithStar(title: "نام"),

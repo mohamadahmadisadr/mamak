@@ -1,19 +1,24 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart';
+import 'package:mamak/config/appData/AppConfiguration.dart';
+import 'package:mamak/data/body/app/AppVersionResponse.dart';
 import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
 import 'package:mamak/di/appModule.dart';
+import 'package:mamak/presentation/ui/dialog/UpdateDialog.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
+import 'package:mamak/useCase/app/AppVersionUseCase.dart';
 import 'package:mamak/useCase/user/GetUserProfileUseCase.dart';
 
 class AppViewModel extends Cubit<AppState> {
   AppViewModel(super.initialState) {
     initAppData();
+
   }
 
-  void initAppData() async{
+  void initAppData() async {
     await AppModule.initModules();
-    getUseData();
+    checkVersion();
   }
 
   static AppViewModel getInstance = AppViewModel(AppState.idle);
@@ -34,6 +39,22 @@ class AppViewModel extends Cubit<AppState> {
           GetIt.I
               .get<LocalSessionImpl>()
               .insertData({UserSessionConst.image: res.userAvatar!.content!});
+        }
+      }
+    }));
+  }
+
+  void checkVersion() {
+    AppVersionUseCase().invoke(MyFlow(flow: (appState) {
+      if (appState.isSuccess) {
+        if (appState.getData is AppVersionResponse) {
+          AppVersionResponse appVersion = appState.getData;
+          int version = int.tryParse(appVersion.versionNumber ?? '0') ?? 0;
+          if (version > AppConfiguration.versionCode) {
+            GetIt.I
+                .get<NavigationServiceImpl>()
+                .dialog(UpdateDialog(link: appVersion.linkUrl ?? ''));
+          }
         }
       }
     }));

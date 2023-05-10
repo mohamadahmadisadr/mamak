@@ -216,22 +216,25 @@ class WorkBookDetailUi extends StatelessWidget {
                               ),
                             ),
                             8.dpv,
-                            RadarChart(
-                              spaceCount: 2,
-                              textScaleFactor: .03,
-                              strokeColor: Colors.grey,
-                              values: [
-                                ChartModel(
-                                    values: data.workShpChartModel.values,
-                                    color: Colors.blue),
-                              ],
-                              labels: data.workShpChartModel.name,
-                              maxValue:
-                                  data.workShpChartModel.maxValue.toDouble(),
-                              fillColor: Colors.blue,
-                              maxLinesForLabels: 2,
-                              maxWidth: MediaQuery.of(context).size.width - 50,
-                              maxHeight: MediaQuery.of(context).size.width - 50,
+                            Padding(
+                              padding: 16.dpeh,
+                              child: RadarChart(
+                                spaceCount: 2,
+                                textScaleFactor: .03,
+                                strokeColor: Colors.grey,
+                                values: [
+                                  ChartModel(
+                                      values: data.workShpChartModel.values,
+                                      color: Colors.blue),
+                                ],
+                                labels: data.workShpChartModel.name,
+                                maxValue:
+                                    data.workShpChartModel.maxValue.toDouble(),
+                                fillColor: Colors.blue,
+                                maxLinesForLabels: 2,
+                                maxWidth: MediaQuery.of(context).size.width - 210,
+                                maxHeight: MediaQuery.of(context).size.width - 210,
+                              ),
                             ),
                             8.dpv,
                             // const WorkBookItemUi(
@@ -442,7 +445,7 @@ class SuggestionItemUi extends StatelessWidget {
           ),
           16.dpv,
           if (item.answerRate != '' &&
-              item.answerRate == '3' &&
+              item.answerRate != '3' &&
               item.fileDataId != null)
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(

@@ -3,9 +3,19 @@ import 'package:flutter/src/widgets/icon_data.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 
 class SubscriptionNavigationModel extends HomeNavigationModel{
+  String badgeContainer = '';
+
+  SubscriptionNavigationModel() {
+    badgeContainer = getBadge;
+  }
+
   @override
   String badge() {
-    return '';
+    return badgeContainer;
+  }
+
+  void changeBadge(String newBadge) {
+    badgeContainer = newBadge;
   }
 
   @override

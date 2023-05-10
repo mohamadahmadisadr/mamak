@@ -58,33 +58,37 @@ class PackageDetailUI extends StatelessWidget {
                     shrinkWrap: true,
                       itemCount: data.workShops?.length,
                       itemBuilder: (context, index) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            DescriptionItemUI(
-                                title: data.workShops?.elementAt(index).title ??
-                                    '',
-                                description: data.workShops
-                                        ?.elementAt(index)
-                                        .description ??
-                                    '',
-                                image:
-                                    '${BaseUrls.storagePath}/categories/${data.workShops
-                                        ?.elementAt(index).id}.png'),
-                            8.dpv,
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 280,
-                              margin: const EdgeInsets.all(4.0),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16.0)),
-                              child: MyVideoPlayer(
-                                link:
-                                    '${BaseUrls.storagePath}/Categories/${bloc.id}.mp4',
+                        return Padding(
+                          padding: 8.dpeh,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              DescriptionItemUI(
+                                  title: data.workShops?.elementAt(index).title ??
+                                      '',
+                                  description: data.workShops
+                                          ?.elementAt(index)
+                                          .description ??
+                                      '',
+                                  image:
+                                      '${BaseUrls.storagePath}/categories/${data.workShops
+                                          ?.elementAt(index).parentCategoryId}.png'),
+                              8.dpv,
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 280,
+                                margin: const EdgeInsets.all(4.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0)),
+                                child: MyVideoPlayer(
+                                  link:
+                                      '${BaseUrls.storagePath}/Categories/${data.workShops
+                                          ?.elementAt(index).parentCategoryId}.mp4',
+                                ),
                               ),
-                            ),
-                            const Divider()
-                          ],
+                              const Divider()
+                            ],
+                          ),
                         );
                       },
                     ),
@@ -111,36 +115,25 @@ class DescriptionItemUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  title,
-                  style: context.textTheme.titleSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  description,
-                  style: context.textTheme.caption,
-                ),
-              )
-            ],
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            title,
+            style: context.textTheme.titleSmall
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
-        Container(
-          margin: 8.dpe,
-          height: 100,
-          width: 100,
-          child: ImageLoader(url: image),
-        ),
+        Padding(
+          padding: 16.dpeh,
+          child: Text(
+            description,
+            style: context.textTheme.caption,
+            textAlign: TextAlign.start,
+          ),
+        )
       ],
     );
   }

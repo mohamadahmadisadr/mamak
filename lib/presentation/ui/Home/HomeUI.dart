@@ -10,8 +10,10 @@ import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/home/HomeViewModel.dart';
+import 'package:mamak/presentation/viewModel/main/MainViewModel.dart';
 import 'package:mamak/useCase/home/PackagesViewModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,8 +35,7 @@ class HomeUI extends StatelessWidget {
                   height: MediaQuery.of(context).size.width/2,
                   child: const HomeSliderUi(
                     images: [
-                      'http://62.106.95.127/StaticFiles/banner1.jpg',
-                      'http://62.106.95.127/StaticFiles/banner1.jpg'
+                      'http://62.106.95.127/StaticFiles/banner1.png',
                     ],
                   ),
                 ),
@@ -42,7 +43,7 @@ class HomeUI extends StatelessWidget {
                 SizedBox(
                   height: (MediaQuery.of(context).size.width/4) + 40,
                   width: MediaQuery.of(context).size.width,
-                  child: const CategoriesHorizontalListUi(),
+                  child: CategoriesHorizontalListUi(),
                 ),
                 const Divider(),
                 CubitProvider(
@@ -113,9 +114,11 @@ class HomeUI extends StatelessWidget {
                 Padding(
                   padding: 8.0.dpeh,
                   child: ElevatedButton(
-                      onPressed: () {}, child: const Text('خریداشتراک')),
+                      onPressed: (){
+                        context.read<MainViewModel>().onIndexChange().call(HomeNavigationEnum.Subscription.value);
+                      }, child: const Text('خریداشتراک')),
                 ),
-                8.dpv
+                50.dpv
               ],
             ),
           ),

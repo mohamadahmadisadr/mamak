@@ -74,6 +74,7 @@ String childWorkShopsShopsToJson(ChildWorkShops data) =>
 class ChildWorkShops {
   ChildWorkShops({
     this.workShopTitle,
+    this.parentCategoryId,
     this.packageAgeDomain,
     this.questionCount,
     this.questionKind,
@@ -90,6 +91,7 @@ class ChildWorkShops {
     questionCount = json['questionCount'];
     questionKind = json['questionKind'];
     workShopId = json['workShopId'];
+    parentCategoryId = json['parentCategoryId'];
     statusCode = json['statusCode'];
     isActive = json['isActive'];
   }
@@ -100,12 +102,14 @@ class ChildWorkShops {
   dynamic questionKind;
   num? id;
   num? workShopId;
+  num? parentCategoryId;
   num? statusCode;
   bool? isActive;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['workShopTitle'] = workShopTitle;
+    map['parentCategoryId'] = parentCategoryId;
     map['packageAgeDomain'] = packageAgeDomain;
     map['questionCount'] = questionCount;
     map['questionKind'] = questionKind;

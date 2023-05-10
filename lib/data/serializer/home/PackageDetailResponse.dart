@@ -65,6 +65,7 @@ class WorkShops {
     this.description,
     this.subCategories,
     this.id,
+    this.parentCategoryId,
     this.errorMessages,
     this.statusCode,
     this.successfulMessages,
@@ -80,6 +81,7 @@ class WorkShops {
       });
     }
     id = json['id'];
+    parentCategoryId = json['parentCategoryId'];
 
     statusCode = json['statusCode'];
   }
@@ -88,6 +90,7 @@ class WorkShops {
   String? description;
   List<SubCategories>? subCategories;
   num? id;
+  num? parentCategoryId;
   List<dynamic>? errorMessages;
   num? statusCode;
   List<dynamic>? successfulMessages;
@@ -96,6 +99,7 @@ class WorkShops {
     final map = <String, dynamic>{};
     map['title'] = title;
     map['description'] = description;
+    map['parentCategoryId'] = parentCategoryId;
     if (subCategories != null) {
       map['subCategories'] = subCategories?.map((v) => v.toJson()).toList();
     }

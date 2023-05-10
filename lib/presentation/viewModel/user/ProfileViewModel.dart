@@ -23,6 +23,9 @@ class ProfileViewModel extends BaseViewModel {
     getUseData();
   }
 
+  get getUserFullName async =>
+      GetIt.I.get<LocalSessionImpl>().getData(UserSessionConst.fullName);
+
   void getImage() async {
     var avatarId = selectedImage?.Id ?? '00000000-0000-0000-0000-000000000000';
     selectedImage = await _myImagePicker.pickImage();

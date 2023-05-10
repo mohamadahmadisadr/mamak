@@ -356,7 +356,7 @@ class WorkShopReportCardDetail {
   String? question;
   String? answer;
   String? solutionFileId;
-  String? answerRate;
+  num? answerRate;
   int? id;
   List<dynamic>? errorMessages;
   int? statusCode;
@@ -432,7 +432,7 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
                 question: e.question ?? '',
                 comment: e.answer ?? '',
                 fileDataId: e.solutionFileId,
-                answerRate: e.answerRate ?? ''))
+                answerRate: e.answerRate?.toString() ?? ''))
             .toList() ??
         [];
     print(model.workShopId);
@@ -469,9 +469,7 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
 
     var cards = generalReportCards ?? [];
     var totalWorkBookTitle = 'همه جانبگی ارزیابی: %s حوزه از %s حوزه';
-    print('maxValue : $maxValue');
-    print(names);
-    print(values);
+
     List<List<WorkBookTableModel>> tableData = [];
     generalReportCards?.forEach((e) {
       List<WorkBookTableModel> worksShops = [];

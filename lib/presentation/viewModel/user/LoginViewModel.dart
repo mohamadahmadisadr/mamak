@@ -42,13 +42,19 @@ class LoginViewModel extends BaseViewModel {
         loginUseCase.invoke(
           MyFlow(flow: (state) async {
             postResult(state);
-            if (state.isSuccess && state.getData is User) {
-              var user = state.getData as User;
-              if (user.isActive == true) {
-                await saveUserData(user);
-                navigationService.replaceTo(AppRoute.home);
-              } else {
-                navigationService.replaceTo(AppRoute.verification, loginFormState.value.username);
+            if (state.isSuccess) {
+              if (state.getData is User) {
+                var user = state.getData as User;
+                if (user.isActive == true) {
+                  await saveUserData(user);
+                  navigationService.replaceTo(AppRoute.home);
+                } else {
+                  navigationService.replaceTo(
+                      AppRoute.verification, loginFormState.value.username);
+                }
+              } else if (state.getData is int) {
+                navigationService.replaceTo(
+                    AppRoute.verification, loginFormState.value.username);
               }
             } else if (state.isFailed) {
               messageService.showSnackBar(state.getErrorModel?.message ?? '');
@@ -70,6 +76,7 @@ class LoginViewModel extends BaseViewModel {
       UserSessionConst.fullName: '${user.fullName}',
       UserSessionConst.mobile: user.mobile ?? '',
       UserSessionConst.email: user.email ?? '',
+      UserSessionConst.image: user.avatar?.content ?? '',
     };
     session.insertData(map);
     return Future.value(true);

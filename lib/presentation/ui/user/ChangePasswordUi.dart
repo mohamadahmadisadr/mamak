@@ -32,7 +32,12 @@ class ChangePasswordUi extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   20.dpv,
-                  const MamakLogo(),
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const MamakLogo(width: 180),
+                    ],
+                  ),
                   20.dpv,
                   Text(
                     'تغییر رمز',

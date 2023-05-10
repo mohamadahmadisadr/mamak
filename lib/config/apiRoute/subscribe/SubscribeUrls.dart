@@ -4,4 +4,5 @@ class SubscribeUrls{
   static const getAllSubscriptions = "/Subscription/GetAllSubcription";
   static const calulatePriceInCart = "/Discount/CalulatePriceInCart";
   static const addSubscribe = "/Order/AddSubscriptionToCart";
+  static const getRemainingDay = "/Subscription/GetCountDaysRemainingToEndActiveSubscription";
 }

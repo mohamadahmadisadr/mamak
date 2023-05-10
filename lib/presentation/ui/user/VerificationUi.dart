@@ -46,9 +46,12 @@ class VerificationUi extends StatelessWidget {
                     16.dpv,
                     ElevatedButton(
                         onPressed: bloc.onSubmitCodeClick,
-                        child: state.isLoading
+                        child: bloc.formUiState.isLoading
                             ? const MyLoader()
-                            : const Text('تایید'),)
+                            : const Text('تایید'),),
+                    20.dpv,
+                    if(bloc.numberData != null)
+                      Text(bloc.numberData ?? '')
                   ],
                 ),
               ),

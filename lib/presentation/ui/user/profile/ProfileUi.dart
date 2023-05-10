@@ -22,7 +22,55 @@ class ProfileUi extends StatelessWidget {
     return CubitProvider(
       create: (context) => ProfileViewModel(AppState.idle),
       builder: (bloc, state) {
-        return MamakScaffold(
+        return Scaffold(
+        appBar: AppBar(title: Container(
+          margin: const EdgeInsets.only(right: 50.0),
+          child: Padding(
+            padding: 8.dpeh,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // const MamakLogo(width: 100),
+                FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (bloc.selectedImage != null && bloc.selectedImage?.content != null) {
+                      return SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: ClipRRect(
+                          borderRadius: 45.bRadius,
+                          child: Image.memory(
+                            bloc.selectedImage!.getFileFormBase64(),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      );
+                    }
+                    return const Icon(CupertinoIcons.person_alt_circle);
+                  },
+                ),
+                8.dph,
+                Row(
+                  children: [
+                    FutureBuilder(
+                      future: bloc.getUserFullName,
+                      builder: (context, snapshot) {
+                        return Text(
+                          snapshot.hasData
+                              ? snapshot.data?.toString() ?? ''
+                              : 'نام کاربر',
+                        );
+                      },
+                    ),
+
+                  ],
+                )
+              ],
+            ),
+          ),
+        )),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

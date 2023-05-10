@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/config/uiCommon/MyTheme.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/data/serializer/child/ChildsResponse.dart';
@@ -13,6 +15,8 @@ import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/uiModel/assessmeny/AssessmentParamsModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/workBook/MyWorkShopsViewModel.dart';
+
+import '../dialog/VideoPlayerDialog.dart';
 
 class MyWorkShops extends StatelessWidget {
   const MyWorkShops({Key? key}) : super(key: key);
@@ -122,27 +126,46 @@ class MyWorkShopItemUi extends StatelessWidget {
                       .navigateTo(AppRoute.assessments, assessmentParam);
                 },
                 child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(item.workShopTitle ?? '',
-                        textScaleFactor: 1.0,
-                        style:
-                            const TextStyle(fontSize: WidgetSize.smallTitle)),
-                    Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: Text(
-                        item.packageAgeDomain ?? '',
-                        textScaleFactor: 1.0,
-                        style: const TextStyle(
-                          fontSize: WidgetSize.smallTitle,
+                    Expanded(
+                  flex: 2,
+                      child: Text(item.workShopTitle?.replaceAll('کارگاه', '') ?? '',
+                  textAlign: TextAlign.right,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          textScaleFactor: 1.0,
+                          style:
+                              const TextStyle(fontSize: WidgetSize.smallTitle)),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Text(
+                          item.packageAgeDomain ?? '',
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          textScaleFactor: 1.0,
+                          style: const TextStyle(
+                            fontSize: WidgetSize.smallTitle,
+                          ),
                         ),
                       ),
                     ),
-                    Text(
-                      '${item.questionCount} سوال',
-                      textScaleFactor: 1.0,
-                      style: const TextStyle(fontSize: WidgetSize.smallTitle),
+                    Expanded(
+                        flex: 1,
+                      child: Text(
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        textScaleFactor: 1.0,
+                        '${item.questionCount} سوال',
+                        style: const TextStyle(fontSize: WidgetSize.smallTitle),
+                      ),
                     ),
                   ],
                 ),
@@ -151,7 +174,11 @@ class MyWorkShopItemUi extends StatelessWidget {
           ),
         ),
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              var link =
+                  '${BaseUrls.storagePath}/Categories/${item.parentCategoryId}.mp4';
+              Get.dialog(VideoPlayerDialog(link: link));
+            },
             icon: const Icon(Icons.play_circle_outline_outlined))
       ],
     );

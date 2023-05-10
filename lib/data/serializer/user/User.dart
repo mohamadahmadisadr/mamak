@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
 User userFromJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User data) => json.encode(data.toJson());
 class User {
@@ -36,6 +38,7 @@ class User {
     confirmNewPasswod = json['confirmNewPasswod'];
     birtDay = json['birtDay'];
     avatarId = json['avatarId'];
+    avatar = json['avatar'] != null ? UserAvatar.fromJson(json['avatar']) : null;
     id = json['id'];
   }
   String? fullName;
@@ -53,6 +56,7 @@ class User {
   String? confirmNewPasswod;
   String? birtDay;
   String? avatarId;
+  UserAvatar? avatar;
   String? id;
 
   Map<String, dynamic> toJson() {
@@ -60,6 +64,7 @@ class User {
     map['fullName'] = fullName;
     map['email'] = email;
     map['password'] = password;
+    map['avatar'] = avatar;
     map['confirmPassword'] = confirmPassword;
     map['isActive'] = isActive;
     map['activationCode'] = activationCode;

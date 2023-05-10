@@ -1,25 +1,22 @@
-import 'package:mamak/config/apiRoute/workBook/WorkBookUrls.dart';
-import 'package:mamak/data/serializer/workBook/WorkBooksResponse.dart';
+import 'package:mamak/config/apiRoute/app/AppUrls.dart';
+import 'package:mamak/data/body/app/AppVersionResponse.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
-class GetParticipatedWorkShopsOfChildUserUseCase extends BaseUseCase {
+class AppVersionUseCase extends BaseUseCase {
   @override
   void invoke(MyFlow<AppState> flow, {Object? data}) async {
-    assert(data != null && data is String);
-
     try {
       flow.emitLoading();
 
-      var uri = createUri(
-          path: WorkBookUrls.getParticipatedWorkShopsOfChildUser,
-          body: {'userChildId': data});
+      var uri = createUri(path: AppUrls.checkVersion);
 
       var response = await apiServiceImpl.get(uri);
 
       if (response.isSuccessful) {
         var result = response.result;
+
         if (result.isSuccessFull) {
-          flow.emitData(workBooksFromJson(result.resultsList));
+          flow.emitData(appVersionResponseFromJson(result.result));
         } else {
           flow.throwMessage(result.concatErrorMessages);
         }

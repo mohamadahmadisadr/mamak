@@ -22,16 +22,16 @@ class SubscriptionUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CubitProvider(
-      create: (context) => SubscriptionViewModel(AppState.idle),
-      builder: (bloc, state) {
-        return ConditionalUI<List<AllSubscriptionItem>>(
-          state: bloc.uiState,
-          onSuccess: (data) {
-            return MamakScaffold(
-              body: Padding(
-                padding: 8.dpe,
-                child: Column(
+    return MamakScaffold(
+      body: Padding(
+        padding: 8.dpe,
+        child: CubitProvider(
+          create: (context) => SubscriptionViewModel(AppState.idle),
+          builder: (bloc, state) {
+            return ConditionalUI<List<AllSubscriptionItem>>(
+              state: bloc.uiState,
+              onSuccess: (data) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
@@ -148,12 +148,12 @@ class SubscriptionUI extends StatelessWidget {
                               : const Text('مرحله بعد')),
                     )
                   ],
-                ),
-              ),
+                );
+              },
             );
           },
-        );
-      },
+        ),
+      ),
     );
   }
 }

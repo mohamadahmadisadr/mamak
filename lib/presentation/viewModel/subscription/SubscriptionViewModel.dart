@@ -1,31 +1,34 @@
+import 'package:core/Notification/MyNotification.dart';
 import 'package:core/network/errorHandler/common/ErrorMessages.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/body/subscribe/AddSubscribeBody.dart';
 import 'package:mamak/data/body/subscribe/DiscountCodeBody.dart';
 import 'package:mamak/data/serializer/subscribe/AllSubscriptionResponse.dart';
+import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/payment/PayOrderUseCase.dart';
 import 'package:mamak/useCase/subscribe/AddSubscribeUseCase.dart';
 import 'package:mamak/useCase/subscribe/CurrentPackageUseCase.dart';
 import 'package:mamak/useCase/subscribe/DiscountCodeUseCase.dart';
 import 'package:mamak/useCase/subscribe/GetAllSubscriptionsUseCase.dart';
+import 'package:mamak/useCase/subscribe/GetRemainingDayUseCase.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
+class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver{
   AppState uiState = AppState.idle;
   AppState adSubscribeState = AppState.idle;
   AppState discountCodeState = AppState.idle;
   AppState mySubscriptionState = AppState.idle;
   AllSubscriptionItem? selectedItem;
   final TextEditingController codeController = TextEditingController();
+  final MyNotification _notification = GetIt.I.get();
 
   SubscriptionViewModel(super.initialState) {
     WidgetsBinding.instance.addObserver(this);
-    if (selectedItem == null) {
-      getSubscriptions();
-    }
+
     getCurrentSubscription();
+    getSubscriptions();
   }
 
   void getSubscriptions() {
@@ -56,6 +59,11 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
 
   void getCurrentSubscription() {
     CurrentPackageUseCase().invoke(MyFlow(flow: (appState) {
+      // if(appState.isFailed){
+      //   if (selectedItem == null) {
+      //     getSubscriptions();
+      //   }
+      // }
       mySubscriptionState = appState;
       refresh();
     }));
@@ -79,6 +87,15 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
         refresh();
       }), data: body);
     }
+  }
+
+  void getRemainingDay(){
+    GetRemainingDayUseCase().invoke(MyFlow(flow: (appState){
+      if(appState.isSuccess){
+        String count = appState.getData.toString();
+        GetIt.I.get<MyNotification>().publish('MainViewModel', count);
+      }
+    }));
   }
 
   onChangeCode(String newCode) => codeController.text = newCode;
@@ -137,7 +154,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   }
 
   Future<void> _launchUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication,)) {
+    if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch $url');
     }
   }
@@ -186,6 +203,8 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
         if(result == "400"){
           messageService.showSnackBar('پرداخت انجام نشد.');
         }else if(result == "200"){
+          getRemainingDay();
+          _notification.publish('MainViewModel', HomeNavigationEnum.WorkShops.value);
           messageService.showSnackBar('پرداخت با موفقیت انجام شد.');
         }
       }

@@ -64,9 +64,6 @@ class AssessmentsViewModel extends BaseViewModel {
   void getExtra() {
     var id = _navigationServiceImpl.getArgs();
     if (id != null && id is AssessmentParamsModel) {
-      print(id.id);
-      print(id.name);
-      print(id.course);
       assessmentParamsModel = id;
       body.userChildWorkshopId = id.id;
       getQuestions(id.id);
@@ -80,7 +77,6 @@ class AssessmentsViewModel extends BaseViewModel {
       if (index != -1) {
         questions[index].assessmentQuestionOptionId =
             option.optionId.toString();
-        refresh();
       }
     }
   }
@@ -91,7 +87,6 @@ class AssessmentsViewModel extends BaseViewModel {
           .indexWhere((element) => element.assessmentQuestionId == qId);
       if (index != -1) {
         questions[index].description = text;
-        refresh();
       }
     }
   }

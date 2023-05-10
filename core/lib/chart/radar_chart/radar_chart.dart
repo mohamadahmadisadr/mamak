@@ -201,9 +201,9 @@ class _RadarChartState extends State<RadarChart> with TickerProviderStateMixin {
       if (element.values.any((value) => value > widget.maxValue)) {
         throw ArgumentError("All values of graph should be less than maxValue");
       }
-      if (element.values.length < 3) {
-        throw ArgumentError("Minimum 3 values are required for Radar chart");
-      }
+      // if (element.values.length < 3) {
+      //   throw ArgumentError("Minimum 3 values are required for Radar chart");
+      // }
       if (widget.labels != null &&
           element.values.length != widget.labels!.length) {
         throw ArgumentError("values and labels should have same size");
@@ -238,9 +238,11 @@ class _RadarChartState extends State<RadarChart> with TickerProviderStateMixin {
         _dataAnimationController.reset();
         _outlineAnimationController.reset();
         throw ArgumentError("All values of graph should be less than maxValue");
-      } else if (element.values.length < 3) {
-        throw ArgumentError("Minimum 3 values are required for Radar chart");
-      } else if (widget.labels != null &&
+      }
+      // else if (element.values.length < 3) {
+      //   throw ArgumentError("Minimum 3 values are required for Radar chart");
+      // }
+    else if (widget.labels != null &&
           element.values.length != widget.labels!.length) {
         throw ArgumentError("values and labels should have same size");
       } else if (widget.animate) {

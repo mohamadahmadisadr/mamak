@@ -1,12 +1,10 @@
-import 'package:core/utils/logger/Logger.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/child/ChildsResponse.dart';
-import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
-import 'package:mamak/presentation/state/NetworkExtensions.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/child/EditChilViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/ProfileViewModel.dart';
 
@@ -27,7 +25,7 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
   @override
   void initState() {
     viewModel = EditChildDataViewModel(AppState.idle);
-    if(viewModel.selectedChild == null && widget.children.isNotEmpty){
+    if (viewModel.selectedChild == null && widget.children.isNotEmpty) {
       viewModel.changeSelectedChild(widget.children.first);
     }
     _tabController = TabController(length: widget.children.length, vsync: this);
@@ -94,19 +92,20 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
                                   child: SizedBox(
                                     width: 50,
                                     height: 50,
-                                    child: bloc.selectedImage?.content == null && bloc.selectedImage?.content.isEmpty == true
-                                        ? const Icon(
-                                            Icons.person,
-                                            color: Colors.white,
-                                            size: 40,
-                                          )
-                                        : ClipRRect(
+                                    child: bloc.selectedImage != null &&
+                                            bloc.selectedImage?.content != null && bloc.selectedImage?.content != ''
+                                        ? ClipRRect(
                                             borderRadius: 45.bRadius,
                                             child: Image.memory(
                                               bloc.selectedImage!
                                                   .getFileFormBase64(),
                                               fit: BoxFit.fill,
                                             ),
+                                          )
+                                        : const Icon(
+                                            Icons.person,
+                                            color: Colors.white,
+                                            size: 40,
                                           ),
                                   ),
                                 )),
@@ -123,10 +122,9 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
                                 width: 30,
                                 padding: 4.dpe,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.grey)
-                                ),
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: Colors.grey)),
                                 child: bloc.uploadState.isLoading
                                     ? const MyLoader(radius: 7.0)
                                     : const Icon(

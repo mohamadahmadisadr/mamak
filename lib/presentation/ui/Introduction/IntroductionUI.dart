@@ -33,6 +33,7 @@ class IntroductionUI extends StatelessWidget {
                 ),
                 8.dpv,
                 Container(
+                width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey.shade100),
                       borderRadius: BorderRadius.circular(8.0)),

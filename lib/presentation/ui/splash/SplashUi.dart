@@ -18,37 +18,16 @@ class SplashUi extends StatelessWidget {
         return Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              colors: [
-                MyTheme.purple.withOpacity(.5),
-                MyTheme.purple
-              ],
-              focalRadius: .5,
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: 16.dpe,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Text(
-                  'کودک خود را بشناسید!',
-                  style: context.textTheme.titleSmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
-              16.dpv,
-              const MamakLogo()
-            ],
-          ),
+          // decoration: BoxDecoration(
+          //   gradient: RadialGradient(
+          //     colors: [
+          //       MyTheme.purple.withOpacity(.5),
+          //       MyTheme.purple
+          //     ],
+          //     focalRadius: .5,
+          //   ),
+          // ),
+          child: Image.asset('assets/splash.jpeg',fit: BoxFit.fill),
         );
       },
     );

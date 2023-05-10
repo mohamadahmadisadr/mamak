@@ -15,12 +15,11 @@ class ChangePasswordUseCase extends BaseUseCase {
       var uri = createUri(path: UserUrls.postChangePassword);
       var response = await apiServiceImpl.post2(uri, jsonEncode(data));
       if (response.isSuccessful) {
-        var chanePasswordResponse =
-            changePasswordResponseFromJson(response.body);
-        if (chanePasswordResponse.isSuccess == true) {
-          flow.emitData(chanePasswordResponse);
+        var result = response.result;
+        if (result.isSuccessFull) {
+          flow.throwMessage(result.concatSuccessMessages);
         } else {
-          flow.throwMessage(chanePasswordResponse.message ?? '');
+          flow.throwMessage(result.concatErrorMessages);
         }
       } else {
         flow.throwError(response);

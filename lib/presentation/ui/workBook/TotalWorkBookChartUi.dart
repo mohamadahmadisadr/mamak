@@ -28,8 +28,6 @@ class TotalWorkBookChartUi extends StatelessWidget {
       create: (context) => TotalWorkBookViewModel(AppState.idle),
       builder: (bloc, state) {
         var data = bloc.getTotalChartData(cards ?? [], categories);
-        print(data.name);
-        print(data.values);
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -79,7 +77,7 @@ class TotalWorkBookChartUi extends StatelessWidget {
                             child: Text(
                               sprintf('%s حوزه یادگیری عبارت است از %s', [
                                 categories.length.toString(),
-                                categories.map((e) => e.name ?? '').toList().join(',')
+                                categories.map((e) => e.name).toList().join(',')
                               ]),
                               style: context.textTheme.bodyMedium,
                             ),
@@ -117,19 +115,22 @@ class TotalWorkBookChartUi extends StatelessWidget {
                 },
               ),
               8.dpv,
-              RadarChart(
-                spaceCount: data.maxValue ~/ 5,
-                textScaleFactor: .03,
-                strokeColor: Colors.grey,
-                values: [
-                  ChartModel(values: data.values, color: Colors.blue),
-                ],
-                labels: data.name,
-                maxValue: data.maxValue.toDouble(),
-                fillColor: Colors.blue,
-                maxLinesForLabels: 2,
-                maxWidth: MediaQuery.of(context).size.width - 50,
-                maxHeight: MediaQuery.of(context).size.width - 50,
+              FittedBox(
+              fit: BoxFit.fill,
+                child: RadarChart(
+                  spaceCount: data.maxValue ~/ 5,
+                  textScaleFactor: .03,
+                  strokeColor: Colors.grey,
+                  values: [
+                    ChartModel(values: data.values, color: Colors.blue),
+                  ],
+                  labels: data.name,
+                  maxValue: data.maxValue.toDouble(),
+                  fillColor: Colors.blue,
+                  maxLinesForLabels: 2,
+                  maxWidth: MediaQuery.of(context).size.width - 50,
+                  maxHeight: MediaQuery.of(context).size.width - 50,
+                ),
               ),
             ],
           ),
