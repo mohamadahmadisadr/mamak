@@ -15,7 +15,7 @@ import 'package:mamak/useCase/subscribe/GetRemainingDayUseCase.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver{
+class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   AppState uiState = AppState.idle;
   AppState adSubscribeState = AppState.idle;
   AppState discountCodeState = AppState.idle;
@@ -89,9 +89,9 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver{
     }
   }
 
-  void getRemainingDay(){
-    GetRemainingDayUseCase().invoke(MyFlow(flow: (appState){
-      if(appState.isSuccess){
+  void getRemainingDay() {
+    GetRemainingDayUseCase().invoke(MyFlow(flow: (appState) {
+      if (appState.isSuccess) {
         String count = appState.getData.toString();
         GetIt.I.get<MyNotification>().publish('MainViewModel', count);
       }
@@ -154,7 +154,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver{
   }
 
   Future<void> _launchUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url))) {
+    if (!await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
   }
@@ -163,7 +163,6 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver{
     switch (statusCode) {
       case -1:
         return "اطلاعات ارسالی ناقص است.";
-
       case -3:
         return "ﺑﺎ ﺗﻮﺟﻪ ﺑﻪ ﻣﺤﺪﻭﺩﻳﺖ ﻫﺎﻱ ﺷﺎﭘﺮﻙ ﺍﻣﻜﺎﻥ ﭘﺮﺩﺍﺧﺖ ﺑﺎ ﺭﻗﻢ ﺩﺭﺧﻮﺍﺳﺖ ﺷﺪﻩ ممکن ﻧﻤﻲ ﺑﺎﺷﺪ.";
       case -11:
@@ -199,12 +198,13 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver{
     var data = await getInitialUri();
     if (data != null) {
       var result = data.queryParameters['success']?.toString();
-      if(result != null){
-        if(result == "400"){
+      if (result != null) {
+        if (result == "400") {
           messageService.showSnackBar('پرداخت انجام نشد.');
-        }else if(result == "200"){
+        } else if (result == "200") {
           getRemainingDay();
-          _notification.publish('MainViewModel', HomeNavigationEnum.WorkShops.value);
+          _notification.publish(
+              'MainViewModel', HomeNavigationEnum.WorkShops.value);
           messageService.showSnackBar('پرداخت با موفقیت انجام شد.');
         }
       }
