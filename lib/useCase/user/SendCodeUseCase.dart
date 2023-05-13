@@ -11,12 +11,11 @@ class SendCodeUseCase extends BaseUseCase {
       var uri = createUri(path: UserUrls.forgetPsw);
       var response = await apiServiceImpl.post2(uri,jsonEncode({'mobile': data}));
       if (response.isSuccessful) {
-        ForgetPasswordResponse forgetPasswordResponse =
-            forgetPasswordResponseFromJson(response.body);
-        if (forgetPasswordResponse.isSuccess == true) {
-          flow.emitData(forgetPasswordResponse);
-        } else {
-          flow.throwMessage(forgetPasswordResponse.message ?? '');
+        var result = response.result;
+        if(result.isSuccessFull){
+          flow.emitData('');
+        }else{
+          flow.throwMessage(result.concatErrorMessages);
         }
       } else {
         flow.throwError(response);

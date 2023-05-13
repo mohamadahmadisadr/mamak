@@ -19,13 +19,16 @@ class DownloadFileViewModel extends BaseViewModel {
   final NavigationServiceImpl _navigationServiceImpl = GetIt.I.get();
 
   void downloadFile(String fileName) async{
-    if(!askedForPermission){
-      if (await hasPermission){
-        askedForPermission = true;
-      }else{
-        return;
+    if(!kIsWeb){
+      if(!askedForPermission){
+        if (await hasPermission){
+          askedForPermission = true;
+        }else{
+          return;
+        }
       }
     }
+
 
     DownloadFileUseCase().invoke(MyFlow(
       flow: (appState) async{

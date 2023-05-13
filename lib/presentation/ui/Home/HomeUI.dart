@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:feature/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
+import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/data/serializer/subscribe/SubscribesResponse.dart';
 import 'package:mamak/presentation/ui/Home/HomeSliderUi.dart';
 import 'package:mamak/presentation/ui/Home/PackagesGridView.dart';
@@ -35,7 +36,7 @@ class HomeUI extends StatelessWidget {
                   height: MediaQuery.of(context).size.width/2,
                   child: const HomeSliderUi(
                     images: [
-                      'http://62.106.95.127/StaticFiles/banner1.png',
+                      '${BaseUrls.storagePath}/banner1.png',
                     ],
                   ),
                 ),
@@ -72,13 +73,13 @@ class HomeUI extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),
                   ),
-                  child: const MyVideoPlayer(
-                      link: 'http://62.106.95.127/StaticFiles/MamakInfo.mp4'),
+                  child: MyVideoPlayer(
+                      link: '${BaseUrls.storagePath}/MamakInfo.mp4'),
                 ),
                 4.dpv,
                 InkWell(
                 onTap: () {
-                    _launchUrl('http://62.106.95.127/StaticFiles/RoadMap.pdf');
+                    _launchUrl('${BaseUrls.storagePath}/RoadMap.pdf');
                 },
                   child: Container(
                     margin: 8.dpe,

@@ -28,7 +28,6 @@ class RecoveryPasswordViewModel extends BaseViewModel {
   }
 
   void onSubmitClick() {
-    print('clicked');
     if (formKey.currentState?.validate() == true) {
       if (formState.password != formState.confirmPassword) {
         messageService
@@ -40,7 +39,12 @@ class RecoveryPasswordViewModel extends BaseViewModel {
         return;
       }
       //TODO replace with recovery password
-      RecoveryPasswordUseCase().invoke(mainFlow, data: formState.createBody());
+      RecoveryPasswordUseCase().invoke(MyFlow(flow: (appState){
+        postResult(appState);
+        if(appState.isSuccess){
+          _navigationServiceImpl.replaceTo(AppRoute.login);
+        }
+      }), data: formState.createBody());
     }
   }
 }

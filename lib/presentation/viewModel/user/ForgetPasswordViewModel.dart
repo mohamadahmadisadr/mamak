@@ -69,7 +69,7 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
               mobile: mobileController.text,
               activationCode: confirmCodeController.text);
 
-          _navigationServiceImpl.navigateTo(
+          _navigationServiceImpl.replaceTo(
               AppRoute.recoveryPassword, formState);
         }
       };

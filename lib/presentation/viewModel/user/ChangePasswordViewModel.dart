@@ -23,7 +23,6 @@ class ChangePasswordViewModel extends BaseViewModel {
   void fillMobile() async {
     var mobile = await session.getData(UserSessionConst.mobile);
     formState.mobile = mobile;
-    formState.mobile = '09170473948';
   }
 
   void onSubmitClick() {

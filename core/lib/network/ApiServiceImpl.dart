@@ -8,9 +8,10 @@ import 'ApiServiceRepository.dart';
 class ApiServiceImpl extends ApiServiceRepository {
   String interceptor = '';
 
-  ApiServiceImpl({required this.interceptor}){
+  ApiServiceImpl({required this.interceptor}) {
     setToken(interceptor);
   }
+
   var headers = {
     "accept": "application/json",
     HttpHeaders.contentTypeHeader: "application/json; charset=utf-8",
@@ -38,7 +39,8 @@ class ApiServiceImpl extends ApiServiceRepository {
   }
 
   void setToken(String token) {
-    headers['Authorization'] = token;
+    if (token != '') {
+      headers['Authorization'] = token;
+    }
   }
-
 }

@@ -27,7 +27,10 @@ class RecoveryPasswordUi extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 20.dpv,
-                const MamakLogo(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    children: [MamakLogo(width: 150)],
+                ),
                 20.dpv,
                 Text(
                   'تغییر رمز',

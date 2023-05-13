@@ -16,12 +16,11 @@ class RecoveryPasswordUseCase extends BaseUseCase {
       var uri = createUri(path: UserUrls.postRecoveryPassword);
       var response = await apiServiceImpl.post2(uri, jsonEncode(data));
       if (response.isSuccessful) {
-        var chanePasswordResponse =
-            changePasswordResponseFromJson(response.body);
-        if (chanePasswordResponse.isSuccess == true) {
-          flow.emitData(chanePasswordResponse);
-        } else {
-          flow.throwMessage(chanePasswordResponse.message ?? '');
+        var result = response.result;
+        if(result.isSuccessFull){
+          flow.emitData('');
+        }else{
+          flow.throwMessage(result.concatErrorMessages);
         }
       } else {
         flow.throwError(response);
