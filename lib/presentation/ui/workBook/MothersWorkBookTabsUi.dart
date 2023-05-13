@@ -47,7 +47,10 @@ class WorkBookTabBar extends StatelessWidget {
                 }
                 return MothersWorkBookTabsUi(
                   items: data,
-                  onSelectedItem: onSelectedItem,
+                  onSelectedItem: (cItem){
+                    onSelectedItem.call(cItem);
+                    bloc.onChangeSelectedChild(cItem);
+                  },
                 );
               },
             ),

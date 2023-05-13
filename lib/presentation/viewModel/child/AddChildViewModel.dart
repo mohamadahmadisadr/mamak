@@ -7,7 +7,12 @@ import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/child/AddChildUseCase.dart';
 
 class AddChildViewModel extends BaseViewModel {
-  AddChildViewModel(super.initialState);
+  AddChildViewModel(super.initialState){
+    birthDateTime.day = 2;
+    birthDateTime.month = 10;
+    birthDateTime.year = 1398;
+  }
+
   final MyNotification _notification = GetIt.I.get();
   AppState uiState = AppState.idle;
 

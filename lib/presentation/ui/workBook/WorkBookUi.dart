@@ -25,9 +25,9 @@ class WorkBookUi extends StatelessWidget {
               WorkBookTabBar(
                 onSelectedItem: (childsItem) {
                   print('called');
-                  if (childsItem.id != null) {
+                  // if (childsItem.id != null) {
                     bloc.getWorkBooks(childsItem.id.toString());
-                  }
+                  // }
                 },
               ),
               ConditionalUI<List<WorkBook>>(

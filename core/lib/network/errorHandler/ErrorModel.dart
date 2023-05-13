@@ -6,5 +6,5 @@ class ErrorModel {
 }
 
 enum ErrorState {
-  UnAuthorization, Message;
+  UnAuthorization, Message, Empty;
 }

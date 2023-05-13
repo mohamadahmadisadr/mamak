@@ -1,12 +1,16 @@
 import 'package:core/Notification/MyNotification.dart';
 import 'package:core/Notification/MyNotificationListener.dart';
+import 'package:core/network/errorHandler/ErrorModel.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
+import 'package:mamak/presentation/ui/dialog/AddChildDialog.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/MoreNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/SubscriptionNavigationModel.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/object/BottomNavigationObject.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
+import 'package:mamak/useCase/child/GetChildsOfUserUseCase.dart';
+import 'package:mamak/useCase/subscribe/GetRemainingDayUseCase.dart';
 
 class MainViewModel extends BaseViewModel implements MyNotificationListener {
   AnimationController? animationController;
@@ -22,6 +26,8 @@ class MainViewModel extends BaseViewModel implements MyNotificationListener {
 
   MainViewModel(super.initialState) {
     _notification.subscribeListener(this);
+    getRemainingDay();
+    getChildOfUser();
   }
 
   Function(int) onIndexChange() {
@@ -83,6 +89,25 @@ class MainViewModel extends BaseViewModel implements MyNotificationListener {
         updateRemainingDay(data);
       }
     }
+  }
+
+  void getChildOfUser() {
+    GetChildOfUserUseCase().invoke(MyFlow(flow: (appState) {
+      if (appState.isFailed) {
+        if (appState.getErrorModel?.state == ErrorState.Empty) {
+          Get.dialog(const AddChildDialog());
+        }
+      }
+    }));
+  }
+
+  void getRemainingDay() {
+    GetRemainingDayUseCase().invoke(MyFlow(flow: (appState) {
+      if (appState.isSuccess) {
+        String count = appState.getData.toString();
+        GetIt.I.get<MyNotification>().publish('MainViewModel', count);
+      }
+    }));
   }
 
   @override

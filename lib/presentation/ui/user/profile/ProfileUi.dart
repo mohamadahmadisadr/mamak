@@ -248,6 +248,7 @@ class ProfileUi extends StatelessWidget {
                       4.dpv,
                       FactorsTableUi(),
                       const Divider(),
+                      50.dpv
                     ],
                   ),
                 ),
@@ -308,7 +309,6 @@ class FactorDetailButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: Colors.grey, width: 1),
       ),
       child: TextButton.icon(
         style: ElevatedButton.styleFrom(

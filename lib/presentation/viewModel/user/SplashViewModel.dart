@@ -12,7 +12,7 @@ class SplashViewModel extends BaseViewModel {
       if (await loggedIn) {
         _navigationServiceImpl.replaceTo(AppRoute.home);
       } else {
-        _navigationServiceImpl.replaceTo(AppRoute.login);
+        _navigationServiceImpl.replaceTo(AppRoute.register);
       }
     });
   }

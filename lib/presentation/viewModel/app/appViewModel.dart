@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart';
 import 'package:mamak/config/appData/AppConfiguration.dart';
 import 'package:mamak/data/body/app/AppVersionResponse.dart';
@@ -13,12 +14,13 @@ import 'package:mamak/useCase/user/GetUserProfileUseCase.dart';
 class AppViewModel extends Cubit<AppState> {
   AppViewModel(super.initialState) {
     initAppData();
-
   }
 
   void initAppData() async {
     await AppModule.initModules();
-    checkVersion();
+    if (!kIsWeb) {
+      checkVersion();
+    }
   }
 
   static AppViewModel getInstance = AppViewModel(AppState.idle);

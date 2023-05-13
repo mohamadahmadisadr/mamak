@@ -17,7 +17,7 @@ class GetChildOfUserUseCase extends BaseUseCase {
           flow.emitData(childsItemFromJson(result.resultsList));
         } else {
           if (result.resultCode == 204) {
-            flow.emitData(List<ChildsItem>.empty());
+            flow.throwEmptyDataMessage(result.concatErrorMessages);
           } else {
             flow.throwMessage(result.concatErrorMessages);
           }
