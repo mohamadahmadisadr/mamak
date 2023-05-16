@@ -28,7 +28,7 @@ class LoginUi extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 20.dpv,
-                Row(
+                const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     MamakLogo(),

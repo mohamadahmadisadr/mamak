@@ -20,6 +20,7 @@ class ImageLoader extends StatelessWidget {
       },
       fit: fitModel,
       cacheKey: url,
+      httpHeaders: const {'sec-fetch-mode':'no-cors'},
     );
   }
 }
