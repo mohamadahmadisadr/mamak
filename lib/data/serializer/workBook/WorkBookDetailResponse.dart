@@ -15,6 +15,7 @@
 
 import 'dart:convert';
 
+import 'package:mamak/data/serializer/workBook/WorkShopDictionary.dart';
 import 'package:mamak/presentation/uiModel/workBook/ChartDataModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookParamsModel.dart';
@@ -228,7 +229,7 @@ class GeneralReportCard {
 }
 
 class WorkShopReportCard {
-  Map<dynamic, dynamic>? workShopDictionary;
+  WorkShopDictionary? workShopDictionary;
   int? allQuestionsCount;
   int? firstRateAnswersCount;
   int? secondRateAnswersCount;
@@ -258,8 +259,7 @@ class WorkShopReportCard {
       WorkShopReportCard(
         workShopDictionary: json["workShopDictionary"] == null
             ? null
-            : Map.from(json["workShopDictionary"])
-                .map((k, v) => MapEntry<dynamic, dynamic>(k, v)),
+            : WorkShopDictionary.fromJson(json["workShopDictionary"]),
         allQuestionsCount: json["allQuestionsCount"],
         firstRateAnswersCount: json["firstRateAnswersCount"],
         secondRateAnswersCount: json["secondRateAnswersCount"],
@@ -414,7 +414,7 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
         [];
   }
 
-  WorkBookDetailUiModel createUiModel(WorkBookParamsModel model) {
+  WorkBookDetailUiModel createUiModel(WorkBookParamsModel? model) {
     List<String> headerTitle = [
       'نام مادر',
       'نام کودک',
@@ -435,10 +435,9 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
                 answerRate: e.answerRate?.toString() ?? ''))
             .toList() ??
         [];
-    print(model.workShopId);
 
     var workShopName =
-        '${workShopReportCard?.workShopDictionary?[model.workShopId]}';
+        workShopReportCard?.workShopDictionary?.name ?? '';
     var one = workShopReportCard?.firstRateAnswersCount?.toString() ?? '';
     var two = workShopReportCard?.secondRateAnswersCount?.toString() ?? '';
     var three = workShopReportCard?.thirdRateAnswersCount?.toString() ?? '';
@@ -468,6 +467,7 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
         [];
 
     var cards = generalReportCards ?? [];
+    cards.sort((a, b) => a.id!.compareTo(b.id!),);
     var totalWorkBookTitle = 'همه جانبگی ارزیابی: %s حوزه از %s حوزه';
 
     List<List<WorkBookTableModel>> tableData = [];
@@ -476,7 +476,7 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
       e.workShopReportCards?.forEach((element) {
         worksShops.add(
           WorkBookTableModel(
-            id: element.workShopDictionary?.keys.first ?? '0',
+            id: element.workShopDictionary?.categoryId?.toString() ?? '0',
             previousThree: 0,
             three: element.thirdRateAnswersCount ?? 0,
             count: (element.allQuestionsCount ?? 0).toString(),

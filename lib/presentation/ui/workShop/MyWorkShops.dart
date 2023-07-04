@@ -111,7 +111,6 @@ class MyWorkShopItemUi extends StatelessWidget {
               child: InkWell(
                 borderRadius: 8.bRadius,
                 onTap: () {
-                  print(item.toJson());
                   AssessmentParamsModel assessmentParam = AssessmentParamsModel(
                     name: childsItem.childFirstName ?? '',
                     id: item.id?.toString() ??

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/cupertino.dart';
@@ -72,12 +74,14 @@ class _CategoriesHorizontalListUiState
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+
                             SizedBox(
                               width: width,
-                              child: ImageLoader(
-                                url:
-                                    '${BaseUrls.storagePath}/categories/${data[index].id}.png',
-                                fitModel: BoxFit.contain,
+                              child: Image.memory(
+                                base64Decode(
+                                    data[index].parentCategoryFiles?.first.file?.content ??
+                                        ''),
+                                fit: BoxFit.contain,
                               ),
                             ),
                             Expanded(

@@ -26,6 +26,7 @@ class GetChildViewModel extends BaseViewModel with MyNotificationListener{
             _notification.publish('MyWorkShopsViewModel', selectedChild);
             _notification.publish('GetParticipatedWorkShopsOfChildUserViewModel', selectedChild);
             _notification.publish('EditChildDataViewModel', selectedChild);
+            _notification.publish('NewHomeViewModel', selectedChild);
           }
 
         }

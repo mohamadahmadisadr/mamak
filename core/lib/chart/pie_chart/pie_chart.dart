@@ -270,7 +270,6 @@ class _PieChartState extends State<PieChart>
   void didUpdateWidget(PieChart oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.values.reduce((a, b) => a + b) > 100) {
-      print("Sum ${widget.values.reduce((a, b) => a + b)}");
       throw ArgumentError(
           "The sum of all values should be less than or equal to 100");
     } else if (widget.labels != null &&

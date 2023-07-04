@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:core/Notification/MyNotification.dart';
 import 'package:mamak/data/body/assessment/ParticipateAssessmentBody.dart';
 import 'package:mamak/data/serializer/assessment/QuestionsResponse.dart';
@@ -33,8 +31,7 @@ class AssessmentsViewModel extends BaseViewModel {
         data.map((e) => allQuestions.addAll(e.questions ?? [])).toList();
         data
             .map((e) => questionsWithCategory.add(QuestionsObject(
-                title: e.categoryTitle ?? '',
-                questions: e.questions)))
+                title: e.categoryTitle ?? '', questions: e.questions)))
             .toList();
         for (var q in allQuestions) {
           questions.add(QuestionModel(
@@ -113,7 +110,10 @@ class AssessmentsViewModel extends BaseViewModel {
               userChildId: assessmentParamsModel?.childId ?? '',
               workShopId: assessmentParamsModel?.workShopId ?? '',
             );
-            _navigationServiceImpl.replaceTo(AppRoute.workBookDetail,model);
+            _navigationServiceImpl.replaceTo(
+              AppRoute.workBookDetail,
+              model,
+            );
           }
           sendDataState = appState;
           refresh();

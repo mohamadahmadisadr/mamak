@@ -21,7 +21,6 @@ class MyWorkShopsViewModel extends BaseViewModel
   }
 
   getWorkShopsByChildId(String childId) {
-    print(childId);
     if(!state.isLoading) {
       GetWorkShopsOfChildUserUseCase().invoke(mainFlow, data: childId.toString());
     }

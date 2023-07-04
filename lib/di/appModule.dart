@@ -1,6 +1,7 @@
 import 'package:core/Notification/MyNotification.dart';
 import 'package:core/imagePicker/MyImagePicker.dart';
 import 'package:core/network/ApiServiceImpl.dart';
+import 'package:feature/deviceInfo/my_device_info.dart';
 import 'package:feature/messagingService/MessagingService.dart';
 import 'package:feature/navigation/NavigationService.dart';
 import 'package:feature/session/LocalSessionImpl.dart';
@@ -16,6 +17,7 @@ class AppModule {
     GetIt.I.registerSingleton<ApiServiceImpl>(ApiServiceImpl(interceptor: await GetIt.I.get<LocalSessionImpl>().getData(UserSessionConst.token)));
     GetIt.I.registerSingleton<MyNotification>(MyNotification());
     GetIt.I.registerSingleton<MyImagePicker>(MyImagePicker());
+    GetIt.I.registerSingleton<MyDeviceInfo>(MyDeviceInfo());
     return true;
   }
 }

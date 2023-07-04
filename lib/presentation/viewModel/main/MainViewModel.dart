@@ -35,7 +35,6 @@ class MainViewModel extends BaseViewModel implements MyNotificationListener {
       var item = totalMenu
           .firstWhereOrNull((element) => element.value().value == value);
       if (item != null) {
-        print(value);
         if (item is MoreNavigationModel) {
           onChangeSecondMenuState();
         } else {

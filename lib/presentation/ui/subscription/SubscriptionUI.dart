@@ -173,7 +173,6 @@ class DropDownPackageFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(jsonEncode(items));
     return ButtonTheme(
       alignedDropdown: true,
       child: DropdownButtonFormField<AllSubscriptionItem>(

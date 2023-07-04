@@ -14,4 +14,5 @@ class AppRoute {
   static const addChild = '/addChild';
   static const categoryDetail = '/categoryDetail';
   static const shotViewer = '/shotViewer';
+  static const newHome = '/newHome';
 }

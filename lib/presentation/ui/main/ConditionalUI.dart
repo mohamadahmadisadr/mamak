@@ -11,7 +11,7 @@ class ConditionalUI<T> extends StatelessWidget {
     Key? key,
     required this.state,
     required this.onSuccess,
-    this.skeleton = const Center(child: MyLoader()),
+    this.skeleton = const SizedBox(height: 200,child: Center(child: MyLoader()),),
     this.showError = true,
   }) : super(key: key);
   final bool showError;

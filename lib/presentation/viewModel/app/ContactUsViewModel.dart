@@ -40,7 +40,6 @@ class ContactUsViewModel extends BaseViewModel {
     GetContactUsUseCase().invoke(MyFlow(flow: (appState) {
       if (appState.isSuccess && appState.getData is ContactUsResponse) {
         ContactUsResponse data = appState.getData;
-        print('lat : ${data.latitude} lng : ${data.longitude}');
         LatLng latLng = LatLng(
             double.tryParse(data.latitude?.toString() ?? '0') ?? 0.0,
             double.tryParse(data.longitude?.toString() ?? '0') ?? 0.0);

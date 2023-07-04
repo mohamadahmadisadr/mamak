@@ -41,7 +41,6 @@ class PackagesViewModel extends BaseViewModel {
   }
 
   ChildPackage? getChildPackageData(String subscribeId) {
-    print(subscribeId);
     return childPackages.firstWhereOrNull((element) => element.packages?.id?.toString() ==
         subscribeId);
   }

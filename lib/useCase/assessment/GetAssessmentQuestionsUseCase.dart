@@ -18,7 +18,6 @@ class GetAssessmentQuestionsUseCase extends BaseUseCase{
         var result = response.result;
         if(result.isSuccessFull){
           var qu = questionsFromJson(result.resultsList);
-          print(qu);
           flow.emitData(qu);
         }else{
           flow.throwMessage(result.concatErrorMessages);

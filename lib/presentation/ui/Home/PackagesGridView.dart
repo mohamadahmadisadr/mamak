@@ -49,7 +49,6 @@ class PackagesItemUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(childPackage);
     return InkWell(
       onTap: () {
         GetIt.I.get<NavigationServiceImpl>().navigateTo(

@@ -4,16 +4,22 @@
 
 import 'dart:convert';
 
-List<Category> categoryFromJson(String str) => List<Category>.from(json.decode(str).map((x) => Category.fromJson(x)));
+import 'package:mamak/data/serializer/child/parentCategoryFiles.dart';
 
-String categoryToJson(List<Category> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+List<Category> categoryFromJson(String str) =>
+    List<Category>.from(json.decode(str).map((x) => Category.fromJson(x)));
+
+String categoryToJson(List<Category> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Category {
   dynamic files;
   dynamic subCategories;
   dynamic workShops;
   String? title;
+  String? colorNumber;
   String? description;
+  List<ParentCategoryFiles>? parentCategoryFiles;
   int? id;
   List<dynamic>? errorMessages;
   int? statusCode;
@@ -24,34 +30,48 @@ class Category {
     this.subCategories,
     this.workShops,
     this.title,
+    this.colorNumber,
     this.description,
     this.id,
     this.errorMessages,
     this.statusCode,
     this.successfulMessages,
+    this.parentCategoryFiles,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-    files: json["files"],
-    subCategories: json["subCategories"],
-    workShops: json["workShops"],
-    title: json["title"],
-    description: json["description"],
-    id: json["id"],
-    errorMessages: json["errorMessages"] == null ? [] : List<dynamic>.from(json["errorMessages"]!.map((x) => x)),
-    statusCode: json["statusCode"],
-    successfulMessages: json["successfulMessages"] == null ? [] : List<dynamic>.from(json["successfulMessages"]!.map((x) => x)),
-  );
+        files: json["files"],
+        subCategories: json["subCategories"],
+        workShops: json["workShops"],
+        title: json["title"],
+        colorNumber: json["colorNumber"],
+        description: json["description"],
+        parentCategoryFiles: json["parentCategoryFiles"] != null
+            ? List<ParentCategoryFiles>.from(json["parentCategoryFiles"]!.map((x) => ParentCategoryFiles.fromJson(x)))
+            : null,
+        id: json["id"],
+        errorMessages: json["errorMessages"] == null
+            ? []
+            : List<dynamic>.from(json["errorMessages"]!.map((x) => x)),
+        statusCode: json["statusCode"],
+        successfulMessages: json["successfulMessages"] == null
+            ? []
+            : List<dynamic>.from(json["successfulMessages"]!.map((x) => x)),
+      );
 
   Map<String, dynamic> toJson() => {
-    "files": files,
-    "subCategories": subCategories,
-    "workShops": workShops,
-    "title": title,
-    "description": description,
-    "id": id,
-    "errorMessages": errorMessages == null ? [] : List<dynamic>.from(errorMessages!.map((x) => x)),
-    "statusCode": statusCode,
-    "successfulMessages": successfulMessages == null ? [] : List<dynamic>.from(successfulMessages!.map((x) => x)),
-  };
+        "files": files,
+        "subCategories": subCategories,
+        "workShops": workShops,
+        "title": title,
+        "description": description,
+        "id": id,
+        "errorMessages": errorMessages == null
+            ? []
+            : List<dynamic>.from(errorMessages!.map((x) => x)),
+        "statusCode": statusCode,
+        "successfulMessages": successfulMessages == null
+            ? []
+            : List<dynamic>.from(successfulMessages!.map((x) => x)),
+      };
 }

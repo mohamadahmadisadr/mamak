@@ -26,8 +26,6 @@ class EditChildDataViewModel extends BaseViewModel
     selectedImage = await _myImagePicker.pickImage();
     selectedImage?.Id = avatarId;
     refresh();
-    print(selectedImage);
-    print(selectedChild);
     if (!uploadState.isLoading &&
         selectedImage != null &&
         selectedChild != null) {
@@ -59,7 +57,6 @@ class EditChildDataViewModel extends BaseViewModel
 
   @override
   void onReceiveData(data) {
-    print(data);
     if (data != null) {
       if (data is ChildsItem) {
         selectedChild = data;

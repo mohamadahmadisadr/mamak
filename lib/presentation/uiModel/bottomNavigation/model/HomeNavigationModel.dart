@@ -3,6 +3,7 @@ import 'package:mamak/presentation/ui/Home/HomeUI.dart';
 import 'package:mamak/presentation/ui/Introduction/IntroductionUI.dart';
 import 'package:mamak/presentation/ui/contactUs/ContactUsUi.dart';
 import 'package:mamak/presentation/ui/more/MoreNewUi.dart';
+import 'package:mamak/presentation/ui/newHome/new_home_ui.dart';
 import 'package:mamak/presentation/ui/subscription/SubscriptionUI.dart';
 import 'package:mamak/presentation/ui/user/profile/ProfileUi.dart';
 import 'package:mamak/presentation/ui/workBook/MothersWorkBookTabsUi.dart';
@@ -74,8 +75,6 @@ extension HomeNavigationExtension on int {
 
 extension HomeNavigationEnumExtension on HomeNavigationEnum {
   Widget getPage() {
-    print(this);
-    print(this.value);
     switch (this) {
       case HomeNavigationEnum.Subscription:
         return const SubscriptionUI();
@@ -84,7 +83,7 @@ extension HomeNavigationEnumExtension on HomeNavigationEnum {
       case HomeNavigationEnum.More:
         return const SizedBox.shrink();
       case HomeNavigationEnum.Home:
-        return const HomeUI();
+        return const NewHomeUi();
       case HomeNavigationEnum.Workbook:
         return const WorkBookUi();
       case HomeNavigationEnum.Profile:

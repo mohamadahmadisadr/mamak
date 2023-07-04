@@ -36,14 +36,10 @@ class CategoriesViewModel extends BaseViewModel {
     List<double> values = categories.map((e) {
       var id = e.id ?? 0;
       var currentValue = getTotalWorkBookThirdRate(id, cards);
-      print('current : $currentValue');
       var correct = currentValue?.thirdRateAnswersCount ?? 0;
-      print('correct $correct');
       var all = currentValue?.allQuestionsCount ?? 0;
-      print('all : $all');
       lableData.add('$correct از $all');
       var result = (all == 0 ? 0 : (maxValue * correct) / all).toDouble();
-      print('result : $result');
       return result;
     }).toList();
 
@@ -55,7 +51,7 @@ class CategoriesViewModel extends BaseViewModel {
     WorkShopReportCard? value;
     cards?.forEach((e) {
       e.workShopReportCards?.forEach((element) {
-        if (id.toString() == element.workShopDictionary?.keys.first) {
+        if (id.toString() == element.workShopDictionary?.categoryId?.toString()) {
 
           value = element;
         }
@@ -68,7 +64,7 @@ class CategoriesViewModel extends BaseViewModel {
     List<String> workShops = [];
     cards?.forEach((e) {
       e.workShopReportCards?.forEach((element) {
-        workShops.add(element.workShopDictionary?.values.first);
+        workShops.add(element.workShopDictionary?.name ?? '');
       });
     });
     return workShops;

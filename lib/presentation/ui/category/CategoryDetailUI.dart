@@ -95,7 +95,6 @@ class CategoryDetailUI extends StatelessWidget {
                           Column(
                             children: List.generate(4, (index) {
                               var url = '${BaseUrls.storagePath}/CategoryDetails/${bloc.id}/${index + 1}.jpg';
-                              print(url);
                               return Column(
                                 children: [
                                   ImageLoader(

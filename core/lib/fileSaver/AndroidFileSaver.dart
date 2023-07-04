@@ -11,7 +11,6 @@ class AndroidFileSaver {
       mimeType: MimeType.pdf,
       filePath: 'sdcard/Download/',
     );
-    print(path);
     return path;
   }
 }

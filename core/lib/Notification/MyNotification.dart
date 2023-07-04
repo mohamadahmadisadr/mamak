@@ -12,7 +12,6 @@ class MyNotification {
   }
 
   void publish(String tag, dynamic data) {
-    print(tag);
     var index = notificationListener.indexWhere((element) {
       return element.tag() == tag;
     });

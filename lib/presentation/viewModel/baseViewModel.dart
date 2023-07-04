@@ -45,6 +45,10 @@ class BaseViewModel extends Cubit<AppState> {
     updateState(AppState.fresh(time));
   }
 
+  void refresh() {
+    updateScreen(time: DateTime.now().microsecondsSinceEpoch.toDouble());
+  }
+
   void postSuccess({dynamic data}) {
     if (isClosed) {
       return;

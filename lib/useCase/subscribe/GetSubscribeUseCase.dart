@@ -13,7 +13,7 @@ class GetSubscribeUseCase extends BaseUseCase {
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {
-          flow.emitData(subscribesResponseFromJson(result.result));
+          flow.emitData(subscribesResponseFromJson(result.resultsList));
         } else {
           flow.throwMessage(result.concatErrorMessages);
         }

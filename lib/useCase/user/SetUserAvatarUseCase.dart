@@ -12,7 +12,6 @@ class SetUserAvatarUseCase extends BaseUseCase {
       (data as UploadUserAvatarBody).mobileNumber = await GetIt.I
           .get<LocalSessionImpl>()
           .getData(UserSessionConst.mobile);
-      print(data.fileData.mimeType);
       flow.emitLoading();
       var uri = createUri(path: UserUrls.setUserAvatar);
       var response = await apiServiceImpl.post2(uri, jsonEncode(data));

@@ -24,65 +24,70 @@ class LoginUi extends StatelessWidget {
           padding: const EdgeInsets.all(WidgetSize.pagePaddingSize),
           child: Form(
             key: bloc.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                20.dpv,
-                const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    MamakLogo(),
+                    20.dpv,
+                    const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MamakLogo(),
+                      ],
+                    ),
+                    20.dpv,
+                    Text(
+                      "شماره همراه",
+                      style: context.textTheme.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    4.dpv,
+                    TextFormFieldHelper(
+                      label: "شماره همراه",
+                      hint: "شماره همراه",
+                      keyboardType: TextInputType.phone,
+                      onChangeValue: bloc.onMobileChange,
+                      validator: MobileValidator(),
+                      maxLength: 11,
+                    ),
+                    10.dpv,
+                    Text(
+                      "رمز عبور",
+                      style: context.textTheme.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    4.dpv,
+                    PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),
+                    20.dpv,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: bloc.pushToForgetPassword.call(),
+                          child: Text(
+                            'فراموشی رمز عبور',
+                            style: context.textTheme.bodySmall,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: bloc.gotoSignUpPage.call(),
+                          child: Text(
+                                  'ایجاد حساب کاربری جدید',
+                                  style: context.textTheme.bodySmall,
+                                ),
+                        ),
+                      ],
+                    ),
+                    4.dpv,
+                    ElevatedButton(
+                        onPressed: bloc.loginUser.call(), child: bloc.state.isLoading
+                        ? const MyLoader(color: Colors.black)
+                        : const Text('ورود'))
                   ],
                 ),
-                20.dpv,
-                Text(
-                  "شماره همراه",
-                  style: context.textTheme.titleSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                4.dpv,
-                TextFormFieldHelper(
-                  label: "شماره همراه",
-                  hint: "شماره همراه",
-                  keyboardType: TextInputType.phone,
-                  onChangeValue: bloc.onMobileChange,
-                  validator: MobileValidator(),
-                  maxLength: 11,
-                ),
-                10.dpv,
-                Text(
-                  "رمز عبور",
-                  style: context.textTheme.titleSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                4.dpv,
-                PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),
-                20.dpv,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: bloc.pushToForgetPassword.call(),
-                      child: Text(
-                        'فراموشی رمز عبور',
-                        style: context.textTheme.bodySmall,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: bloc.gotoSignUpPage.call(),
-                      child: Text(
-                              'ایجاد حساب کاربری جدید',
-                              style: context.textTheme.bodySmall,
-                            ),
-                    ),
-                  ],
-                ),
-                4.dpv,
-                ElevatedButton(
-                    onPressed: bloc.loginUser.call(), child: bloc.state.isLoading
-                    ? const MyLoader(color: Colors.black)
-                    : const Text('ورود'))
-              ],
+              ),
             ),
           ),
         );

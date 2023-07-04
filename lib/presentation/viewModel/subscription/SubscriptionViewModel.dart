@@ -77,7 +77,6 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
 
       DiscountCodeUseCase().invoke(MyFlow(flow: (appState) {
         if (appState.isSuccess) {
-          print(appState.getData.runtimeType);
           selectedItem?.discount = int.tryParse(appState.getData) ?? 0;
         }
         if (appState.isFailed) {

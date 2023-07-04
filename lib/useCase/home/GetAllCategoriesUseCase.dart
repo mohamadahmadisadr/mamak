@@ -21,7 +21,7 @@ class GetAllCategoriesUseCase extends BaseUseCase {
         flow.throwError(response);
       }
     } catch (e) {
-      Logger.e(e);
+      Logger.e('category error is $e');
       flow.throwCatch();
     }
   }

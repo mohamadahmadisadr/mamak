@@ -101,7 +101,6 @@ class Package {
 
 extension ChildListPackageExtension on List<ChildPackage> {
   ChildPackage? getChildPackage(String? subscribeId) {
-    print(subscribeId);
     return firstWhereOrNull((element) => element.packages?.id?.toString() == subscribeId);
   }
 }

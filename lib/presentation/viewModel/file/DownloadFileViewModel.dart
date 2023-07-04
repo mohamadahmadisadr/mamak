@@ -1,44 +1,39 @@
-import 'dart:io';
-
-import 'package:core/fileSaver/AndroidFileSaver.dart';
+import 'package:core/fileSaver/WebFileSaver.dart';
 import 'package:core/share/ShareFile.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:feature/deviceInfo/my_device_info.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/file/DownloadFileUseCase.dart';
-import 'package:core/fileSaver/WebFileSaver.dart';
-import 'package:flutter/foundation.dart'
-    show kIsWeb;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DownloadFileViewModel extends BaseViewModel {
   DownloadFileViewModel(super.initialState);
 
-
+  MyDeviceInfo deviceInfo = GetIt.I.get<MyDeviceInfo>();
   var askedForPermission = false;
   final NavigationServiceImpl _navigationServiceImpl = GetIt.I.get();
 
-  void downloadFile(String fileName) async{
-    if(!kIsWeb){
-      if(!askedForPermission){
-        if (await hasPermission){
-          askedForPermission = true;
-        }else{
-          return;
-        }
-      }
+  void downloadFile(String fileName) async {
+    if (!kIsWeb) {
+      // if (!askedForPermission) {
+      //   var granted = await hasPermission;
+      //   if (granted) {
+      //     askedForPermission = true;
+      //   } else {
+      //     return;
+      //   }
+      // }
     }
 
-
     DownloadFileUseCase().invoke(MyFlow(
-      flow: (appState) async{
-        print(appState);
+      flow: (appState) async {
         if (appState.isSuccess) {
           var data = appState.getData;
 
-          if(kIsWeb){
+          if (kIsWeb) {
             WebFileSaver.saveFile(data);
-          }else{
+          } else {
             var path = await ShareFile.saveFile(data);
             ShareFile.openFile(path);
           }
@@ -50,13 +45,31 @@ class DownloadFileViewModel extends BaseViewModel {
     ), data: fileName);
   }
 
-
-  Future<bool> get hasPermission async => await Permission.storage.request().isGranted && await Permission.manageExternalStorage.request().isGranted ;
+  Future<bool> get hasPermission async {
+    var deviceData = await deviceInfo.getDeviceInfo();
+    if (deviceData.sdkInt >= 30) return true;
+    try {
+      PermissionStatus permissionStatusStorage =
+          await Permission.storage.request();
+      if (permissionStatusStorage != PermissionStatus.granted) {
+        return false;
+      }
+      if (deviceData.sdkInt >= 30) {
+        PermissionStatus permissionStatusManageExternalStorage =
+            await Permission.manageExternalStorage.request();
+        if (permissionStatusManageExternalStorage != PermissionStatus.granted) {
+          return false;
+        }
+      }
+      return true;
+    } catch (e) {
+      return true;
+    }
+  }
 
   Future<void> _launchUrl(Uri uri) async {
     if (!await launchUrl(uri)) {
       throw Exception('Could not launch $uri');
     }
-
   }
 }
