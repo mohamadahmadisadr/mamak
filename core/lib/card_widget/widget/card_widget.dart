@@ -9,6 +9,7 @@ class CardWidget extends StatefulWidget {
 
 
   final int index;
+  final int lenght;
 
 
   /// Current card model shown
@@ -57,6 +58,7 @@ class CardWidget extends StatefulWidget {
 
   const CardWidget({
     Key? key,
+    required this.lenght,
     required this.index,
     required this.listenableScale,
     required this.listenablePositionTop,
@@ -110,6 +112,7 @@ class _CardWidgetState extends State<CardWidget> with TickerProviderStateMixin {
       valueListenable: animListenable,
       builder: (_, startingAnim, __) {
         return CardBodyWidget(
+        lenght: widget.lenght,
           model: widget.model,
           dragAnimationValueY: _draggingAnimationY,
           dismissedAnimationValue: startingAnim,
@@ -121,6 +124,7 @@ class _CardWidgetState extends State<CardWidget> with TickerProviderStateMixin {
           onCardTap: widget.onCardTap,
           positionTop: widget.positionTop,
           scale: scale,
+          index: widget.index,
         );
       },
     );
@@ -270,6 +274,8 @@ class CardBodyWidget extends StatelessWidget {
 
   /// The card model
   final CardModel model;
+  final int index;
+  final int lenght;
 
   /// Notifier for the animation for the card not
   /// dragged
@@ -289,6 +295,8 @@ class CardBodyWidget extends StatelessWidget {
 
   const CardBodyWidget({
     Key? key,
+    required this.lenght,
+    required this.index,
     required this.model,
     required this.listenablePositionTop,
     required this.listenableScale,
@@ -326,6 +334,8 @@ class CardBodyWidget extends StatelessWidget {
             );
           },
           child: CardChildWidget(
+            lenght: lenght,
+          index: index,
             handleVerticalEnd: handleVerticalEnd,
             handleVerticalUpdate: handleVerticalUpdate,
             model: model,
@@ -340,6 +350,8 @@ class CardBodyWidget extends StatelessWidget {
 class CardChildWidget extends StatelessWidget {
   /// The card model
   final CardModel model;
+  final int index;
+  final int lenght;
 
   /// Function invoked when the card is moved
   final Function(DragUpdateDetails) handleVerticalUpdate;
@@ -352,6 +364,8 @@ class CardChildWidget extends StatelessWidget {
 
   const CardChildWidget({
     Key? key,
+    required this.lenght,
+    required this.index,
     required this.model,
     required this.handleVerticalUpdate,
     required this.handleVerticalEnd,
@@ -378,7 +392,7 @@ class CardChildWidget extends StatelessWidget {
               color: model.shadowColor,
             )
           ],
-          color: model.backgroundColor,
+          color: index == lenght ? model.backgroundColor : null,
         ),
         child: model.child,
       ),

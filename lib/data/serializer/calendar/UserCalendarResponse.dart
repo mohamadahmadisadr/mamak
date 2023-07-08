@@ -49,6 +49,7 @@ class CalendarItems {
     this.parentCategory,
     this.assessmentNumber,
     this.nextAssessmentDate,
+    this.userChildWorkShopId,
     this.colorNumber,
   });
 
@@ -59,6 +60,7 @@ class CalendarItems {
         : null;
     assessmentNumber = json['assessmentNumber'];
     colorNumber = json['colorNumber'];
+    userChildWorkShopId = json['userChildWorkShopId'];
     nextAssessmentDate = json['nextAssessmentDate'] != null
         ? DateTime.tryParse(json['nextAssessmentDate'])
         : null;
@@ -66,6 +68,7 @@ class CalendarItems {
 
   num? dayOfWeek;
   ParentCategory? parentCategory;
+  dynamic userChildWorkShopId;
   num? assessmentNumber;
   DateTime? nextAssessmentDate;
   String? colorNumber;

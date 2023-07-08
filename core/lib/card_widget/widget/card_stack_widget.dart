@@ -170,6 +170,7 @@ class _CardStackWidgetState extends State<CardStackWidget>
       final listenableScale = ValueNotifier<double>(0);
 
       final card = CardWidget(
+      lenght: widget.cardList.length - 1,
       index: currentIndex,
         listenableDismissedAnimation:
             currentIndex == 0 ? listenableStartingAnimation : null,

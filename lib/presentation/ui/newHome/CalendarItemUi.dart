@@ -1,11 +1,9 @@
+import 'package:core/color/color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'dart:math' as math;
-import 'package:core/color/color_extension.dart';
 
 class CalendarItemUi extends StatelessWidget {
   const CalendarItemUi({
@@ -32,15 +30,11 @@ class CalendarItemUi extends StatelessWidget {
         border: Border.all(
             color: mode == CalendarMode.calendar
                 ? Colors.grey
-                : index == selectedIndex
-                    ? Colors.orange
-                    : Colors.grey.shade400,
+                : Colors.grey.shade400,
             width: 1.0),
         color: mode == CalendarMode.calendar
             ? item.parentCategory?.colorNumber?.toColor()
-            : index == selectedIndex
-                ? Colors.orangeAccent
-                : Colors.grey.shade200,
+            : Colors.grey.shade200,
       ),
       child: Padding(
         padding: 4.dpeh,
@@ -53,7 +47,9 @@ class CalendarItemUi extends StatelessWidget {
               padding: 4.dpeh,
               child: Text(
                   mode == CalendarMode.reminder
-                      ? item.nextAssessmentDate != null ? getDeferent(item.nextAssessmentDate!) : ''
+                      ? item.nextAssessmentDate != null
+                          ? getDifferent(item.nextAssessmentDate!)
+                          : ''
                       : item.parentCategory?.title ?? '',
                   style: context.textTheme.titleMedium),
             ),
@@ -78,10 +74,15 @@ class CalendarItemUi extends StatelessWidget {
     );
   }
 
-  getDeferent(DateTime nextAssessmentDate) {
-    var days = Jiffy.parseFromDateTime(nextAssessmentDate)
-        .diff(Jiffy.now(), unit: Unit.day); // get the difference in days
-    return '$days روز مانده';
+  getDifferent(DateTime nextAssessmentDate) {
+    var days = nextAssessmentDate.difference(DateTime.now()).inDays;
+    var hours = nextAssessmentDate.difference(DateTime.now()).inHours;
+    if (days == 0) {
+      print(hours);
+    }
+
+    if (hours > 0 && hours < 12) return '$hours ساعت مانده';
+    return days == 0 ? 'امروز' : '$days روز مانده';
   }
 
   String getPersianDayWithMonth(DateTime nextAssessmentDate) {

@@ -44,7 +44,7 @@ class CalendarViewModel extends BaseViewModel
                 calendarState = addWorkShopState;
                 refresh();
               }
-            }), data: userChildId!);
+            }), data: userChildId!,);
           } else {
             calendarState = appState;
           }
