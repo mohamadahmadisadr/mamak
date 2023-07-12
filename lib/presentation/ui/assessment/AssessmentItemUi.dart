@@ -114,9 +114,9 @@ class _AssessmentItemUiState extends State<AssessmentItemUi> {
         SizedBox(
           height: 100,
           child: TextFormFieldHelper(
-            hint: getDescriptionText(selectedItem ?? 0),
+            hint: getDescriptionText(widget.item?.options?.indexWhere((element) => element.optionId == selectedItem) ?? 0),
             keyboardType: TextInputType.text,
-            label: getDescriptionText(selectedItem ?? 0),
+            label: getDescriptionText(widget.item?.options?.indexWhere((element) => element.optionId == selectedItem) ?? 0),
             onChangeValue: (value) {
               context
                   .read<AssessmentsViewModel>()
@@ -131,7 +131,7 @@ class _AssessmentItemUiState extends State<AssessmentItemUi> {
   }
 
   String getDescriptionText(int index) {
-    if (index == -1) return 'پاسخ';
+    if (index == -1) return 'هدفگذاری';
     if (index == 0 || index == 1) {
       return 'هدفگذاری';
     }

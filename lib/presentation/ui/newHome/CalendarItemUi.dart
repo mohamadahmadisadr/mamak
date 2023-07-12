@@ -12,17 +12,18 @@ class CalendarItemUi extends StatelessWidget {
     required this.mode,
     required this.index,
     this.selectedIndex,
+    this.itemClicked,
   }) : super(key: key);
   final CalendarItems item;
   final CalendarMode mode;
   final int index;
   final int? selectedIndex;
+  final Function(CalendarItems)? itemClicked;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 30,
-      height: 45,
       padding: 4.dpe,
       margin: 2.dpe,
       decoration: BoxDecoration(
@@ -56,18 +57,25 @@ class CalendarItemUi extends StatelessWidget {
             if (mode == CalendarMode.reminder)
               Text(item.parentCategory?.title ?? '',
                   style: context.textTheme.titleSmall),
-            if (item.nextAssessmentDate != null)
-              Container(
-                alignment: Alignment.center,
-                padding: 4.dpe,
-                margin: 4.dpe,
-                height: 35,
-                decoration: BoxDecoration(
-                  borderRadius: 8.bRadius,
-                  color: Colors.white,
-                ),
-                child: Text(getPersianDayWithMonth(item.nextAssessmentDate!)),
-              )
+            mode == CalendarMode.calendar || item.nextAssessmentDate != null &&
+                    !isToday(item.nextAssessmentDate!)
+                ? Container(
+                    alignment: Alignment.center,
+                    padding: 4.dpe,
+                    margin: 4.dpe,
+                    height: 35,
+                    decoration: BoxDecoration(
+                      borderRadius: 8.bRadius,
+                      color: Colors.white,
+                    ),
+                    child:
+                        Text(getPersianDayWithMonth(item.nextAssessmentDate!)),
+                  )
+                : ElevatedButton(
+                    onPressed: () {
+                      itemClicked?.call(item);
+                    },
+                    child: Text('ثبت ارزیابی',style: TextStyle(fontSize: 10),))
           ],
         ),
       ),
@@ -75,14 +83,22 @@ class CalendarItemUi extends StatelessWidget {
   }
 
   getDifferent(DateTime nextAssessmentDate) {
+    if (isToday(nextAssessmentDate)) return 'امروز';
     var days = nextAssessmentDate.difference(DateTime.now()).inDays;
     var hours = nextAssessmentDate.difference(DateTime.now()).inHours;
     if (days == 0) {
       print(hours);
     }
 
-    if (hours > 0 && hours < 12) return '$hours ساعت مانده';
-    return days == 0 ? 'امروز' : '$days روز مانده';
+    if (hours > 0 && hours < 24) return '$hours ساعت مانده';
+    return '$days روز مانده';
+  }
+
+  bool isToday(DateTime someDate) {
+    var today = DateTime.now();
+    return someDate.day == today.day &&
+        someDate.month == today.month &&
+        someDate.year == today.year;
   }
 
   String getPersianDayWithMonth(DateTime nextAssessmentDate) {

@@ -1,5 +1,6 @@
 import 'package:core/card_widget/card_stack_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/newHome/CalendarItemUi.dart';
@@ -11,7 +12,7 @@ class VerticalSliderUi extends StatefulWidget {
     required this.todayClicked,
   }) : super(key: key);
   final List<CalendarItems> items;
-  final Function(int) todayClicked;
+  final Function(CalendarItems) todayClicked;
 
   @override
   State<VerticalSliderUi> createState() => _VerticalSliderUiState();
@@ -33,6 +34,7 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
       child: CardStackWidget(
         cardList: list.map((item) {
           return CardModel(
+          key: Key(item.userChildWorkShopId?.toString() ?? ''),
           radius: 16.radius,
             index: list.indexOf(item),
             child: Opacity(
@@ -42,6 +44,11 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
                 mode: CalendarMode.reminder,
                 index: list.indexOf(item),
                 selectedIndex: selectedIndex,
+                itemClicked: (clickedItem) {
+                  if(clickedItem.nextAssessmentDate != null && isToday(clickedItem.nextAssessmentDate!)){
+                    widget.todayClicked.call(clickedItem);
+                  }
+                },
               ),
             ),
             border: Border.all(color: Colors.transparent, width: 0.0),
@@ -66,10 +73,16 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
           }
         },
         onCardTap: (cardModel) {
-          if (cardModel.index == 0) {
-            if (isToday(list.elementAt(0).nextAssessmentDate!)) {
-              widget.todayClicked.call(0);
+          int key = int.parse(cardModel.key?.toString().replaceAll('[<>', '') ?? '');
+          print(key);
+          var itemIndex = widget.items.indexWhere((element) => element.userChildWorkShopId?.toString().replaceAll('[<>', '') == cardModel.key?.toString());
+          if(itemIndex != -1){
+            var data = widget.items.elementAt(itemIndex);
+            if(data.nextAssessmentDate != null && isToday(data.nextAssessmentDate!)){
+              widget.todayClicked.call(data);
             }
+          }else{
+            print('not found');
           }
         },
       ),

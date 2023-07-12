@@ -55,16 +55,12 @@ class _HomeCalendarUiState extends State<HomeCalendarUi> {
                 4.dpv,
                 VerticalSliderUi(
                   items: data.calendarItems ?? [],
-                  todayClicked: (index) {
+                  todayClicked: (item) {
                     AssessmentParamsModel assessmentParam =
                         widget.selectedChild.getAssessmentParam(
-                      workShopId: bloc.response?.calendarItems
-                              ?.elementAt(index)
-                              .userChildWorkShopId?.toString() ??
+                      workShopId: item.userChildWorkShopId?.toString() ??
                           '',
-                      course: bloc.response?.calendarItems
-                              ?.elementAt(index)
-                              .parentCategory
+                      course: item.parentCategory
                               ?.description ??
                           '',
                     );

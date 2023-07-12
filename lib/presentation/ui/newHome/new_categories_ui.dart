@@ -60,7 +60,6 @@ class NewCategoryItemUi extends StatelessWidget {
         onClick.call(category.id?.toString() ?? '0');
       },
       child: Container(
-      height: 120,
       width: 120,
         padding: 8.dpe,
         margin: 4.dpe,
@@ -73,15 +72,18 @@ class NewCategoryItemUi extends StatelessWidget {
             Spacer(),
             Text(category.title ?? '',style: context.textTheme.titleSmall?.copyWith(fontSize: 15),textAlign: TextAlign.center,),
             Spacer(),
-            SizedBox(
-                height: 50.0,
-                width: 50.0,
-                child: Image.memory(
-                  base64Decode(
-                      category.parentCategoryFiles?.first.file?.content ??
-                          ''),
-                  fit: BoxFit.fill,
-                )),
+            FittedBox(
+            fit: BoxFit.fill,
+              child: SizedBox(
+                  height: 40.0,
+                  width: 40.0,
+                  child: Image.memory(
+                    base64Decode(
+                        category.parentCategoryFiles?.first.file?.content ??
+                            ''),
+                    fit: BoxFit.fill,
+                  )),
+            ),
             Spacer(),
           ],
         ),

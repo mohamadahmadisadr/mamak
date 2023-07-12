@@ -19,6 +19,9 @@ class BaseViewModel extends Cubit<AppState> {
   BaseViewModel(super.initialState);
 
   void updateState(AppState newSate) {
+    if (isClosed) {
+      return;
+    }
     emit.call(newSate);
   }
 

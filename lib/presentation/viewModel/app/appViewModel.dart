@@ -1,9 +1,8 @@
+import 'package:core/utils/logger/Logger.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart';
-import 'package:mamak/config/appData/AppConfiguration.dart';
-import 'package:mamak/data/body/app/AppVersionResponse.dart';
 import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
 import 'package:mamak/di/appModule.dart';
 import 'package:mamak/presentation/ui/dialog/UpdateDialog.dart';
@@ -48,14 +47,15 @@ class AppViewModel extends Cubit<AppState> {
 
   void checkVersion() {
     AppVersionUseCase().invoke(MyFlow(flow: (appState) {
+      Logger.d(appState);
       if (appState.isSuccess) {
-        if (appState.getData is AppVersionResponse) {
-          AppVersionResponse appVersion = appState.getData;
-          int version = int.tryParse(appVersion.versionNumber ?? '0') ?? 0;
-          if (version > AppConfiguration.versionCode) {
-            GetIt.I
-                .get<NavigationServiceImpl>()
-                .dialog(UpdateDialog(link: appVersion.linkUrl ?? ''));
+        if (appState.getData is bool) {
+          if (appState.getData == true) {
+            GetIt.I.get<NavigationServiceImpl>().dialog(
+                  const UpdateDialog(
+                      link:
+                          'https://back.mamakschool.ir/api/AppVersion/GetLatestAppVersionFile'),
+                );
           }
         }
       }

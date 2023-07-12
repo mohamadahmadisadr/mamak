@@ -66,10 +66,13 @@ class _DraggableCalendarUiState extends State<DraggableCalendarUi> {
                           shakeConstant: ShakeLittleConstant2(),
                           autoPlay: enabled,
                           enableWebMouseHover: false,
-                          child: CalendarItemUi(
-                            item: item,
-                            mode: CalendarMode.calendar,
-                            index: widget.items.indexOf(item),
+                          child: SizedBox(
+                          height: 50,
+                            child: CalendarItemUi(
+                              item: item,
+                              mode: CalendarMode.calendar,
+                              index: widget.items.indexOf(item),
+                            ),
                           ),
                         ),
                       );
