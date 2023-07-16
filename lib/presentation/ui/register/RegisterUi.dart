@@ -1,11 +1,14 @@
 import 'package:feature/form/validator/LastNameValidator.dart';
 import 'package:feature/form/validator/NameValidator.dart';
 import 'package:feature/form/validator/login/MobileValidator.dart';
-import 'package:feature/form/validator/login/EmailValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/data/serializer/location/CityItem.dart';
+import 'package:mamak/data/serializer/location/ProvinceItem.dart';
+import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
+import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
@@ -13,8 +16,6 @@ import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/SignUpViewModel.dart';
-
-import 'SubscribesPickerFormField.dart';
 
 class RegisterUi extends StatelessWidget {
   const RegisterUi({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class RegisterUi extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   20.dpv,
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       MamakLogo(),
@@ -55,20 +56,6 @@ class RegisterUi extends StatelessWidget {
                     keyboardType: TextInputType.phone,
                     onChangeValue: bloc.onMobileChange,
                     validator: MobileValidator(),
-                  ),
-                  10.dpv,
-                  Text(
-                    'ایمیل',
-                    style: context.textTheme.titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  4.dpv,
-                  TextFormFieldHelper(
-                    label: "ایمیل",
-                    hint: "ایمیل",
-                    keyboardType: TextInputType.emailAddress,
-                    onChangeValue: bloc.onEmailChange,
-                    // validator: EmailValidator(),
                   ),
                   10.dpv,
                   const FormTitleWithStar(title: "نام مادر"),
@@ -91,6 +78,34 @@ class RegisterUi extends StatelessWidget {
                     validator: LastNameValidator(),
                   ),
                   10.dpv,
+                  const FormTitleWithStar(title: "استان"),
+                  4.dpv,
+                  ConditionalUI<List<ProvinceItem>>(
+                    state: bloc.pState,
+                    onSuccess: (provinces) {
+                      return DropDownFormField<ProvinceItem>(
+                        selectedItem: bloc.selectedProvince,
+                        items: provinces,
+                        name: 'استان',
+                        onValueChange: bloc.onProvinceChange,
+                      );
+                    },
+                  ),
+                  10.dpv,
+                  const FormTitleWithStar(title: "شهر"),
+                  4.dpv,
+                  ConditionalUI<List<CityItem>>(
+                    state: bloc.cState,
+                    onSuccess: (cities) {
+                      return DropDownFormField<CityItem>(
+                        selectedItem: bloc.selectedCity,
+                        items: cities,
+                        name: 'شهر',
+                        onValueChange: bloc.onCityChange,
+                      );
+                    },
+                  ),
+                  10.dpv,
                   const FormTitleWithStar(title: "رمز عبور"),
                   4.dpv,
                   PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),
@@ -98,7 +113,8 @@ class RegisterUi extends StatelessWidget {
                   const FormTitleWithStar(title: "تکرار رمز عبور"),
                   4.dpv,
                   PasswordFieldHelper(
-                      onChangeValue: bloc.onConfirmPasswordChange, isRePsw: true),
+                      onChangeValue: bloc.onConfirmPasswordChange,
+                      isRePsw: true),
                   20.dpv,
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -123,7 +139,7 @@ class RegisterUi extends StatelessWidget {
                   20.dpv,
                   ElevatedButton(
                       onPressed: bloc.register.call(),
-                      child: bloc.state.isLoading
+                      child: bloc.uiState.isLoading
                           ? const MyLoader(color: Colors.black)
                           : const Text('مرحله بعد'))
                 ],

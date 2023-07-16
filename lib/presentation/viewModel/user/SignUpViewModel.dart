@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mamak/data/serializer/location/CityItem.dart';
+import 'package:mamak/data/serializer/location/ProvinceItem.dart';
 import 'package:mamak/presentation/state/formState/user/RegisterFormState.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
+import 'package:mamak/useCase/location/city_use_case.dart';
+import 'package:mamak/useCase/location/provinces_use_case.dart';
 import 'package:mamak/useCase/subscribe/GetSubscribeUseCase.dart';
 import 'package:mamak/useCase/user/SignUpUseCase.dart';
 
@@ -11,8 +15,15 @@ class SignUpViewModel extends BaseViewModel {
   var formKey = GlobalKey<FormState>();
   RegisterFormState formState = RegisterFormState();
 
+  AppState uiState = AppState.idle;
+  AppState pState = AppState.idle;
+  AppState cState = AppState.idle;
+  ProvinceItem? selectedProvince;
+  CityItem? selectedCity;
+
   SignUpViewModel(super.initialState) {
     fetchSubscribes();
+    fetchProvinces();
   }
 
   AppState subscribesState = AppState.idle;
@@ -25,6 +36,15 @@ class SignUpViewModel extends BaseViewModel {
         },
       ),
     );
+  }
+
+  void fetchCityByProvinceId(String provinceId) {
+    CityUseCase().invoke(MyFlow(
+      flow: (appState) {
+        cState = appState;
+        refresh();
+      },
+    ), data: provinceId);
   }
 
   bool get isValid => formKey.currentState?.validate() == true;
@@ -43,7 +63,6 @@ class SignUpViewModel extends BaseViewModel {
   Function(String) get onConfirmPasswordChange =>
       (value) => formState.confirmPassword = value;
 
-  Function(String) get onEmailChange => (value) => formState.email = value;
 
   // Function(bool) get onTermsChange => (value) => formState.terms = value;
 
@@ -60,10 +79,18 @@ class SignUpViewModel extends BaseViewModel {
             navigationServiceImpl.replaceTo(
                 AppRoute.verification, formState.mobile);
           }
-          mainFlow.emit(appState);
+          uiState = appState;
+          refresh();
         }), data: formState.getBody());
       }
     };
+  }
+
+  void fetchProvinces() {
+    ProvinceUseCase().invoke(MyFlow(flow: (appState) {
+      pState = appState;
+      refresh();
+    }));
   }
 
   Function(int?) onItemChanged() {
@@ -77,4 +104,17 @@ class SignUpViewModel extends BaseViewModel {
   Function() gotoLoginPage() => () {
         navigationServiceImpl.replaceTo(AppRoute.login);
       };
+
+  onProvinceChange(ProvinceItem? newProvince) {
+    selectedProvince = newProvince;
+    if (newProvince != null && newProvince.id != null) {
+      fetchCityByProvinceId(newProvince.id.toString());
+    }
+    refresh();
+  }
+
+  onCityChange(CityItem? newCity) {
+    selectedCity = newCity;
+    refresh();
+  }
 }

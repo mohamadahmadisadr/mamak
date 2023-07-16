@@ -10,7 +10,7 @@ class DropDownFormField<T> extends StatelessWidget {
       required this.name,
       required this.onValueChange})
       : super(key: key);
-  final T selectedItem;
+  final T? selectedItem;
   final List<T> items;
   final String name;
   final Function(T?) onValueChange;

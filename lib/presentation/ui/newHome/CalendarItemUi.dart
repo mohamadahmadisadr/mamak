@@ -75,7 +75,7 @@ class CalendarItemUi extends StatelessWidget {
                     onPressed: () {
                       itemClicked?.call(item);
                     },
-                    child: Text('ثبت ارزیابی',style: TextStyle(fontSize: 10),))
+                    child: Text('شروع ارزیابی',style: TextStyle(fontSize: 10),))
           ],
         ),
       ),
