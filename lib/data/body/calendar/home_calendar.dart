@@ -64,7 +64,6 @@ class _HomeCalendarUiState extends State<HomeCalendarUi> {
                               ?.description ??
                           '',
                     );
-                    print(assessmentParam);
                     GetIt.I.get<NavigationServiceImpl>().navigateTo(
                           AppRoute.assessments,
                           assessmentParam,

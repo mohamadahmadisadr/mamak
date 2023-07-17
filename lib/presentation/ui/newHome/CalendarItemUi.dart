@@ -59,7 +59,7 @@ class CalendarItemUi extends StatelessWidget {
                   style: context.textTheme.titleSmall),
             mode == CalendarMode.calendar || item.nextAssessmentDate != null &&
                     !isToday(item.nextAssessmentDate!)
-                ? item.nextAssessmentDate != null ? Container(
+                ?item.nextAssessmentDate != null ? Container(
                     alignment: Alignment.center,
                     padding: 4.dpe,
                     margin: 4.dpe,
@@ -70,7 +70,7 @@ class CalendarItemUi extends StatelessWidget {
                     ),
                     child:
                         Text(getPersianDayWithMonth(item.nextAssessmentDate!)),
-                  ) : SizedBox(height: 35,)
+                  ) : const SizedBox(height: 35)
                 : ElevatedButton(
                     onPressed: () {
                       itemClicked?.call(item);

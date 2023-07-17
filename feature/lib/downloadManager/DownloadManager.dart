@@ -18,8 +18,7 @@ class DownloadManager {
 
   @pragma('vm:entry-point')
   static void downloadCallback(String id, int status, int progress) {
-    final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
-    send?.send([id, status, progress]);
+    FlutterDownloader.registerCallback((id, status, progress) => downloadCallback(id, status, progress));
   }
+
 }

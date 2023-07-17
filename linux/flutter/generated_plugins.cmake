@@ -3,6 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
+=======
+  file_saver
+>>>>>>> default_calendar_merge
   flutter_secure_storage_linux
   url_launcher_linux
 )
