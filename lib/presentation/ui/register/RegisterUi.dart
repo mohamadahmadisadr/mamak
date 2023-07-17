@@ -9,11 +9,13 @@ import 'package:mamak/data/serializer/location/ProvinceItem.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
+import 'package:mamak/presentation/ui/main/EmptyPageUI.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/ui/register/location_item_shimmer.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/SignUpViewModel.dart';
 
@@ -81,11 +83,12 @@ class RegisterUi extends StatelessWidget {
                   const FormTitleWithStar(title: "استان"),
                   4.dpv,
                   ConditionalUI<List<ProvinceItem>>(
+                  skeleton: LocationItemShimmer(),
                     state: bloc.pState,
                     onSuccess: (provinces) {
-                      return DropDownFormField<ProvinceItem>(
+                      return DropDownFormField(
                         selectedItem: bloc.selectedProvince,
-                        items: provinces,
+                        items: provinces.map((e) => DropDownModel(data: e, name: e.provinceName ?? '')).toList(),
                         name: 'استان',
                         onValueChange: bloc.onProvinceChange,
                       );
@@ -95,15 +98,28 @@ class RegisterUi extends StatelessWidget {
                   const FormTitleWithStar(title: "شهر"),
                   4.dpv,
                   ConditionalUI<List<CityItem>>(
+                    skeleton: LocationItemShimmer(),
                     state: bloc.cState,
                     onSuccess: (cities) {
-                      return DropDownFormField<CityItem>(
-                        selectedItem: bloc.selectedCity,
-                        items: cities,
-                        name: 'شهر',
-                        onValueChange: bloc.onCityChange,
-                      );
+                      if (cities.isNotEmpty) {
+                        return DropDownFormField(
+                          selectedItem: bloc.selectedCity,
+                          items: cities.map((e) => DropDownModel(data: e, name: e.cityName ?? '')).toList(),
+                          name: 'شهر',
+                          onValueChange: bloc.onCityChange,
+                        );
+                      }
+                      return const EmptyPageUI();
                     },
+                  ),
+                  if(bloc.cState == AppState.idle) Container(
+                    alignment: Alignment.center,
+                    padding: 24.dpe,
+                    margin: 8.dpe,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: 8.bRadius,
+                    ),
                   ),
                   10.dpv,
                   const FormTitleWithStar(title: "رمز عبور"),

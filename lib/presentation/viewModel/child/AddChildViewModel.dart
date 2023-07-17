@@ -29,11 +29,11 @@ class AddChildViewModel extends BaseViewModel {
 
   onChildLastNameChange(String lastName) => _formState.childLastName = lastName;
 
-  onDayChange(int? day) => birthDateTime.day = day ?? 0;
+  onDayChange(dynamic day) => birthDateTime.day = day ?? 0;
 
-  onMonthChange(int? month) => birthDateTime.month = month ?? 0;
+  onMonthChange(dynamic month) => birthDateTime.month = month ?? 0;
 
-  onYearChange(int? year) => birthDateTime.year = year ?? 0;
+  onYearChange(dynamic year) => birthDateTime.year = year ?? 0;
 
   void submit() {
     if (birthDateTime.day == 0 ||

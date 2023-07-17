@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/location/CityItem.dart';
 import 'package:mamak/data/serializer/location/ProvinceItem.dart';
 import 'package:mamak/presentation/state/formState/user/RegisterFormState.dart';
+import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/location/city_use_case.dart';
 import 'package:mamak/useCase/location/provinces_use_case.dart';
@@ -18,11 +19,11 @@ class SignUpViewModel extends BaseViewModel {
   AppState uiState = AppState.idle;
   AppState pState = AppState.idle;
   AppState cState = AppState.idle;
-  ProvinceItem? selectedProvince;
-  CityItem? selectedCity;
+  DropDownModel? selectedProvince;
+  DropDownModel? selectedCity;
 
   SignUpViewModel(super.initialState) {
-    fetchSubscribes();
+    // fetchSubscribes();
     fetchProvinces();
   }
 
@@ -105,16 +106,17 @@ class SignUpViewModel extends BaseViewModel {
         navigationServiceImpl.replaceTo(AppRoute.login);
       };
 
-  onProvinceChange(ProvinceItem? newProvince) {
-    selectedProvince = newProvince;
+  onProvinceChange(dynamic newProvince) {
+    selectedCity = null;
+    selectedProvince = DropDownModel(data: newProvince, name: newProvince?.provinceName ?? '');
     if (newProvince != null && newProvince.id != null) {
       fetchCityByProvinceId(newProvince.id.toString());
     }
     refresh();
   }
 
-  onCityChange(CityItem? newCity) {
-    selectedCity = newCity;
+  onCityChange(dynamic newCity) {
+    selectedCity = DropDownModel(data: newCity, name: newCity?.cityName ?? '');
     refresh();
   }
 }

@@ -63,8 +63,8 @@ class AddChildUi extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: DropDownFormField(
-                            selectedItem: 2,
-                            items: positiveIntegers.skip(1).take(31).toList(),
+                            selectedItem: DropDownModel(data: 2, name: 2.toString()),
+                            items: positiveIntegers.skip(1).take(31).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
                             name: 'روز',
                             onValueChange: bloc.onDayChange,
                           ),
@@ -73,8 +73,8 @@ class AddChildUi extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: DropDownFormField(
-                              selectedItem: 10,
-                              items: positiveIntegers.skip(1).take(12).toList(),
+                              selectedItem: DropDownModel(data: 10, name: 10.toString()),
+                              items: positiveIntegers.skip(1).take(12).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
                               name: 'ماه',
                               onValueChange: bloc.onMonthChange),
                         ),
@@ -82,9 +82,9 @@ class AddChildUi extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: DropDownFormField(
-                              selectedItem: 1398,
+                              selectedItem: DropDownModel(data: 1398, name: 1398.toString()),
                               items:
-                                  positiveIntegers.skip(1395).take(5).toList(),
+                                  positiveIntegers.skip(1395).take(5).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
                               name: 'سال',
                               onValueChange: bloc.onYearChange),
                         ),

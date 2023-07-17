@@ -1,3 +1,4 @@
+import 'package:feature/externalSignIn/appleSignIn/apple_login_button.dart';
 import 'package:feature/form/validator/login/MobileValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -84,7 +85,10 @@ class LoginUi extends StatelessWidget {
                     ElevatedButton(
                         onPressed: bloc.loginUser.call(), child: bloc.state.isLoading
                         ? const MyLoader(color: Colors.black)
-                        : const Text('ورود'))
+                        : const Text('ورود')),
+                    16.dpv,
+                    AppleLoginButton(),
+
                   ],
                 ),
               ),

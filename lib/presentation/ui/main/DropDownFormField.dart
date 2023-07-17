@@ -2,25 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
 
-class DropDownFormField<T> extends StatelessWidget {
-  const DropDownFormField(
-      {Key? key,
-      required this.selectedItem,
-      required this.items,
-      required this.name,
-      required this.onValueChange})
+class DropDownFormField extends StatelessWidget {
+  const DropDownFormField({Key? key,
+    required this.selectedItem,
+    required this.items,
+    required this.name,
+    required this.onValueChange})
       : super(key: key);
-  final T? selectedItem;
-  final List<T> items;
+  final DropDownModel? selectedItem;
+  final List<DropDownModel> items;
   final String name;
-  final Function(T?) onValueChange;
+  final Function(dynamic) onValueChange;
 
   @override
   Widget build(BuildContext context) {
     return ButtonTheme(
       alignedDropdown: true,
-      child: DropdownButtonFormField<T>(
-        value: selectedItem == 0 ? null : selectedItem,
+      child: DropdownButtonFormField(
+        value: selectedItem?.data == 0 ? null : selectedItem?.data,
         menuMaxHeight: 200,
         isDense: false,
         isExpanded: false,
@@ -36,10 +35,10 @@ class DropDownFormField<T> extends StatelessWidget {
         onChanged: onValueChange,
         items: List.generate(items.length, (index) {
           var item = items.elementAt(index);
-          return DropdownMenuItem<T>(
-            value: item,
+          return DropdownMenuItem(
+            value: item.data,
             child: Text(
-              item.toString(),
+              item.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textScaleFactor: .9,
@@ -49,4 +48,16 @@ class DropDownFormField<T> extends StatelessWidget {
       ),
     );
   }
+}
+
+class DropDownModel<T> {
+
+  T data;
+  String name;
+
+  DropDownModel({
+    required this.data,
+    required this.name
+  });
+
 }
