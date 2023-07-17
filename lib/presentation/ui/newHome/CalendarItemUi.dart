@@ -59,7 +59,7 @@ class CalendarItemUi extends StatelessWidget {
                   style: context.textTheme.titleSmall),
             mode == CalendarMode.calendar || item.nextAssessmentDate != null &&
                     !isToday(item.nextAssessmentDate!)
-                ? Container(
+                ?item.nextAssessmentDate != null ? Container(
                     alignment: Alignment.center,
                     padding: 4.dpe,
                     margin: 4.dpe,
@@ -70,12 +70,12 @@ class CalendarItemUi extends StatelessWidget {
                     ),
                     child:
                         Text(getPersianDayWithMonth(item.nextAssessmentDate!)),
-                  )
+                  ) : const SizedBox(height: 35)
                 : ElevatedButton(
                     onPressed: () {
                       itemClicked?.call(item);
                     },
-                    child: Text('ثبت ارزیابی',style: TextStyle(fontSize: 10),))
+                    child: const Text('ثبت ارزیابی',style: TextStyle(fontSize: 10),))
           ],
         ),
       ),

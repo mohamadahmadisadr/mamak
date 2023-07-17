@@ -10,7 +10,6 @@ class GetUserCalendarUseCase extends BaseUseCase {
       flow.emitLoading();
       var uri = createUri(
           path: CalendarUrls.getUserChildCalendar, body: {'userChildId': data.toString()});
-      print('path is ${uri.path} query is ${uri.query} params is ${uri.data?.parameters}');
       var response = await apiServiceImpl.get(uri);
       if (response.isSuccessful) {
         var result = response.result;

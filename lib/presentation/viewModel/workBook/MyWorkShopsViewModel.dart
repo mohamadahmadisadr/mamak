@@ -28,7 +28,6 @@ class MyWorkShopsViewModel extends BaseViewModel
 
   @override
   void onReceiveData(data) {
-    print(jsonEncode(data));
     if (data != null) {
       if(data is ChildsItem){
         selectedChild = data;

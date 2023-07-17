@@ -11,12 +11,12 @@ class DownloadManager{
         ignoreSsl:
         true // option: set to false to disable working with http links (default: false)
     );
-    FlutterDownloader.registerCallback(downloadCallback);
+    FlutterDownloader.registerCallback((id, status, progress) => downloadCallback(id, status, progress));
   }
 
   @pragma('vm:entry-point')
   static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
+      String id, int status, int progress) {
     final SendPort? send =
     IsolateNameServer.lookupPortByName('downloader_send_port');
     send?.send([id, status, progress]);

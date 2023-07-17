@@ -74,7 +74,6 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
         },
         onCardTap: (cardModel) {
           int key = int.parse(cardModel.key?.toString().replaceAll('[<>', '') ?? '');
-          print(key);
           var itemIndex = widget.items.indexWhere((element) => element.userChildWorkShopId?.toString().replaceAll('[<>', '') == cardModel.key?.toString());
           if(itemIndex != -1){
             var data = widget.items.elementAt(itemIndex);
@@ -82,7 +81,6 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
               widget.todayClicked.call(data);
             }
           }else{
-            print('not found');
           }
         },
       ),
