@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 
 class SplashViewModel extends BaseViewModel {
@@ -9,10 +10,13 @@ class SplashViewModel extends BaseViewModel {
 
   void initSplash() {
     Future.delayed(const Duration(seconds: 3)).then((value) async {
+      if(Get.isDialogOpen == true){
+        return;
+      }
       if (await loggedIn) {
-        _navigationServiceImpl.replaceTo(AppRoute.home);
+        _navigationServiceImpl.off(AppRoute.home);
       } else {
-        _navigationServiceImpl.replaceTo(AppRoute.register);
+        _navigationServiceImpl.off(AppRoute.register);
       }
     });
   }

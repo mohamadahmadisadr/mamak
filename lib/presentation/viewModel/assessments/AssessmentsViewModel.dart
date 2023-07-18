@@ -110,10 +110,13 @@ class AssessmentsViewModel extends BaseViewModel {
               userChildId: assessmentParamsModel?.childId ?? '',
               workShopId: assessmentParamsModel?.workShopId ?? '',
             );
-            _navigationServiceImpl.replaceTo(
-              AppRoute.workBookDetail,
-              model,
-            );
+            Future.delayed(const Duration(seconds: 2)).then((value){
+              _navigationServiceImpl.replaceTo(
+                AppRoute.workBookDetail,
+                model,
+              );
+            });
+
           }
           sendDataState = appState;
           refresh();

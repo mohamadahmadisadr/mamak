@@ -34,16 +34,11 @@ class PackagesViewModel extends BaseViewModel {
   }
 
   void refresh() {
-    updateScreen(time: DateTime
-        .now()
-        .microsecondsSinceEpoch
-        .toDouble());
+    updateScreen(time: DateTime.now().microsecondsSinceEpoch.toDouble());
   }
 
   ChildPackage? getChildPackageData(String subscribeId) {
-    return childPackages.firstWhereOrNull((element) => element.packages?.id?.toString() ==
-        subscribeId);
+    return childPackages.firstWhereOrNull(
+        (element) => element.packages?.id?.toString() == subscribeId);
   }
-
-
 }

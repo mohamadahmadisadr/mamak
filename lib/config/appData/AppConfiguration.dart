@@ -1,3 +1,3 @@
 class AppConfiguration{
-  static const versionCode = 7;
+  static const versionCode = 8;
 }
