@@ -53,6 +53,7 @@ class AddChildViewModel extends BaseViewModel {
         }
         if (appState.isSuccess) {
           _notification.publish('GetChildViewModel', true);
+          _notification.publish('NewHomeViewModel', true);
           _navigationServiceImpl.pop();
         }
         uiState = appState;

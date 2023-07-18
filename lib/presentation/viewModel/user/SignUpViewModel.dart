@@ -24,7 +24,7 @@ class SignUpViewModel extends BaseViewModel {
 
   SignUpViewModel(super.initialState) {
     // fetchSubscribes();
-    fetchProvinces();
+    // fetchProvinces();
   }
 
   AppState subscribesState = AppState.idle;
@@ -63,6 +63,9 @@ class SignUpViewModel extends BaseViewModel {
 
   Function(String) get onConfirmPasswordChange =>
       (value) => formState.confirmPassword = value;
+
+  Function(String) get onEmailChange => (value) => formState.email = value;
+
 
 
   // Function(bool) get onTermsChange => (value) => formState.terms = value;

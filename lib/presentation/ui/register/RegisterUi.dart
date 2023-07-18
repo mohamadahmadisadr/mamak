@@ -60,6 +60,20 @@ class RegisterUi extends StatelessWidget {
                     validator: MobileValidator(),
                   ),
                   10.dpv,
+                  Text(
+                    'ایمیل',
+                    style: context.textTheme.titleSmall
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  4.dpv,
+                  TextFormFieldHelper(
+                    label: "ایمیل",
+                    hint: "ایمیل",
+                    keyboardType: TextInputType.emailAddress,
+                    onChangeValue: bloc.onEmailChange,
+                    // validator: EmailValidator(),
+                  ),
+                  10.dpv,
                   const FormTitleWithStar(title: "نام مادر"),
                   4.dpv,
                   TextFormFieldHelper(
@@ -80,48 +94,48 @@ class RegisterUi extends StatelessWidget {
                     validator: LastNameValidator(),
                   ),
                   10.dpv,
-                  const FormTitleWithStar(title: "استان"),
-                  4.dpv,
-                  ConditionalUI<List<ProvinceItem>>(
-                  skeleton: LocationItemShimmer(),
-                    state: bloc.pState,
-                    onSuccess: (provinces) {
-                      return DropDownFormField(
-                        selectedItem: bloc.selectedProvince,
-                        items: provinces.map((e) => DropDownModel(data: e, name: e.provinceName ?? '')).toList(),
-                        name: 'استان',
-                        onValueChange: bloc.onProvinceChange,
-                      );
-                    },
-                  ),
-                  10.dpv,
-                  const FormTitleWithStar(title: "شهر"),
-                  4.dpv,
-                  ConditionalUI<List<CityItem>>(
-                    skeleton: LocationItemShimmer(),
-                    state: bloc.cState,
-                    onSuccess: (cities) {
-                      if (cities.isNotEmpty) {
-                        return DropDownFormField(
-                          selectedItem: bloc.selectedCity,
-                          items: cities.map((e) => DropDownModel(data: e, name: e.cityName ?? '')).toList(),
-                          name: 'شهر',
-                          onValueChange: bloc.onCityChange,
-                        );
-                      }
-                      return const EmptyPageUI();
-                    },
-                  ),
-                  if(bloc.cState == AppState.idle) Container(
-                    alignment: Alignment.center,
-                    padding: 24.dpe,
-                    margin: 8.dpe,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: 8.bRadius,
-                    ),
-                  ),
-                  10.dpv,
+                  // const FormTitleWithStar(title: "استان"),
+                  // 4.dpv,
+                  // ConditionalUI<List<ProvinceItem>>(
+                  // skeleton: LocationItemShimmer(),
+                  //   state: bloc.pState,
+                  //   onSuccess: (provinces) {
+                  //     return DropDownFormField(
+                  //       selectedItem: bloc.selectedProvince,
+                  //       items: provinces.map((e) => DropDownModel(data: e, name: e.provinceName ?? '')).toList(),
+                  //       name: 'استان',
+                  //       onValueChange: bloc.onProvinceChange,
+                  //     );
+                  //   },
+                  // ),
+                  // 10.dpv,
+                  // const FormTitleWithStar(title: "شهر"),
+                  // 4.dpv,
+                  // ConditionalUI<List<CityItem>>(
+                  //   skeleton: LocationItemShimmer(),
+                  //   state: bloc.cState,
+                  //   onSuccess: (cities) {
+                  //     if (cities.isNotEmpty) {
+                  //       return DropDownFormField(
+                  //         selectedItem: bloc.selectedCity,
+                  //         items: cities.map((e) => DropDownModel(data: e, name: e.cityName ?? '')).toList(),
+                  //         name: 'شهر',
+                  //         onValueChange: bloc.onCityChange,
+                  //       );
+                  //     }
+                  //     return const EmptyPageUI();
+                  //   },
+                  // ),
+                  // if(bloc.cState == AppState.idle) Container(
+                  //   alignment: Alignment.center,
+                  //   padding: 24.dpe,
+                  //   margin: 8.dpe,
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.grey.shade200,
+                  //     borderRadius: 8.bRadius,
+                  //   ),
+                  // ),
+                  // 10.dpv,
                   const FormTitleWithStar(title: "رمز عبور"),
                   4.dpv,
                   PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),

@@ -87,7 +87,7 @@ class LoginUi extends StatelessWidget {
                         ? const MyLoader(color: Colors.black)
                         : const Text('ورود')),
                     16.dpv,
-                    AppleLoginButton(),
+                    // AppleLoginButton(),
 
                   ],
                 ),

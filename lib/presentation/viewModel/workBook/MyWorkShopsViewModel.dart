@@ -50,10 +50,10 @@ class MyWorkShopsViewModel extends BaseViewModel
     return super.close();
   }
 
-  gotoDetailView(num? id) {
-    if (id != null) {
-      model.workShopId = id.toString();
-      _navigationServiceImpl.navigateTo(AppRoute.workBookDetail, model);
-    }
-  }
+  // gotoDetailView(num? id) {
+  //   if (id != null) {
+  //     model.workShopId = id.toString();
+  //     _navigationServiceImpl.navigateTo(AppRoute.workBookDetail, model);
+  //   }
+  // }
 }

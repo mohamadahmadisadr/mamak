@@ -32,7 +32,15 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
 
   @override
   void onReceiveData(data) {
-    onSelectNewChild(data);
+    if(data  != null){
+      if(data is bool){
+        getChildOfUser();
+      }
+      if(data is ChildsItem){
+        onSelectNewChild(data);
+      }
+    }
+
   }
 
   @override

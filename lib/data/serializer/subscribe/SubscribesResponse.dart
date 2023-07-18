@@ -4,12 +4,11 @@
 
 import 'dart:convert';
 
+import 'package:mamak/data/serializer/child/parentCategoryFiles.dart';
+
 List<SubscribeItem> subscribesResponseFromJson(String str) =>
     List<SubscribeItem>.from(
         json.decode(str).map((x) => SubscribeItem.fromJson(x)));
-
-String subscribeItemToJson(List<SubscribeItem> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class SubscribeItem {
   dynamic ageDomain;
@@ -18,9 +17,7 @@ class SubscribeItem {
   bool? isActive;
   int? ageDomainId;
   int? id;
-  List<dynamic>? errorMessages;
-  int? statusCode;
-  List<dynamic>? successfulMessages;
+  List<ParentCategoryFiles>? parentCategoryFiles;
 
   SubscribeItem({
     this.ageDomain,
@@ -29,9 +26,7 @@ class SubscribeItem {
     this.isActive,
     this.ageDomainId,
     this.id,
-    this.errorMessages,
-    this.statusCode,
-    this.successfulMessages,
+    this.parentCategoryFiles
   });
 
   factory SubscribeItem.fromJson(Map<String, dynamic> json) => SubscribeItem(
@@ -41,30 +36,11 @@ class SubscribeItem {
         isActive: json["isActive"],
         ageDomainId: json["ageDomainId"],
         id: json["id"],
-        errorMessages: json["errorMessages"] == null
+        parentCategoryFiles: json["packageFiles"] == null
             ? []
-            : List<dynamic>.from(json["errorMessages"]!.map((x) => x)),
-        statusCode: json["statusCode"],
-        successfulMessages: json["successfulMessages"] == null
-            ? []
-            : List<dynamic>.from(json["successfulMessages"]!.map((x) => x)),
+            : List<ParentCategoryFiles>.from(json["packageFiles"]!.map((x) => ParentCategoryFiles.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() => {
-        "ageDomain": ageDomain,
-        "title": title,
-        "description": description,
-        "isActive": isActive,
-        "ageDomainId": ageDomainId,
-        "id": id,
-        "errorMessages": errorMessages == null
-            ? []
-            : List<dynamic>.from(errorMessages!.map((x) => x)),
-        "statusCode": statusCode,
-        "successfulMessages": successfulMessages == null
-            ? []
-            : List<dynamic>.from(successfulMessages!.map((x) => x)),
-      };
 }
 
 extension SubscribeItemExtension on SubscribeItem {

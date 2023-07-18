@@ -71,8 +71,11 @@ class PackagesItemUI extends StatelessWidget {
                   topRight: Radius.circular(16.0),
                   topLeft: Radius.circular(16.0)),
               child: SizedBox(
-                child: ImageLoader(
-                  url: '${BaseUrls.storagePath}/packages/${package?.id}.png'
+                child: Image.memory(
+                  base64Decode(
+                      package?.parentCategoryFiles?.first.file?.content ??
+                          ''),
+                  fit: BoxFit.contain,
                 ),
               ),
             ),

@@ -104,19 +104,19 @@ class AssessmentsViewModel extends BaseViewModel {
             messageService.showSnackBar(appState.getErrorModel?.message ?? '');
           }
           if (appState.isSuccess) {
-            _notification.publish('MyWorkShopsViewModel', true);
+
             messageService.showSnackBar('ارزیابی فرزند با موفقیت انجام شد');
             WorkBookParamsModel model = WorkBookParamsModel(
               userChildId: assessmentParamsModel?.childId ?? '',
               workShopId: assessmentParamsModel?.workShopId ?? '',
             );
-            Future.delayed(const Duration(seconds: 2)).then((value){
+            _notification.publish('MyWorkShopsViewModel', true);
+            Future.delayed(const Duration(seconds: 1)).then((value){
               _navigationServiceImpl.replaceTo(
                 AppRoute.workBookDetail,
                 model,
               );
             });
-
           }
           sendDataState = appState;
           refresh();

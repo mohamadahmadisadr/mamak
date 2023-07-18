@@ -4,7 +4,7 @@ part 'SignUpBody.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class SignUpBody {
-  final firstName, lastName, mobile, password, confirmPassword;
+  final firstName, lastName, mobile, email, password, confirmPassword;
 
   const SignUpBody({
     required this.firstName,
@@ -12,6 +12,7 @@ class SignUpBody {
     required this.mobile,
     required this.password,
     required this.confirmPassword,
+    required this.email,
   });
 
   SignUpBody fromJson(Map<String, dynamic> json) => _$SignUpBodyFromJson(json);

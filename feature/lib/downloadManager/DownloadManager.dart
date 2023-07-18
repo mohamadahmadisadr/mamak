@@ -17,7 +17,7 @@ class DownloadManager {
   }
 
   @pragma('vm:entry-point')
-  static void downloadCallback(String id, int status, int progress) {
+  static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
     FlutterDownloader.registerCallback((id, status, progress) => downloadCallback(id, status, progress));
   }
 
