@@ -141,7 +141,6 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   void payOrder() {
     PayOrderUseCase().invoke(MyFlow(flow: (appState) {
       if (appState.isSuccess && appState.getData is String) {
-        print(appState.getData);
         _launchUrl(appState.getData);
       }
       if (appState.isFailed) {
@@ -199,7 +198,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
       var result = data.queryParameters['success']?.toString();
       if (result != null) {
         if (result == "400") {
-          messageService.showSnackBar('پرداخت انجام نشد.');
+          messageService.showSnackBar('عملیات پرداخت با خطا مواجه شد');
         } else if (result == "200") {
           getRemainingDay();
           _notification.publish(
