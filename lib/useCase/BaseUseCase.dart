@@ -61,6 +61,12 @@ extension FlowExtension on MyFlow<AppState> {
     );
   }
 
+
+  void successMessage(String msg) {
+    emit(
+      AppState.error(ErrorModel(state: ErrorState.SuccessMsg, message: msg)),
+    );
+  }
   void throwEmptyDataMessage(String msg) {
     emit(
       AppState.error(ErrorModel(state: ErrorState.Empty, message: msg)),

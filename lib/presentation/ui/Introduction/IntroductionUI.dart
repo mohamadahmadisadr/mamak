@@ -25,7 +25,7 @@ class IntroductionUI extends StatelessWidget {
               children: [
                 8.dpv,
                 const Text(
-                  'درباره ما',
+                  'معرفی مامک',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,

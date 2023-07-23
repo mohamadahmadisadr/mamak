@@ -1,4 +1,5 @@
 import 'package:core/Notification/MyNotification.dart';
+import 'package:core/network/errorHandler/ErrorModel.dart';
 import 'package:core/network/errorHandler/common/ErrorMessages.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/body/subscribe/AddSubscribeBody.dart';
@@ -21,7 +22,9 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   AppState discountCodeState = AppState.idle;
   AppState mySubscriptionState = AppState.idle;
   AllSubscriptionItem? selectedItem;
+
   final TextEditingController codeController = TextEditingController();
+
   final MyNotification _notification = GetIt.I.get();
 
   SubscriptionViewModel(super.initialState) {
@@ -44,10 +47,6 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
       uiState = appState;
       refresh();
     }));
-  }
-
-  void refresh() {
-    updateScreen(time: DateTime.now().microsecondsSinceEpoch.toDouble());
   }
 
   onChangeSelectedItem(AllSubscriptionItem? newSelected) {
@@ -145,6 +144,11 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
       }
       if (appState.isFailed) {
         messageService.showSnackBar(appState.getErrorModel?.message ?? '');
+        if (appState.getErrorModel?.state == ErrorState.SuccessMsg) {
+          getRemainingDay();
+          _notification.publish(
+              'MainViewModel', HomeNavigationEnum.WorkShops.value);
+        }
       }
       adSubscribeState = appState;
       refresh();
@@ -152,7 +156,8 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   }
 
   Future<void> _launchUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url),mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(Uri.parse(url),
+        mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
   }

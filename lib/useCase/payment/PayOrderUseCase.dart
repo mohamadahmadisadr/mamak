@@ -16,7 +16,12 @@ class PayOrderUseCase extends BaseUseCase {
         var result = response.result;
 
         if (result.isSuccessFull) {
-          flow.emitData(result.result.replaceAll('"', ""));
+          if(result.result != null){
+            flow.emitData(result.result.replaceAll('"', ""));
+          }else{
+            flow.successMessage(result.concatSuccessMessages);
+          }
+
         } else {
           flow.throwMessage(result.concatErrorMessages);
         }

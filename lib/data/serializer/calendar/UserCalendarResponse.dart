@@ -4,7 +4,8 @@ UserCalendarResponse userCalendarResponseFromJson(String str) =>
     UserCalendarResponse.fromJson(json.decode(str));
 
 List<CalendarItems> defaultCalendarFromJson(String str) =>
-    List<CalendarItems>.from(json.decode(str).map((x) => CalendarItems.fromJson(x)));
+    List<CalendarItems>.from(
+        json.decode(str).map((x) => CalendarItems.fromJson(x)));
 
 String userCalendarResponseToJson(UserCalendarResponse data) =>
     json.encode(data.toJson());
@@ -50,6 +51,7 @@ class CalendarItems {
     this.assessmentNumber,
     this.nextAssessmentDate,
     this.userChildWorkShopId,
+    this.workShopId,
     this.colorNumber,
   });
 
@@ -61,6 +63,7 @@ class CalendarItems {
     assessmentNumber = json['assessmentNumber'];
     colorNumber = json['colorNumber'];
     userChildWorkShopId = json['userChildWorkShopId'];
+    workShopId = json['workShopId'];
     nextAssessmentDate = json['nextAssessmentDate'] != null
         ? DateTime.tryParse(json['nextAssessmentDate'])
         : null;
@@ -69,6 +72,7 @@ class CalendarItems {
   num? dayOfWeek;
   ParentCategory? parentCategory;
   dynamic userChildWorkShopId;
+  int? workShopId;
   num? assessmentNumber;
   DateTime? nextAssessmentDate;
   String? colorNumber;

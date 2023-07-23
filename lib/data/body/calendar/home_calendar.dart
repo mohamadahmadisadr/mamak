@@ -57,12 +57,14 @@ class _HomeCalendarUiState extends State<HomeCalendarUi> {
                   items: data.calendarItems ?? [],
                   todayClicked: (item) {
                     AssessmentParamsModel assessmentParam =
-                        widget.selectedChild.getAssessmentParam(
-                      workShopId: item.userChildWorkShopId?.toString() ??
-                          '',
-                      course: item.parentCategory
-                              ?.description ??
-                          '',
+                        AssessmentParamsModel(
+                      name: widget.selectedChild.childFirstName ?? '',
+                      id: item.userChildWorkShopId?.toString() ??
+                          ''
+                              '',
+                      childId: widget.selectedChild.id?.toString() ?? '',
+                      workShopId: item.workShopId?.toString() ?? '',
+                      course: item.parentCategory?.title ?? '',
                     );
                     GetIt.I.get<NavigationServiceImpl>().navigateTo(
                           AppRoute.assessments,

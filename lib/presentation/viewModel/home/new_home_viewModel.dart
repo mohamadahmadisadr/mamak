@@ -13,10 +13,9 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
   AppState childState = AppState.idle;
   bool newUi = true;
 
-
   NewHomeViewModel(super.initialState) {
-      _notification.subscribeListener(this);
-      getChildOfUser();
+    _notification.subscribeListener(this);
+    getChildOfUser();
   }
 
   AppState reportCardState = AppState.idle;
@@ -32,15 +31,14 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
 
   @override
   void onReceiveData(data) {
-    if(data  != null){
-      if(data is bool){
+    if (data != null) {
+      if (data is bool) {
         getChildOfUser();
       }
-      if(data is ChildsItem){
+      if (data is ChildsItem) {
         onSelectNewChild(data);
       }
     }
-
   }
 
   @override
@@ -53,19 +51,19 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
   }
 
   void getChildOfUser() {
-    GetChildOfUserUseCase().invoke(MyFlow(flow: (appState){
-      if (appState.getErrorModel?.state == ErrorState.Empty){
+    GetChildOfUserUseCase().invoke(MyFlow(flow: (appState) {
+      if (appState.getErrorModel?.state == ErrorState.Empty) {
         newUi = false;
       }
-      if(appState.isSuccess){
-        if(appState.getData is List<ChildsItem>){
+      if (appState.isSuccess) {
+        if (appState.getData is List<ChildsItem>) {
           List<ChildsItem> child = appState.getData;
-          if(child.isNotEmpty){
+          if (child.isNotEmpty) {
             selected = child.first;
             onSelectNewChild(selected!);
+            newUi = true;
             // _notification.publish('NewHomeViewModel', selected);
           }
-
         }
       }
       childState = appState;
@@ -130,7 +128,8 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
     List<WorkShopReportCard> values = [];
     cards?.forEach((e) {
       e.workShopReportCards?.forEach((element) {
-        if (id.toString() == (element.workShopDictionary?.categoryId?.toString() ?? '0')) {
+        if (id.toString() ==
+            (element.workShopDictionary?.categoryId?.toString() ?? '0')) {
           values.add(element);
         }
       });
