@@ -15,4 +15,5 @@ class AppRoute {
   static const categoryDetail = '/categoryDetail';
   static const shotViewer = '/shotViewer';
   static const newHome = '/newHome';
+  static const sourceClick = '/sourceClick';
 }

@@ -4,20 +4,15 @@ import 'package:feature/form/validator/login/MobileValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
-import 'package:mamak/data/serializer/location/CityItem.dart';
-import 'package:mamak/data/serializer/location/ProvinceItem.dart';
-import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
-import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
-import 'package:mamak/presentation/ui/main/EmptyPageUI.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
-import 'package:mamak/presentation/ui/register/location_item_shimmer.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/SignUpViewModel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterUi extends StatelessWidget {
   const RegisterUi({Key? key}) : super(key: key);
@@ -166,6 +161,22 @@ class RegisterUi extends StatelessWidget {
                   //   onValueChange: bloc.onItemChanged.call(),
                   //   selectedItem: bloc.formState.subscribeId,
                   // ),
+                  10.dpv,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('ثبت نام به معنی پذیرش'),
+                      TextButton(
+                        onPressed: () {
+                          _launchUrl(
+                              Uri.parse('https://mamakschool.ir/home/privacy'));
+                        },
+                        child: Text('قوانین و مقررات'),
+                        style: TextButton.styleFrom(padding: 4.dpe),
+                      ),
+                      Text('مامک است'),
+                    ],
+                  ),
                   20.dpv,
                   ElevatedButton(
                       onPressed: bloc.register.call(),
@@ -179,6 +190,12 @@ class RegisterUi extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _launchUrl(Uri uri) async {
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $uri');
+    }
   }
 }
 

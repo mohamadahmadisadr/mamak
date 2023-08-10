@@ -1,3 +1,5 @@
+import 'package:feature/poolakey/inapp_purchase_info.dart';
+import 'package:feature/poolakey/purchase_extension.dart';
 import 'package:flutter_poolakey/flutter_poolakey.dart';
 
 class PoolakeyHelper {
@@ -9,15 +11,13 @@ class PoolakeyHelper {
   }
 
   void init() async {
-
     await FlutterPoolakey.connect(rsa, onDisconnected: () {
       /*reconnect here*/
+      print('disconnected from cafebazaar');
     });
-
   }
 
-  void purchase(String pId) async {
-    var res =
-        await FlutterPoolakey.purchase(pId, payload: '', dynamicPriceToken: '');
+  Future<InAppPurchaseInfo> purchase({required String pId,String token = ""}) async {
+    return (await FlutterPoolakey.purchase(pId,dynamicPriceToken: token)).toInAppPurchaseInfo;
   }
 }

@@ -3,6 +3,7 @@ import 'package:mamak/presentation/ui/app/ShotViewrUi.dart';
 import 'package:mamak/presentation/ui/category/CategoryDetailUI.dart';
 import 'package:mamak/presentation/ui/child/AddChildUi.dart';
 import 'package:mamak/presentation/ui/login/LoginUi.dart';
+import 'package:mamak/presentation/ui/more/source_page.dart';
 import 'package:mamak/presentation/ui/newHome/new_home_ui.dart';
 import 'package:mamak/presentation/ui/package/PackageDetailUI.dart';
 import 'package:mamak/presentation/ui/register/RegisterUi.dart';
@@ -42,5 +43,6 @@ class AppRouteHelper {
         name: AppRoute.categoryDetail, page: () => const CategoryDetailUI()),
     GetPage(name: AppRoute.shotViewer, page: () => const ShotViewerUi()),
     GetPage(name: AppRoute.newHome, page: () => const NewHomeUi()),
+    GetPage(name: AppRoute.sourceClick, page: () => const SourceUi()),
   ];
 }

@@ -1,6 +1,10 @@
 import 'package:core/Notification/MyNotification.dart';
 import 'package:core/network/errorHandler/ErrorModel.dart';
 import 'package:core/network/errorHandler/common/ErrorMessages.dart';
+import 'package:core/utils/logger/Logger.dart';
+import 'package:feature/jwt/jwt_generator.dart';
+import 'package:feature/poolakey/inapp_purchase_info.dart';
+import 'package:feature/poolakey/poolakey_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/body/subscribe/AddSubscribeBody.dart';
 import 'package:mamak/data/body/subscribe/DiscountCodeBody.dart';
@@ -8,6 +12,7 @@ import 'package:mamak/data/serializer/subscribe/AllSubscriptionResponse.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/payment/PayOrderUseCase.dart';
+import 'package:mamak/useCase/payment/payOrderResultByCafeBazaarUseCase.dart';
 import 'package:mamak/useCase/subscribe/AddSubscribeUseCase.dart';
 import 'package:mamak/useCase/subscribe/CurrentPackageUseCase.dart';
 import 'package:mamak/useCase/subscribe/DiscountCodeUseCase.dart';
@@ -22,10 +27,13 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   AppState discountCodeState = AppState.idle;
   AppState mySubscriptionState = AppState.idle;
   AllSubscriptionItem? selectedItem;
+  String? dynamicPriceToken;
+  final bool cafeBazaar = true;
 
   final TextEditingController codeController = TextEditingController();
 
   final MyNotification _notification = GetIt.I.get();
+  final PoolakeyHelper _poolakeyHelper = GetIt.I.get();
 
   SubscriptionViewModel(super.initialState) {
     WidgetsBinding.instance.addObserver(this);
@@ -52,6 +60,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   onChangeSelectedItem(AllSubscriptionItem? newSelected) {
     if (newSelected != null) {
       selectedItem = newSelected;
+      dynamicPriceToken = null;
       refresh();
     }
   }
@@ -74,11 +83,15 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
           amount: selectedItem?.price?.toString() ?? '',
           code: codeController.text);
 
-      DiscountCodeUseCase().invoke(MyFlow(flow: (appState) {
+      DiscountCodeUseCase().invoke(MyFlow(flow: (appState) async {
         if (appState.isSuccess) {
           selectedItem?.discount = int.tryParse(appState.getData) ?? 0;
+          dynamicPriceToken = await JwtGenerator().generateToken(
+              pId: selectedItem?.cafeBazaarIdentity ?? '',
+              price: selectedItem?.discount ?? 0);
         }
         if (appState.isFailed) {
+          dynamicPriceToken = null;
           messageService.showSnackBar(appState.getErrorModel?.message ?? '');
         }
         discountCodeState = appState;
@@ -112,22 +125,46 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
     checkDiscountCode();
   }
 
-  void submitSubscribe() {
+  void submitSubscribe() async {
     if (selectedItem == null) {
       messageService.showSnackBar('اشتراک موردنظر را انتخاب کنید');
       return;
     }
+
     AddSubscribeBody body = AddSubscribeBody(
       subscriptionId: selectedItem?.id?.toString() ?? '',
       discountCode: codeController.text,
     );
     AddSubscribeUseCase().invoke(
-      MyFlow(flow: (appState) {
+      MyFlow(flow: (appState) async {
         if (appState.isFailed) {
           messageService.showSnackBar(appState.getErrorModel?.message ?? '');
         }
         if (appState.isSuccess) {
-          payOrder();
+          if (cafeBazaar) {
+            try {
+              var res = await _poolakeyHelper.purchase(
+                pId: selectedItem!.cafeBazaarIdentity ?? '',
+                token: dynamicPriceToken ?? '',
+              );
+              if (res.state == InAppPurchaseState.success) {
+                payOrder();
+                messageService.showSnackBar('پرداخت با موفقیت انجام شد');
+              } else {
+                messageService.showSnackBar('این پکیج قبلا خریداری شده است');
+                adSubscribeState = appState;
+                refresh();
+              }
+            } catch (e) {
+              Logger.e(e);
+
+              messageService.showSnackBar('پراخت انجام نشد');
+              adSubscribeState = appState;
+              refresh();
+            }
+          } else {
+            payOrder();
+          }
         } else {
           adSubscribeState = appState;
           refresh();
@@ -139,21 +176,47 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
 
   void payOrder() {
     PayOrderUseCase().invoke(MyFlow(flow: (appState) {
+      if(appState.isFailed && appState.getErrorModel?.state == ErrorState.SuccessMsg){
+        if(cafeBazaar){
+          payOrderCafeBazaar();
+        }
+      }
       if (appState.isSuccess && appState.getData is String) {
+        Logger.d('success');
         _launchUrl(appState.getData);
       }
       if (appState.isFailed) {
+        Logger.d('failed');
         messageService.showSnackBar(appState.getErrorModel?.message ?? '');
         if (appState.getErrorModel?.state == ErrorState.SuccessMsg) {
           getRemainingDay();
           _notification.publish(
-              'MainViewModel', HomeNavigationEnum.WorkShops.value);
+            'MainViewModel',
+            HomeNavigationEnum.WorkShops.value,
+          );
         }
       }
       adSubscribeState = appState;
       refresh();
-    }));
+    }), data: !cafeBazaar);
   }
+
+
+  payOrderCafeBazaar(){
+    PayOrderResultByCafeBazaarUseCase().invoke(
+        MyFlow(flow: (resultState) {
+          if (resultState.isFailed) {
+            print(
+                'result PayOrderResultByCafeBazaarUseCase is ${resultState.getErrorModel?.message}');
+          } else {
+            print(
+                'result PayOrderResultByCafeBazaarUseCase is $resultState');
+          }
+          adSubscribeState = resultState;
+          refresh();
+        }), data: selectedItem?.discount ?? selectedItem?.price);
+  }
+
 
   Future<void> _launchUrl(String url) async {
     if (!await launchUrl(Uri.parse(url),

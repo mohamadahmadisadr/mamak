@@ -127,8 +127,8 @@ class SubscriptionUI extends StatelessWidget {
                             flex: 1,
                             child: Text(
                               bloc.selectedItem?.discount == null
-                                  ? '${bloc.selectedItem?.price ?? 0} تومان'
-                                  : '${bloc.selectedItem?.discount ?? 0} تومان',
+                                  ? '${bloc.selectedItem?.price ?? 0} ریال'
+                                  : '${bloc.selectedItem?.discount ?? 0} ریال',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: WidgetSize.normalTitle,

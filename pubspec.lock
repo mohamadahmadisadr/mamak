@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.4"
+  adaptive_number:
+    dependency: transitive
+    description:
+      name: adaptive_number
+      sha256: "3a567544e9b5c9c803006f51140ad544aedc79604fd4f3f2c1380003f97c1d77"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   analyzer:
     dependency: transitive
     description:
@@ -296,6 +304,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.8"
+  dart_jsonwebtoken:
+    dependency: transitive
+    description:
+      name: dart_jsonwebtoken
+      sha256: e878f2ee660aba6536d23aca710a475b2dd1ccf61130e2341fbb07cc98442f4a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.8.2"
   dart_style:
     dependency: transitive
     description:
@@ -328,6 +344,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  ed25519_edwards:
+    dependency: transitive
+    description:
+      name: ed25519_edwards
+      sha256: "6ce0112d131327ec6d42beede1e5dfd526069b18ad45dcf654f15074ad9276cd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1"
   equatable:
     dependency: "direct main"
     description:
@@ -553,6 +577,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.15"
+  flutter_poolakey:
+    dependency: transitive
+    description:
+      name: flutter_poolakey
+      sha256: "09c1b14caa1613536391b7d00b646cd286f57d11ad476e543c2a704a8e2702b3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   flutter_shake_animated:
     dependency: "direct main"
     description:

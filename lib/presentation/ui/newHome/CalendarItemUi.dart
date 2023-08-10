@@ -87,7 +87,6 @@ class CalendarItemUi extends StatelessWidget {
     var days = nextAssessmentDate.difference(DateTime.now()).inDays;
     var hours = nextAssessmentDate.difference(DateTime.now()).inHours;
     if (days == 0) {
-      print(hours);
     }
 
     if (hours > 0 && hours < 24) return '$hours ساعت مانده';

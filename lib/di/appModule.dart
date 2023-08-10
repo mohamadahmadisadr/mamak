@@ -4,6 +4,7 @@ import 'package:core/network/ApiServiceImpl.dart';
 import 'package:feature/deviceInfo/my_device_info.dart';
 import 'package:feature/messagingService/MessagingService.dart';
 import 'package:feature/navigation/NavigationService.dart';
+import 'package:feature/poolakey/poolakey_helper.dart';
 import 'package:feature/session/LocalSessionImpl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -18,6 +19,7 @@ class AppModule {
     GetIt.I.registerSingleton<MyNotification>(MyNotification());
     GetIt.I.registerSingleton<MyImagePicker>(MyImagePicker());
     GetIt.I.registerSingleton<MyDeviceInfo>(MyDeviceInfo());
+    GetIt.I.registerLazySingleton<PoolakeyHelper>(() => PoolakeyHelper());
     return true;
   }
 }

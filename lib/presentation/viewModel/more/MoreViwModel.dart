@@ -18,6 +18,10 @@ class MoreViewModel extends BaseViewModel {
           iconData: CupertinoIcons.person_3_fill,
           name: 'فرزندان من',
           onClick: addChildClick),
+      MoreItemModel(
+          iconData: CupertinoIcons.chart_pie,
+          name: 'منابع',
+          onClick: sourceClick),
     ];
   }
 
@@ -32,5 +36,9 @@ class MoreViewModel extends BaseViewModel {
 
   addChildClick() {
     _navigationServiceImpl.navigateTo(AppRoute.addChild);
+  }
+
+  sourceClick() {
+    _navigationServiceImpl.navigateTo(AppRoute.sourceClick);
   }
 }
