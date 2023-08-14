@@ -83,6 +83,9 @@ class SignUpViewModel extends BaseViewModel {
             navigationServiceImpl.replaceTo(
                 AppRoute.verification, formState.mobile);
           }
+          if(appState.isFailed){
+            messageService.showSnackBar(appState.getErrorModel?.message ?? '');
+          }
           uiState = appState;
           refresh();
         }), data: formState.getBody());

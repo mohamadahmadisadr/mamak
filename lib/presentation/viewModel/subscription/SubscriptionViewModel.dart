@@ -32,6 +32,10 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
 
   final TextEditingController codeController = TextEditingController();
 
+
+
+
+
   final MyNotification _notification = GetIt.I.get();
   final PoolakeyHelper _poolakeyHelper = GetIt.I.get();
 
