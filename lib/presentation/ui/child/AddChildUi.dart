@@ -84,7 +84,7 @@ class AddChildUi extends StatelessWidget {
                           child: DropDownFormField(
                               selectedItem: DropDownModel(data: 1398, name: 1398.toString()),
                               items:
-                                  positiveIntegers.skip(1395).take(5).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
+                                  positiveIntegers.skip(1395).take(4).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
                               name: 'سال',
                               onValueChange: bloc.onYearChange),
                         ),

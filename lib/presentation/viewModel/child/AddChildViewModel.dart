@@ -3,11 +3,12 @@ import 'package:core/imagePicker/ImageFileModel.dart';
 import 'package:core/imagePicker/MyImagePicker.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/presentation/state/formState/child/AddChildFormState.dart';
+import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/child/AddChildUseCase.dart';
 
 class AddChildViewModel extends BaseViewModel {
-  AddChildViewModel(super.initialState){
+  AddChildViewModel(super.initialState) {
     birthDateTime.day = 2;
     birthDateTime.month = 10;
     birthDateTime.year = 1398;
@@ -48,12 +49,14 @@ class AddChildViewModel extends BaseViewModel {
     if (formState.currentState?.validate() == true) {
       _formState.birtDate = birthDateTime.createDate().toIso8601String();
       AddChildUseCase().invoke(MyFlow(flow: (appState) {
-        if(appState.isFailed){
+        if (appState.isFailed) {
           messageService.showSnackBar(appState.getErrorModel?.message ?? '');
         }
         if (appState.isSuccess) {
           _notification.publish('GetChildViewModel', true);
           _notification.publish('NewHomeViewModel', true);
+          _notification.publish(
+              'MainViewModel', HomeNavigationEnum.WorkShops.value);
           _navigationServiceImpl.pop();
         }
         uiState = appState;
