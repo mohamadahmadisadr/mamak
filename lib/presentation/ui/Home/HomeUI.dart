@@ -6,6 +6,7 @@ import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/data/serializer/subscribe/SubscribesResponse.dart';
 import 'package:mamak/presentation/ui/Home/HomeSliderUi.dart';
 import 'package:mamak/presentation/ui/Home/PackagesGridView.dart';
+import 'package:mamak/presentation/ui/app/home_intro_ui.dart';
 import 'package:mamak/presentation/ui/calnedar/default_calendar_ui.dart';
 import 'package:mamak/presentation/ui/category/CategoriesHorizontalListUi.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
@@ -36,14 +37,10 @@ class HomeUI extends StatelessWidget {
                   style: context.textTheme.titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center),
-              DefaultCalendarUi(),
+              const DefaultCalendarUi(),
               SizedBox(
                 height: MediaQuery.of(context).size.width / 2,
-                child: const HomeSliderUi(
-                  images: [
-                    '${BaseUrls.storagePath}/banner1.png',
-                  ],
-                ),
+                child: const HomeSliderUi(),
               ),
               4.dp,
               SizedBox(
@@ -80,8 +77,10 @@ class HomeUI extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
-                child: MyVideoPlayer(
-                    link: '${BaseUrls.storagePath}/MamakInfo.mp4'),
+                child: const SizedBox(
+                  height: 300,
+                  child: HomeIntroUi(),
+                ),
               ),
               4.dpv,
               InkWell(

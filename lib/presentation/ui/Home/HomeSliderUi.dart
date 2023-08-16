@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/data/serializer/home/HomeResponse.dart';
+import 'package:mamak/data/serializer/home/slider/slider_content_response.dart';
+import 'package:mamak/presentation/state/app_state.dart';
+import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
+import 'package:mamak/presentation/ui/main/CubitProvider.dart';
+import 'package:mamak/presentation/viewModel/app/home_slider_vm.dart';
 
 class HomeSliderUi extends StatefulWidget {
-  const HomeSliderUi({Key? key, required this.images}) : super(key: key);
-  final List<String> images;
+  const HomeSliderUi({Key? key}) : super(key: key);
 
   @override
   State<HomeSliderUi> createState() => _HomeSliderUiState();
@@ -22,22 +28,28 @@ class _HomeSliderUiState extends State<HomeSliderUi> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      physics: const BouncingScrollPhysics(),
-      pageSnapping: true,
-      scrollDirection: Axis.horizontal,
-      controller: _controller,
-      children: widget.images
-          .map(
-            (image) => SizedBox(
+    return CubitProvider(create: (context) => HomeSliderViewModel(AppState.idle), builder: (bloc, state) {
+      return ConditionalUI<SliderContentResponse>(
+      skeleton: Expanded(child: Container(color: Colors.grey.shade200)),state: state, onSuccess: (slider) {
+        return PageView(
+          physics: const BouncingScrollPhysics(),
+          pageSnapping: true,
+          scrollDirection: Axis.horizontal,
+          controller: _controller,
+          children: (slider.images?.map((e) => e.content).toList() ?? [])
+              .map(
+                (image) => SizedBox(
               height: 270.0,
-              child: ImageLoader(
-                url: image,
-                fitModel: BoxFit.contain,
+              child: Image.memory(
+                base64Decode(image ?? ''),
+                fit: BoxFit.contain,
               ),
             ),
           )
-          .toList(),
-    );
+              .toList(),
+        );
+      },);
+    },);
+
   }
 }

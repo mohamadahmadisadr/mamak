@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:path_provider/path_provider.dart';
@@ -18,6 +19,15 @@ class ShareFile {
     var tempDir = await getExternalStorageDirectory();
     await XFile.fromData(bytes, mimeType: 'application/pdf', name: name)
         .saveTo('${tempDir?.path}/$name');
+    return '${tempDir?.path}/$name';
+  }
+
+  static Future<String> saveVideoFile(Uint8List bytes) async {
+    var name = '${DateTime.now().microsecondsSinceEpoch}.mp4';
+    var tempDir = await getExternalStorageDirectory();
+    var file = await File('${tempDir?.path}/$name').create();
+    print(file.path);
+    await file.writeAsBytes(bytes);
     return '${tempDir?.path}/$name';
   }
 

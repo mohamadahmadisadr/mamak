@@ -1,13 +1,12 @@
+import 'dart:convert';
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class MyVideoPlayer extends StatefulWidget {
-  const MyVideoPlayer(
-      {Key? key,
-      this.link =
-          'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'})
-      : super(key: key);
-  final String link;
+  const MyVideoPlayer({Key? key, this.data = ''}) : super(key: key);
+  final String data;
 
   @override
   State<MyVideoPlayer> createState() => _MyVideoPlayerState();
@@ -24,13 +23,24 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   }
 
   void init() {
-    videoPlayerController = VideoPlayerController.network(
-      widget.link,
-    )..initialize().then((_) => setState(() {
-          if (videoPlayerController.value.isInitialized) {
-            videoPlayerController.seekTo(const Duration(seconds: 3));
-          }
-        }));
+    String url = '';
+    if (!widget.data.startsWith('http')) {
+      final blob = html.Blob([base64Decode(widget.data)]);
+      url = html.Url.createObjectUrlFromBlob(blob);
+    }
+
+    videoPlayerController = !widget.data.startsWith('http')
+        ? VideoPlayerController.network(url)
+        : VideoPlayerController.network(widget.data)
+      ..initialize().then(
+        (_) => setState(
+          () {
+            if (videoPlayerController.value.isInitialized) {
+              videoPlayerController.seekTo(const Duration(seconds: 3));
+            }
+          },
+        ),
+      );
     videoPlayerController.setLooping(true);
     videoPlayerController.addListener(() {
       setState(() {});

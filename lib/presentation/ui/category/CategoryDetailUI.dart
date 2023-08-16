@@ -1,4 +1,3 @@
-import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:feature/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/home/CategoryDetailResponse.dart';
@@ -44,8 +43,8 @@ class CategoryDetailUI extends StatelessWidget {
                           SizedBox(
                             height: 100,
                             width: 100,
-                            child: ImageLoader(
-                                url: '${BaseUrls.storagePath}/categories/${bloc.id}.png'),
+                            child: Image.memory(
+                                base64Decode(bloc.images.headerImage ?? '')),
                           ),
                         ],
                       ),
@@ -87,18 +86,22 @@ class CategoryDetailUI extends StatelessWidget {
                           ),
                           16.dpv,
                           SizedBox(
-                          height: 280,
+                            height: 280,
                             child: MyVideoPlayer(
-                                link: '${BaseUrls.storagePath}/Categories/${bloc.id}.mp4'),
+                                data:
+                                    '${BaseUrls.storagePath}/Categories/${bloc.id}.mp4'),
                           ),
                           16.dpv,
                           Column(
-                            children: List.generate(4, (index) {
-                              var url = '${BaseUrls.storagePath}/CategoryDetails/${bloc.id}/${index + 1}.jpg';
+                            children: List.generate(
+                                bloc.images.images?.length ?? 0, (index) {
+                              var imgData =
+                                  base64Decode(bloc.images.images![index]);
                               return Column(
                                 children: [
-                                  ImageLoader(
-                                      url: url),
+                                  Image.memory(
+                                    imgData,
+                                  ),
                                   10.dpv,
                                 ],
                               );

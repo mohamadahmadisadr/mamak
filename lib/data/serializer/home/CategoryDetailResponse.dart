@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:mamak/data/serializer/child/parentCategoryFiles.dart';
+
 CategoryDetailResponse categoryDetailResponseFromJson(String str) =>
     CategoryDetailResponse.fromJson(json.decode(str));
 
@@ -15,6 +17,7 @@ class CategoryDetailResponse {
     this.errorMessages,
     this.statusCode,
     this.successfulMessages,
+    this.parentCategoryFiles,
   });
 
   CategoryDetailResponse.fromJson(dynamic json) {
@@ -27,13 +30,17 @@ class CategoryDetailResponse {
       });
     }
     id = json['id'];
-
+    parentCategoryFiles = json["parentCategoryFiles"] != null
+        ? List<ParentCategoryFiles>.from(json["parentCategoryFiles"]!
+            .map((x) => ParentCategoryFiles.fromJson(x)))
+        : null;
     statusCode = json['statusCode'];
   }
 
   String? title;
   String? description;
   List<SubCategories>? subCategories;
+  List<ParentCategoryFiles>? parentCategoryFiles;
   num? id;
   List<dynamic>? errorMessages;
   num? statusCode;

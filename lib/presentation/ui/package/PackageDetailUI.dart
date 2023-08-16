@@ -81,7 +81,7 @@ class PackageDetailUI extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16.0)),
                                 child: MyVideoPlayer(
-                                  link:
+                                  data:
                                       '${BaseUrls.storagePath}/Categories/${data.workShops
                                           ?.elementAt(index).parentCategoryId}.mp4',
                                 ),

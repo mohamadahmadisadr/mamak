@@ -16,7 +16,7 @@ class VideoPlayerDialog extends StatelessWidget {
       child: SizedBox(
           height: 300.0,
           width: MediaQuery.of(context).size.width,
-          child: MyVideoPlayer(link: link)),
+          child: MyVideoPlayer(data: link)),
     );
   }
 }
