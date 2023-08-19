@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:html' as html;
+// import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -25,8 +25,8 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   void init() {
     String url = '';
     if (!widget.data.startsWith('http')) {
-      final blob = html.Blob([base64Decode(widget.data)]);
-      url = html.Url.createObjectUrlFromBlob(blob);
+      // final blob = html.Blob([base64Decode(widget.data)]);
+      // url = html.Url.createObjectUrlFromBlob(blob);
     }
 
     videoPlayerController = !widget.data.startsWith('http')

@@ -1,3 +1,4 @@
+import 'package:core/recaptcha/recaptcha_solver.dart';
 import 'package:core/utils/logger/Logger.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

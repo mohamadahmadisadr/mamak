@@ -36,7 +36,7 @@ dependencies:
   get: ^4.6.5
   shimmer: ^2.0.0
   syncfusion_flutter_sliders: ^20.3.60
-  flutter_downloader: ^1.9.1
+#  flutter_downloader: ^1.11.1
   url_launcher: ^6.1.8
   firebase_core: ^2.4.1
   firebase_messaging: ^14.2.1

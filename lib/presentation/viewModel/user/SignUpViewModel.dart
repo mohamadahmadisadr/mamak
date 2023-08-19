@@ -1,3 +1,5 @@
+import 'package:core/recaptcha/recaptcha_solver.dart';
+import 'package:core/utils/logger/Logger.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/location/CityItem.dart';
 import 'package:mamak/data/serializer/location/ProvinceItem.dart';
@@ -23,6 +25,7 @@ class SignUpViewModel extends BaseViewModel {
   DropDownModel? selectedCity;
 
   SignUpViewModel(super.initialState) {
+    getRecaptchaToken();
     // fetchSubscribes();
     // fetchProvinces();
   }
@@ -124,5 +127,10 @@ class SignUpViewModel extends BaseViewModel {
   onCityChange(dynamic newCity) {
     selectedCity = DropDownModel(data: newCity, name: newCity?.cityName ?? '');
     refresh();
+  }
+
+  void getRecaptchaToken() async{
+    var token = await GetIt.I.get<RecaptchaSolver>().generateToken();
+    Logger.d('generated token is $token');
   }
 }

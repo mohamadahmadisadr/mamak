@@ -34,6 +34,7 @@ class TotalWorkBookChartUi extends StatelessWidget {
             children: [
               8.dpv,
               FutureBuilder(
+              future: null,
                 builder: (context, snapshot) {
                   List<String> workShops = bloc.getUserWorkShops(cards);
                   return Column(
