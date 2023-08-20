@@ -88,9 +88,15 @@ class _MoreIconButtonState extends State<MoreIconButton>
 
   @override
   void dispose() {
-    context.read<MainViewModel>().animationController?.dispose();
+    context.read()<MainViewModel>().animationController?.dispose();
     context.read<MainViewModel>().animationController = null;
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+
+    super.didChangeDependencies();
   }
 
   @override

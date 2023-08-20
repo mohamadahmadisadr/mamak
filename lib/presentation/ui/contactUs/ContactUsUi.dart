@@ -40,8 +40,7 @@ class ContactUsUi extends StatelessWidget {
                       const Icon(Icons.location_on),
                       4.dph,
                       Expanded(
-                        child: Text(
-                            bloc.contactUsData.address),
+                        child: Text(bloc.contactUsData.address),
                       )
                     ],
                   ),
@@ -60,7 +59,7 @@ class ContactUsUi extends StatelessWidget {
                         4.dph,
                         Text(
                           bloc.contactUsData.phone,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
@@ -76,7 +75,9 @@ class ContactUsUi extends StatelessWidget {
                           border: Border.all(color: Colors.grey),
                           borderRadius: 8.bRadius),
                       height: 300,
-                      child: MamakMapUi(controller: bloc.mapController,marker: bloc.contactUsData.latLng),
+                      child: MamakMapUi(
+                          controller: bloc.mapController,
+                          marker: bloc.contactUsData.latLng),
                     ),
                   ),
                   ContactUsFormUi(
@@ -103,8 +104,9 @@ class ContactUsUi extends StatelessWidget {
   }
 }
 
+@immutable
 class ContactUsFormUi extends StatelessWidget {
-  ContactUsFormUi({
+  const ContactUsFormUi({
     Key? key,
     required this.formKey,
     required this.onNameChange,
@@ -113,8 +115,8 @@ class ContactUsFormUi extends StatelessWidget {
     required this.onSubjectChange,
     required this.onTextChange,
   }) : super(key: key);
-  GlobalKey<FormState> formKey;
-  Function(String) onNameChange,
+  final GlobalKey<FormState> formKey;
+  final Function(String) onNameChange,
       onEmailChange,
       onMobileChange,
       onSubjectChange,

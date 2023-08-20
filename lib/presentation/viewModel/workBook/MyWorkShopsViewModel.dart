@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:core/Notification/MyNotification.dart';
 import 'package:core/Notification/MyNotificationListener.dart';
 import 'package:mamak/data/serializer/child/ChildsResponse.dart';
@@ -14,30 +12,28 @@ class MyWorkShopsViewModel extends BaseViewModel
 
   late ChildsItem selectedChild;
 
-  final NavigationServiceImpl _navigationServiceImpl = GetIt.I.get();
-
   MyWorkShopsViewModel(super.initialState) {
     _notification.subscribeListener(this);
   }
 
   getWorkShopsByChildId(String childId) {
-    if(!state.isLoading) {
-      GetWorkShopsOfChildUserUseCase().invoke(mainFlow, data: childId.toString());
+    if (!state.isLoading) {
+      GetWorkShopsOfChildUserUseCase()
+          .invoke(mainFlow, data: childId.toString());
     }
   }
 
   @override
   void onReceiveData(data) {
     if (data != null) {
-      if(data is ChildsItem){
+      if (data is ChildsItem) {
         selectedChild = data;
         model.userChildId = (data).id.toString();
         getWorkShopsByChildId((data).id.toString());
       }
-      if(data is bool && data == true){
+      if (data is bool && data == true) {
         getWorkShopsByChildId(model.userChildId);
       }
-
     }
   }
 
@@ -50,10 +46,10 @@ class MyWorkShopsViewModel extends BaseViewModel
     return super.close();
   }
 
-  // gotoDetailView(num? id) {
-  //   if (id != null) {
-  //     model.workShopId = id.toString();
-  //     _navigationServiceImpl.navigateTo(AppRoute.workBookDetail, model);
-  //   }
-  // }
+// gotoDetailView(num? id) {
+//   if (id != null) {
+//     model.workShopId = id.toString();
+//     _navigationServiceImpl.navigateTo(AppRoute.workBookDetail, model);
+//   }
+// }
 }

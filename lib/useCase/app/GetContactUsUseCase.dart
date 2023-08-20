@@ -1,6 +1,5 @@
 import 'package:mamak/config/apiRoute/app/AppUrls.dart';
 import 'package:mamak/data/serializer/app/ContactUsResponse.dart';
-import 'package:mamak/data/serializer/subscribe/PayOrderResponse.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
 class GetContactUsUseCase extends BaseUseCase {
@@ -18,15 +17,15 @@ class GetContactUsUseCase extends BaseUseCase {
 
         if (result.isSuccessFull) {
           flow.emitData(contactUsResponseFromJson(result.result));
-    } else {
-    flow.throwMessage(result.concatErrorMessages);
-    }
-    } else {
-    flow.throwError(response);
-    }
+        } else {
+          flow.throwMessage(result.concatErrorMessages);
+        }
+      } else {
+        flow.throwError(response);
+      }
     } catch (e) {
-    Logger.e(e);
-    flow.throwCatch();
+      Logger.e(e);
+      flow.throwCatch();
     }
   }
 }

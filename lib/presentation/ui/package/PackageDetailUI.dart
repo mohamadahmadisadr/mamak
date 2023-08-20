@@ -1,5 +1,5 @@
 import 'package:core/utils/imageLoader/ImageLoader.dart';
-import 'package:feature/videoPlayer/MyVideoPlayer.dart';
+import 'package:core/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/data/serializer/home/PackageDetailResponse.dart';

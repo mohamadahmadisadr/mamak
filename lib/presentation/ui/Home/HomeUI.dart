@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:feature/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/apiRoute/BaseUrls.dart';
@@ -12,7 +11,6 @@ import 'package:mamak/presentation/ui/category/CategoriesHorizontalListUi.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
-import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';

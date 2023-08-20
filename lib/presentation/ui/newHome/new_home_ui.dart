@@ -3,7 +3,6 @@ import 'package:core/chart/radar_chart/radar_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/data/body/calendar/home_calendar.dart';
-import 'package:mamak/data/serializer/child/ChildsResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/Home/HomeUI.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
@@ -29,7 +28,7 @@ class _NewHomeUiState extends State<NewHomeUi> {
       body: CubitProvider(
         create: (context) => NewHomeViewModel(AppState.idle),
         builder: (bloc, state) {
-          if(bloc.newUi == false){
+          if (bloc.newUi == false) {
             return const HomeUI();
           }
           return SingleChildScrollView(

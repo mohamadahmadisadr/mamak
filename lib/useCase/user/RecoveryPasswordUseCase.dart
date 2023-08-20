@@ -1,6 +1,5 @@
 import 'package:mamak/config/apiRoute/user/UserUrls.dart';
 import 'package:mamak/data/body/user/recoveryPassword/RecoveryPasswordBody.dart';
-import 'package:mamak/data/serializer/user/ChangePasswordResponse.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
 class RecoveryPasswordUseCase extends BaseUseCase {
@@ -17,9 +16,9 @@ class RecoveryPasswordUseCase extends BaseUseCase {
       var response = await apiServiceImpl.post2(uri, jsonEncode(data));
       if (response.isSuccessful) {
         var result = response.result;
-        if(result.isSuccessFull){
+        if (result.isSuccessFull) {
           flow.emitData('');
-        }else{
+        } else {
           flow.throwMessage(result.concatErrorMessages);
         }
       } else {

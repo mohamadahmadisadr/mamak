@@ -1,5 +1,5 @@
-import 'package:core/fileSaver/WebFileSaver.dart';
-import 'package:core/share/ShareFile.dart';
+import 'package:core/share/ShareFile.dart'
+    if (dart.library.html) 'package:core/fileSaver/WebFileSaver.dart';
 import 'package:feature/deviceInfo/my_device_info.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -31,12 +31,12 @@ class DownloadFileViewModel extends BaseViewModel {
         if (appState.isSuccess) {
           var data = appState.getData;
 
-          if (kIsWeb) {
-            WebFileSaver.saveFile(data);
-          } else {
-            var path = await ShareFile.saveFile(data);
-            ShareFile.openFile(path);
-          }
+          // if (kIsWeb) {
+          saveFile(data);
+          // } else {
+          //   var path = await ShareFile.saveFile(data);
+          //   ShareFile.openFile(path);
+          // }
 
           _navigationServiceImpl.pop();
           // _navigationServiceImpl.navigateTo(AppRoute.shotViewer, data);

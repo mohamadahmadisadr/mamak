@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:core/share/ShareFile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mamak/data/serializer/workBook/WorkBookDetailResponse.dart';
@@ -9,7 +8,6 @@ import 'package:mamak/presentation/ui/workBook/DownloadFileDialog.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookParamsModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
-import 'package:mamak/useCase/file/DownloadFileUseCase.dart';
 import 'package:mamak/useCase/workBook/ReportCardUseCase.dart';
 
 class ReportCardViewModel extends BaseViewModel {
@@ -57,8 +55,9 @@ class ReportCardViewModel extends BaseViewModel {
   }
 
   onSolutionItemClick(WorkBookDetailReviews item) {
-    if(item.fileDataId != null){
-      _navigationServiceImpl.dialog(DownloadFileDialog(fileDataId: item.fileDataId!));
+    if (item.fileDataId != null) {
+      _navigationServiceImpl
+          .dialog(DownloadFileDialog(fileDataId: item.fileDataId!));
     }
   }
 }

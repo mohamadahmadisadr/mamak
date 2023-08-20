@@ -2,13 +2,10 @@ import 'package:core/chart/model/ChartModel.dart';
 import 'package:core/chart/radar_chart/radar_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mamak/data/serializer/home/CategoryResponse.dart';
 import 'package:mamak/data/serializer/workBook/WorkBookDetailResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
-import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
-import 'package:mamak/presentation/viewModel/home/CategoriesViewModel.dart';
 import 'package:mamak/presentation/viewModel/workBook/TotalWorkBookViewModel.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -16,7 +13,8 @@ class TotalWorkBookChartUi extends StatelessWidget {
   const TotalWorkBookChartUi({
     Key? key,
     this.cards,
-    required this.title, required this.categories,
+    required this.title,
+    required this.categories,
   }) : super(key: key);
   final List<GeneralReportCard>? cards;
   final List<WorkShopCategory> categories;
@@ -34,7 +32,7 @@ class TotalWorkBookChartUi extends StatelessWidget {
             children: [
               8.dpv,
               FutureBuilder(
-              future: null,
+                future: null,
                 builder: (context, snapshot) {
                   List<String> workShops = bloc.getUserWorkShops(cards);
                   return Column(
@@ -103,7 +101,11 @@ class TotalWorkBookChartUi extends StatelessWidget {
                               sprintf(
                                   'شما تا کنون در %s حوزه کودکتان را ارزیابی کرده اید‌: %s',
                                   [
-                                    workShops.toSet().toList().length.toString(),
+                                    workShops
+                                        .toSet()
+                                        .toList()
+                                        .length
+                                        .toString(),
                                     workShops.toSet().toList().join(',')
                                   ]),
                               style: context.textTheme.bodyMedium,
@@ -117,7 +119,7 @@ class TotalWorkBookChartUi extends StatelessWidget {
               ),
               8.dpv,
               FittedBox(
-              fit: BoxFit.fill,
+                fit: BoxFit.fill,
                 child: RadarChart(
                   spaceCount: data.maxValue ~/ 5,
                   textScaleFactor: .03,

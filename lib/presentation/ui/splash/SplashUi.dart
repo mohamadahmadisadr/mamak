@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mamak/config/appData/appTheme/MyTheme.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
-import 'package:mamak/presentation/ui/main/MamakLogo.dart';
-import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/user/SplashViewModel.dart';
 
 class SplashUi extends StatelessWidget {
@@ -27,7 +23,7 @@ class SplashUi extends StatelessWidget {
           //     focalRadius: .5,
           //   ),
           // ),
-          child: Image.asset('assets/splash.jpeg',fit: BoxFit.fill),
+          child: Image.asset('assets/splash.jpeg', fit: BoxFit.fill),
         );
       },
     );

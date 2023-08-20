@@ -19,6 +19,8 @@ dependencies:
   open_file: ^3.3.1
   path_provider: ^2.0.15
   g_recaptcha_v3: ^0.0.5
+  video_player: ^2.4.5
+  video_player_web: ^2.0.2
 
 dev_dependencies:
   flutter_test:

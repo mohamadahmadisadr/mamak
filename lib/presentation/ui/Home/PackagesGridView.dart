@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:feature/navigation/NavigationService.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/config/appData/route/AppRoute.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/data/serializer/child/GetAllUserChilPackageResponse.dart';
@@ -27,7 +25,9 @@ class PackagesGridView extends StatelessWidget {
       shrinkWrap: true,
       itemCount: packages.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, mainAxisSpacing: 8.0,mainAxisExtent: (MediaQuery.of(context).size.width/3) + 30),
+          crossAxisCount: 3,
+          mainAxisSpacing: 8.0,
+          mainAxisExtent: (MediaQuery.of(context).size.width / 3) + 30),
       itemBuilder: (context, index) => PackagesItemUI(
         package: packages[index],
         childPackage: childPackage.getChildPackage(
@@ -73,8 +73,7 @@ class PackagesItemUI extends StatelessWidget {
               child: SizedBox(
                 child: Image.memory(
                   base64Decode(
-                      package?.parentCategoryFiles?.first.file?.content ??
-                          ''),
+                      package?.parentCategoryFiles?.first.file?.content ?? ''),
                   fit: BoxFit.contain,
                 ),
               ),

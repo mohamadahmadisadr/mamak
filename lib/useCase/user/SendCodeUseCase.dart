@@ -1,5 +1,4 @@
 import 'package:mamak/config/apiRoute/user/UserUrls.dart';
-import 'package:mamak/data/body/user/forgetPassword/ForgetPasswordResponse.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
 class SendCodeUseCase extends BaseUseCase {
@@ -9,12 +8,13 @@ class SendCodeUseCase extends BaseUseCase {
     try {
       flow.emitLoading();
       var uri = createUri(path: UserUrls.forgetPsw);
-      var response = await apiServiceImpl.post2(uri,jsonEncode({'mobile': data}));
+      var response =
+          await apiServiceImpl.post2(uri, jsonEncode({'mobile': data}));
       if (response.isSuccessful) {
         var result = response.result;
-        if(result.isSuccessFull){
+        if (result.isSuccessFull) {
           flow.emitData('');
-        }else{
+        } else {
           flow.throwMessage(result.concatErrorMessages);
         }
       } else {

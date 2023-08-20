@@ -1,4 +1,4 @@
-import 'package:feature/videoPlayer/MyVideoPlayer.dart';
+import 'package:core/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/home/CategoryDetailResponse.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
@@ -58,7 +58,7 @@ class CategoryDetailUI extends StatelessWidget {
                           Text(
                             data.title ?? '',
                             textAlign: TextAlign.start,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           4.dpv,
                           SizedBox(
@@ -93,10 +93,10 @@ class CategoryDetailUI extends StatelessWidget {
                           ),
                           16.dpv,
                           Column(
-                            children: List.generate(
-                                bloc.images.images?.length ?? 0, (index) {
+                            children: List.generate(bloc.images.images.length,
+                                (index) {
                               var imgData =
-                                  base64Decode(bloc.images.images![index]);
+                                  base64Decode(bloc.images.images[index]);
                               return Column(
                                 children: [
                                   Image.memory(

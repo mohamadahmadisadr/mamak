@@ -1,8 +1,6 @@
 import 'package:core/recaptcha/recaptcha_solver.dart';
 import 'package:core/utils/logger/Logger.dart';
 import 'package:flutter/material.dart';
-import 'package:mamak/data/serializer/location/CityItem.dart';
-import 'package:mamak/data/serializer/location/ProvinceItem.dart';
 import 'package:mamak/presentation/state/formState/user/RegisterFormState.dart';
 import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -69,8 +67,6 @@ class SignUpViewModel extends BaseViewModel {
 
   Function(String) get onEmailChange => (value) => formState.email = value;
 
-
-
   // Function(bool) get onTermsChange => (value) => formState.terms = value;
 
   Function() register() {
@@ -86,7 +82,7 @@ class SignUpViewModel extends BaseViewModel {
             navigationServiceImpl.replaceTo(
                 AppRoute.verification, formState.mobile);
           }
-          if(appState.isFailed){
+          if (appState.isFailed) {
             messageService.showSnackBar(appState.getErrorModel?.message ?? '');
           }
           uiState = appState;
@@ -117,7 +113,8 @@ class SignUpViewModel extends BaseViewModel {
 
   onProvinceChange(dynamic newProvince) {
     selectedCity = null;
-    selectedProvince = DropDownModel(data: newProvince, name: newProvince?.provinceName ?? '');
+    selectedProvince =
+        DropDownModel(data: newProvince, name: newProvince?.provinceName ?? '');
     if (newProvince != null && newProvince.id != null) {
       fetchCityByProvinceId(newProvince.id.toString());
     }
@@ -129,7 +126,7 @@ class SignUpViewModel extends BaseViewModel {
     refresh();
   }
 
-  void getRecaptchaToken() async{
+  void getRecaptchaToken() async {
     var token = await GetIt.I.get<RecaptchaSolver>().generateToken();
     Logger.d('generated token is $token');
   }

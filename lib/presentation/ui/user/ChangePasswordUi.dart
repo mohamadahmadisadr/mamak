@@ -1,4 +1,3 @@
-import 'package:feature/form/validator/login/MobileValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
@@ -9,11 +8,9 @@ import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
-import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/register/RegisterUi.dart';
 import 'package:mamak/presentation/viewModel/user/ChangePasswordViewModel.dart';
-import 'package:mamak/presentation/viewModel/user/LoginViewModel.dart';
 
 class ChangePasswordUi extends StatelessWidget {
   const ChangePasswordUi({Key? key}) : super(key: key);
@@ -33,7 +30,7 @@ class ChangePasswordUi extends StatelessWidget {
                 children: [
                   20.dpv,
                   Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const MamakLogo(width: 180),
                     ],
@@ -50,7 +47,8 @@ class ChangePasswordUi extends StatelessWidget {
                     title: "رمز عبور قبلی",
                   ),
                   4.dpv,
-                  PasswordFieldHelper(onChangeValue: bloc.onCurrentPasswordChange),
+                  PasswordFieldHelper(
+                      onChangeValue: bloc.onCurrentPasswordChange),
                   10.dpv,
                   const FormTitleWithStar(
                     title: "رمز عبور جدید",
@@ -62,7 +60,8 @@ class ChangePasswordUi extends StatelessWidget {
                     title: "تکرار رمز عبور جدید",
                   ),
                   4.dpv,
-                  PasswordFieldHelper(onChangeValue: bloc.onConfirmPasswordChange),
+                  PasswordFieldHelper(
+                      onChangeValue: bloc.onConfirmPasswordChange),
                   20.dpv,
                   ElevatedButton(
                       onPressed: bloc.onSubmitClick,

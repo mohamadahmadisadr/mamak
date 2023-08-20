@@ -1,4 +1,3 @@
-import 'package:feature/externalSignIn/appleSignIn/apple_login_button.dart';
 import 'package:feature/form/validator/login/MobileValidator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,14 +25,15 @@ class LoginUi extends StatelessWidget {
           child: Form(
             key: bloc.formKey,
             child: Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     20.dpv,
                     const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MamakLogo(),
                       ],
@@ -75,20 +75,20 @@ class LoginUi extends StatelessWidget {
                         TextButton(
                           onPressed: bloc.gotoSignUpPage.call(),
                           child: Text(
-                                  'ایجاد حساب کاربری جدید',
-                                  style: context.textTheme.bodySmall,
-                                ),
+                            'ایجاد حساب کاربری جدید',
+                            style: context.textTheme.bodySmall,
+                          ),
                         ),
                       ],
                     ),
                     4.dpv,
                     ElevatedButton(
-                        onPressed: bloc.loginUser.call(), child: bloc.state.isLoading
-                        ? const MyLoader(color: Colors.black)
-                        : const Text('ورود')),
+                        onPressed: bloc.loginUser.call(),
+                        child: bloc.state.isLoading
+                            ? const MyLoader(color: Colors.black)
+                            : const Text('ورود')),
                     16.dpv,
                     // AppleLoginButton(),
-
                   ],
                 ),
               ),

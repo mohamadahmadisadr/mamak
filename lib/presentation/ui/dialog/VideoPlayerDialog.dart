@@ -1,4 +1,4 @@
-import 'package:feature/videoPlayer/MyVideoPlayer.dart';
+import 'package:core/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
 

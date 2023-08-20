@@ -1,10 +1,13 @@
-import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:open_file/open_file.dart';
 
+saveFile(Uint8List bytes) async{
+  var path = await ShareFile.saveFile(bytes);
+  ShareFile.openFile(path);
+}
 
 class ShareFile {
   static Future<ShareResult> shareFile(Uint8List bytes) {
@@ -25,13 +28,12 @@ class ShareFile {
   static Future<String> saveVideoFile(Uint8List bytes) async {
     var name = '${DateTime.now().microsecondsSinceEpoch}.mp4';
     var tempDir = await getExternalStorageDirectory();
-    var file = await File('${tempDir?.path}/$name').create();
-    print(file.path);
-    await file.writeAsBytes(bytes);
+    await XFile.fromData(bytes, mimeType: 'video/mp4', name: name)
+        .saveTo('${tempDir?.path}/$name');
     return '${tempDir?.path}/$name';
   }
 
-  static void openFile(String filePath){
+  static void openFile(String filePath) {
     OpenFile.open(filePath);
   }
 }

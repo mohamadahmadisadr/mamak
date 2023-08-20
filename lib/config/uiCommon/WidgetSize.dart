@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-class WidgetSize{
+class WidgetSize {
   static const pagePaddingSize = 16.0;
   static const basePaddingSize = 8.0;
   static const baseRadiusSize = 8.0;

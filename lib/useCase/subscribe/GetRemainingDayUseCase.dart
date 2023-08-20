@@ -1,6 +1,5 @@
 import 'package:http/http.dart';
 import 'package:mamak/config/apiRoute/subscribe/SubscribeUrls.dart';
-import 'package:mamak/data/serializer/subscribe/SubscribesResponse.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
 class GetRemainingDayUseCase extends BaseUseCase {

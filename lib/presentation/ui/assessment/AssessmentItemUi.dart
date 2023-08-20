@@ -12,10 +12,12 @@ import 'package:mamak/presentation/viewModel/assessments/AssessmentsViewModel.da
 class AssessmentItemUi extends StatefulWidget {
   AssessmentItemUi({
     Key? key,
-    required this.item, required this.index,
+    required this.item,
+    required this.index,
+    this.content,
   }) : super(key: key);
 
-  final Question? item;
+  Question? item;
   final int index;
   Uint8List? content;
 
@@ -114,9 +116,13 @@ class _AssessmentItemUiState extends State<AssessmentItemUi> {
         SizedBox(
           height: 100,
           child: TextFormFieldHelper(
-            hint: getDescriptionText(widget.item?.options?.indexWhere((element) => element.optionId == selectedItem) ?? 0),
+            hint: getDescriptionText(widget.item?.options?.indexWhere(
+                    (element) => element.optionId == selectedItem) ??
+                0),
             keyboardType: TextInputType.text,
-            label: getDescriptionText(widget.item?.options?.indexWhere((element) => element.optionId == selectedItem) ?? 0),
+            label: getDescriptionText(widget.item?.options?.indexWhere(
+                    (element) => element.optionId == selectedItem) ??
+                0),
             onChangeValue: (value) {
               context
                   .read<AssessmentsViewModel>()

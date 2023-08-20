@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/data/serializer/home/CategoryResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
@@ -15,8 +13,7 @@ import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/home/CategoriesViewModel.dart';
 
 class CategoriesHorizontalListUi extends StatefulWidget {
-  CategoriesHorizontalListUi({Key? key}) : super(key: key);
-
+  const CategoriesHorizontalListUi({Key? key}) : super(key: key);
 
   @override
   State<CategoriesHorizontalListUi> createState() =>
@@ -74,13 +71,15 @@ class _CategoriesHorizontalListUiState
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-
                             SizedBox(
                               width: width,
                               child: Image.memory(
-                                base64Decode(
-                                    data[index].parentCategoryFiles?.first.file?.content ??
-                                        ''),
+                                base64Decode(data[index]
+                                        .parentCategoryFiles
+                                        ?.first
+                                        .file
+                                        ?.content ??
+                                    ''),
                                 fit: BoxFit.contain,
                               ),
                             ),
@@ -122,7 +121,7 @@ class _CategoriesHorizontalListUiState
                           setState(() {});
                         },
                         child: Opacity(
-            opacity: .4,
+                          opacity: .4,
                           child: Icon(
                               scrolled
                                   ? CupertinoIcons.left_chevron

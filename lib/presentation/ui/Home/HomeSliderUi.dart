@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/material.dart';
-import 'package:mamak/config/apiRoute/BaseUrls.dart';
-import 'package:mamak/data/serializer/home/HomeResponse.dart';
 import 'package:mamak/data/serializer/home/slider/slider_content_response.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
@@ -28,28 +25,33 @@ class _HomeSliderUiState extends State<HomeSliderUi> {
 
   @override
   Widget build(BuildContext context) {
-    return CubitProvider(create: (context) => HomeSliderViewModel(AppState.idle), builder: (bloc, state) {
-      return ConditionalUI<SliderContentResponse>(
-      skeleton: Expanded(child: Container(color: Colors.grey.shade200)),state: state, onSuccess: (slider) {
-        return PageView(
-          physics: const BouncingScrollPhysics(),
-          pageSnapping: true,
-          scrollDirection: Axis.horizontal,
-          controller: _controller,
-          children: (slider.images?.map((e) => e.content).toList() ?? [])
-              .map(
-                (image) => SizedBox(
-              height: 270.0,
-              child: Image.memory(
-                base64Decode(image ?? ''),
-                fit: BoxFit.contain,
-              ),
-            ),
-          )
-              .toList(),
+    return CubitProvider(
+      create: (context) => HomeSliderViewModel(AppState.idle),
+      builder: (bloc, state) {
+        return ConditionalUI<SliderContentResponse>(
+          skeleton: Expanded(child: Container(color: Colors.grey.shade200)),
+          state: state,
+          onSuccess: (slider) {
+            return PageView(
+              physics: const BouncingScrollPhysics(),
+              pageSnapping: true,
+              scrollDirection: Axis.horizontal,
+              controller: _controller,
+              children: (slider.images?.map((e) => e.content).toList() ?? [])
+                  .map(
+                    (image) => SizedBox(
+                      height: 270.0,
+                      child: Image.memory(
+                        base64Decode(image ?? ''),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  )
+                  .toList(),
+            );
+          },
         );
-      },);
-    },);
-
+      },
+    );
   }
 }

@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/MyTheme.dart';
 import 'package:mamak/data/serializer/assessment/QuestionsResponse.dart';
 import 'package:mamak/presentation/ui/assessment/AssessmentItemUi.dart';
@@ -10,9 +6,7 @@ import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/MamakTitle.dart';
-import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
-import 'package:mamak/presentation/uiModel/QuestionModel.dart';
 import 'package:mamak/presentation/viewModel/assessments/AssessmentsViewModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 
@@ -110,9 +104,8 @@ class _AssessmentsUiState extends State<AssessmentsUi> {
                                 padding: 8.dpeh,
                                 itemBuilder: (context, index) {
                                   return AssessmentItemUi(
-                                  index: qIndex + 1,
-                                    item: questionObject.questions?[index]
-                                  );
+                                      index: qIndex + 1,
+                                      item: questionObject.questions?[index]);
                                 },
                                 itemCount:
                                     questionObject.questions?.length ?? 0,

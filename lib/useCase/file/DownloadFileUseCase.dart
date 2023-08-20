@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:mamak/config/apiRoute/file/FileUrls.dart';
-import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DownloadFileUseCase extends BaseUseCase {
   @override
@@ -11,7 +7,6 @@ class DownloadFileUseCase extends BaseUseCase {
     assert(data != null && data is String);
 
     try {
-
       // var uri =
       // createUri(path: FileUrls.downloadFile, body: {'fileDataId': 'f27ecfb8-cce7-4da3-949d-3baafea28ea0'});
       // var header = {'Authorization' : await GetIt.I.get<LocalSessionImpl>().getData(UserSessionConst.token)};
@@ -21,7 +16,8 @@ class DownloadFileUseCase extends BaseUseCase {
 
       flow.emitLoading();
 
-      var uri = createUri(path: FileUrls.downloadFile, body: {'fileDataId': data});
+      var uri =
+          createUri(path: FileUrls.downloadFile, body: {'fileDataId': data});
       var response = await apiServiceImpl.get(uri);
 
       if (response.isSuccessful) {
@@ -36,8 +32,10 @@ class DownloadFileUseCase extends BaseUseCase {
   }
 }
 
-Future<void> _launchUrl(Uri uri, Map<String, String> header) async {
-  if (!await launchUrl(uri,mode: LaunchMode.externalApplication,webViewConfiguration: WebViewConfiguration(headers: header))) {
-    throw Exception('Could not launch $uri');
-  }
-}
+// Future<void> _launchUrl(Uri uri, Map<String, String> header) async {
+//   if (!await launchUrl(uri,
+//       mode: LaunchMode.externalApplication,
+//       webViewConfiguration: WebViewConfiguration(headers: header))) {
+//     throw Exception('Could not launch $uri');
+//   }
+// }

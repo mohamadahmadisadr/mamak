@@ -1,6 +1,5 @@
 import 'package:core/card_widget/card_stack_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/newHome/CalendarItemUi.dart';
@@ -34,8 +33,8 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
       child: CardStackWidget(
         cardList: list.map((item) {
           return CardModel(
-          key: Key(item.userChildWorkShopId?.toString() ?? ''),
-          radius: 16.radius,
+            key: Key(item.userChildWorkShopId?.toString() ?? ''),
+            radius: 16.radius,
             index: list.indexOf(item),
             child: Opacity(
               opacity: .7,
@@ -45,7 +44,8 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
                 index: list.indexOf(item),
                 selectedIndex: selectedIndex,
                 itemClicked: (clickedItem) {
-                  if(clickedItem.nextAssessmentDate != null && isToday(clickedItem.nextAssessmentDate!)){
+                  if (clickedItem.nextAssessmentDate != null &&
+                      isToday(clickedItem.nextAssessmentDate!)) {
                     widget.todayClicked.call(clickedItem);
                   }
                 },
@@ -73,15 +73,17 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
           }
         },
         onCardTap: (cardModel) {
-          int key = int.parse(cardModel.key?.toString().replaceAll('[<>', '') ?? '');
-          var itemIndex = widget.items.indexWhere((element) => element.userChildWorkShopId?.toString().replaceAll('[<>', '') == cardModel.key?.toString());
-          if(itemIndex != -1){
+          // int key = int.parse(cardModel.key?.toString().replaceAll('[<>', '') ?? '');
+          var itemIndex = widget.items.indexWhere((element) =>
+              element.userChildWorkShopId?.toString().replaceAll('[<>', '') ==
+              cardModel.key?.toString());
+          if (itemIndex != -1) {
             var data = widget.items.elementAt(itemIndex);
-            if(data.nextAssessmentDate != null && isToday(data.nextAssessmentDate!)){
+            if (data.nextAssessmentDate != null &&
+                isToday(data.nextAssessmentDate!)) {
               widget.todayClicked.call(data);
             }
-          }else{
-          }
+          } else {}
         },
       ),
     );

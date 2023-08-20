@@ -1,13 +1,11 @@
 import 'package:mamak/config/apiRoute/user/UserUrls.dart';
 import 'package:mamak/data/body/user/changePassword/ChangePasswordBody.dart';
-import 'package:mamak/data/serializer/user/ChangePasswordResponse.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
 class ChangePasswordUseCase extends BaseUseCase {
   @override
   void invoke(MyFlow<AppState> flow, {Object? data}) async {
     assert(data != null && data is ChangePasswordBody);
-
 
     try {
       flow.emitLoading();
