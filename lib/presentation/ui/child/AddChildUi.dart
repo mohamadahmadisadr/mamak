@@ -1,6 +1,7 @@
 import 'package:feature/form/validator/LastNameValidator.dart';
 import 'package:feature/form/validator/NameValidator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
@@ -31,31 +32,31 @@ class AddChildUi extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     16.dpv,
-                    MamakTitle(title: 'فرزندان من'),
+                    MamakTitle(title: 'my_chils'.tr),//my_childs
                     8.dpv,
                     Divider(),
                     8.dpv,
-                    FormTitleWithStar(title: 'نام فرزند'),
+                    FormTitleWithStar(title: 'childs_name'.tr),//childs_name
                     4.dpv,
                     TextFormFieldHelper(
-                      label: 'نام فرزند',
-                      hint: 'نام فرزند',
+                      label: 'childs_name'.tr,
+                      hint: 'childs_name'.tr,
                       keyboardType: TextInputType.text,
                       onChangeValue: bloc.onChildFirstNameChange,
                       validator: NameValidator(),
                     ),
                     8.dpv,
-                    FormTitleWithStar(title: 'نام خانوادگی'),
+                    FormTitleWithStar(title: 'last_name'.tr),
                     4.dpv,
                     TextFormFieldHelper(
-                      label: 'نام خانوادگی',
-                      hint: 'نام خانوادگی',
+                      label: 'last_name'.tr,
+                      hint: 'last_name'.tr,
                       keyboardType: TextInputType.text,
                       onChangeValue: bloc.onChildLastNameChange,
                       validator: LastNameValidator(),
                     ),
                     8.dpv,
-                    FormTitleWithStar(title: 'تاریخ تولد'),
+                    FormTitleWithStar(title: 'birthdate'.tr),
                     4.dpv,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +66,7 @@ class AddChildUi extends StatelessWidget {
                           child: DropDownFormField(
                             selectedItem: DropDownModel(data: 2, name: 2.toString()),
                             items: positiveIntegers.skip(1).take(31).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
-                            name: 'روز',
+                            name: 'day'.tr,
                             onValueChange: bloc.onDayChange,
                           ),
                         ),
@@ -75,7 +76,7 @@ class AddChildUi extends StatelessWidget {
                           child: DropDownFormField(
                               selectedItem: DropDownModel(data: 10, name: 10.toString()),
                               items: positiveIntegers.skip(1).take(12).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
-                              name: 'ماه',
+                              name: 'month'.tr,
                               onValueChange: bloc.onMonthChange),
                         ),
                         2.dph,
@@ -85,7 +86,7 @@ class AddChildUi extends StatelessWidget {
                               selectedItem: DropDownModel(data: 1398, name: 1398.toString()),
                               items:
                                   positiveIntegers.skip(1395).take(4).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
-                              name: 'سال',
+                              name: 'year'.tr,
                               onValueChange: bloc.onYearChange),
                         ),
                       ],
@@ -97,7 +98,7 @@ class AddChildUi extends StatelessWidget {
                         TextButton.icon(
                             onPressed: bloc.addImage,
                             icon: Icon(Icons.attachment_sharp),
-                            label: Text('اضافه کردن عکس')),
+                            label: Text('add_photo'.tr)),
                         if (bloc.selectedImage != null)
                           SizedBox(
                             height: 100,
@@ -113,7 +114,7 @@ class AddChildUi extends StatelessWidget {
                     ElevatedButton(
                         onPressed: bloc.submit,
                         child:
-                            bloc.uiState.isLoading ? MyLoader() : Text('ثبت'))
+                            bloc.uiState.isLoading ? MyLoader() : Text('submit'.tr))
                   ],
                 ),
               ),

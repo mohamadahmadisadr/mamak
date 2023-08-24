@@ -28,17 +28,17 @@ class ForgetPasswordUi extends StatelessWidget {
                 children: [
                   20.dpv,
                   Text(
-                    "فراموشی کلمه عبور",
+                    "forgot_password".tr,
                     style: context.textTheme.titleLarge
                         ?.copyWith(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   20.dpv,
-                  const FormTitleWithStar(title: "شماره همراه یا ایمیل"),
+                  FormTitleWithStar(title: "mobile".tr),
                   4.dpv,
                   TextFormFieldHelper(
-                    label: "شماره همراه یا ایمیل",
-                    hint: "شماره همراه یا ایمیل",
+                    label: "mobile".tr,
+                    hint: "mobile".tr,
                     keyboardType: TextInputType.phone,
                     onChangeValue: bloc.onMobileChange,
                     validator: MobileValidator(),
@@ -53,18 +53,18 @@ class ForgetPasswordUi extends StatelessWidget {
                             onPressed: bloc.sendCode.call(),
                             child: bloc.state.isLoading
                                 ? const MyLoader()
-                                : const Text('ارسال کد'));
+                                : Text('send_code'.tr));
                       }
                       return bloc.state.isLoading
                           ? const MyLoader()
                           : Text(
-                              'کد تایید ارسال شد ${bloc.myTimer.formatTime()}',
+                              "'${'code_sent'.tr}' ${bloc.myTimer.formatTime()}",
                               textAlign: TextAlign.center,
                             );
                     },
                   ),
                   10.dpv,
-                  const Text('کد تایید را وارد کنید'),
+                    Text('enter_confirm_code'.tr),
                   4.dpv,
                   TextFormFieldHelper(
                     label: "",

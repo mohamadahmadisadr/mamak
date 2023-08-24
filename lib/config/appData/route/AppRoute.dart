@@ -16,4 +16,5 @@ class AppRoute {
   static const shotViewer = '/shotViewer';
   static const newHome = '/newHome';
   static const sourceClick = '/sourceClick';
+  static const languages = '/languages';
 }

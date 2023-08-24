@@ -1,19 +1,18 @@
+import 'package:core/dioNetwork/response/KanoonHttpResponse.dart';
 
-
-import 'package:http/http.dart';
+import 'ErrorHandlerImpl.dart';
 
 export 'ErrorModel.dart';
 export 'common/ErrorMessages.dart';
 export 'errorHandlerRepository.dart';
 
-import 'ErrorHandlerImpl.dart';
-
 class ErrorHandlerImpl extends ErrorHandlerRepository {
   @override
-  ErrorModel makeError(Response response) {
+  ErrorModel makeError(KanoonHttpResponse response) {
     return createErrorByStatusCode(response.statusCode);
   }
-  ErrorModel createErrorByStatusCode(int statusCode){
+
+  ErrorModel createErrorByStatusCode(int statusCode) {
     switch (statusCode) {
       case 200:
         return const ErrorModel(
@@ -28,8 +27,7 @@ class ErrorHandlerImpl extends ErrorHandlerRepository {
             message: ErrorMessages.ErrorMessage_4_0_1);
       case 404:
         return const ErrorModel(
-            state: ErrorState.Message,
-            message: ErrorMessages.NOT_FOUND);
+            state: ErrorState.Message, message: ErrorMessages.NOT_FOUND);
       case 500:
         return const ErrorModel(
             state: ErrorState.Message,
@@ -45,5 +43,4 @@ class ErrorHandlerImpl extends ErrorHandlerRepository {
   ErrorModel makeErrorByStatusCode(int statusCode) {
     return createErrorByStatusCode(statusCode);
   }
-
 }

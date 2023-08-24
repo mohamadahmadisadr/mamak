@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/MyTheme.dart';
 import 'package:mamak/data/serializer/assessment/QuestionsResponse.dart';
 import 'package:mamak/presentation/ui/assessment/AssessmentItemUi.dart';
@@ -45,7 +46,7 @@ class _AssessmentsUiState extends State<AssessmentsUi> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const MamakTitle(title: 'کارگاه های من'),
+                          MamakTitle(title: 'user_workshops'.tr),
                           16.dpv,
                           Container(
                             decoration: BoxDecoration(
@@ -127,7 +128,7 @@ class _AssessmentsUiState extends State<AssessmentsUi> {
                     onPressed: bloc.submitQuestions,
                     child: bloc.sendDataState.isLoading
                         ? const MyLoader()
-                        : const Text('ارسال پاسخ'),
+                        : Text('reply'.tr),
                   )
                 ],
               ),

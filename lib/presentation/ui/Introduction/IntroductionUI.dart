@@ -1,5 +1,6 @@
 import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
@@ -21,9 +22,9 @@ class IntroductionUI extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 8.dpv,
-                const Text(
-                  'معرفی مامک',
-                  style: TextStyle(
+                Text(
+                  'intruduce_mamak'.tr,
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       color: Colors.black),

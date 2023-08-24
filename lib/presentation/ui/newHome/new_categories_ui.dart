@@ -39,7 +39,7 @@ class NewCategoriesUi extends StatelessWidget {
               )).toList()
               ,);
           },
-          skeleton: SizedBox(),
+          skeleton: const SizedBox(),
         );
       },
     );
@@ -69,9 +69,9 @@ class NewCategoryItemUi extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Spacer(),
+            const Spacer(),
             Text(category.title ?? '',style: context.textTheme.titleSmall?.copyWith(fontSize: 15),textAlign: TextAlign.center,),
-            Spacer(),
+            const Spacer(),
             FittedBox(
             fit: BoxFit.fill,
               child: SizedBox(
@@ -84,7 +84,7 @@ class NewCategoryItemUi extends StatelessWidget {
                     fit: BoxFit.fill,
                   )),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

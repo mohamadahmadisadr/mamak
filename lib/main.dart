@@ -51,6 +51,10 @@ class MyApp extends StatelessWidget {
       localeResolutionCallback: (_, __) => AppDefaultLocale.getAppLocale,
       builder: rootTransitionBuilder,
       scaffoldMessengerKey: GetIt.I.get<MessagingServiceImpl>().messageService,
+      fallbackLocale: AppDefaultLocale.fallBackLocale,
+      onInit: () {
+        AppDefaultLocale.setLocaleFromSession();
+      },
     );
   }
 

@@ -74,7 +74,7 @@ class TotalWorkBookChartUi extends StatelessWidget {
                           4.dph,
                           Expanded(
                             child: Text(
-                              sprintf('%s حوزه یادگیری عبارت است از %s', [
+                              sprintf('learning_type_sprintf'.tr, [
                                 categories.length.toString(),
                                 categories.map((e) => e.name).toList().join(',')
                               ]),
@@ -99,7 +99,7 @@ class TotalWorkBookChartUi extends StatelessWidget {
                           Expanded(
                             child: Text(
                               sprintf(
-                                  'شما تا کنون در %s حوزه کودکتان را ارزیابی کرده اید‌: %s',
+                                  'courses_count_sprintf'.tr,
                                   [
                                     workShops
                                         .toSet()

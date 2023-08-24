@@ -73,6 +73,10 @@ flutter:
   assets:
     - assets/icon_title.png
     - assets/splash.jpeg
+    - assets/lang/fa-IR/
+    - assets/lang/en-US/
+    - assets/lang/de-DE/
+    - assets/html/
 
   fonts:
     - family: dana

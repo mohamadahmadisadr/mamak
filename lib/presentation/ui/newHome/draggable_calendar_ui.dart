@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shake_animated/flutter_shake_animated.dart';
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/newHome/CalendarItemUi.dart';
@@ -112,7 +113,7 @@ class _DraggableCalendarUiState extends State<DraggableCalendarUi> {
                     });
                   },
                   label: Text(
-                    enabled ? 'اعمال تغییرات' : 'شخصی سازی تقویم',
+                    enabled ? 'save'.tr : 'customize_calendar'.tr,
                     style: const TextStyle(color: Colors.black),
                   ),
                 ),

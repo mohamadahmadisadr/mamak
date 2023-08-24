@@ -22,13 +22,12 @@ class AddChildDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('اضافه کردن فرزند',
+              Text('add_child'.tr,
                   style: context.textTheme.titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold)),
               4.dpv,
               Text(
-                'مادر گرامی شما هنوز فرزند خود را اضافه نکرده اید.\n'
-                    ' آیا تمایل دارید فرزند خود را اضافه کنید؟',
+                'no_child_msg'.tr,
                 style: context.textTheme.titleMedium,
               ),
               20.dpv,
@@ -43,14 +42,14 @@ class AddChildDialog extends StatelessWidget {
                           .get<NavigationServiceImpl>()
                           .replaceTo(AppRoute.addChild);
                     },
-                    child: const Text('بله'),
+                    child: Text('yes'.tr),
                   ),
                   8.dph,
                   ElevatedButton(
                     onPressed: () {
                       GetIt.I.get<NavigationServiceImpl>().pop();
                     },
-                    child: const Text('خیر'),
+                    child: Text('no'.tr),
                   )
                 ],
               ),

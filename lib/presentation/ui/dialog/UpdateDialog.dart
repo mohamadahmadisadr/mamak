@@ -30,7 +30,7 @@ class UpdateDialog extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'نسخه جدید موجود است لطفا بروزرسانی کنید',
+                    'update_msg'.tr,
                     style: context.textTheme.titleMedium,
                   ),
                   20.dpv,
@@ -38,7 +38,7 @@ class UpdateDialog extends StatelessWidget {
                       onPressed: () {
                         _launchUrl(link);
                       },
-                      child: const Text('بروزرسانی')),
+                      child: Text('update'.tr)),
                   20.dpv,
                 ],
               ),

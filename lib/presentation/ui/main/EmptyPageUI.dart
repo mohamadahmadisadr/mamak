@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 class EmptyPageUI extends StatelessWidget {
   const EmptyPageUI({
     Key? key,
-    this.msg = 'اطلاعاتی یافت نشد',
+    this.msg = 'empty_page',
   }) : super(key: key);
   final String msg;
 
@@ -22,7 +22,7 @@ class EmptyPageUI extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: Text(
-              msg,
+              msg.tr,
               style: context.textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),

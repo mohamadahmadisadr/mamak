@@ -31,7 +31,7 @@ class HomeUI extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('برنامه راهبردی مامک',
+              Text('mamak_plan'.tr,
                   style: context.textTheme.titleMedium
                       ?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center),
@@ -44,7 +44,7 @@ class HomeUI extends StatelessWidget {
               SizedBox(
                 height: (MediaQuery.of(context).size.width / 4) + 40,
                 width: MediaQuery.of(context).size.width,
-                child: CategoriesHorizontalListUi(),
+                child: const CategoriesHorizontalListUi(),
               ),
               const Divider(),
               CubitProvider(
@@ -98,10 +98,10 @@ class HomeUI extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: AutoSizeText(
-                            'دانلود برنامه راهبردی',
-                            style: TextStyle(
+                            'download_mamak_plan'.tr,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.indigo,
@@ -125,7 +125,7 @@ class HomeUI extends StatelessWidget {
                           .onIndexChange()
                           .call(HomeNavigationEnum.Subscription.value);
                     },
-                    child: const Text('خریداشتراک')),
+                    child: Text('subscribe_buy'.tr)),
               ),
               50.dpv
             ],

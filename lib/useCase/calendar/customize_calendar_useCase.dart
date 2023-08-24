@@ -10,7 +10,7 @@ class CustomizeCalendarUseCase extends BaseUseCase {
     try {
       var uri =
           createUri(path: CalendarUrls.postSetCustomizedUserChildCalendar);
-      var response = await apiServiceImpl.post2(uri, jsonEncode(data));
+      var response = await apiServiceImpl.post(uri, data: jsonEncode(data));
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {

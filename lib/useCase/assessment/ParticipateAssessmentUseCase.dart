@@ -13,7 +13,7 @@ class ParticipateAssessmentUseCase extends BaseUseCase {
           path: AssessmentUrls.participateAssessment,
           body: (data as ParticipateAssessmentBody).getBody);
 
-      var response = await apiServiceImpl.post2(uri, jsonEncode(data.data));
+      var response = await apiServiceImpl.post(uri, data:jsonEncode(data.data));
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {

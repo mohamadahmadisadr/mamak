@@ -28,8 +28,8 @@ class MyWorkShops extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(32.0),
                   bottomRight: Radius.circular(32.0),
                 ),
@@ -40,7 +40,7 @@ class MyWorkShops extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const MamakTitle(title: 'کارگاه های من'),
+                    MamakTitle(title: 'user_workshops'.tr),
                     16.dpv,
                     ChildHorizontalListViewUi(
                       onSelectedItem: (child) {},
@@ -51,13 +51,13 @@ class MyWorkShops extends StatelessWidget {
               ),
             ),
             8.dpv,
-            const Text('موضوع سوال مربوط به ارزیابی را انتخاب کنید'),
+            Text('choose_assessment_type'.tr),
             8.dpv,
             CubitProvider(
               create: (context) => MyWorkShopsViewModel(AppState.idle),
               builder: (bloc, state) {
                 return ConditionalUI<WorkShopOfUserResponse>(
-                  skeleton: MyLoader(),
+                  skeleton: const MyLoader(),
                   state: state,
                   onSuccess: (data) {
                     List<ChildWorkShops> items =
@@ -125,14 +125,15 @@ class MyWorkShopItemUi extends StatelessWidget {
                       .navigateTo(AppRoute.assessments, assessmentParam);
                 },
                 child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                  flex: 2,
-                      child: Text(item.workShopTitle?.replaceAll('کارگاه', '') ?? '',
-                  textAlign: TextAlign.right,
+                      flex: 2,
+                      child: Text(
+                          item.workShopTitle?.replaceAll('کارگاه', '') ?? '',
+                          textAlign: TextAlign.right,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           textScaleFactor: 1.0,
@@ -156,13 +157,13 @@ class MyWorkShopItemUi extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                        flex: 1,
+                      flex: 1,
                       child: Text(
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         textScaleFactor: 1.0,
-                        '${item.questionCount} سوال',
+                        "${item.questionCount} '${'question'.tr}'",
                         style: const TextStyle(fontSize: WidgetSize.smallTitle),
                       ),
                     ),

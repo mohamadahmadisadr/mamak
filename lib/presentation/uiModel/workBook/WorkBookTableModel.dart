@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:sprintf/sprintf.dart';
 
 class WorkBookTableModel {
@@ -12,5 +13,5 @@ class WorkBookTableModel {
   });
 
   String get value =>
-      sprintf('%s از %s', [(three + previousThree).toString(), count]);
+      sprintf("%s '${'from'.tr}' %s", [(three + previousThree).toString(), count]);
 }

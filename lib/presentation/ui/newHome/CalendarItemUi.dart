@@ -75,7 +75,7 @@ class CalendarItemUi extends StatelessWidget {
                     onPressed: () {
                       itemClicked?.call(item);
                     },
-                    child: Text('شروع ارزیابی',style: TextStyle(fontSize: 10),))
+                    child: Text('start_test'.tr,style: TextStyle(fontSize: 10),))
           ],
         ),
       ),
@@ -83,14 +83,14 @@ class CalendarItemUi extends StatelessWidget {
   }
 
   getDifferent(DateTime nextAssessmentDate) {
-    if (isToday(nextAssessmentDate)) return 'امروز';
+    if (isToday(nextAssessmentDate)) return 'today'.tr;
     var days = nextAssessmentDate.difference(DateTime.now()).inDays;
     var hours = nextAssessmentDate.difference(DateTime.now()).inHours;
     if (days == 0) {
     }
 
-    if (hours > 0 && hours < 24) return '$hours ساعت مانده';
-    return '$days روز مانده';
+    if (hours > 0 && hours < 24) return "$hours'${ 'hours_till'.tr}'";
+    return "$days '${'days_till'.tr}'";
   }
 
   bool isToday(DateTime someDate) {

@@ -10,10 +10,9 @@ class AddSubscribeUseCase extends BaseUseCase {
     try {
       flow.emitLoading();
 
-      var uri = createUri(
-          path: SubscribeUrls.addSubscribe);
+      var uri = createUri(path: SubscribeUrls.addSubscribe);
 
-      var response = await apiServiceImpl.post2(uri,jsonEncode(data));
+      var response = await apiServiceImpl.post(uri, data: jsonEncode(data));
 
       if (response.isSuccessful) {
         var result = response.result;

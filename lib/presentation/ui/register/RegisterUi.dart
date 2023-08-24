@@ -10,6 +10,7 @@ import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/SignUpViewModel.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,171 +23,174 @@ class RegisterUi extends StatelessWidget {
     return CubitProvider(
       create: (context) => SignUpViewModel(AppState.idle),
       builder: (bloc, state) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(WidgetSize.pagePaddingSize),
-            child: Form(
-              key: bloc.formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  20.dpv,
-                  Text(
-                    "ایجاد حساب کاربری",
-                    style: context.textTheme.titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  20.dpv,
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MamakLogo(),
-                    ],
-                  ),
-                  20.dpv,
-                  const FormTitleWithStar(title: "شماره همراه"),
-                  4.dpv,
-                  TextFormFieldHelper(
-                    label: "شماره همراه",
-                    hint: "شماره همراه",
-                    keyboardType: TextInputType.phone,
-                    onChangeValue: bloc.onMobileChange,
-                    validator: MobileValidator(),
-                  ),
-                  10.dpv,
-                  Text(
-                    'ایمیل',
-                    style: context.textTheme.titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  4.dpv,
-                  TextFormFieldHelper(
-                    label: "ایمیل",
-                    hint: "ایمیل",
-                    keyboardType: TextInputType.emailAddress,
-                    onChangeValue: bloc.onEmailChange,
-                    // validator: EmailValidator(),
-                  ),
-                  10.dpv,
-                  const FormTitleWithStar(title: "نام مادر"),
-                  4.dpv,
-                  TextFormFieldHelper(
-                    label: "نام مادر",
-                    hint: "نام مادر",
-                    keyboardType: TextInputType.text,
-                    onChangeValue: bloc.onFirstNameChange,
-                    validator: NameValidator(),
-                  ),
-                  10.dpv,
-                  const FormTitleWithStar(title: "نام خانوادگی مادر"),
-                  4.dpv,
-                  TextFormFieldHelper(
-                    label: "نام خانوادگی مادر",
-                    hint: "نام خانوادگی مادر",
-                    keyboardType: TextInputType.text,
-                    onChangeValue: bloc.onLastNameChange,
-                    validator: LastNameValidator(),
-                  ),
-                  10.dpv,
-                  // const FormTitleWithStar(title: "استان"),
-                  // 4.dpv,
-                  // ConditionalUI<List<ProvinceItem>>(
-                  // skeleton: LocationItemShimmer(),
-                  //   state: bloc.pState,
-                  //   onSuccess: (provinces) {
-                  //     return DropDownFormField(
-                  //       selectedItem: bloc.selectedProvince,
-                  //       items: provinces.map((e) => DropDownModel(data: e, name: e.provinceName ?? '')).toList(),
-                  //       name: 'استان',
-                  //       onValueChange: bloc.onProvinceChange,
-                  //     );
-                  //   },
-                  // ),
-                  // 10.dpv,
-                  // const FormTitleWithStar(title: "شهر"),
-                  // 4.dpv,
-                  // ConditionalUI<List<CityItem>>(
-                  //   skeleton: LocationItemShimmer(),
-                  //   state: bloc.cState,
-                  //   onSuccess: (cities) {
-                  //     if (cities.isNotEmpty) {
-                  //       return DropDownFormField(
-                  //         selectedItem: bloc.selectedCity,
-                  //         items: cities.map((e) => DropDownModel(data: e, name: e.cityName ?? '')).toList(),
-                  //         name: 'شهر',
-                  //         onValueChange: bloc.onCityChange,
-                  //       );
-                  //     }
-                  //     return const EmptyPageUI();
-                  //   },
-                  // ),
-                  // if(bloc.cState == AppState.idle) Container(
-                  //   alignment: Alignment.center,
-                  //   padding: 24.dpe,
-                  //   margin: 8.dpe,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.grey.shade200,
-                  //     borderRadius: 8.bRadius,
-                  //   ),
-                  // ),
-                  // 10.dpv,
-                  const FormTitleWithStar(title: "رمز عبور"),
-                  4.dpv,
-                  PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),
-                  10.dpv,
-                  const FormTitleWithStar(title: "تکرار رمز عبور"),
-                  4.dpv,
-                  PasswordFieldHelper(
-                      onChangeValue: bloc.onConfirmPasswordChange,
-                      isRePsw: true),
-                  20.dpv,
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                          onPressed: bloc.gotoLoginPage.call(),
-                          child: Text(
-                            'حساب کاربری دارم',
-                            style: context.textTheme.caption,
-                          ))
-                    ],
-                  ),
-                  // 20.dpv,
-                  // const FormTitleWithStar(title: 'اشتراک'),
-                  // 4.dpv,
-                  // ExamTimePickerFormField(
-                  //   state: bloc.subscribesState,
-                  //   onValueChange: bloc.onItemChanged.call(),
-                  //   selectedItem: bloc.formState.subscribeId,
-                  // ),
-                  10.dpv,
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('ثبت نام به معنی پذیرش'),
-                      TextButton(
-                        onPressed: () {
-                          _launchUrl(
-                              Uri.parse('https://mamakschool.ir/home/privacy'));
-                        },
-                        child: Text('قوانین و مقررات'),
-                        style: TextButton.styleFrom(padding: 4.dpe),
-                      ),
-                      Text('مامک است'),
-                    ],
-                  ),
-                  20.dpv,
-                  ElevatedButton(
-                      onPressed: bloc.register.call(),
-                      child: bloc.uiState.isLoading
-                          ? const MyLoader(color: Colors.black)
-                          : const Text('مرحله بعد'))
-                ],
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(WidgetSize.pagePaddingSize),
+              child: Form(
+                key: bloc.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    20.dpv,
+                    Text(
+                      "sign_up".tr,
+                      style: context.textTheme.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    20.dpv,
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MamakLogo(),
+                      ],
+                    ),
+                    20.dpv,
+                    FormTitleWithStar(title: "mobile".tr),
+                    4.dpv,
+                    TextFormFieldHelper(
+                      label: "mobile".tr,
+                      hint: "mobile".tr,
+                      keyboardType: TextInputType.phone,
+                      onChangeValue: bloc.onMobileChange,
+                      validator: MobileValidator(),
+                    ),
+                    10.dpv,
+                    Text(
+                      'email'.tr,
+                      style: context.textTheme.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    4.dpv,
+                    TextFormFieldHelper(
+                      label: 'email'.tr,
+                      hint: 'email'.tr,
+                      keyboardType: TextInputType.emailAddress,
+                      onChangeValue: bloc.onEmailChange,
+                      // validator: EmailValidator(),
+                    ),
+                    10.dpv,
+                    FormTitleWithStar(title: "mothers_name".tr),
+                    4.dpv,
+                    TextFormFieldHelper(
+                      label: "mothers_name".tr,
+                      hint: "mothers_name".tr,
+                      keyboardType: TextInputType.text,
+                      onChangeValue: bloc.onFirstNameChange,
+                      validator: NameValidator(),
+                    ),
+                    10.dpv,
+                    FormTitleWithStar(title: "mothers_family".tr),
+                    4.dpv,
+                    TextFormFieldHelper(
+                      label: "mothers_family".tr,
+                      hint: "mothers_family".tr,
+                      keyboardType: TextInputType.text,
+                      onChangeValue: bloc.onLastNameChange,
+                      validator: LastNameValidator(),
+                    ),
+                    10.dpv,
+                    // const FormTitleWithStar(title: "استان"),
+                    // 4.dpv,
+                    // ConditionalUI<List<ProvinceItem>>(
+                    // skeleton: LocationItemShimmer(),
+                    //   state: bloc.pState,
+                    //   onSuccess: (provinces) {
+                    //     return DropDownFormField(
+                    //       selectedItem: bloc.selectedProvince,
+                    //       items: provinces.map((e) => DropDownModel(data: e, name: e.provinceName ?? '')).toList(),
+                    //       name: 'استان',
+                    //       onValueChange: bloc.onProvinceChange,
+                    //     );
+                    //   },
+                    // ),
+                    // 10.dpv,
+                    // const FormTitleWithStar(title: "شهر"),
+                    // 4.dpv,
+                    // ConditionalUI<List<CityItem>>(
+                    //   skeleton: LocationItemShimmer(),
+                    //   state: bloc.cState,
+                    //   onSuccess: (cities) {
+                    //     if (cities.isNotEmpty) {
+                    //       return DropDownFormField(
+                    //         selectedItem: bloc.selectedCity,
+                    //         items: cities.map((e) => DropDownModel(data: e, name: e.cityName ?? '')).toList(),
+                    //         name: 'شهر',
+                    //         onValueChange: bloc.onCityChange,
+                    //       );
+                    //     }
+                    //     return const EmptyPageUI();
+                    //   },
+                    // ),
+                    // if(bloc.cState == AppState.idle) Container(
+                    //   alignment: Alignment.center,
+                    //   padding: 24.dpe,
+                    //   margin: 8.dpe,
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.grey.shade200,
+                    //     borderRadius: 8.bRadius,
+                    //   ),
+                    // ),
+                    // 10.dpv,
+                    FormTitleWithStar(title: "password".tr),
+                    4.dpv,
+                    PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),
+                    10.dpv,
+                    FormTitleWithStar(title: "confirm_password".tr),
+                    4.dpv,
+                    PasswordFieldHelper(
+                        onChangeValue: bloc.onConfirmPasswordChange,
+                        isRePsw: true),
+                    20.dpv,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                            onPressed: bloc.gotoLoginPage.call(),
+                            child: Text(
+                              'already_signup'.tr,
+                              style: context.textTheme.caption,
+                            ))
+                      ],
+                    ),
+                    // 20.dpv,
+                    // const FormTitleWithStar(title: 'اشتراک'),
+                    // 4.dpv,
+                    // ExamTimePickerFormField(
+                    //   state: bloc.subscribesState,
+                    //   onValueChange: bloc.onItemChanged.call(),
+                    //   selectedItem: bloc.formState.subscribeId,
+                    // ),
+                    10.dpv,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('policy_msg_first'.tr),
+                        TextButton(
+                          onPressed: () {
+                            _launchUrl(
+                                Uri.parse('https://mamakschool.ir/home/privacy'));
+                          },
+                          child: Text('policy'.tr),
+                          style: TextButton.styleFrom(padding: 4.dpe),
+                        ),
+                        Text('policy_msg_last'.tr),
+                      ],
+                    ),
+                    20.dpv,
+                    ElevatedButton(
+                        onPressed: bloc.register.call(),
+                        child: bloc.uiState.isLoading
+                            ? const MyLoader(color: Colors.black)
+                            : Text("next_step".tr))
+                  ],
+                ),
               ),
             ),
           ),
+          floatingActionButton: Recaptcha(),
         );
       },
     );

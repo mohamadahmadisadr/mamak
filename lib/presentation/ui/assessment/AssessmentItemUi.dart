@@ -137,11 +137,11 @@ class _AssessmentItemUiState extends State<AssessmentItemUi> {
   }
 
   String getDescriptionText(int index) {
-    if (index == -1) return 'هدفگذاری خود را بنویسید';
+    if (index == -1) return 'enter_target'.tr; //enter_target
     if (index == 0 || index == 1) {
-      return 'هدفگذاری خود را بنویسید';
+      return 'enter_target'.tr;
     }
-    return 'راهکار خود را بنویسید';
+    return 'enter_suggestion'.tr; //enter_suggestion
   }
 
   Future<Uint8List> getBase64FromContent(String content) async =>

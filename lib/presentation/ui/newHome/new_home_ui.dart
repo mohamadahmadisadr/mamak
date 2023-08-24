@@ -55,7 +55,7 @@ class _NewHomeUiState extends State<NewHomeUi> {
                           Padding(
                             padding: 8.dpeh,
                             child: Text(
-                              'کارنامه کلی',
+                              'total_workBook'.tr,
                               style: context.textTheme.titleMedium
                                   ?.copyWith(fontWeight: FontWeight.bold),
                               textAlign: TextAlign.right,

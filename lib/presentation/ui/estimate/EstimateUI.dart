@@ -5,6 +5,6 @@ class EstimateUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('EstimateUI'),);
+    return const Center(child: Text('EstimateUI'),);
   }
 }

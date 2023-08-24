@@ -2,16 +2,17 @@ import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/uiModel/newHome/calendar_item.dart';
 import 'package:mamak/presentation/uiModel/newHome/week_item.dart';
 
 class CalendarObjectDraggable {
   static List<WeekItem> items = [
-    const WeekItem(id: 0, name: 'شنبه'),
-    const WeekItem(id: 1, name: 'یکشنبه'),
-    const WeekItem(id: 2, name: 'دوشنبه'),
-    const WeekItem(id: 3, name: 'سه شنبه'),
-    const WeekItem(id: 4, name: 'چهارشنبه'),
+    WeekItem(id: 0, name: 'sunday'.tr),
+    WeekItem(id: 1, name: 'saturday'.tr),
+    WeekItem(id: 2, name: 'monday'.tr),
+    WeekItem(id: 3, name: 'tuesday'.tr),
+    WeekItem(id: 4, name: 'wednesday'.tr),
   ];
 
   static Map<WeekItem, CalendarItem> remindersItem = {

@@ -1,10 +1,15 @@
+import 'package:core/dioNetwork/interceptor/AuthorizationInterceptor.dart';
+import 'package:core/dioNetwork/interceptor/RefreshTokenInterceptor.dart';
+import 'package:core/dioNetwork/kanoonHttp/KanoonHttp.dart';
 import 'package:core/utils/logger/Logger.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
 import 'package:mamak/di/appModule.dart';
+import 'package:mamak/presentation/translation.dart';
 import 'package:mamak/presentation/ui/dialog/UpdateDialog.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/app/AppVersionUseCase.dart';
@@ -17,6 +22,8 @@ class AppViewModel extends Cubit<AppState> {
 
   void initAppData() async {
     await AppModule.initModules();
+    await defineTranslations();
+    await initInterceptors();
     if (!kIsWeb) {
       checkVersion();
     }
@@ -30,6 +37,19 @@ class AppViewModel extends Cubit<AppState> {
     // If you're going to use other Firebase services in the background, such as Firestore,
     // make sure you call `initializeApp` before using other Firebase services.
     await Firebase.initializeApp();
+  }
+
+
+  Future<bool> initInterceptors() async {
+    GetIt.I
+        .get<KanoonHttp>()
+        .addInterceptor(GetIt.I.get<AuthorizationInterceptor>());
+    GetIt.I
+        .get<KanoonHttp>()
+        .addInterceptor(GetIt.I.get<RefreshTokenInterceptor>());
+    // RefreshTokenInterceptorUseCase().invoke();
+
+    return Future.value(true);
   }
 
   void getUseData() {
@@ -66,5 +86,10 @@ class AppViewModel extends Cubit<AppState> {
   Future<void> close() {
     GetIt.I.get<Client>().close();
     return super.close();
+  }
+
+  defineTranslations() async{
+    var keys = await MamakTranslation().getKeys();
+    Get.addTranslations(keys);
   }
 }

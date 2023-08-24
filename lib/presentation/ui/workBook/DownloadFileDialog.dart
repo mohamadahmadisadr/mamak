@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
@@ -44,7 +45,7 @@ class _DownloadFileDialogState extends State<DownloadFileDialog> {
                 children: [
                   const MyLoader(radius: 20),
                   8.dph,
-                  const Expanded(child: Text('درحال دریافت اطلاعات'))
+                  Expanded(child: Text('fetvhing_data'.tr))
                 ],
               ),
             ),

@@ -41,10 +41,10 @@ class ChildHorizontalListViewUi extends StatelessWidget {
                     if (isAssessment) {
                       return TextButton(
                           onPressed: bloc.goToAddChild,
-                          child: const Text('برای اضافه کردن فرزند کلیک کنید'));
+                          child: Text('click_to_add_child'.tr));
                     } else {
                       return Text(
-                        'در هیچ ارزیابی شرکت نکرده اید. کارنامه ای برای نمایش وجود ندارد',
+                        'no_workbook'.tr,
                         style: context.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           fontSize: WidgetSize.smallTitle,

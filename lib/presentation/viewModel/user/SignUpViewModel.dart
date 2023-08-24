@@ -127,7 +127,7 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   void getRecaptchaToken() async {
-    var token = await GetIt.I.get<RecaptchaSolver>().generateToken();
-    Logger.d('generated token is $token');
+    // var token = await GetIt.I.get<RecaptchaSolver>().generateToken();
+    // Logger.d('generated token is $token');
   }
 }

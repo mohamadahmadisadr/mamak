@@ -13,7 +13,7 @@ class EditChildDataUseCase extends BaseUseCase {
           .getData(UserSessionConst.mobile);
       flow.emitLoading();
       var uri = createUri(path: ChildUrls.postEditChildOfParentUser);
-      var response = await apiServiceImpl.post2(uri, jsonEncode(data));
+      var response = await apiServiceImpl.post(uri, data: jsonEncode(data));
 
       if (response.isSuccessful) {
         var result = response.result;

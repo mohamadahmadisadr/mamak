@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:core/dioNetwork/kanoonHttp/KanoonHttp.dart';
 import 'package:mamak/config/apiRoute/file/FileUrls.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
@@ -18,10 +21,10 @@ class DownloadFileUseCase extends BaseUseCase {
 
       var uri =
           createUri(path: FileUrls.downloadFile, body: {'fileDataId': data});
-      var response = await apiServiceImpl.get(uri);
+      var response = await apiServiceImpl.get(uri,options: KanoonDio.fileOptions);
 
       if (response.isSuccessful) {
-        flow.emitData(response.bodyBytes);
+        flow.emitData(response.data);
       } else {
         flow.throwError(response);
       }

@@ -37,7 +37,7 @@ class WorkBookTabBar extends StatelessWidget {
               onSuccess: (data) {
                 if (data.isEmpty) {
                   return Text(
-                    'در هیچ ارزیابی شرکت نکرده اید. کارنامه ای برای نمایش وجود ندارد',
+                    'no_workbook'.tr,
                     style: context.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: WidgetSize.smallTitle,
@@ -107,7 +107,7 @@ class _MothersWorkBookTabsUiState extends State<MothersWorkBookTabsUi>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const MamakTitle(title: 'کارنامه'),
+            MamakTitle(title: 'workbook'.tr),
             16.dpv,
             Container(
               padding: 4.dpe,

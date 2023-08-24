@@ -11,4 +11,5 @@ class UserSessionConst {
   static const lastTargetDate = 'lastTargetDate';
   static const hasMessage = 'hasMessage';
   static const counter = "counter";
+  static const lang = "lang";
 }

@@ -21,7 +21,7 @@ class SourceUi extends StatelessWidget {
             TextButton(onPressed: () {
               _launchUrl(
                   Uri.parse('https://mamakschool.ir/home/privacy'));
-            }, child: const Text('قوانین و مقررات'))
+            }, child: Text('policy'.tr))
           ],
         ),
       ),

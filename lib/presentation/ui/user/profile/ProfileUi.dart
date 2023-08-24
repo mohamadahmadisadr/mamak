@@ -62,7 +62,7 @@ class ProfileUi extends StatelessWidget {
                           return Text(
                             snapshot.hasData
                                 ? snapshot.data?.toString() ?? ''
-                                : 'نام کاربر',
+                                : 'user_name'.tr,
                           );
                         },
                       ),
@@ -106,7 +106,7 @@ class ProfileUi extends StatelessWidget {
                                     border: Border.all(
                                         color: Colors.white, width: 1)),
                                 child: Text(
-                                  'کودک خود را بشناسید',
+                                  'khnow_your_child'.tr,
                                   textAlign: TextAlign.center,
                                   style: context.textTheme.titleMedium
                                       ?.copyWith(
@@ -199,7 +199,7 @@ class ProfileUi extends StatelessWidget {
                     children: [
                       const Divider(),
                       Text(
-                        'فرزندان',
+                        'childs'.tr,
                         style: context.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -223,7 +223,7 @@ class ProfileUi extends StatelessWidget {
                                       );
                                     },
                                   )
-                                : const Text('هنوز هیچ فرزندی ثبت نشده است'),
+                                : Text('no_child'.tr),
                         skeleton: Container(
                           height: 200,
                           margin: 8.dpe,
@@ -237,10 +237,10 @@ class ProfileUi extends StatelessWidget {
                       TextButton.icon(
                           onPressed: bloc.gotoAddChildPage,
                           icon: const Icon(CupertinoIcons.add_circled_solid),
-                          label: const Text('اضافه کردن فرزند')),
+                          label: Text('add_child'.tr)),
                       8.dpv,
                       Text(
-                        'رسید پرداخت',
+                        'factors'.tr,
                         style: context.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -265,10 +265,10 @@ class ProfileUi extends StatelessWidget {
 class FactorsTableUi extends StatelessWidget {
   FactorsTableUi({Key? key}) : super(key: key);
   final List<String> columns = [
-    'شماره فاکتور',
-    'تاریخ',
-    'مبلغ',
-    'کد تخفیف',
+    'factor_number'.tr,
+    'date'.tr,
+    'price'.tr,
+    'discount_code'.tr,
   ];
 
   @override
@@ -292,7 +292,7 @@ class FactorsTableUi extends StatelessWidget {
             cells: List.generate(
               columns.length,
               (index) => DataCell(
-                index == 3 ? const FactorDetailButton() : Text('-'),
+                index == 3 ? const FactorDetailButton() : const Text('-'),
               ),
             ),
           ),
@@ -317,9 +317,9 @@ class FactorDetailButton extends StatelessWidget {
         ),
         onPressed: () {},
         icon: const Icon(Icons.remove_red_eye, color: Colors.grey),
-        label: const Text(
-          'مشاهده فاکتور',
-          style: TextStyle(color: Colors.grey),
+        label: Text(
+          'see_factor'.tr,
+          style: const TextStyle(color: Colors.grey),
         ),
       ),
     );

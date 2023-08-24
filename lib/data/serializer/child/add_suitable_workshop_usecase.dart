@@ -7,8 +7,8 @@ class AddSuitableWorkShopUseCase extends BaseUseCase {
     assert(data != null && data is int);
     try {
       var uri = createUri(path: ChildUrls.postAddSuitableWorkShopsToUserChild);
-      var response =
-          await apiServiceImpl.post2(uri, jsonEncode({'userChildId': data}));
+      KanoonHttpResponse response =
+          await apiServiceImpl.post(uri, data:jsonEncode({'userChildId': data}));
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {

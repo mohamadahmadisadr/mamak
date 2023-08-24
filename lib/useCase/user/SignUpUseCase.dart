@@ -10,7 +10,7 @@ class SignUpUseCase extends BaseUseCase {
     try {
       flow.emitLoading();
       var uri = createUri(path: UserUrls.signUp);
-      var response = await apiServiceImpl.post2(uri, jsonEncode(data));
+      var response = await apiServiceImpl.post(uri, data: jsonEncode(data));
       if (response.isSuccessful) {
         var result = response.result;
         if (result.resultCode == 406) {

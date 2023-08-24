@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/uiModel/more/MoreItemModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 
@@ -8,23 +9,31 @@ class MoreViewModel extends BaseViewModel {
   final NavigationServiceImpl _navigationServiceImpl = GetIt.I.get();
 
   MoreViewModel(super.initialState) {
+    defineItems();
+  }
+
+
+  void defineItems(){
     items = [
-      MoreItemModel(iconData: Icons.logout, name: 'خروج', onClick: logoutClick),
+      MoreItemModel(iconData: Icons.logout, name: 'logout'.tr, onClick: logoutClick),
       MoreItemModel(
           iconData: Icons.password_sharp,
-          name: 'تغییر رمز',
+          name: 'change_password'.tr,
           onClick: changePasswordClick),
       MoreItemModel(
           iconData: CupertinoIcons.person_3_fill,
-          name: 'فرزندان من',
+          name: 'my_chils'.tr,
           onClick: addChildClick),
       MoreItemModel(
           iconData: CupertinoIcons.chart_pie,
-          name: 'منابع',
+          name: 'sources'.tr,
           onClick: sourceClick),
+      MoreItemModel(
+          iconData: Icons.language,
+          name: 'languages'.tr,
+          onClick: langsClick),
     ];
   }
-
   logoutClick() {
     session.clearSession();
     _navigationServiceImpl.replaceTo(AppRoute.login);
@@ -40,5 +49,12 @@ class MoreViewModel extends BaseViewModel {
 
   sourceClick() {
     _navigationServiceImpl.navigateTo(AppRoute.sourceClick);
+  }
+
+  langsClick() {
+    _navigationServiceImpl.navigateTo(AppRoute.languages)?.then((value) {
+      defineItems();
+      refresh();
+    });
   }
 }

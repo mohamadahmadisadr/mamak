@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/icon_data.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 
 class EstimateNavigationModel extends HomeNavigationModel{
@@ -15,7 +16,7 @@ class EstimateNavigationModel extends HomeNavigationModel{
 
   @override
   String name() {
-    return 'کارگاه ارزیابی';
+    return 'estimate_workshop'.tr;
   }
 
   @override

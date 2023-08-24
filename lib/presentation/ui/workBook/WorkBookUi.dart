@@ -1,5 +1,6 @@
 import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/data/serializer/workBook/WorkBooksResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
@@ -60,8 +61,8 @@ class WorkBookUi extends StatelessWidget {
                               },
                               icon: const Icon(Icons.remove_red_eye,
                                   color: Colors.grey),
-                              label: const Text(
-                                'کارنامه',
+                              label: Text(
+                                'workbook'.tr,
                                 style: TextStyle(color: Colors.grey),
                               ),
                             ),

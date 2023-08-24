@@ -2,6 +2,7 @@ import 'package:feature/form/validator/NameValidator.dart';
 import 'package:feature/form/validator/login/EmailValidator.dart';
 import 'package:feature/form/validator/login/MobileValidator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/MamakTitle.dart';
@@ -29,8 +30,8 @@ class ContactUsUi extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   8.dpv,
-                  const MamakTitle(
-                    title: 'تماس با ما',
+                  MamakTitle(
+                    title: 'contact_us'.tr,
                   ),
                   32.dpv,
                   Row(
@@ -92,7 +93,7 @@ class ContactUsUi extends StatelessWidget {
                       onPressed: bloc.submitForm,
                       child: bloc.formUiState.isLoading
                           ? const MyLoader()
-                          : const Text('ارسال پیام')),
+                          : Text('send'.tr)),
                   40.dpv
                 ],
               ),
@@ -132,40 +133,40 @@ class ContactUsFormUi extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextFormFieldHelper(
-              label: 'نام',
-              hint: 'نام',
+              label: 'name'.tr,
+              hint: 'name'.tr,
               keyboardType: TextInputType.text,
               onChangeValue: onNameChange,
               validator: NameValidator(),
             ),
             8.dpv,
             TextFormFieldHelper(
-              label: 'ایمیل',
-              hint: 'ایمیل',
+              label: 'email'.tr,
+              hint: 'email'.tr,
               keyboardType: TextInputType.emailAddress,
               onChangeValue: onEmailChange,
               validator: EmailValidator(),
             ),
             8.dpv,
             TextFormFieldHelper(
-              label: 'شماره تماس',
-              hint: 'شماره تماس',
+              label: 'phone_number'.tr,
+              hint: 'phone_number'.tr,
               keyboardType: TextInputType.number,
               onChangeValue: onMobileChange,
               validator: MobileValidator(),
             ),
             8.dpv,
             TextFormFieldHelper(
-                label: 'موضوع پیام',
-                hint: 'موضوع پیام',
+                label: 'subject_msg'.tr,
+                hint: 'subject_msg'.tr,
                 keyboardType: TextInputType.text,
                 onChangeValue: onSubjectChange),
             8.dpv,
             SizedBox(
               height: 200,
               child: TextFormFieldHelper(
-                label: 'متن پیام',
-                hint: 'متن پیام',
+                label: 'text_msg'.tr,
+                hint: 'text_msg'.tr,
                 keyboardType: TextInputType.text,
                 onChangeValue: onTextChange,
                 expand: true,

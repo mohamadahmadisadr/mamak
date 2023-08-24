@@ -19,7 +19,7 @@ class LoginUseCase extends BaseUseCase {
       );
 
       Uri uri = createUri(path: UserUrls.signIn);
-      var response = await apiServiceImpl.post2(uri, jsonEncode(loginBody));
+      var response = await apiServiceImpl.post(uri, data:jsonEncode(loginBody));
       if (response.isSuccessful) {
         var result = response.result;
         if(result.resultCode == 406){

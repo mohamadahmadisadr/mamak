@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 
@@ -49,7 +50,7 @@ class HomeAppBar extends StatelessWidget {
                     return Text(
                       snapshot.hasData
                           ? snapshot.data?.toString() ?? ''
-                          : 'نام کاربر',
+                          : 'user_name'.tr,
                     );
                   },
                 ),

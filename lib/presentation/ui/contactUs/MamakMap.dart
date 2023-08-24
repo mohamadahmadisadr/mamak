@@ -13,7 +13,7 @@ class MamakMapUi extends StatelessWidget {
     return FlutterMap(
       mapController: controller,
       options: MapOptions(
-        center: LatLng(32.4279, 53.6880),
+        center: const LatLng(32.4279, 53.6880),
         zoom: 16.0,
       ),
       children: [

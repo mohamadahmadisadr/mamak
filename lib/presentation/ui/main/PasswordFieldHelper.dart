@@ -1,6 +1,7 @@
 import 'package:feature/form/validator/login/PasswordValidator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PasswordFieldHelper extends StatefulWidget {
   const PasswordFieldHelper(
@@ -21,8 +22,8 @@ class _PasswordFieldHelperState extends State<PasswordFieldHelper> {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
-        label: const Text('رمز عبور'),
-        hintText: 'رمز عبور',
+        label: Text('password'.tr),
+        hintText: 'password'.tr,
         prefixIcon: const Icon(CupertinoIcons.lock_fill),
         suffixIcon: IconButton(
           onPressed: () {

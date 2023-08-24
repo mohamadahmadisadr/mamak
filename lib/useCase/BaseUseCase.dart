@@ -1,8 +1,10 @@
-import 'package:http/http.dart';
+import 'package:core/dioNetwork/network.dart';
+import 'package:feature/session/LocalSessionImpl.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
 export 'dart:convert';
 
+export 'package:core/dioNetwork/response/KanoonHttpResponse.dart';
 export 'package:core/network/ApiServiceImpl.dart';
 export 'package:core/network/UriCreator.dart';
 export 'package:core/network/errorHandler/ErrorHandlerImpl.dart';
@@ -10,11 +12,12 @@ export 'package:core/utils/flow/MyFlow.dart';
 export 'package:core/utils/logger/Logger.dart';
 export 'package:get_it/get_it.dart';
 export 'package:mamak/config/apiRoute/BaseUrls.dart';
-export 'package:mamak/presentation/extensions/ResponseExtension.dart';
+export 'package:mamak/core/network/ResponseExtension.dart';
 export 'package:mamak/presentation/state/app_state.dart';
 
 abstract class BaseUseCase {
-  ApiServiceImpl apiServiceImpl = GetIt.I.get<ApiServiceImpl>();
+  KanoonHttp apiServiceImpl = GetIt.I.get();
+  LocalSessionImpl session = GetIt.I.get<LocalSessionImpl>();
 
   void invoke(MyFlow<AppState> flow, {Object? data});
 
@@ -38,7 +41,7 @@ extension FlowExtension on MyFlow<AppState> {
     );
   }
 
-  void throwError(Response? response, {int? statusCode}) {
+  void throwError(KanoonHttpResponse? response, {int? statusCode}) {
     if (response != null) {
       emit(
         AppState.error(
@@ -61,12 +64,12 @@ extension FlowExtension on MyFlow<AppState> {
     );
   }
 
-
   void successMessage(String msg) {
     emit(
       AppState.error(ErrorModel(state: ErrorState.SuccessMsg, message: msg)),
     );
   }
+
   void throwEmptyDataMessage(String msg) {
     emit(
       AppState.error(ErrorModel(state: ErrorState.Empty, message: msg)),

@@ -10,10 +10,12 @@ class AddChildUseCase extends BaseUseCase {
 
     try {
       flow.emitLoading();
-      (data as AddChildBody).mobileNumber = await GetIt.I.get<LocalSessionImpl>().getData(UserSessionConst.mobile);
+      (data as AddChildBody).mobileNumber = await GetIt.I
+          .get<LocalSessionImpl>()
+          .getData(UserSessionConst.mobile);
 
       var uri = createUri(path: ChildUrls.addChild);
-      var response = await apiServiceImpl.post2(uri, jsonEncode(data));
+      var response = await apiServiceImpl.post(uri, data: jsonEncode(data));
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {

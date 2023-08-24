@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/icon_data.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 
 class SubscriptionNavigationModel extends HomeNavigationModel{
@@ -25,7 +26,7 @@ class SubscriptionNavigationModel extends HomeNavigationModel{
 
   @override
   String name() {
-    return 'خرید  اشتراک';
+    return 'subscribe_buy'.tr;
   }
 
   @override

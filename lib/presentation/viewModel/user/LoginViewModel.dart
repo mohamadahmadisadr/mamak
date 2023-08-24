@@ -1,3 +1,4 @@
+import 'package:core/dioNetwork/interceptor/AuthorizationInterceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/user/User.dart';
 import 'package:mamak/presentation/state/formState/user/LoginFormState.dart';
@@ -70,7 +71,7 @@ class LoginViewModel extends BaseViewModel {
       };
 
   Future<bool> saveUserData(User user) {
-    GetIt.I.get<ApiServiceImpl>().setToken(user.token ?? '');
+    GetIt.I.get<AuthorizationInterceptor>().setToken(user.token ?? '');
     var map = {
       UserSessionConst.token: '${user.token}',
       UserSessionConst.fullName: '${user.fullName}',

@@ -44,8 +44,8 @@ class SubscriptionUI extends StatelessWidget {
                           height: 10,
                           margin: 2.dpeh,
                         ),
-                        const MamakTitle(
-                          title: 'اشتراک',
+                        MamakTitle(
+                          title: 'subscribe'.tr,
                         )
                       ],
                     ),
@@ -81,14 +81,14 @@ class SubscriptionUI extends StatelessWidget {
                     //   ],
                     // ),
                     4.dpv,
-                    const FormTitleWithStar(
-                      title: 'اشتراک',
+                    FormTitleWithStar(
+                      title: 'subscribe'.tr,
                     ),
                     8.dpv,
                     DropDownPackageFields(
                       selectedItem: bloc.selectedItem,
                       items: data,
-                      name: 'نوع اشتراک خود را انتخاب کنید.',
+                      name: 'choose_plan_type'.tr,
                       onValueChange: bloc.onChangeSelectedItem,
                     ),
                     8.dpv,
@@ -98,8 +98,8 @@ class SubscriptionUI extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormFieldHelper(
-                              label: 'کدتخفیف',
-                              hint: 'کدتخفیف',
+                              label: 'discount_code'.tr,
+                              hint: 'discount_code'.tr,
                               keyboardType: TextInputType.text,
                               onChangeValue: bloc.onChangeCode),
                         ),
@@ -108,16 +108,16 @@ class SubscriptionUI extends StatelessWidget {
                             onPressed: bloc.submitCode,
                             child: bloc.discountCodeState.isLoading
                                 ? const MyLoader()
-                                : const Text('اعمال')),
+                                : Text('save'.tr)),
                       ],
                     ),
                     8.dpv,
                     if (bloc.selectedItem != null)
                       Row(
                         children: [
-                          const Text(
-                            'مبلغ قابل پرداخت : ',
-                            style: TextStyle(
+                          Text(
+                            'price_to_pay'.tr,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, color: Colors.red),
                           ),
                           8.dph,
@@ -125,8 +125,8 @@ class SubscriptionUI extends StatelessWidget {
                             flex: 1,
                             child: Text(
                               bloc.selectedItem?.discount == null
-                                  ? '${bloc.selectedItem?.price ?? 0} ریال'
-                                  : '${bloc.selectedItem?.discount ?? 0} ریال',
+                                  ? "${bloc.selectedItem?.price ?? 0} '${'rial'.tr}'"
+                                  : "${bloc.selectedItem?.discount ?? 0} '${'rial'.tr}'",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: WidgetSize.normalTitle,
@@ -143,7 +143,7 @@ class SubscriptionUI extends StatelessWidget {
                           onPressed: bloc.submitSubscribe,
                           child: bloc.adSubscribeState.isLoading
                               ? const MyLoader()
-                              : const Text('مرحله بعد')),
+                              : Text('next_step'.tr)),
                     )
                   ],
                 );

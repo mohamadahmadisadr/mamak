@@ -57,8 +57,8 @@ class WorkBookDetailUi extends StatelessWidget {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     8.dpv,
-                                    const MamakTitle(
-                                        title: 'کارنامه', fontSize: 15),
+                                    MamakTitle(
+                                        title: 'workbook'.tr, fontSize: 15),
                                     8.dpv,
                                     Container(
                                       decoration: BoxDecoration(
@@ -257,8 +257,8 @@ class WorkBookDetailUi extends StatelessWidget {
                       8.dpv,
                       Padding(
                         padding: 16.dpeh,
-                        child: const Text(
-                          'خلاصه عملكرد در ارزيابي حوزه ها',
+                        child: Text(
+                          'summary_courses'.tr,
                           style: TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.start,
                         ),
@@ -294,7 +294,7 @@ class WorkBookDetailUi extends StatelessWidget {
                         padding: 16.dpe,
                         child: ElevatedButton(
                             onPressed: bloc.getWorkBookShot,
-                            child: const Text('دانلود کارنامه')),
+                            child: Text('download_workbook'.tr)),
                       )
                     ],
                   ),
@@ -408,7 +408,7 @@ class SuggestionItemUi extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'توانمندی',
+            'ability'.tr,
             style: context.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -432,7 +432,7 @@ class SuggestionItemUi extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'نظر مادر',
+                  'mothers_comment'.tr,
                   style: context.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -452,8 +452,8 @@ class SuggestionItemUi extends StatelessWidget {
                     primary: MyTheme.purple, backgroundColor: MyTheme.purple),
                 onPressed: onItemClick,
                 icon: const Icon(Icons.list_alt_sharp),
-                label: const Text(
-                  'دریافت راهکار',
+                label: Text(
+                  'download_suggestion'.tr,
                 ))
         ],
       ),

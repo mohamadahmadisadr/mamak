@@ -1,4 +1,3 @@
-import 'package:http/http.dart';
 import 'package:mamak/config/apiRoute/subscribe/SubscribeUrls.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
@@ -8,7 +7,7 @@ class GetRemainingDayUseCase extends BaseUseCase {
     try {
       flow.emitLoading();
       Uri uri = createUri(path: SubscribeUrls.getRemainingDay);
-      Response response = await apiServiceImpl.get(uri);
+      var response = await apiServiceImpl.get(uri);
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {

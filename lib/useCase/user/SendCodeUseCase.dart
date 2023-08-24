@@ -9,7 +9,7 @@ class SendCodeUseCase extends BaseUseCase {
       flow.emitLoading();
       var uri = createUri(path: UserUrls.forgetPsw);
       var response =
-          await apiServiceImpl.post2(uri, jsonEncode({'mobile': data}));
+          await apiServiceImpl.post(uri, data: jsonEncode({'mobile': data}));
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {

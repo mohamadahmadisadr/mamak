@@ -33,7 +33,7 @@ class ExamTimePickerFormField extends StatelessWidget {
             isExpanded: false,
             borderRadius: const BorderRadius.all(Radius.circular(WidgetSize.textFieldRadiusSize)),
             hint: Text(
-              'اشتراک',
+              'subscribe'.tr,
               style: context.textTheme.bodySmall,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

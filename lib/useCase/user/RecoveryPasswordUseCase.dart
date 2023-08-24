@@ -13,7 +13,7 @@ class RecoveryPasswordUseCase extends BaseUseCase {
       flow.emitLoading();
 
       var uri = createUri(path: UserUrls.postRecoveryPassword);
-      var response = await apiServiceImpl.post2(uri, jsonEncode(data));
+      var response = await apiServiceImpl.post(uri, data: jsonEncode(data));
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {

@@ -40,14 +40,14 @@ class LoginUi extends StatelessWidget {
                     ),
                     20.dpv,
                     Text(
-                      "شماره همراه",
+                      "mobile".tr,
                       style: context.textTheme.titleSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     4.dpv,
                     TextFormFieldHelper(
-                      label: "شماره همراه",
-                      hint: "شماره همراه",
+                      label: "mobile".tr,
+                      hint: "mobile".tr,
                       keyboardType: TextInputType.phone,
                       onChangeValue: bloc.onMobileChange,
                       validator: MobileValidator(),
@@ -55,7 +55,7 @@ class LoginUi extends StatelessWidget {
                     ),
                     10.dpv,
                     Text(
-                      "رمز عبور",
+                      "password".tr,
                       style: context.textTheme.titleSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
@@ -68,14 +68,14 @@ class LoginUi extends StatelessWidget {
                         TextButton(
                           onPressed: bloc.pushToForgetPassword.call(),
                           child: Text(
-                            'فراموشی رمز عبور',
+                            'forgot_password'.tr,
                             style: context.textTheme.bodySmall,
                           ),
                         ),
                         TextButton(
                           onPressed: bloc.gotoSignUpPage.call(),
                           child: Text(
-                            'ایجاد حساب کاربری جدید',
+                            'sign_up'.tr,
                             style: context.textTheme.bodySmall,
                           ),
                         ),
@@ -86,7 +86,7 @@ class LoginUi extends StatelessWidget {
                         onPressed: bloc.loginUser.call(),
                         child: bloc.state.isLoading
                             ? const MyLoader(color: Colors.black)
-                            : const Text('ورود')),
+                            : Text('login'.tr)),
                     16.dpv,
                     // AppleLoginButton(),
                   ],

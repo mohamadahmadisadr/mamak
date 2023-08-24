@@ -27,26 +27,26 @@ class RecoveryPasswordUi extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 20.dpv,
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                     children: [MamakLogo(width: 150)],
                 ),
                 20.dpv,
                 Text(
-                  'تغییر رمز',
+                  'change_password'.tr,
                   style: context.textTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 20.dpv,
-                const FormTitleWithStar(
-                  title: "رمز عبور جدید",
+                FormTitleWithStar(
+                  title: "new_password".tr,
                 ),
                 4.dpv,
                 PasswordFieldHelper(onChangeValue: bloc.onPasswordChange),
                 10.dpv,
-                const FormTitleWithStar(
-                  title: "تکرار رمز عبور جدید",
+                FormTitleWithStar(
+                  title: "confirm_new_pas".tr,
                 ),
                 4.dpv,
                 PasswordFieldHelper(
@@ -56,7 +56,7 @@ class RecoveryPasswordUi extends StatelessWidget {
                     onPressed: bloc.onSubmitClick,
                     child: bloc.state.isLoading
                         ? const MyLoader(color: Colors.black)
-                        : const Text('ثبت'))
+                        : Text('submit'.tr))
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/MamakTitle.dart';
@@ -27,11 +28,11 @@ class VerificationUi extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     8.dpv,
-                    const MamakTitle(
-                      title: 'تایید حساب',
+                    MamakTitle(
+                      title: 'verify_account'.tr,
                     ),
                     16.dpv,
-                    const FormTitleWithStar(title: 'کد تایید'),
+                    FormTitleWithStar(title: 'confirmation_code'.tr),
                     4.dpv,
                     TextFormFieldHelper(
                       label: "",
@@ -48,7 +49,7 @@ class VerificationUi extends StatelessWidget {
                         onPressed: bloc.onSubmitCodeClick,
                         child: bloc.formUiState.isLoading
                             ? const MyLoader()
-                            : const Text('تایید'),),
+                            : Text('submit'.tr),),
                     20.dpv,
                     if(bloc.numberData != null)
                       Text(bloc.numberData ?? '')
