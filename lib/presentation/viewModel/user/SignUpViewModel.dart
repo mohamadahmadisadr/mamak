@@ -1,5 +1,3 @@
-import 'package:core/recaptcha/recaptcha_solver.dart';
-import 'package:core/utils/logger/Logger.dart';
 import 'package:flutter/material.dart';
 import 'package:mamak/presentation/state/formState/user/RegisterFormState.dart';
 import 'package:mamak/presentation/ui/main/DropDownFormField.dart';

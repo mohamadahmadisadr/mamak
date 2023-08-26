@@ -12,28 +12,27 @@ class MoreViewModel extends BaseViewModel {
     defineItems();
   }
 
-
-  void defineItems(){
+  void defineItems() {
     items = [
-      MoreItemModel(iconData: Icons.logout, name: 'logout'.tr, onClick: logoutClick),
-      MoreItemModel(
-          iconData: Icons.password_sharp,
-          name: 'change_password'.tr,
-          onClick: changePasswordClick),
       MoreItemModel(
           iconData: CupertinoIcons.person_3_fill,
           name: 'my_chils'.tr,
           onClick: addChildClick),
       MoreItemModel(
+          iconData: Icons.password_sharp,
+          name: 'change_password'.tr,
+          onClick: changePasswordClick),
+      MoreItemModel(
+          iconData: Icons.language, name: 'languages'.tr, onClick: langsClick),
+      MoreItemModel(
           iconData: CupertinoIcons.chart_pie,
           name: 'sources'.tr,
           onClick: sourceClick),
       MoreItemModel(
-          iconData: Icons.language,
-          name: 'languages'.tr,
-          onClick: langsClick),
+          iconData: Icons.logout, name: 'logout'.tr, onClick: logoutClick),
     ];
   }
+
   logoutClick() {
     session.clearSession();
     _navigationServiceImpl.replaceTo(AppRoute.login);

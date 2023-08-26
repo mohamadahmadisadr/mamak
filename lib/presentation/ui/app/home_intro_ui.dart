@@ -1,5 +1,6 @@
 import 'package:core/videoPlayer/MyVideoPlayer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/home/intro/intro_content_response.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
@@ -15,7 +16,11 @@ class HomeIntroUi extends StatelessWidget {
       create: (context) => HomeIntroViewModel(AppState.idle),
       builder: (bloc, state) {
         return ConditionalUI<IntroContentResponse>(
-          skeleton: Expanded(child: Container(color: Colors.grey.shade200)),
+          skeleton: Container(
+            height: 300,
+            width: Get.width,
+            color: Colors.grey.shade200,
+          ),
           state: state,
           onSuccess: (video) {
             return MyVideoPlayer(

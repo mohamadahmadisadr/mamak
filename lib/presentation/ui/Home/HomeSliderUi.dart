@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/home/slider/slider_content_response.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
@@ -29,7 +30,11 @@ class _HomeSliderUiState extends State<HomeSliderUi> {
       create: (context) => HomeSliderViewModel(AppState.idle),
       builder: (bloc, state) {
         return ConditionalUI<SliderContentResponse>(
-          skeleton: Expanded(child: Container(color: Colors.grey.shade200)),
+          skeleton: Container(
+            height: 300,
+            width: Get.width,
+            color: Colors.grey.shade200,
+          ),
           state: state,
           onSuccess: (slider) {
             return PageView(

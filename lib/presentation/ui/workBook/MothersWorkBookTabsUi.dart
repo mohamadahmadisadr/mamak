@@ -47,7 +47,7 @@ class WorkBookTabBar extends StatelessWidget {
                 }
                 return MothersWorkBookTabsUi(
                   items: data,
-                  onSelectedItem: (cItem){
+                  onSelectedItem: (cItem) {
                     onSelectedItem.call(cItem);
                     bloc.onChangeSelectedChild(cItem);
                   },
@@ -116,14 +116,14 @@ class _MothersWorkBookTabsUiState extends State<MothersWorkBookTabsUi>
                 color: Colors.grey.withOpacity(.4),
               ),
               child: TabBar(
+                isScrollable: true,
                 controller: _tabController,
                 indicator: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: getBorderByZeroIndex()),
+                    color: Colors.white, borderRadius: getBorderByZeroIndex()),
                 tabs: widget.items
-                    .map((e) => WorkBookTabUi(
-                          name: e.childFirstName ?? '',
-                        ))
+                    .map(
+                      (e) => WorkBookTabUi(name: e.childFirstName ?? ''),
+                    )
                     .toList(),
               ),
             ),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:core/videoPlayer/android_integration.dart'
     if (dart.library.html) 'package:core/videoPlayer/web_integrationTool.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -27,8 +28,11 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   void init() async {
     videoPlayerController = widget.data.startsWith('http')
         ? VideoPlayerController.network(widget.data)
-        : VideoPlayerController.file(
-            File(await getVideoFromContent(widget.data)))
+        : kIsWeb
+            ? VideoPlayerController.network(
+                await getVideoFromContent(widget.data))
+            : VideoPlayerController.file(
+                File(await getVideoFromContent(widget.data)))
       ..initialize().then(
         (_) => setState(
           () {

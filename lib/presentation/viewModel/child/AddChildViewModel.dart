@@ -3,6 +3,7 @@ import 'package:core/imagePicker/ImageFileModel.dart';
 import 'package:core/imagePicker/MyImagePicker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/presentation/state/formState/child/AddChildFormState.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -52,7 +53,7 @@ class AddChildViewModel extends BaseViewModel {
     //   messageService.showSnackBar('لطفا یک عکس اضافه کنید');
     // }
     if (formState.currentState?.validate() == true) {
-      _formState.birtDate = birthDateTime.createDate().toIso8601String();
+      _formState.birtDate = Get.locale.isPersian ? birthDateTime.createDate().toIso8601String() : birthDateTime.createDate().toIso8601String();
       AddChildUseCase().invoke(MyFlow(flow: (appState) {
         if (appState.isFailed) {
           messageService.showSnackBar(appState.getErrorModel?.message ?? '');

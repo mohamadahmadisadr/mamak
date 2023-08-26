@@ -36,7 +36,11 @@ class BirthDateTime {
 
   BirthDateTime({this.day = 0, this.month = 0, this.year = 0});
 
-  DateTime createDate() {
+  DateTime createPersianDate() {
     return Jalali(year, month, day).toDateTime();
+  }
+
+  DateTime createDate() {
+    return DateTime(year, month, day);
   }
 }

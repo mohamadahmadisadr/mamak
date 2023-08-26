@@ -5,7 +5,9 @@ import 'package:core/utils/logger/Logger.dart';
 import 'package:feature/jwt/jwt_generator.dart';
 import 'package:feature/poolakey/inapp_purchase_info.dart';
 import 'package:feature/poolakey/poolakey_helper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mamak/config/appData/AppConfiguration.dart';
 import 'package:mamak/data/body/subscribe/AddSubscribeBody.dart';
 import 'package:mamak/data/body/subscribe/DiscountCodeBody.dart';
 import 'package:mamak/data/serializer/subscribe/AllSubscriptionResponse.dart';
@@ -28,16 +30,12 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
   AppState mySubscriptionState = AppState.idle;
   AllSubscriptionItem? selectedItem;
   String? dynamicPriceToken;
-  final bool cafeBazaar = true;
+  final bool cafeBazaar = AppConfiguration.cafeBazaar;
 
   final TextEditingController codeController = TextEditingController();
 
-
-
-
-
   final MyNotification _notification = GetIt.I.get();
-  final PoolakeyHelper _poolakeyHelper = GetIt.I.get();
+  final PoolakeyHelper? _poolakeyHelper = kIsWeb ? null : GetIt.I.get();
 
   SubscriptionViewModel(super.initialState) {
     WidgetsBinding.instance.addObserver(this);
@@ -147,11 +145,11 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
         if (appState.isSuccess) {
           if (cafeBazaar) {
             try {
-              var res = await _poolakeyHelper.purchase(
+              var res = await _poolakeyHelper?.purchase(
                 pId: selectedItem!.cafeBazaarIdentity ?? '',
                 token: dynamicPriceToken ?? '',
               );
-              if (res.state == InAppPurchaseState.success) {
+              if (res?.state == InAppPurchaseState.success) {
                 payOrder();
                 messageService.showSnackBar('پرداخت با موفقیت انجام شد');
               } else {
@@ -180,8 +178,9 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
 
   void payOrder() {
     PayOrderUseCase().invoke(MyFlow(flow: (appState) {
-      if(appState.isFailed && appState.getErrorModel?.state == ErrorState.SuccessMsg){
-        if(cafeBazaar){
+      if (appState.isFailed &&
+          appState.getErrorModel?.state == ErrorState.SuccessMsg) {
+        if (cafeBazaar) {
           payOrderCafeBazaar();
         }
       }
@@ -205,22 +204,18 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
     }), data: !cafeBazaar);
   }
 
-
-  payOrderCafeBazaar(){
-    PayOrderResultByCafeBazaarUseCase().invoke(
-        MyFlow(flow: (resultState) {
-          if (resultState.isFailed) {
-            print(
-                'result PayOrderResultByCafeBazaarUseCase is ${resultState.getErrorModel?.message}');
-          } else {
-            print(
-                'result PayOrderResultByCafeBazaarUseCase is $resultState');
-          }
-          adSubscribeState = resultState;
-          refresh();
-        }), data: selectedItem?.discount ?? selectedItem?.price);
+  payOrderCafeBazaar() {
+    PayOrderResultByCafeBazaarUseCase().invoke(MyFlow(flow: (resultState) {
+      if (resultState.isFailed) {
+        print(
+            'result PayOrderResultByCafeBazaarUseCase is ${resultState.getErrorModel?.message}');
+      } else {
+        print('result PayOrderResultByCafeBazaarUseCase is $resultState');
+      }
+      adSubscribeState = resultState;
+      refresh();
+    }), data: selectedItem?.discount ?? selectedItem?.price);
   }
-
 
   Future<void> _launchUrl(String url) async {
     if (!await launchUrl(Uri.parse(url),

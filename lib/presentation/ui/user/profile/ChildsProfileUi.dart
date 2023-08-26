@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/data/serializer/child/ChildsResponse.dart';
-import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
@@ -49,6 +48,7 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
         return Column(
           children: [
             TabBar(
+              isScrollable: true,
               indicator: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: const BorderRadius.only(
@@ -95,7 +95,9 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
                                     width: 50,
                                     height: 50,
                                     child: bloc.selectedImage != null &&
-                                            bloc.selectedImage?.content != null && bloc.selectedImage?.content != ''
+                                            bloc.selectedImage?.content !=
+                                                null &&
+                                            bloc.selectedImage?.content != ''
                                         ? ClipRRect(
                                             borderRadius: 45.bRadius,
                                             child: Image.memory(
