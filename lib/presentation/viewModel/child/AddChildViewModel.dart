@@ -2,6 +2,7 @@ import 'package:core/Notification/MyNotification.dart';
 import 'package:core/imagePicker/ImageFileModel.dart';
 import 'package:core/imagePicker/MyImagePicker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/state/formState/child/AddChildFormState.dart';
 import 'package:mamak/presentation/uiModel/bottomNavigation/model/HomeNavigationModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -9,9 +10,13 @@ import 'package:mamak/useCase/child/AddChildUseCase.dart';
 
 class AddChildViewModel extends BaseViewModel {
   AddChildViewModel(super.initialState) {
+    initDate();
+  }
+
+  void initDate(){
     birthDateTime.day = 2;
     birthDateTime.month = 10;
-    birthDateTime.year = 1398;
+    birthDateTime.year = Get.locale == const Locale('fa','IR') ? 1398 : 2016;
   }
 
   final MyNotification _notification = GetIt.I.get();
@@ -40,7 +45,7 @@ class AddChildViewModel extends BaseViewModel {
     if (birthDateTime.day == 0 ||
         birthDateTime.month == 0 ||
         birthDateTime.year == 0) {
-      messageService.showSnackBar('تاریخ تولد را وارد کنید.');
+      messageService.showSnackBar('enter_date'.tr);
       return;
     }
     // if(selectedImage == null){

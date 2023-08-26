@@ -7,7 +7,7 @@ import 'package:mamak/presentation/uiModel/newHome/calendar_item.dart';
 import 'package:mamak/presentation/uiModel/newHome/week_item.dart';
 
 class CalendarObjectDraggable {
-  static List<WeekItem> items = [
+  List<WeekItem> items = [
     WeekItem(id: 0, name: 'sunday'.tr),
     WeekItem(id: 1, name: 'saturday'.tr),
     WeekItem(id: 2, name: 'monday'.tr),
@@ -15,7 +15,8 @@ class CalendarObjectDraggable {
     WeekItem(id: 4, name: 'wednesday'.tr),
   ];
 
-  static Map<WeekItem, CalendarItem> remindersItem = {
+
+  Map<WeekItem, CalendarItem> remindersItem = {
     const WeekItem(id: 0, name: 'شنبه'): CalendarItem(
       id: 0,
       name: '۶ روز ماده',

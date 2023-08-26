@@ -51,7 +51,13 @@ class MyWorkShops extends StatelessWidget {
               ),
             ),
             8.dpv,
-            Text('choose_assessment_type'.tr),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('choose_assessment_type'.tr,
+                  style: context.textTheme.bodySmall
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,),
+            ),
             8.dpv,
             CubitProvider(
               create: (context) => MyWorkShopsViewModel(AppState.idle),

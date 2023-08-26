@@ -14,7 +14,7 @@ class DraggableCalendarUi extends StatefulWidget {
     required this.onClick,
   }) : super(key: key);
   final List<CalendarItems> items;
-  final days = CalendarObjectDraggable.items;
+  final days = CalendarObjectDraggable().items;
 
   //this boolean means -> if false the root list should be empty else should send to server;
   final Function(bool) onClick;

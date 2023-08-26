@@ -26,7 +26,10 @@ class ChildHorizontalListViewUi extends StatelessWidget {
               height: 55,
               child: ConditionalUI<List<ChildsItem>>(
                 skeleton: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   height: 30,
                   margin: 8.dpe,
                   padding: 8.dpe,
@@ -46,42 +49,43 @@ class ChildHorizontalListViewUi extends StatelessWidget {
                       return Text(
                         'no_workbook'.tr,
                         style: context.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: WidgetSize.smallTitle,
-                          color: Colors.white
+                            fontWeight: FontWeight.bold,
+                            fontSize: WidgetSize.smallTitle,
+                            color: Colors.white
                         ),
                         textAlign: TextAlign.start,
                       );
                     }
                   }
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(32.0),
-                      border: Border.all(color: Colors.grey, width: 1),
-                    ),
+                  return Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0),side: const BorderSide(color: Colors.grey, width: 1)),color: Colors.white,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       padding: 8.dpe,
                       itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            //TODO add auto emit first id
-                            bloc.onChangeSelectedChild(data[index]);
-                            onSelectedItem.call(data[index]);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 4.0, horizontal: 8.0),
-                            child: Text(
-                              '${data[index].childFirstName} ${data[index].childLastName}',
-                              style: TextStyle(
-                                fontWeight: bloc.selectedChild == data[index]
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: bloc.selectedChild == data[index]
-                                    ? Colors.black
-                                    : Colors.grey,
+                        return Align(
+                          alignment: Alignment.center,
+                          child: InkWell(
+                            onTap: () {
+                              //TODO add auto emit first id
+                              bloc.onChangeSelectedChild(data[index]);
+                              onSelectedItem.call(data[index]);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 8.0),
+                              child: Text(
+                                '${data[index].childFirstName} ${data[index]
+                                    .childLastName}',
+                                style: TextStyle(
+                                  fontWeight: bloc.selectedChild ==
+                                      data[index]
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: bloc.selectedChild == data[index]
+                                      ? Colors.black
+                                      : Colors.grey,
+                                ),
                               ),
                             ),
                           ),

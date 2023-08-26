@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:shamsi_date/shamsi_date.dart';
+import 'package:intl/intl.dart';
 
 class CalendarItemUi extends StatelessWidget {
   const CalendarItemUi({
@@ -69,7 +70,7 @@ class CalendarItemUi extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child:
-                        Text(getPersianDayWithMonth(item.nextAssessmentDate!)),
+                        Text(getDateWithMonth(item.nextAssessmentDate!)),
                   ) : const SizedBox(height: 35)
                 : ElevatedButton(
                     onPressed: () {
@@ -88,9 +89,11 @@ class CalendarItemUi extends StatelessWidget {
     var hours = nextAssessmentDate.difference(DateTime.now()).inHours;
     if (days == 0) {
     }
+    var ht = 'hours_till'.tr;
+    var dt = 'days_till'.tr;
 
-    if (hours > 0 && hours < 24) return "$hours'${ 'hours_till'.tr}'";
-    return "$days '${'days_till'.tr}'";
+    if (hours > 0 && hours < 24) return "$hours $ht";
+    return "$days $dt";
   }
 
   bool isToday(DateTime someDate) {
@@ -100,9 +103,19 @@ class CalendarItemUi extends StatelessWidget {
         someDate.year == today.year;
   }
 
-  String getPersianDayWithMonth(DateTime nextAssessmentDate) {
-    var f = nextAssessmentDate.toJalali().formatter;
-    return '${f.d} ${f.mN}';
+  String getDateWithMonth(DateTime nextAssessmentDate) {
+    String date = '';
+    if(Get.locale == const Locale('fa','IR')) {
+      var f = nextAssessmentDate
+          .toJalali()
+          .formatter;
+      date = '${f.d} ${f.mN}';
+    }else {
+      var localDate = nextAssessmentDate.toLocal();
+      date = DateFormat.MMMd().format(localDate);
+    }
+      return date;
+
   }
 }
 

@@ -58,7 +58,7 @@ class _NewHomeUiState extends State<NewHomeUi> {
                               'total_workBook'.tr,
                               style: context.textTheme.titleMedium
                                   ?.copyWith(fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.right,
+                              textAlign: TextAlign.start,
                             ),
                           ),
                           RadarChart(

@@ -88,6 +88,8 @@ class WorkBookDetailUi extends StatelessWidget {
                                                 child: Text(
                                                   data.headerTitle[index],
                                                   textScaleFactor: 1,
+                                                  style: const TextStyle(fontSize: 10),
+                                                  textAlign: TextAlign.center,
                                                 ),
                                               ),
                                             );
@@ -129,6 +131,8 @@ class WorkBookDetailUi extends StatelessWidget {
                                                 child: Text(
                                                   data.header[index],
                                                   textScaleFactor: 1,
+                                                  style: const TextStyle(fontSize: 10),
+                                                  textAlign: TextAlign.center,
                                                 ),
                                               ),
                                             );
@@ -259,7 +263,7 @@ class WorkBookDetailUi extends StatelessWidget {
                         padding: 16.dpeh,
                         child: Text(
                           'summary_courses'.tr,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.start,
                         ),
                       ),
@@ -268,9 +272,7 @@ class WorkBookDetailUi extends StatelessWidget {
                           categories: data.categories),
                       Container(
                         padding: 8.dpe,
-                        child: Text(
-                          'راهکارهای توانمندی هایی که کودکتان نیاز به رشد دارد را دانلود کنید، دو هفته در منزل با او بازی کنید و مجددا ارزیابی را انجام دهید',
-                          textAlign: TextAlign.center,
+                        child: Text('report_card_text'.tr,textAlign: TextAlign.center,
                           style: context.textTheme.titleMedium
                               ?.copyWith(color: Colors.red),
                         ),

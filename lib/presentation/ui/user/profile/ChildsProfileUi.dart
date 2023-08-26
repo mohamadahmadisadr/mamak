@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/child/ChildsResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
@@ -40,6 +41,7 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
 
   @override
   Widget build(BuildContext context) {
+    var year = 'year'.tr;
     // Logger.d(msg)
     return CubitProvider(
       create: (context) => viewModel,
@@ -138,7 +140,7 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
                       ),
                     ),
                     8.dph,
-                    Text('${widget.children[index].childAge?.toString()} سال')
+                    Text('${widget.children[index].childAge?.toString()} $year')
                   ],
                 ),
               )

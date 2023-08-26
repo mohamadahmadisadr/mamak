@@ -17,7 +17,7 @@ public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
       flutterEngine.getPlugins().add(new com.codesfirst.grecaptcha.GrecaptchaPlugin());
-    } catch (Exception e) {
+    } catch(Exception e) {
       Log.e(TAG, "Error registering plugin my_recaptcha, com.codesfirst.grecaptcha.GrecaptchaPlugin", e);
     }
   }

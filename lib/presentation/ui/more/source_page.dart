@@ -14,8 +14,7 @@ class SourceUi extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Text(
-                'تمام محتواها به صورت انحصاری توسط انتشارات مهر کودکانه پرستو تولید گردیده است و حق مادی و معنوی آن برای مجموعه محفوظ است.',
+            Text('policy_text'.tr,
                 style: context.textTheme.bodySmall),
             16.dpv,
             TextButton(onPressed: () {

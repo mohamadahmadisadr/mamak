@@ -15,6 +15,7 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/workBook/WorkShopDictionary.dart';
 import 'package:mamak/presentation/uiModel/workBook/ChartDataModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
@@ -416,15 +417,16 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
 
   WorkBookDetailUiModel createUiModel(WorkBookParamsModel? model) {
     List<String> headerTitle = [
-      'نام مادر',
-      'نام کودک',
-      'سن کودک',
-      'کارگاه ارزیابی',
+      'mothers_name'.tr,
+      'childs_name'.tr,
+      'age'.tr,
+      'estimate_workshop'.tr,
     ];
+    var year = 'year'.tr;
     List<String> header = [
       reportCardHeader?.parentUserFullName ?? '',
       reportCardHeader?.childUserFullName ?? '',
-      '${reportCardHeader?.childAge?.toString() ?? ' '} سال',
+      '${reportCardHeader?.childAge?.toString() ?? ' '} $year',
       reportCardHeader?.workShopCategoryTitle ?? '',
     ];
     List<WorkBookDetailReviews> reviews = workShopReportCardDetails
@@ -443,10 +445,10 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
     var three = workShopReportCard?.thirdRateAnswersCount?.toString() ?? '';
     var allQCount = workShopReportCard?.allQuestionsCount?.toString() ?? '';
     var workShopWorkBookTitle =
-        'مهارت کودک در $workShopName : $three از $allQCount';
+        '${'chil_capability_in'.tr} $workShopName : $three ${'from'.tr} $allQCount';
 
     var workShopDescription =
-        'طبق ارزیابی شما, از بین $allQCount توانمندی $workShopName کودک شما بر $three توانمندی مسلط است, $two توانمندی را تا حدودی و $one توانمدی را هنوز شروع نکرده است.';
+        '${'according_your_assessment'.tr}, ${'between'.tr} $allQCount ${'capability'.tr} $workShopName ${'your_child_has_mastered'.tr} $three ${'abilities'.tr}, $two ${'ability_to_some_extent'.tr} ${'and'.tr} $one ${'has_not_started_yet'.tr}.';
 
     int maxValue = workShopSubCategoryReportCards?.fold(
             0,
@@ -461,14 +463,14 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
     List<double> values = workShopSubCategoryReportCards?.map((e) {
           int all = e.allQuestionsCount ?? 0;
           int correct = e.thirdRateAnswersCount ?? 0;
-          lableData.add('$correct از $all');
+          lableData.add('$correct ${'from'.tr} $all');
           return (maxValue * correct) / all;
         }).toList() ??
         [];
 
     var cards = generalReportCards ?? [];
     cards.sort((a, b) => a.id!.compareTo(b.id!),);
-    var totalWorkBookTitle = 'همه جانبگی ارزیابی: %s حوزه از %s حوزه';
+    var totalWorkBookTitle = '${'comprehensive_assessment'.tr}: %s ${'area'.tr} ${'from'.tr} %s ${'area'.tr}';
 
     List<List<WorkBookTableModel>> tableData = [];
     generalReportCards?.forEach((e) {
@@ -491,7 +493,7 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
 
     var userParticipateAssessmentCount =
         workShopReportCard?.userParticipateAssessmentCount ?? 0;
-    var counter = 'ارزیابی $userParticipateAssessmentCount';
+    var counter = '${'assessment'.tr} $userParticipateAssessmentCount';
     return WorkBookDetailUiModel(
       headerTitle: headerTitle,
       header: header,

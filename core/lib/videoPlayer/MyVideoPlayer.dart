@@ -25,8 +25,8 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   }
 
   void init() async {
-    videoPlayerController = !widget.data.startsWith('http')
-        ? VideoPlayerController.network(await getVideoFromContent(widget.data))
+    videoPlayerController = widget.data.startsWith('http')
+        ? VideoPlayerController.network(widget.data)
         : VideoPlayerController.file(
             File(await getVideoFromContent(widget.data)))
       ..initialize().then(

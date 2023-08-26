@@ -5,4 +5,5 @@ class AppUrls{
   static const getIntroduction = "/SiteSetting/GetIntroduction";
   static const checkVersion = "/AppVersion/GetTheLastOfAppVersion";
   static const isThereNewAppVersion = "/AppVersion/IsThereNewAppVersion";
+  static const setCurrentCulture = "/AppSettings/SetCurrentCulture";
 }

@@ -26,7 +26,7 @@ class SubscriptionNavigationModel extends HomeNavigationModel{
 
   @override
   String name() {
-    return 'subscribe_buy'.tr;
+    return 'subscribe'.tr;
   }
 
   @override

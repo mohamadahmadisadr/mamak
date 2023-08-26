@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
@@ -45,7 +46,7 @@ class MoteItemUi extends StatelessWidget {
       child: Padding(
         padding: 8.dpe,
         child: Column(
-          children: [Icon(item.iconData), 4.dpv, Text(item.name)],
+          children: [Icon(item.iconData), 4.dpv, Text(item.name,textAlign: TextAlign.center,style: context.textTheme.bodySmall?.copyWith(fontSize: 10),)],
         ),
       ),
     );

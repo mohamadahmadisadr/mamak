@@ -29,6 +29,7 @@ class _RecaptchaState extends State<Recaptcha> {
 
   @override
   void initState() {
+    Logger.d('initializing');
     platformViewRegistry.registerViewFactory(
       createdViewId,
       (int viewId) => IFrameElement()
@@ -38,39 +39,17 @@ class _RecaptchaState extends State<Recaptcha> {
             'assets/html/recaptcha.html' // Path to your HTML file containing the reCAPTCHA widget.
         ..style.border = 'none',
     );
+    Logger.d('initialized');
     listenResponse();
     super.initState();
   }
 
-  Future<bool> verifyToken(String token) async {
-    Uri uri = Uri.parse('https://www.google.com/recaptcha/api/siteverify');
-    final response = await GetIt.I.get<KanoonHttp>().post(
-      uri,
-      data: {
-        'secret': 'YOUR_SECRET_KEY',
-        'response': token,
-      },
-    );
-    final Map<String, dynamic> jsonResponse = json.decode(response.body);
-    if (jsonResponse['success']) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   void listenResponse(){
+    Logger.d('listenning');
     window.onMessage.listen((msg) {
       Logger.d('msg is ${msg.data}');
-      verifyToken(msg.data).then((isVerified) {
-        if (isVerified) {
-          Logger.d('verified');
-        } else {
-          // Handle reCAPTCHA verification failure (optional).
-          // You can show an error message or take appropriate actions.
-          print('reCAPTCHA verification failed.');
-        }
-      });
+
     });
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:mamak/config/appData/appTheme/MyTheme.dart';
 
 import '../../uiCommon/WidgetSize.dart';
@@ -17,9 +18,9 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
           textStyle: MaterialStateProperty.all(
-            const TextStyle(
+            TextStyle(
               color: Colors.black,
-              fontFamily: 'yekan',
+              fontFamily: Get.locale == const Locale('fa','IR') ? 'yekan' : null,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -32,7 +33,7 @@ class AppTheme {
       scaffoldBackgroundColor: MyTheme.backGroundColor,
       useMaterial3: false,
       primaryColorDark: MyTheme.color,
-      fontFamily: 'dana',
+      fontFamily: Get.locale == const Locale('fa','IR') ? 'dana' : null,
       appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           centerTitle: true,
@@ -71,9 +72,9 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
-          textStyle: const TextStyle(
+          textStyle: TextStyle(
               color: Colors.white,
-              fontFamily: 'dana',
+              fontFamily: Get.locale == const Locale('fa','IR') ? 'dana' : null,
               fontWeight: FontWeight.bold),
         ),
       ),

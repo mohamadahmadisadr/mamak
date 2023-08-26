@@ -31,7 +31,7 @@ class DefaultCalendarUi extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Column(
-                      children: CalendarObjectDraggable.items.map((item) {
+                      children: CalendarObjectDraggable().items.map((item) {
                         return WeekItemUi(item: item);
                       }).toList(),
                     ),

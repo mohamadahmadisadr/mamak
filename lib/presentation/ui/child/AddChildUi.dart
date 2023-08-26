@@ -83,9 +83,9 @@ class AddChildUi extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: DropDownFormField(
-                              selectedItem: DropDownModel(data: 1398, name: 1398.toString()),
+                              selectedItem: DropDownModel(data: Get.locale == const Locale('fa','IR') ? 1398 : 2016, name: 1398.toString()),
                               items:
-                                  positiveIntegers.skip(1395).take(4).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
+                                  positiveIntegers.skip(Get.locale == const Locale('fa','IR') ? 1395 : 2016).take(4).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
                               name: 'year'.tr,
                               onValueChange: bloc.onYearChange),
                         ),

@@ -4,7 +4,8 @@ import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/newHome/CalendarItemUi.dart';
 
-class VerticalSliderUi extends StatefulWidget {
+class
+VerticalSliderUi extends StatefulWidget {
   const VerticalSliderUi({
     Key? key,
     required this.items,
