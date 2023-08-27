@@ -13,5 +13,5 @@ class WorkBookTableModel {
   });
 
   String get value =>
-      sprintf("%s '${'from'.tr}' %s", [(three + previousThree).toString(), count]);
+      sprintf("%s ${'from'.tr} %s", [(three + previousThree).toString(), count]);
 }

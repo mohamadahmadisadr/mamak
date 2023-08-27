@@ -59,13 +59,14 @@ class ChildHorizontalListViewUi extends StatelessWidget {
                   }
                   return Card(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0),side: const BorderSide(color: Colors.grey, width: 1)),color: Colors.white,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      padding: 8.dpe,
-                      itemBuilder: (context, index) {
-                        return Align(
-                          alignment: Alignment.center,
-                          child: InkWell(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: ListView.separated(
+                      shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        padding: 8.dpe,
+                        itemBuilder: (context, index) {
+                          return InkWell(
                             onTap: () {
                               //TODO add auto emit first id
                               bloc.onChangeSelectedChild(data[index]);
@@ -88,16 +89,16 @@ class ChildHorizontalListViewUi extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const VerticalDivider(
-                          width: 1,
-                          color: Colors.grey,
-                        );
-                      },
-                      itemCount: data.length,
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const VerticalDivider(
+                            width: 1,
+                            color: Colors.grey,
+                          );
+                        },
+                        itemCount: data.length,
+                      ),
                     ),
                   );
                 },

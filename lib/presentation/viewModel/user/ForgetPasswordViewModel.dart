@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:core/utils/logger/Logger.dart';
 import 'package:core/utils/timer/MyTimer.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/state/formState/user/recovery_password_form_state.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/user/ConfirmCodeUseCase.dart';
@@ -37,7 +38,7 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
 
   Function() sendCode() => () {
         if (mobileController.text.isEmpty) {
-          messageService.showSnackBar('شماره موبایل را وارد کنید');
+          messageService.showSnackBar('enter_mobile'.tr);
           return;
         }
         SendCodeUseCase().invoke(
@@ -61,7 +62,7 @@ class ForgetPasswordViewModel extends BaseViewModel implements OnTimerChange {
         }
         if (formState.currentState?.validate() == true) {
           if (confirmCodeController.text.isEmpty) {
-            messageService.showSnackBar(' کد تایید را وارد کنید');
+            messageService.showSnackBar('enter_confirm_code'.tr);
             return;
           }
 

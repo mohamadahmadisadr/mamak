@@ -70,13 +70,13 @@ class NewCategoryItemUi extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(),
-            Text(category.title ?? '',style: context.textTheme.titleSmall?.copyWith(fontSize: 15),textAlign: TextAlign.center,),
+            Text(category.title ?? '',style: context.textTheme.titleSmall?.copyWith(fontSize: 17,fontWeight: FontWeight.bold),textAlign: TextAlign.center),
             const Spacer(),
             FittedBox(
             fit: BoxFit.fill,
               child: SizedBox(
-                  height: 40.0,
-                  width: 40.0,
+                  height: 60.0,
+                  width: 60.0,
                   child: Image.memory(
                     base64Decode(
                         category.parentCategoryFiles?.first.file?.content ??

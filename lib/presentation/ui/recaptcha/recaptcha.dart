@@ -1,14 +1,16 @@
-import 'dart:convert';
 import 'dart:html';
 import 'dart:ui_web';
 
-import 'package:core/dioNetwork/kanoonHttp/KanoonHttp.dart';
 import 'package:core/utils/logger/Logger.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 class Recaptcha extends StatefulWidget {
-  const Recaptcha({super.key});
+  const Recaptcha({
+    super.key,
+    required this.onChangeToken,
+  });
+
+  final Function(String) onChangeToken;
 
   @override
   State<Recaptcha> createState() => _RecaptchaState();
@@ -36,7 +38,7 @@ class _RecaptchaState extends State<Recaptcha> {
         ..style.height = '100%'
         ..style.width = '100%'
         ..src =
-            'assets/html/recaptcha.html' // Path to your HTML file containing the reCAPTCHA widget.
+            '/assets/html/recaptcha.html' // Path to your HTML file containing the reCAPTCHA widget.
         ..style.border = 'none',
     );
     Logger.d('initialized');
@@ -44,13 +46,11 @@ class _RecaptchaState extends State<Recaptcha> {
     super.initState();
   }
 
-
-  void listenResponse(){
+  void listenResponse() {
     Logger.d('listenning');
     window.onMessage.listen((msg) {
+      widget.onChangeToken.call(msg.data);
       Logger.d('msg is ${msg.data}');
-
     });
   }
-
 }

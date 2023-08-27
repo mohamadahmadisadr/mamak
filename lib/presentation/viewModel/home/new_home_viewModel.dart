@@ -1,6 +1,7 @@
 import 'package:core/Notification/MyNotification.dart';
 import 'package:core/Notification/MyNotificationListener.dart';
-import 'package:core/network/errorHandler/ErrorModel.dart';
+import 'package:get/get.dart';
+import 'package:mamak/core/network/errorHandler/ErrorModel.dart';
 import 'package:mamak/data/serializer/child/ChildsResponse.dart';
 import 'package:mamak/data/serializer/workBook/WorkBookDetailResponse.dart';
 import 'package:mamak/presentation/uiModel/workBook/ChartDataModel.dart';
@@ -114,7 +115,7 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
         correct += e.thirdRateAnswersCount ?? 0;
         all += e.allQuestionsCount ?? 0;
       }).toList();
-      lableData.add('$correct از $all');
+      lableData.add('$correct ${'from'.tr} $all');
       var result = (all == 0 ? 0 : (maxValue * correct) / all).toDouble();
       return result;
     }).toList();

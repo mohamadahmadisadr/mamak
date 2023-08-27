@@ -1,15 +1,17 @@
-import 'package:feature/form/validator/ValidationState.dart';
-import 'package:feature/form/validator/Validator.dart';
+import 'package:get/get.dart';
+
+import 'ValidationState.dart';
+import 'Validator.dart';
 
 class EmailValidator extends Validator {
   @override
   ValidationState validate(String data) {
     if (data.isEmpty) {
-      return const ValidationState(state: false, msg: 'ایمیل را وارد کنید');
+      return ValidationState(state: false, msg: 'enter_email'.tr);
     }
     if (!emailValid(data)) {
-      return const ValidationState(
-          state: false, msg: 'ایمیل وارد شده صحیح نیست');
+      return ValidationState(
+          state: false, msg: 'invalid_email'.tr);
     }
 
     return const ValidationState(state: true);

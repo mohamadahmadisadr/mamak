@@ -115,16 +115,19 @@ class _MothersWorkBookTabsUiState extends State<MothersWorkBookTabsUi>
                 borderRadius: BorderRadius.circular(32.0),
                 color: Colors.grey.withOpacity(.4),
               ),
-              child: TabBar(
-                isScrollable: true,
-                controller: _tabController,
-                indicator: BoxDecoration(
-                    color: Colors.white, borderRadius: getBorderByZeroIndex()),
-                tabs: widget.items
-                    .map(
-                      (e) => WorkBookTabUi(name: e.childFirstName ?? ''),
-                    )
-                    .toList(),
+              child: Align(
+                alignment: Alignment.center,
+                child: TabBar(
+                  isScrollable: true,
+                  controller: _tabController,
+                  indicator: BoxDecoration(
+                      color: Colors.white, borderRadius: getBorderByZeroIndex()),
+                  tabs: widget.items
+                      .map(
+                        (e) => WorkBookTabUi(name: e.childFirstName ?? ''),
+                      )
+                      .toList(),
+                ),
               ),
             ),
             4.dpv,
@@ -153,7 +156,7 @@ class WorkBookTabUi extends StatelessWidget {
   }
 }
 
-BorderRadius getBorderByZeroIndex() => BorderRadius.all(Radius.circular(32.0));
+BorderRadius getBorderByZeroIndex() => const BorderRadius.all(Radius.circular(32.0));
 
 BorderRadius getBorderByIndex(int index) {
   if (index == 0) {

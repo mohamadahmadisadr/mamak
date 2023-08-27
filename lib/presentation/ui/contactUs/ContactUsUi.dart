@@ -1,8 +1,10 @@
-import 'package:feature/form/validator/NameValidator.dart';
-import 'package:feature/form/validator/login/EmailValidator.dart';
-import 'package:feature/form/validator/login/MobileValidator.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/core/form/validator/EmailValidator.dart';
+import 'package:mamak/core/form/validator/MobileValidator.dart';
+import 'package:mamak/core/form/validator/NameValidator.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/presentation/ui/main/MamakTitle.dart';

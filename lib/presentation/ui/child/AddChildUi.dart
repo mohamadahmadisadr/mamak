@@ -1,7 +1,8 @@
-import 'package:feature/form/validator/LastNameValidator.dart';
-import 'package:feature/form/validator/NameValidator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/core/form/validator/LastNameValidator.dart';
+import 'package:mamak/core/form/validator/NameValidator.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';

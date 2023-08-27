@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/config/uiCommon/MyTheme.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/data/serializer/child/ChildsResponse.dart';
 import 'package:mamak/data/serializer/child/WorkShopOfUserResponse.dart';
 import 'package:mamak/presentation/ui/child/ChildHorizontalListViewUi.dart';
@@ -138,8 +139,8 @@ class MyWorkShopItemUi extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                          item.workShopTitle?.replaceAll('کارگاه', '') ?? '',
-                          textAlign: TextAlign.right,
+                          item.workShopTitle ?? '',
+                          textAlign: TextAlign.start,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           textScaleFactor: 1.0,
@@ -147,7 +148,7 @@ class MyWorkShopItemUi extends StatelessWidget {
                               const TextStyle(fontSize: WidgetSize.smallTitle)),
                     ),
                     Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: Directionality(
                         textDirection: TextDirection.ltr,
                         child: Text(
@@ -165,11 +166,11 @@ class MyWorkShopItemUi extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        textAlign: TextAlign.left,
+                        textAlign: Get.locale.isPersian ? TextAlign.left : TextAlign.right,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         textScaleFactor: 1.0,
-                        "${item.questionCount} '${'question'.tr}'",
+                        "${item.questionCount} ${'questions'.tr}",
                         style: const TextStyle(fontSize: WidgetSize.smallTitle),
                       ),
                     ),

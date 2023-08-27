@@ -1,5 +1,6 @@
 
-import 'package:core/network/errorHandler/ErrorModel.dart';
+
+import 'package:mamak/core/network/errorHandler/ErrorModel.dart';
 
 abstract class AppState {
   static Idle idle = Idle();

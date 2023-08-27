@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/workBook/WorkBookDetailResponse.dart';
 import 'package:mamak/presentation/uiModel/workBook/ChartDataModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -29,7 +30,7 @@ class TotalWorkBookViewModel extends BaseViewModel {
         correct += e.thirdRateAnswersCount ?? 0;
         all += e.allQuestionsCount ?? 0;
       }).toList();
-      lableData.add('$correct از $all');
+      lableData.add('$correct ${'from'.tr} $all');
       var result = (all == 0 ? 0 : (maxValue * correct) / all).toDouble();
       return result;
     }).toList();

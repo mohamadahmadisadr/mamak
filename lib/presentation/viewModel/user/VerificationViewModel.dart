@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/app/ContactUsResponse.dart';
 import 'package:mamak/presentation/state/formState/user/VerificationFormState.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -23,7 +24,7 @@ class VerificationViewModel extends BaseViewModel {
 
   void onSubmitCodeClick() {
     if (verificationFormState.mobile.isEmpty) {
-      messageService.showSnackBar('سشن منقضی شده ست مجددا وارد شوید');
+      messageService.showSnackBar('ErrorMessage_4_0_1'.tr);
       return;
     }
     if (formState.currentState?.validate() == true) {
@@ -54,7 +55,7 @@ class VerificationViewModel extends BaseViewModel {
     GetContactUsUseCase().invoke(MyFlow(flow: (appState) {
       if (appState.isSuccess && appState.getData is ContactUsResponse) {
         ContactUsResponse data = appState.getData;
-        numberData = 'شماره تماس پشتیبانی : ${data.tellNumber}';
+        numberData = '${'contact_us'.tr} : ${data.tellNumber}';
         refresh();
       }
     }));

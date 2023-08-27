@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mamak/data/serializer/app/ContactUsResponse.dart';
 import 'package:mamak/presentation/state/formState/app/ContactUsFormState.dart';
@@ -58,18 +59,18 @@ class ContactUsViewModel extends BaseViewModel {
 
   void submitForm() {
     if (formState.subject == '') {
-      messageService.showSnackBar('موضوع را وارد کنید');
+      messageService.showSnackBar('enter_subject'.tr);
       return;
     }
     if (formState.message == '') {
-      messageService.showSnackBar('متن را وارد کنید');
+      messageService.showSnackBar('enter_text'.tr);
       return;
     }
 
     if (formKey.currentState?.validate() == true) {
       ContactUsUseCase().invoke(MyFlow(flow: (appState) {
         if (appState.isSuccess) {
-          messageService.showSnackBar('با موفقیت ارسال شد');
+          messageService.showSnackBar('success_sent'.tr);
         }
 
         formUiState = appState;

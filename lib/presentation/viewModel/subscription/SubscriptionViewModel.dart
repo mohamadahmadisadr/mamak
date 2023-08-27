@@ -1,13 +1,14 @@
 import 'package:core/Notification/MyNotification.dart';
-import 'package:core/network/errorHandler/ErrorModel.dart';
-import 'package:core/network/errorHandler/common/ErrorMessages.dart';
 import 'package:core/utils/logger/Logger.dart';
 import 'package:feature/jwt/jwt_generator.dart';
 import 'package:feature/poolakey/inapp_purchase_info.dart';
 import 'package:feature/poolakey/poolakey_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/config/appData/AppConfiguration.dart';
+import 'package:mamak/core/network/errorHandler/ErrorModel.dart';
+import 'package:mamak/core/network/errorHandler/common/ErrorMessages.dart';
 import 'package:mamak/data/body/subscribe/AddSubscribeBody.dart';
 import 'package:mamak/data/body/subscribe/DiscountCodeBody.dart';
 import 'package:mamak/data/serializer/subscribe/AllSubscriptionResponse.dart';
@@ -115,12 +116,12 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
 
   void submitCode() {
     if (selectedItem == null) {
-      messageService.showSnackBar('اشتراک مورد نظر را انتخاب کنید');
+      messageService.showSnackBar('select_subscription'.tr);
       return;
     }
 
     if (codeController.text.isEmpty || codeController.text.length < 4) {
-      messageService.showSnackBar('کد تخفیف را وارد کنید');
+      messageService.showSnackBar('enter_disount_code'.tr);
       return;
     }
 
@@ -129,7 +130,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
 
   void submitSubscribe() async {
     if (selectedItem == null) {
-      messageService.showSnackBar('اشتراک موردنظر را انتخاب کنید');
+      messageService.showSnackBar('select_subscription'.tr);
       return;
     }
 
@@ -151,16 +152,16 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
               );
               if (res?.state == InAppPurchaseState.success) {
                 payOrder();
-                messageService.showSnackBar('پرداخت با موفقیت انجام شد');
+                messageService.showSnackBar('pay_was_success'.tr);
               } else {
-                messageService.showSnackBar('این پکیج قبلا خریداری شده است');
+                messageService.showSnackBar('already_taken_package'.tr);
                 adSubscribeState = appState;
                 refresh();
               }
             } catch (e) {
               Logger.e(e);
 
-              messageService.showSnackBar('پراخت انجام نشد');
+              messageService.showSnackBar('payment_fail'.tr);
               adSubscribeState = appState;
               refresh();
             }
@@ -241,7 +242,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
       case 101:
         return "عملیات پرداخت قبلاً صورت گرفته است.";
       default:
-        return ErrorMessages.ErrorMessage_Connection;
+        return ErrorMessages().ErrorMessage_Connection;
     }
   }
 
@@ -265,12 +266,12 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
       var result = data.queryParameters['success']?.toString();
       if (result != null) {
         if (result == "400") {
-          messageService.showSnackBar('عملیات پرداخت با خطا مواجه شد');
+          messageService.showSnackBar('payment_fail'.tr);
         } else if (result == "200") {
           getRemainingDay();
           _notification.publish(
               'MainViewModel', HomeNavigationEnum.WorkShops.value);
-          messageService.showSnackBar('پرداخت با موفقیت انجام شد.');
+          messageService.showSnackBar('paymane_success'.tr);
         }
       }
     }

@@ -1,7 +1,8 @@
-import 'package:feature/form/validator/login/MobileValidator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/core/form/validator/MobileValidator.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';

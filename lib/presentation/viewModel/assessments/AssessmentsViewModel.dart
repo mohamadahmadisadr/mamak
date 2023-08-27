@@ -1,4 +1,6 @@
 import 'package:core/Notification/MyNotification.dart';
+import 'package:get/get.dart';
+import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/data/body/assessment/ParticipateAssessmentBody.dart';
 import 'package:mamak/data/serializer/assessment/QuestionsResponse.dart';
 import 'package:mamak/presentation/uiModel/QuestionModel.dart';
@@ -91,7 +93,9 @@ class AssessmentsViewModel extends BaseViewModel {
   bool get isValid {
     var index = questions.indexWhere((element) => element.isValid == false);
     if (index == -1) return true;
-    messageService.showSnackBar('سوال شماره ${index + 1} را پاسخ دهید.');
+    var ind = '${index + 1}';
+    var text = '${'answer.tr'} ${'question'} ${'number'.tr} $ind';
+    messageService.showSnackBar(Get.locale.isPersian ? 'سوال شماره ${index + 1} را پاسخ دهید.' : text);
     return false;
   }
 
@@ -105,7 +109,7 @@ class AssessmentsViewModel extends BaseViewModel {
           }
           if (appState.isSuccess) {
 
-            messageService.showSnackBar('ارزیابی فرزند با موفقیت انجام شد');
+            messageService.showSnackBar('success_done_assessment_mg'.tr);
             WorkBookParamsModel model = WorkBookParamsModel(
               userChildId: assessmentParamsModel?.childId ?? '',
               workShopId: assessmentParamsModel?.workShopId ?? '',

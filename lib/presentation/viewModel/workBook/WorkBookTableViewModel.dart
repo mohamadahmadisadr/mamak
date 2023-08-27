@@ -10,7 +10,7 @@ class WorkBookTableViewModel extends BaseViewModel {
   WorkBookTableViewModel(super.initialState);
 
   List<DataColumn> getColumnData(List<WorkShopCategory> categories) {
-    var label = const WorkShopCategory(name: 'کارگاه', id: '-1');
+    var label = WorkShopCategory(name: 'workshop'.tr, id: '-1');
     return [getDataColumn(label)] +
         categories.map((category) => getDataColumn(category)).toList();
   }
@@ -52,7 +52,7 @@ class WorkBookTableViewModel extends BaseViewModel {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                   child: Text(
-                    item?.value ?? 'انجام نشده',
+                    item?.value ?? 'not_done'.tr,
                     textAlign: TextAlign.center,
                     textScaleFactor: 1,
                     style: TextStyle(color: item == null ? Colors.red : Colors.black,fontSize: WidgetSize.smallTitle),
@@ -72,7 +72,7 @@ class WorkBookTableViewModel extends BaseViewModel {
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Text(
-            'ارزیابی $index',
+            '${'assessment'.tr} $index',
             textAlign: TextAlign.center,
             textScaleFactor: 1,
             style: TextStyle(color: Colors.black,fontSize: WidgetSize.smallTitle),

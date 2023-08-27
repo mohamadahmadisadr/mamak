@@ -1,9 +1,11 @@
-import 'package:feature/form/validator/LastNameValidator.dart';
-import 'package:feature/form/validator/NameValidator.dart';
-import 'package:feature/form/validator/login/MobileValidator.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/core/form/validator/LastNameValidator.dart';
+import 'package:mamak/core/form/validator/MobileValidator.dart';
+import 'package:mamak/core/form/validator/NameValidator.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
@@ -172,7 +174,13 @@ class RegisterUi extends StatelessWidget {
                       child: bloc.uiState.isLoading
                           ? const MyLoader(color: Colors.black)
                           : Text("next_step".tr)),
-                  SizedBox(width: 100,height: 100,child: const Recaptcha())
+                  if (kIsWeb)
+                    SizedBox(
+                        width: 100,
+                        height: 200,
+                        child: Recaptcha(
+                          onChangeToken: bloc.onChangeToken,
+                        ))
                 ],
               ),
             ),

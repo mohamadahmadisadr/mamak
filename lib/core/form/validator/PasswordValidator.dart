@@ -1,5 +1,8 @@
-import 'package:feature/form/validator/ValidationState.dart';
-import 'package:feature/form/validator/Validator.dart';
+import 'package:get/get.dart';
+
+import 'ValidationState.dart';
+import 'Validator.dart';
+
 
 class PasswordValidator extends Validator {
   final bool rePassword;
@@ -12,8 +15,8 @@ class PasswordValidator extends Validator {
       return ValidationState(
           state: false,
           msg: rePassword
-              ? 'تکرار گذرواژه  خود را وارد کنید'
-              : 'گذرواژه خود را وارد کنید');
+              ? 'enter_confirm_psw'.tr
+              : 'enter_psw'.tr);
     }
     return const ValidationState(state: true);
   }

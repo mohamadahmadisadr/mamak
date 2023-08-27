@@ -9,21 +9,24 @@ class RegisterFormState {
       confirmPasswordError,
       emailError,
       termsError;
+  String? token;
 
-  RegisterFormState(
-      {this.firstName = '',
-      this.firstNameError,
-      this.lastName = '',
-      this.lastNameError,
-      this.mobile = '',
-      this.mobileError,
-      this.email = '',
-      this.emailError,
-      this.password = '',
-      this.passwordError,
-      this.confirmPassword = '',
-      this.confirmPasswordError,
-      this.termsError});
+  RegisterFormState({
+    this.firstName = '',
+    this.firstNameError,
+    this.lastName = '',
+    this.lastNameError,
+    this.mobile = '',
+    this.mobileError,
+    this.email = '',
+    this.emailError,
+    this.password = '',
+    this.passwordError,
+    this.confirmPassword = '',
+    this.confirmPasswordError,
+    this.termsError,
+    this.token,
+  });
 
   SignUpBody getBody() {
     return SignUpBody(

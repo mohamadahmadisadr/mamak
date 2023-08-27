@@ -1,8 +1,8 @@
 
 
+import 'package:mamak/core/network/errorHandler/ErrorModel.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 
-import 'package:core/network/errorHandler/ErrorModel.dart';
 
 extension NetworkExtensions on AppState {
   bool get isLoading => this is Loading;

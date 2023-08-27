@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/data/serializer/subscribe/AllSubscriptionResponse.dart';
 import 'package:mamak/data/serializer/subscribe/CurrentPackageResponse.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
@@ -53,6 +54,9 @@ class SubscriptionUI extends StatelessWidget {
                     ConditionalUI<CurrentPackageResponse>(
                       state: bloc.mySubscriptionState,
                       onSuccess: (currentSubscription) {
+                        var de = '${currentSubscription.title ?? ''} ${'is'
+                            .tr} ${'to'.tr} ${currentSubscription
+                            .persianEndDate ?? ''} ${'active'.tr}.';
                         return Container(
                           alignment: Alignment.center,
                           padding: 16.dpe,
@@ -61,7 +65,11 @@ class SubscriptionUI extends StatelessWidget {
                               color: Colors.grey.shade100,
                               borderRadius: 8.bRadius),
                           child: Text(
-                              '${currentSubscription.title ?? ''} تا ${currentSubscription.persianEndDate ?? ''} فعال میباشد.'),
+                              Get.locale.isPersian
+                                  ? '${currentSubscription.title ?? ''} ${'to'
+                                  .tr} ${currentSubscription.persianEndDate ??
+                                  ''} ${'is_active'.tr}.'
+                                  : de),
                         );
                       },
                     ),
@@ -125,8 +133,10 @@ class SubscriptionUI extends StatelessWidget {
                             flex: 1,
                             child: Text(
                               bloc.selectedItem?.discount == null
-                                  ? "${bloc.selectedItem?.price ?? 0} '${'rial'.tr}'"
-                                  : "${bloc.selectedItem?.discount ?? 0} '${'rial'.tr}'",
+                                  ? "${bloc.selectedItem?.price ?? 0} '${'rial'
+                                  .tr}'"
+                                  : "${bloc.selectedItem?.discount ??
+                                  0} '${'rial'.tr}'",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: WidgetSize.normalTitle,
@@ -157,12 +167,11 @@ class SubscriptionUI extends StatelessWidget {
 }
 
 class DropDownPackageFields extends StatelessWidget {
-  const DropDownPackageFields(
-      {Key? key,
-      required this.selectedItem,
-      required this.items,
-      required this.name,
-      required this.onValueChange})
+  const DropDownPackageFields({Key? key,
+    required this.selectedItem,
+    required this.items,
+    required this.name,
+    required this.onValueChange})
       : super(key: key);
   final AllSubscriptionItem? selectedItem;
   final List<AllSubscriptionItem> items;

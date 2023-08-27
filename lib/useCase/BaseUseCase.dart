@@ -1,5 +1,8 @@
 import 'package:core/dioNetwork/network.dart';
 import 'package:feature/session/LocalSessionImpl.dart';
+import 'package:mamak/core/network/errorHandler/ErrorHandlerImpl.dart';
+import 'package:mamak/core/network/errorHandler/ErrorModel.dart';
+import 'package:mamak/core/network/errorHandler/common/ErrorMessages.dart';
 import 'package:mamak/useCase/BaseUseCase.dart';
 
 export 'dart:convert';
@@ -7,7 +10,6 @@ export 'dart:convert';
 export 'package:core/dioNetwork/response/KanoonHttpResponse.dart';
 export 'package:core/network/ApiServiceImpl.dart';
 export 'package:core/network/UriCreator.dart';
-export 'package:core/network/errorHandler/ErrorHandlerImpl.dart';
 export 'package:core/utils/flow/MyFlow.dart';
 export 'package:core/utils/logger/Logger.dart';
 export 'package:get_it/get_it.dart';
@@ -33,9 +35,9 @@ extension FlowExtension on MyFlow<AppState> {
   void throwCatch() {
     emit(
       AppState.error(
-        const ErrorModel(
+        ErrorModel(
           state: ErrorState.Message,
-          message: ErrorMessages.ErrorMessage_Connection,
+          message: ErrorMessages().ErrorMessage_Connection,
         ),
       ),
     );

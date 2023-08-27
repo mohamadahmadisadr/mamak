@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:mamak/data/serializer/workBook/WorkBookDetailResponse.dart';
 import 'package:mamak/presentation/ui/workBook/DownloadFileDialog.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
@@ -50,7 +51,7 @@ class ReportCardViewModel extends BaseViewModel {
     if (data != null) {
       _navigationServiceImpl.navigateTo(AppRoute.shotViewer, data);
     } else {
-      messageService.showSnackBar('خطا در دریاقت کارنامه');
+      messageService.showSnackBar('fail_receive_report_card'.tr);
     }
   }
 

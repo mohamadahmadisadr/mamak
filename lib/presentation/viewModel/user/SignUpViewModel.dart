@@ -1,4 +1,7 @@
+import 'package:core/utils/logger/Logger.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mamak/presentation/state/formState/user/RegisterFormState.dart';
 import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -71,10 +74,15 @@ class SignUpViewModel extends BaseViewModel {
     return () {
       if (isValid) {
         if (formState.password != formState.confirmPassword) {
-          messageService.showSnackBar('گذرواژه ها باید یکی باشند');
+          messageService.showSnackBar('not_same_psw'.tr);
           return;
         }
 
+        if(kIsWeb){
+          if(formState.token == null){
+            Logger.d('token is null');
+          }
+        }
         SignUpUseCase().invoke(MyFlow(flow: (appState) {
           if (appState.isSuccess) {
             navigationServiceImpl.replaceTo(
@@ -127,5 +135,10 @@ class SignUpViewModel extends BaseViewModel {
   void getRecaptchaToken() async {
     // var token = await GetIt.I.get<RecaptchaSolver>().generateToken();
     // Logger.d('generated token is $token');
+  }
+
+  onChangeToken(String token) {
+    Logger.d('received token that is $token');
+    formState.token = token;
   }
 }
