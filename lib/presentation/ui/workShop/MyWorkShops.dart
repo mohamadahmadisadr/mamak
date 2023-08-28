@@ -84,6 +84,7 @@ class MyWorkShops extends StatelessWidget {
                 );
               },
             ),
+            50.dpv
           ],
         ),
       ),

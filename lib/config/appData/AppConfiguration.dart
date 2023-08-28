@@ -11,7 +11,6 @@ class AppConfiguration {
   get extraHeaders => {
         'version': versionCode.toString(),
         'platform': kIsWeb ? 'WebApp' : 'Android',
-        'culture': Get.locale?.toLanguageTag() ?? 'en-US',
         if (!kIsWeb)
           'iWh1764CHWJuHERn++SqTsBdLkeXkTkgFr+MtRWLv6o':
               'encJw5GsbnGYNXmKtu5PiUOFPYeMX8sMDpfaZ31ksdq1KR5YtyfrvoaizJYfe866'

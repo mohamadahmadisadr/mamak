@@ -69,27 +69,31 @@ class WorkBookDetailUi extends StatelessWidget {
                                             color: Colors.grey, width: 1),
                                       ),
                                       child: SizedBox(
-                                        height: 45,
+                                        height: 55,
                                         child: ListView.separated(
                                           scrollDirection: Axis.horizontal,
                                           padding: 8.dpe,
                                           itemBuilder: (context, index) {
-                                            return SizedBox(
-                                              width: (MediaQuery.of(context)
-                                                          .size
-                                                          .width -
-                                                      20) /
-                                                  (data.header.length + 1),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 4.0,
-                                                        horizontal: 8.0),
-                                                child: Text(
-                                                  data.headerTitle[index],
-                                                  textScaleFactor: 1,
-                                                  style: const TextStyle(fontSize: 10),
-                                                  textAlign: TextAlign.center,
+                                            return Align(
+                                            alignment: Alignment.center,
+                                              child: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                    (data.header.length + 1),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                          vertical: 4.0,
+                                                          horizontal: 2.0),
+                                                  child: Expanded(
+                                                    child: Text(
+                                                      data.headerTitle[index],
+                                                      textScaleFactor: 1,
+                                                      style: const TextStyle(fontSize: 10),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -117,22 +121,24 @@ class WorkBookDetailUi extends StatelessWidget {
                                           scrollDirection: Axis.horizontal,
                                           padding: 8.dpe,
                                           itemBuilder: (context, index) {
-                                            return SizedBox(
-                                              width: (MediaQuery.of(context)
-                                                          .size
-                                                          .width -
-                                                      20) /
-                                                  (data.header.length + 1),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 4.0,
-                                                        horizontal: 8.0),
-                                                child: Text(
-                                                  data.header[index],
-                                                  textScaleFactor: 1,
-                                                  style: const TextStyle(fontSize: 10),
-                                                  textAlign: TextAlign.center,
+                                            return Align(
+                                            alignment: Alignment.center,
+                                              child: SizedBox(
+                                                width: (MediaQuery.of(context)
+                                                            .size
+                                                            .width ) /
+                                                    (data.header.length + 1),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                          vertical: 4.0,
+                                                          horizontal: 2.0),
+                                                  child: Text(
+                                                    data.header[index],
+                                                    textScaleFactor: 1,
+                                                    style: const TextStyle(fontSize: 10),
+                                                    textAlign: TextAlign.center,
+                                                  ),
                                                 ),
                                               ),
                                             );

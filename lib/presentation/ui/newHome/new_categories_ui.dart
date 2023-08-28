@@ -8,6 +8,7 @@ import 'package:mamak/data/serializer/home/CategoryResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
+import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/viewModel/home/CategoriesViewModel.dart';
 
@@ -16,17 +17,15 @@ class NewCategoriesUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return CubitProvider(
       create: (context) => CategoriesViewModel(AppState.idle),
       builder: (bloc, state) {
         return ConditionalUI<List<Category>>(
           state: state,
           onSuccess: (categories) {
-            return StaggeredGrid.count(
-              crossAxisCount: 6,
-              mainAxisSpacing: 2,
-              crossAxisSpacing: 3,
+            return ListView(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
               children: categories.map((category) => StaggeredGridTile.count(
                 crossAxisCellCount: categories.indexOf(category) > 2 ? 3 : 2,
                 mainAxisCellCount: 2,
@@ -39,7 +38,7 @@ class NewCategoriesUi extends StatelessWidget {
               )).toList()
               ,);
           },
-          skeleton: const SizedBox(),
+          skeleton: const MyLoader(),
         );
       },
     );
@@ -60,31 +59,28 @@ class NewCategoryItemUi extends StatelessWidget {
         onClick.call(category.id?.toString() ?? '0');
       },
       child: Container(
-      width: 120,
+      height: 100,
+      width: MediaQuery.of(context).size.width,
         padding: 8.dpe,
         margin: 4.dpe,
         decoration: BoxDecoration(
           color: category.colorNumber?.toColor(),
           borderRadius: 16.bRadius,
         ),
-        child: Column(
+        child: Row(
           children: [
-            const Spacer(),
-            Text(category.title ?? '',style: context.textTheme.titleSmall?.copyWith(fontSize: 17,fontWeight: FontWeight.bold),textAlign: TextAlign.center),
-            const Spacer(),
-            FittedBox(
-            fit: BoxFit.fill,
-              child: SizedBox(
-                  height: 60.0,
-                  width: 60.0,
-                  child: Image.memory(
-                    base64Decode(
-                        category.parentCategoryFiles?.first.file?.content ??
-                            ''),
-                    fit: BoxFit.fill,
-                  )),
-            ),
-            const Spacer(),
+            const SizedBox(width: 10,),
+            Expanded(child: Text(category.title ?? '',style: context.textTheme.titleSmall?.copyWith(fontSize: 17,fontWeight: FontWeight.bold),textAlign: TextAlign.start)),
+            SizedBox(
+            height: 80,
+            width: 80,
+                child: Image.memory(
+                  base64Decode(
+                      category.parentCategoryFiles?.first.file?.content ??
+                          ''),
+                  fit: BoxFit.fill,
+                )),
+            const SizedBox(width: 10,)
           ],
         ),
       ),

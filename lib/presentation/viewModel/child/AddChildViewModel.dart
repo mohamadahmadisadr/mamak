@@ -53,7 +53,7 @@ class AddChildViewModel extends BaseViewModel {
     //   messageService.showSnackBar('لطفا یک عکس اضافه کنید');
     // }
     if (formState.currentState?.validate() == true) {
-      _formState.birtDate = Get.locale.isPersian ? birthDateTime.createDate().toIso8601String() : birthDateTime.createDate().toIso8601String();
+      _formState.birtDate = Get.locale.isPersian ? birthDateTime.createPersianDate().toIso8601String() : birthDateTime.createDate().toIso8601String();
       AddChildUseCase().invoke(MyFlow(flow: (appState) {
         if (appState.isFailed) {
           messageService.showSnackBar(appState.getErrorModel?.message ?? '');

@@ -38,7 +38,7 @@ class _RecaptchaState extends State<Recaptcha> {
         ..style.height = '100%'
         ..style.width = '100%'
         ..src =
-            '/assets/html/recaptcha.html' // Path to your HTML file containing the reCAPTCHA widget.
+            'assets/assets/html/recaptcha.html' // Path to your HTML file containing the reCAPTCHA widget.
         ..style.border = 'none',
     );
     Logger.d('initialized');

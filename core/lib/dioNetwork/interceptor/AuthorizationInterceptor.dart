@@ -1,4 +1,5 @@
 import 'package:core/dioNetwork/interceptor/KanoonHttoInterceptor.dart';
+import 'package:core/utils/logger/Logger.dart';
 import 'package:dio/dio.dart';
 
 class AuthorizationInterceptor extends KanoonHttpInterceptor {
@@ -6,7 +7,10 @@ class AuthorizationInterceptor extends KanoonHttpInterceptor {
 
   AuthorizationInterceptor({required this.token});
 
-  void setToken(String newToken) => token = newToken;
+  void setToken(String newToken) {
+    Logger.d('setting new token is $newToken');
+    token = newToken;
+  }
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {

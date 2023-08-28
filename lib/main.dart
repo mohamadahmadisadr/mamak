@@ -4,15 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mamak/di/appModule.dart';
 import 'package:mamak/firebase/PushNotificationImpl.dart';
-
+import 'dart:ui_web';
 import 'config/appData/appTheme/AppTheme.dart';
 import 'config/appData/locales/AppDefaultLocale.dart';
 import 'config/appData/route/AppRoute.dart';
 import 'config/appData/route/AppRouteHelper.dart';
 import 'presentation/viewModel/app/appViewModel.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   PushNotificationImpl.invoke();
   SystemChrome.setSystemUIOverlayStyle(
@@ -24,6 +25,10 @@ void main() {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
+  await AppModule.initModules();
+  await AppDefaultLocale.setLocaleFromSession();
+  await AppViewModel.initInterceptors();
+  // await bootstrapEngine();
   // setPathUrlStrategy();
   runApp(
     BlocBuilder(
@@ -52,9 +57,6 @@ class MyApp extends StatelessWidget {
       builder: rootTransitionBuilder,
       scaffoldMessengerKey: GetIt.I.get<MessagingServiceImpl>().messageService,
       fallbackLocale: AppDefaultLocale.fallBackLocale,
-      onInit: () {
-        AppDefaultLocale.setLocaleFromSession();
-      },
     );
   }
 

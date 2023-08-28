@@ -1,5 +1,6 @@
 import 'package:core/dioNetwork/interceptor/AuthorizationInterceptor.dart';
 import 'package:core/dioNetwork/interceptor/RefreshTokenInterceptor.dart';
+import 'package:core/dioNetwork/interceptor/culture_interceptor.dart';
 import 'package:core/dioNetwork/kanoonHttp/KanoonHttp.dart';
 import 'package:core/utils/logger/Logger.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,13 +18,12 @@ import 'package:mamak/useCase/user/GetUserProfileUseCase.dart';
 
 class AppViewModel extends Cubit<AppState> {
   AppViewModel(super.initialState) {
+    Logger.d('initialized app data');
     initAppData();
   }
 
   void initAppData() async {
-    await AppModule.initModules();
     await defineTranslations();
-    await initInterceptors();
     if (!kIsWeb) {
       checkVersion();
     }
@@ -40,13 +40,16 @@ class AppViewModel extends Cubit<AppState> {
   }
 
 
-  Future<bool> initInterceptors() async {
+  static Future<bool> initInterceptors() async {
     GetIt.I
         .get<KanoonHttp>()
         .addInterceptor(GetIt.I.get<AuthorizationInterceptor>());
     GetIt.I
         .get<KanoonHttp>()
-        .addInterceptor(GetIt.I.get<RefreshTokenInterceptor>());
+        .addInterceptor(GetIt.I.get<CultureInterceptor>());
+    // GetIt.I
+    //     .get<KanoonHttp>()
+    //     .addInterceptor(GetIt.I.get<RefreshTokenInterceptor>());
     // RefreshTokenInterceptorUseCase().invoke();
 
     return Future.value(true);

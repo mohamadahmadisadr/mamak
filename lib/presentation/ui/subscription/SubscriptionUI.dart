@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/data/serializer/subscribe/AllSubscriptionResponse.dart';
@@ -13,7 +14,8 @@ import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/register/RegisterUi.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/subscription/SubscriptionViewModel.dart';
-
+import  'package:persian_number_utility/persian_number_utility.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 import '../main/MamakTitle.dart';
 
 class SubscriptionUI extends StatelessWidget {
@@ -54,6 +56,9 @@ class SubscriptionUI extends StatelessWidget {
                     ConditionalUI<CurrentPackageResponse>(
                       state: bloc.mySubscriptionState,
                       onSuccess: (currentSubscription) {
+                        // var date = DateFormat('YYYY/bM/bD').parse(currentSubscription
+                        //     .persianEndDate ?? '');
+                        // var dateStr = Get.locale.isPersian ? (currentSubscription.persianEndDate ?? '') : Jalali(date.year,date.month,date.day).toDateTime().toIso8601String();
                         var de = '${currentSubscription.title ?? ''} ${'is'
                             .tr} ${'to'.tr} ${currentSubscription
                             .persianEndDate ?? ''} ${'active'.tr}.';
