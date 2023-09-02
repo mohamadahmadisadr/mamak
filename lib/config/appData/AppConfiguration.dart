@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
 
 class AppConfiguration {
   static const versionCode = 15;

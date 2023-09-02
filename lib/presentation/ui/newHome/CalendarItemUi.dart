@@ -1,11 +1,11 @@
 import 'package:core/color/color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'package:intl/intl.dart';
 
 class CalendarItemUi extends StatelessWidget {
   const CalendarItemUi({
@@ -59,25 +59,30 @@ class CalendarItemUi extends StatelessWidget {
             if (mode == CalendarMode.reminder)
               Text(item.parentCategory?.title ?? '',
                   style: context.textTheme.titleSmall),
-            mode == CalendarMode.calendar || item.nextAssessmentDate != null &&
-                    !isToday(item.nextAssessmentDate!)
-                ?item.nextAssessmentDate != null ? Container(
-                    alignment: Alignment.center,
-                    padding: 4.dpe,
-                    margin: 4.dpe,
-                    height: 35,
-                    decoration: BoxDecoration(
-                      borderRadius: 8.bRadius,
-                      color: Colors.white,
-                    ),
-                    child:
-                        Text(getDateWithMonth(item.nextAssessmentDate!)),
-                  ) : const SizedBox(height: 35)
+            mode == CalendarMode.calendar ||
+                    item.nextAssessmentDate != null &&
+                        !isToday(item.nextAssessmentDate!)
+                ? item.nextAssessmentDate != null
+                    ? Container(
+                        alignment: Alignment.center,
+                        padding: 4.dpe,
+                        margin: 4.dpe,
+                        height: 35,
+                        decoration: BoxDecoration(
+                          borderRadius: 8.bRadius,
+                          color: Colors.white,
+                        ),
+                        child: Text(getDateWithMonth(item.nextAssessmentDate!)),
+                      )
+                    : const SizedBox(height: 35)
                 : ElevatedButton(
                     onPressed: () {
                       itemClicked?.call(item);
                     },
-                    child: Text('start_test'.tr,style: TextStyle(fontSize: 10),))
+                    child: Text(
+                      'start_test'.tr,
+                      style: TextStyle(fontSize: 10),
+                    ))
           ],
         ),
       ),
@@ -89,10 +94,12 @@ class CalendarItemUi extends StatelessWidget {
     //   nextAssessmentDate = Jalali(nextAssessmentDate.year,nextAssessmentDate.month,nextAssessmentDate.day).toDateTime();
     // }
     if (isToday(nextAssessmentDate)) return 'today'.tr;
-    var days = nextAssessmentDate.difference(DateTime.now()).inDays;
-    var hours = nextAssessmentDate.difference(DateTime.now()).inHours;
-    if (days == 0) {
-    }
+    var now = Jalali.now();
+    var nowDateTime = DateTime(now.year, now.month, now.day);
+    var days = nextAssessmentDate.difference(nowDateTime).inDays;
+    var hours =
+        nextAssessmentDate.difference(nowDateTime).inHours;
+    if (days == 0) {}
     var ht = 'hours_till'.tr;
     var dt = 'days_till'.tr;
 
@@ -101,7 +108,7 @@ class CalendarItemUi extends StatelessWidget {
   }
 
   bool isToday(DateTime someDate) {
-    var today = DateTime.now();
+    var today = Jalali.now();
     return someDate.day == today.day &&
         someDate.month == today.month &&
         someDate.year == today.year;
@@ -109,17 +116,14 @@ class CalendarItemUi extends StatelessWidget {
 
   String getDateWithMonth(DateTime nextAssessmentDate) {
     String date = '';
-    if(Get.locale.isPersian) {
-      var f = nextAssessmentDate
-          .toJalali()
-          .formatter;
+    if (Get.locale.isPersian) {
+      var f = nextAssessmentDate.toJalali().formatter;
       date = '${f.d} ${f.mN}';
-    }else {
+    } else {
       var localDate = nextAssessmentDate.toLocal();
       date = DateFormat.MMMd().format(localDate);
     }
-      return date;
-
+    return date;
   }
 }
 

@@ -448,7 +448,7 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
         '${'chil_capability_in'.tr} $workShopName : $three ${'from'.tr} $allQCount';
 
     var workShopDescription =
-        '${'according_your_assessment'.tr}, ${'between'.tr} $allQCount ${'capability'.tr} $workShopName ${'your_child_has_mastered'.tr} $three ${'abilities'.tr}, $two ${'ability_to_some_extent'.tr} ${'and'.tr} $one ${'has_not_started_yet'.tr}.';
+        '${'according_your_assessment'.tr}, ${'between'.tr} $allQCount ${'ability'.tr} $workShopName ${'your_child_has_mastered'.tr} $three ${'abilities'.tr}, $two ${'ability_to_some_extent'.tr} ${'and'.tr} $one ${'has_not_started_yet'.tr}.';
 
     int maxValue = workShopSubCategoryReportCards?.fold(
             0,

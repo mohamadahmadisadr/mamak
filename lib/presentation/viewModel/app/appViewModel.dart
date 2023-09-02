@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
-import 'package:mamak/presentation/translation.dart';
 import 'package:mamak/presentation/ui/dialog/UpdateDialog.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/app/AppVersionUseCase.dart';
@@ -84,7 +83,6 @@ class AppViewModel extends Cubit<AppState> {
     GetIt.I.get<Client>().close();
     return super.close();
   }
-
 
   addCultureInterceptor() async {
     var cultureInterceptor = GetIt.I.get<CultureInterceptor>();

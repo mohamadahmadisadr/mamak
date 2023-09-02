@@ -4,7 +4,7 @@ import 'package:mamak/config/appData/AppConfiguration.dart';
 
 class NetworkFactory {
   static KanoonDio get createKanoonDio => KanoonDio(
-        logEnable: false,
+        logEnable: true,
         extraHeaders: AppConfiguration().extraHeaders,
       );
 

@@ -74,6 +74,7 @@ class WorkBookDetailUi extends StatelessWidget {
                                           scrollDirection: Axis.horizontal,
                                           padding: 8.dpe,
                                           itemBuilder: (context, index) {
+                                            print('title is ${data.headerTitle[index]}');
                                             return Align(
                                             alignment: Alignment.center,
                                               child: SizedBox(
@@ -89,7 +90,6 @@ class WorkBookDetailUi extends StatelessWidget {
                                                   child: Expanded(
                                                     child: Text(
                                                       data.headerTitle[index],
-                                                      textScaleFactor: 1,
                                                       style: const TextStyle(fontSize: 10),
                                                       textAlign: TextAlign.center,
                                                     ),
