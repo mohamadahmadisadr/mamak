@@ -1,6 +1,7 @@
 import 'package:core/color/color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:shamsi_date/shamsi_date.dart';
@@ -84,6 +85,9 @@ class CalendarItemUi extends StatelessWidget {
   }
 
   getDifferent(DateTime nextAssessmentDate) {
+    // if(Get.locale.isPersian){
+    //   nextAssessmentDate = Jalali(nextAssessmentDate.year,nextAssessmentDate.month,nextAssessmentDate.day).toDateTime();
+    // }
     if (isToday(nextAssessmentDate)) return 'today'.tr;
     var days = nextAssessmentDate.difference(DateTime.now()).inDays;
     var hours = nextAssessmentDate.difference(DateTime.now()).inHours;
@@ -105,7 +109,7 @@ class CalendarItemUi extends StatelessWidget {
 
   String getDateWithMonth(DateTime nextAssessmentDate) {
     String date = '';
-    if(Get.locale == const Locale('fa','IR')) {
+    if(Get.locale.isPersian) {
       var f = nextAssessmentDate
           .toJalali()
           .formatter;

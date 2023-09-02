@@ -21,7 +21,6 @@ class AppViewModel extends Cubit<AppState> {
   }
 
   void initAppData() async {
-    await defineTranslations();
     await addCultureInterceptor();
     if (!kIsWeb) {
       checkVersion();
@@ -86,10 +85,6 @@ class AppViewModel extends Cubit<AppState> {
     return super.close();
   }
 
-  defineTranslations() async {
-    var keys = await MamakTranslation().getKeys();
-    Get.addTranslations(keys);
-  }
 
   addCultureInterceptor() async {
     var cultureInterceptor = GetIt.I.get<CultureInterceptor>();

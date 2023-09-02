@@ -22,8 +22,8 @@ class MoreViewModel extends BaseViewModel {
           iconData: Icons.password_sharp,
           name: 'change_password'.tr,
           onClick: changePasswordClick),
-      MoreItemModel(
-          iconData: Icons.language, name: 'languages'.tr, onClick: langsClick),
+      // MoreItemModel(
+      //     iconData: Icons.language, name: 'languages'.tr, onClick: langsClick),
       MoreItemModel(
           iconData: CupertinoIcons.chart_pie,
           name: 'sources'.tr,

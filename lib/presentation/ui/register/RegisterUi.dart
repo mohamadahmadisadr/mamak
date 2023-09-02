@@ -12,12 +12,11 @@ import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
-import 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
 import 'package:mamak/presentation/ui/register/text_with_link.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/SignUpViewModel.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'package:url_launcher/url_launcher.dart'
+if (dart.library.html) 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
 class RegisterUi extends StatelessWidget {
   const RegisterUi({Key? key}) : super(key: key);
 
@@ -176,13 +175,13 @@ class RegisterUi extends StatelessWidget {
                       child: bloc.uiState.isLoading
                           ? const MyLoader(color: Colors.black)
                           : Text("next_step".tr)),
-                  if (kIsWeb)
-                    SizedBox(
-                        width: 100,
-                        height: 200,
-                        child: Recaptcha(
-                          onChangeToken: bloc.onChangeToken,
-                        ))
+                  // if (kIsWeb)
+                    // SizedBox(
+                    //     width: 100,
+                    //     height: 200,
+                    //     child: Recaptcha(
+                    //       onChangeToken: bloc.onChangeToken,
+                    //     ))
                 ],
               ),
             ),

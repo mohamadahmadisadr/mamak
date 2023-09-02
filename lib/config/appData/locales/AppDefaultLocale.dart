@@ -7,8 +7,10 @@ import 'package:mamak/common/user/UserSessionConst.dart';
 import 'package:mamak/presentation/translation.dart';
 
 class AppDefaultLocale {
-  static Locale getAppLocale = Get.deviceLocale ?? MamakTranslation.locales.first;
-  static Locale fallBackLocale = MamakTranslation.locales.first;
+  static Locale? staticLocale = const Locale('fa','IR');
+  static Locale getAppLocale = staticLocale ??
+      Get.locale ?? Get.deviceLocale ?? MamakTranslation.locales.first;
+  static Locale fallBackLocale = staticLocale ?? MamakTranslation.locales.first;
   static List<Locale> supportedLocale = MamakTranslation.locales;
   static List<LocalizationsDelegate> localizationDelegate = const [
     GlobalMaterialLocalizations.delegate,
@@ -16,9 +18,12 @@ class AppDefaultLocale {
     GlobalCupertinoLocalizations.delegate,
   ];
 
-  static Future<void> setLocaleFromSession() async{
-    var currentLang = await GetIt.I.get<LocalSessionImpl>().getData(UserSessionConst.lang);
-    var locale = MamakTranslation.languages.firstWhereOrNull((lang) => lang.getCountryName == currentLang)?.locale() ?? getAppLocale;
-    Get.updateLocale(locale);
+  static Future<Locale> setLocaleFromSession() async {
+    var currentLang =
+        await GetIt.I.get<LocalSessionImpl>().getData(UserSessionConst.lang);
+    return staticLocale ?? MamakTranslation.languages
+            .firstWhereOrNull((lang) => lang.getCountryName == currentLang)
+            ?.locale() ??
+        getAppLocale;
   }
 }

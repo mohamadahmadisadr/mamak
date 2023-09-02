@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mamak/di/NetworkModule.dart';
 import 'package:mamak/di/appModule.dart';
 import 'package:mamak/firebase/PushNotificationImpl.dart';
-import 'dart:ui_web';
+import 'package:mamak/presentation/translation.dart';
+
 import 'config/appData/appTheme/AppTheme.dart';
 import 'config/appData/locales/AppDefaultLocale.dart';
 import 'config/appData/route/AppRoute.dart';
@@ -26,16 +28,15 @@ Future<void> main() async {
     ),
   );
   await AppModule.initModules();
-  await AppDefaultLocale.setLocaleFromSession();
+  await NetworkModule.initNetworkModule();
   await AppViewModel.initInterceptors();
+  Get.locale = await AppDefaultLocale.setLocaleFromSession();
   // await bootstrapEngine();
   // setPathUrlStrategy();
-  runApp(
-    BlocBuilder(
-      bloc: AppViewModel.getInstance,
-      builder: (context, state) => const MyApp(),
-    ),
-  );
+  runApp(BlocBuilder(
+    bloc: AppViewModel.getInstance,
+    builder: (context, state) => const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
       builder: rootTransitionBuilder,
       scaffoldMessengerKey: GetIt.I.get<MessagingServiceImpl>().messageService,
       fallbackLocale: AppDefaultLocale.fallBackLocale,
+      translations: GetIt.I.get<MamakTranslation>(),
     );
   }
 

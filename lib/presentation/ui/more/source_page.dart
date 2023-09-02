@@ -15,7 +15,7 @@ class SourceUi extends StatelessWidget {
         child: Column(
           children: [
             Text('policy_text'.tr,
-                style: context.textTheme.bodySmall),
+                style: context.textTheme.bodySmall,textAlign: TextAlign.center),
             16.dpv,
             TextButton(onPressed: () {
               _launchUrl(

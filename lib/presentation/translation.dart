@@ -11,28 +11,26 @@ class MamakTranslation extends Translations {
     English(),
     Germany(),
   ];
-  Map<String, Map<String, String>>? myKeys;
+  final Map<String, Map<String, String>> myKeys;
 
-  MamakTranslation() {
-    defineMyKeys();
-  }
+  MamakTranslation(this.myKeys);
 
-  Future<Map<String, Map<String, String>>> defineMyKeys() async {
-    myKeys = {};
-    await Future.forEach(languages, (lang) async {
-      myKeys?[lang.getCountryCode.replaceAll('-', '_')] =
-          (await lang.getTranslation);
-    });
-    return myKeys!;
-  }
 
-  Future<Map<String, Map<String, String>>> getKeys() async {
-    return defineMyKeys();
-  }
+
 
   @override
-  Map<String, Map<String, String>> get keys => myKeys!;
+  Map<String, Map<String, String>> get keys => myKeys;
 
   static List<Locale> get locales =>
       languages.map((lang) => lang.locale()).toList();
+
+
+  static Future<Map<String, Map<String, String>>> getKeys() async {
+    Map<String, Map<String, String>> myKeys = {};
+    await Future.forEach(languages, (lang) async {
+      myKeys[lang.getCountryCode.replaceAll('-', '_')] =
+      (await lang.getTranslation);
+    });
+    return myKeys;
+  }
 }

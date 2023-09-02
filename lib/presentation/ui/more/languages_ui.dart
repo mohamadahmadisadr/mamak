@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mamak/common/user/UserSessionConst.dart';
-import 'package:mamak/core/network/NetworkFactory.dart';
 import 'package:mamak/presentation/translation.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
 import 'package:mamak/useCase/app/set_culture_use_case.dart';
@@ -26,22 +25,24 @@ class LanguagesUi extends StatelessWidget {
               title: Text(lang.getCountryName),
               leading: Checkbox(
                 value: Get.locale == lang.locale(),
-                onChanged: (value) async{
-                  Get.updateLocale(lang.locale());
+                onChanged: (value) async {
+                  Get.locale = lang.locale();
+
                   GetIt.I
                       .get<LocalSessionImpl>()
                       .insertData({UserSessionConst.lang: lang.getCountryName});
                   SetCultureUseCase().invoke(MyFlow(flow: (state) {}),
                       data: lang.getCountryCode);
-                  GetIt.I.get<CultureInterceptor>().setCulture(lang.getCountryCode);
+                  GetIt.I
+                      .get<CultureInterceptor>()
+                      .setCulture(lang.getCountryCode);
+                  Get.updateLocale(lang.locale());
                 },
               ),
             ),
           )
           .toList(),
     ));
-
-
   }
 
   Future<bool> initInterceptors() async {
