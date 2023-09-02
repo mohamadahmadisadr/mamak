@@ -2,14 +2,16 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'SignUpBody.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class SignUpBody {
-  final firstName, lastName, mobile, email, password, confirmPassword;
+  final firstName, lastName, email, password, confirmPassword;
+  final String? mobile, ReCaptchaToken;
 
-  const SignUpBody({
+  SignUpBody({
     required this.firstName,
     required this.lastName,
-    required this.mobile,
+    this.mobile,
+    this.ReCaptchaToken,
     required this.password,
     required this.confirmPassword,
     required this.email,

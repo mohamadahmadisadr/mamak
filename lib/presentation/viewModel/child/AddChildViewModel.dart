@@ -79,9 +79,6 @@ class AddChildViewModel extends BaseViewModel {
     }
   }
 
-  void refresh() {
-    updateScreen(time: DateTime.now().microsecondsSinceEpoch.toDouble());
-  }
 
   void addImage() {
     getImage();

@@ -1,5 +1,4 @@
 import 'package:core/dioNetwork/interceptor/AuthorizationInterceptor.dart';
-import 'package:core/dioNetwork/interceptor/RefreshTokenInterceptor.dart';
 import 'package:core/dioNetwork/interceptor/culture_interceptor.dart';
 import 'package:core/dioNetwork/kanoonHttp/KanoonHttp.dart';
 import 'package:core/utils/logger/Logger.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:mamak/data/serializer/user/GetUserProfileResponse.dart';
-import 'package:mamak/di/appModule.dart';
 import 'package:mamak/presentation/translation.dart';
 import 'package:mamak/presentation/ui/dialog/UpdateDialog.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -24,6 +22,7 @@ class AppViewModel extends Cubit<AppState> {
 
   void initAppData() async {
     await defineTranslations();
+    await addCultureInterceptor();
     if (!kIsWeb) {
       checkVersion();
     }
@@ -39,14 +38,10 @@ class AppViewModel extends Cubit<AppState> {
     await Firebase.initializeApp();
   }
 
-
   static Future<bool> initInterceptors() async {
     GetIt.I
         .get<KanoonHttp>()
         .addInterceptor(GetIt.I.get<AuthorizationInterceptor>());
-    GetIt.I
-        .get<KanoonHttp>()
-        .addInterceptor(GetIt.I.get<CultureInterceptor>());
     // GetIt.I
     //     .get<KanoonHttp>()
     //     .addInterceptor(GetIt.I.get<RefreshTokenInterceptor>());
@@ -91,8 +86,14 @@ class AppViewModel extends Cubit<AppState> {
     return super.close();
   }
 
-  defineTranslations() async{
+  defineTranslations() async {
     var keys = await MamakTranslation().getKeys();
     Get.addTranslations(keys);
+  }
+
+  addCultureInterceptor() async {
+    var cultureInterceptor = GetIt.I.get<CultureInterceptor>();
+    cultureInterceptor.setCulture(Get.locale?.toLanguageTag() ?? '');
+    GetIt.I.get<KanoonHttp>().addInterceptor(cultureInterceptor);
   }
 }

@@ -1,7 +1,8 @@
 import 'package:mamak/data/body/user/register/SignUpBody.dart';
 
 class RegisterFormState {
-  String firstName, lastName, mobile, email, password, confirmPassword;
+  String firstName, lastName, email, password, confirmPassword;
+  String? mobile;
   String? firstNameError,
       lastNameError,
       mobileError,
@@ -36,6 +37,7 @@ class RegisterFormState {
       password: password,
       confirmPassword: confirmPassword,
       email: email,
+      ReCaptchaToken: token,
     );
   }
 }

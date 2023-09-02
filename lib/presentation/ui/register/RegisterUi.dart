@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +5,7 @@ import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/core/form/validator/LastNameValidator.dart';
 import 'package:mamak/core/form/validator/MobileValidator.dart';
 import 'package:mamak/core/form/validator/NameValidator.dart';
+import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
@@ -49,15 +49,17 @@ class RegisterUi extends StatelessWidget {
                     ],
                   ),
                   20.dpv,
-                  FormTitleWithStar(title: "mobile".tr),
-                  4.dpv,
-                  TextFormFieldHelper(
-                    label: "mobile".tr,
-                    hint: "mobile".tr,
-                    keyboardType: TextInputType.phone,
-                    onChangeValue: bloc.onMobileChange,
-                    validator: MobileValidator(),
-                  ),
+                  if (Get.locale.isPersian)
+                    FormTitleWithStar(title: "mobile".tr),
+                  if (Get.locale.isPersian) 4.dpv,
+                  if (Get.locale.isPersian)
+                    TextFormFieldHelper(
+                      label: "mobile".tr,
+                      hint: "mobile".tr,
+                      keyboardType: TextInputType.phone,
+                      onChangeValue: bloc.onMobileChange,
+                      validator: MobileValidator(),
+                    ),
                   10.dpv,
                   Text(
                     'email'.tr,

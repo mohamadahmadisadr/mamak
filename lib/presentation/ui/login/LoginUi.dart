@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
+import 'package:mamak/core/form/validator/EmailValidator.dart';
 import 'package:mamak/core/form/validator/MobileValidator.dart';
+import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/presentation/state/NetworkExtensions.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
@@ -39,20 +41,30 @@ class LoginUi extends StatelessWidget {
                       ],
                     ),
                     20.dpv,
+
                     Text(
-                      "mobile".tr,
+                      Get.locale.isPersian ? "mobile".tr : "email".tr,
                       style: context.textTheme.titleSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     4.dpv,
-                    TextFormFieldHelper(
-                      label: "mobile".tr,
-                      hint: "mobile".tr,
-                      keyboardType: TextInputType.phone,
-                      onChangeValue: bloc.onMobileChange,
-                      validator: MobileValidator(),
-                      maxLength: 11,
-                    ),
+                    if (Get.locale.isPersian)
+                      TextFormFieldHelper(
+                        label: "mobile".tr,
+                        hint: "mobile".tr,
+                        keyboardType: TextInputType.phone,
+                        onChangeValue: bloc.onMobileChange,
+                        validator: MobileValidator(),
+                        maxLength: 11,
+                      ),
+                    if (!Get.locale.isPersian)
+                      TextFormFieldHelper(
+                        label: "email".tr,
+                        hint: "email".tr,
+                        keyboardType: TextInputType.emailAddress,
+                        onChangeValue: bloc.onMobileChange,
+                        validator: EmailValidator(),
+                      ),
                     10.dpv,
                     Text(
                       "password".tr,

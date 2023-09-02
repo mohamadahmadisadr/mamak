@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:html' as html;
 import 'dart:ui_web';
 
 import 'package:core/utils/logger/Logger.dart';
@@ -34,7 +34,7 @@ class _RecaptchaState extends State<Recaptcha> {
     Logger.d('initializing');
     platformViewRegistry.registerViewFactory(
       createdViewId,
-      (int viewId) => IFrameElement()
+      (int viewId) => html.IFrameElement()
         ..style.height = '100%'
         ..style.width = '100%'
         ..src =
@@ -48,7 +48,7 @@ class _RecaptchaState extends State<Recaptcha> {
 
   void listenResponse() {
     Logger.d('listenning');
-    window.onMessage.listen((msg) {
+    html.window.onMessage.listen((msg) {
       widget.onChangeToken.call(msg.data);
       Logger.d('msg is ${msg.data}');
     });

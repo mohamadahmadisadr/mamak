@@ -5,8 +5,10 @@
 
         var onSubmit = function(token) {
           console.log('success!');
+          console.log(token);
           window.parent.postMessage(token, "*");
         };
+
 
       var onloadCallback = function() {
         grecaptcha.render('html_element', {
@@ -19,8 +21,8 @@
 <body>
 <form action="?" method="POST">
     <div id="html_element"></div>
-    <br>
-    <input type="submit" value="Submit">
+<!--    <br>-->
+<!--    <input type="submit" value="onSubmit">-->
 </form>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
         async defer>

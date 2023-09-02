@@ -7,7 +7,7 @@ class LoginFormState {
   });
 
   String username;
-  String? mobileError;
+  String? mobileError, emailError;
   String password;
   String? passwordError;
 }

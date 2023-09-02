@@ -19,19 +19,19 @@ class LoginUseCase extends BaseUseCase {
       );
 
       Uri uri = createUri(path: UserUrls.signIn);
-      var response = await apiServiceImpl.post(uri, data:jsonEncode(loginBody));
+      var response =
+          await apiServiceImpl.post(uri, data: jsonEncode(loginBody));
       if (response.isSuccessful) {
         var result = response.result;
-        if(result.resultCode == 406){
+        if (result.resultCode == 406) {
           flow.emitData(406);
-        }else{
+        } else {
           if (result.isSuccessFull) {
             flow.emitData(userFromJson(result.result ?? ''));
           } else {
             flow.throwMessage(result.concatErrorMessages);
           }
         }
-
       } else {
         flow.throwError(response);
       }

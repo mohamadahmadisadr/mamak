@@ -91,4 +91,5 @@ class LoginViewModel extends BaseViewModel {
 
   Function() pushToVerificationPage(User user) =>
       () => navigationService.replaceTo(AppRoute.register, user);
+
 }
