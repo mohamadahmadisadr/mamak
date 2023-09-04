@@ -283,9 +283,9 @@ class _RadarChartState extends State<RadarChart> with TickerProviderStateMixin {
               outlineAnimationPercent = _outlineAnimation.value;
             });
           });
-    return LimitedBox(
-      maxWidth: widget.maxWidth,
-      maxHeight: widget.maxHeight,
+    return SizedBox(
+      width: widget.maxWidth,
+      height: widget.maxHeight,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CustomPaint(

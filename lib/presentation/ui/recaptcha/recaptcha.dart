@@ -1,4 +1,4 @@
-import 'dart:html' as html;
+import 'package:universal_html/html.dart' as html;
 import 'dart:ui_web';
 
 import 'package:core/utils/logger/Logger.dart';

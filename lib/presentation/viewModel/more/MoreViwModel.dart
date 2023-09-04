@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/config/appData/AppConfiguration.dart';
 import 'package:mamak/presentation/uiModel/more/MoreItemModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 
@@ -22,8 +23,8 @@ class MoreViewModel extends BaseViewModel {
           iconData: Icons.password_sharp,
           name: 'change_password'.tr,
           onClick: changePasswordClick),
-      // MoreItemModel(
-      //     iconData: Icons.language, name: 'languages'.tr, onClick: langsClick),
+      if(AppConfiguration.multiLanguage) MoreItemModel(
+          iconData: Icons.language, name: 'languages'.tr, onClick: langsClick),
       MoreItemModel(
           iconData: CupertinoIcons.chart_pie,
           name: 'sources'.tr,

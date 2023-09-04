@@ -20,7 +20,7 @@ class RadarChartDrawUtils {
     for (var i = 0; i < labelPoints.length; i++) {
       textPainter.text = TextSpan(
           text: labels[i],
-          style: TextStyle(color: labelColor, fontSize: textSize,fontFamily: 'dana'));
+          style: TextStyle(color: labelColor, fontSize: 10,fontFamily: 'dana'));
       textPainter.maxLines = maxLinesForLabels;
       textPainter.textAlign = TextAlign.center;
 
