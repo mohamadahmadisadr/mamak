@@ -15,7 +15,7 @@ import 'config/appData/route/AppRoute.dart';
 import 'config/appData/route/AppRouteHelper.dart';
 import 'presentation/viewModel/app/appViewModel.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   PushNotificationImpl.invoke();
   SystemChrome.setSystemUIOverlayStyle(

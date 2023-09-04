@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 class DownloadFileViewModel extends BaseViewModel {
   DownloadFileViewModel(super.initialState);
 
-  MyDeviceInfo deviceInfo = GetIt.I.get<MyDeviceInfo>();
+  // MyDeviceInfo deviceInfo = GetIt.I.get<MyDeviceInfo>();
   var askedForPermission = false;
   final NavigationServiceImpl _navigationServiceImpl = GetIt.I.get();
 
@@ -45,27 +45,27 @@ class DownloadFileViewModel extends BaseViewModel {
     ), data: fileName);
   }
 
-  Future<bool> get hasPermission async {
-    var deviceData = await deviceInfo.getDeviceInfo();
-    if (deviceData.sdkInt >= 30) return true;
-    try {
-      PermissionStatus permissionStatusStorage =
-          await Permission.storage.request();
-      if (permissionStatusStorage != PermissionStatus.granted) {
-        return false;
-      }
-      if (deviceData.sdkInt >= 30) {
-        PermissionStatus permissionStatusManageExternalStorage =
-            await Permission.manageExternalStorage.request();
-        if (permissionStatusManageExternalStorage != PermissionStatus.granted) {
-          return false;
-        }
-      }
-      return true;
-    } catch (e) {
-      return true;
-    }
-  }
+  // Future<bool> get hasPermission async {
+  //   var deviceData = await deviceInfo.getDeviceInfo();
+  //   if (deviceData.sdkInt >= 30) return true;
+  //   try {
+  //     PermissionStatus permissionStatusStorage =
+  //         await Permission.storage.request();
+  //     if (permissionStatusStorage != PermissionStatus.granted) {
+  //       return false;
+  //     }
+  //     if (deviceData.sdkInt >= 30) {
+  //       PermissionStatus permissionStatusManageExternalStorage =
+  //           await Permission.manageExternalStorage.request();
+  //       if (permissionStatusManageExternalStorage != PermissionStatus.granted) {
+  //         return false;
+  //       }
+  //     }
+  //     return true;
+  //   } catch (e) {
+  //     return true;
+  //   }
+  // }
 
   Future<void> _launchUrl(Uri uri) async {
     if (!await launchUrl(uri)) {

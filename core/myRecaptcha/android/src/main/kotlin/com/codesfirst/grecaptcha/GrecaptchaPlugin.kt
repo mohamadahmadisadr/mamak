@@ -64,7 +64,6 @@ class GrecaptchaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
           return
         }
         val siteKey: String = call.argument("key") ?: ""
-        println("siteKey is $siteKey")
         initializeRecaptchaClient(siteKey)
       }
       "getPlatformVersion" -> result.success("Android ${android.os.Build.VERSION.RELEASE}")
@@ -125,7 +124,6 @@ class GrecaptchaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       println("yes it can call CoroutineScope")
       Recaptcha.getClient(application = activity!!.application, siteKey = siteKey)
         .onSuccess { client ->
-          println("successfully initialized")
           recaptchaClient = client
         }
         .onFailure { exception ->

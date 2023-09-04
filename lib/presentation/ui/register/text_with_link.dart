@@ -19,12 +19,12 @@ class TextWithLink extends StatelessWidget {
                   ? TextSpan(
                 text: text.substring(1, text.length - 1),
                 style: const TextStyle(
-                    decoration: TextDecoration.underline, color: Colors.blue),
+                    decoration: TextDecoration.underline, color: Colors.blue,fontFamily: 'dana'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () => _launchUrl(Uri.parse(
                       'https://mamakschool.ir/home/privacy')),
               )
-                  : TextSpan(text: text),
+                  : TextSpan(text: text,style: const TextStyle(fontFamily: 'dana',color: Colors.black)),
           ],
         ));
   }

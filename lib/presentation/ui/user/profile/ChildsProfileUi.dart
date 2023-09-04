@@ -142,7 +142,12 @@ class _ChildsProfileUiState extends State<ChildsProfileUi>
                       ),
                     ),
                     8.dph,
-                    Text('${widget.children[index].childAge?.toString()} $year')
+                    Row(
+                      children: [
+                        Directionality(textDirection: TextDirection.ltr,child: Text(' ${widget.children[index].childAge?.toString()} ')),
+                        Text(year),
+                      ],
+                    )
                   ],
                 ),
               )

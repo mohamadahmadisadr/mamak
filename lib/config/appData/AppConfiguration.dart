@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
 class AppConfiguration {
-  static const versionCode = 15;
-  static const versionName = '1.1.5';
+  static const versionCode = 16;
+  static const versionName = '1.1.6';
   static const packageName = 'ir.mamakschool.mamak';
 
-  static bool cafeBazaar = false;
+  static bool cafeBazaar = true;
 
   get extraHeaders => {
         'version': versionCode.toString(),

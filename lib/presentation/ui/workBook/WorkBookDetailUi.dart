@@ -24,6 +24,7 @@ class WorkBookDetailUi extends StatelessWidget {
         return ConditionalUI<WorkBookDetailUiModel>(
           state: state,
           onSuccess: (data) {
+            data.headerTitle.forEach((element) {print('title is $element');});
             return MamakScaffold(
               body: SingleChildScrollView(
                 child: RepaintBoundary(
@@ -64,7 +65,7 @@ class WorkBookDetailUi extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
-                                            BorderRadius.circular(32.0),
+                                        BorderRadius.circular(32.0),
                                         border: Border.all(
                                             color: Colors.grey, width: 1),
                                       ),
@@ -74,25 +75,23 @@ class WorkBookDetailUi extends StatelessWidget {
                                           scrollDirection: Axis.horizontal,
                                           padding: 8.dpe,
                                           itemBuilder: (context, index) {
-                                            print('title is ${data.headerTitle[index]}');
                                             return Align(
-                                            alignment: Alignment.center,
+                                              alignment: Alignment.center,
                                               child: SizedBox(
-                                                width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                    (data.header.length + 1),
+                                                width: (MediaQuery.of(context)
+                                                    .size
+                                                    .width ) /
+                                                    (data.headerTitle.length + 1),
                                                 child: Padding(
                                                   padding:
-                                                      const EdgeInsets.symmetric(
-                                                          vertical: 4.0,
-                                                          horizontal: 2.0),
-                                                  child: Expanded(
-                                                    child: Text(
-                                                      data.headerTitle[index],
-                                                      style: const TextStyle(fontSize: 10),
-                                                      textAlign: TextAlign.center,
-                                                    ),
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 4.0,
+                                                      horizontal: 2.0),
+                                                  child: Text(
+                                                    data.headerTitle[index],
+                                                    textScaleFactor: 1,
+                                                    style: const TextStyle(fontSize: 10),
+                                                    textAlign: TextAlign.center,
                                                   ),
                                                 ),
                                               ),
@@ -102,7 +101,7 @@ class WorkBookDetailUi extends StatelessWidget {
                                             return const VerticalDivider(
                                                 width: 1);
                                           },
-                                          itemCount: data.header.length,
+                                          itemCount: data.headerTitle.length,
                                         ),
                                       ),
                                     ),

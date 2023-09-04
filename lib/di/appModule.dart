@@ -1,19 +1,24 @@
 import 'package:core/Notification/MyNotification.dart';
 import 'package:core/imagePicker/MyImagePicker.dart';
-import 'package:feature/deviceInfo/my_device_info.dart';
 import 'package:feature/poolakey/poolakey_helper.dart';
 import 'package:mamak/presentation/translation.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
+
+var sl = GetIt.instance;
 
 class AppModule {
   static Future<void> initModules() async {
     // GetIt.I.registerSingleton<RouteObserver>(RouteObserver());
     // GetIt.I.registerSingleton<RecaptchaSolver>(RecaptchaSolver.factory());
     var keys = await MamakTranslation.getKeys();
-    GetIt.I.registerSingleton(MamakTranslation(keys));
-    GetIt.I.registerSingleton<NavigationServiceImpl>(NavigationServiceImpl());
-    GetIt.I.registerSingleton<MessagingServiceImpl>(MessagingServiceImpl());
-    GetIt.I.registerSingleton<LocalSessionImpl>(LocalSessionImpl());
+    sl.registerFactory(() => MamakTranslation(keys));
+    // GetIt.I.registerSingleton(MamakTranslation(keys));
+    sl.registerLazySingleton(() => NavigationServiceImpl());
+    // GetIt.I.registerSingleton<NavigationServiceImpl>(NavigationServiceImpl());
+    sl.registerLazySingleton(() => MessagingServiceImpl());
+    // GetIt.I.registerSingleton<MessagingServiceImpl>(MessagingServiceImpl());
+    sl.registerLazySingleton(() => LocalSessionImpl());
+    // GetIt.I.registerSingleton<LocalSessionImpl>(LocalSessionImpl());
 
     // GetIt.I.registerSingleton<RefreshTokenInterceptor>(
     //   RefreshTokenInterceptor(
@@ -27,9 +32,11 @@ class AppModule {
     //     interceptor: await GetIt.I
     //         .get<LocalSessionImpl>()
     //         .getData(UserSessionConst.token)));
-    GetIt.I.registerSingleton<MyNotification>(MyNotification());
-    GetIt.I.registerLazySingleton(() => MyImagePicker());
-    GetIt.I.registerLazySingleton(() => MyDeviceInfo());
-    GetIt.I.registerLazySingleton<PoolakeyHelper>(() => PoolakeyHelper());
+    sl.registerLazySingleton(() => MyNotification());
+    // GetIt.I.registerSingleton<MyNotification>(MyNotification());
+    sl.registerLazySingleton(() => MyImagePicker());
+    // GetIt.I.registerLazySingleton(() => MyImagePicker());
+    // GetIt.I.registerLazySingleton(() => MyDeviceInfo());
+    sl.registerLazySingleton<PoolakeyHelper>(() => PoolakeyHelper());
   }
 }

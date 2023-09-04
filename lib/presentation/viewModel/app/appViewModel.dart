@@ -36,7 +36,7 @@ class AppViewModel extends Cubit<AppState> {
     await Firebase.initializeApp();
   }
 
-  static Future<bool> initInterceptors() async {
+  static Future<void> initInterceptors() async {
     GetIt.I
         .get<KanoonHttp>()
         .addInterceptor(GetIt.I.get<AuthorizationInterceptor>());
@@ -44,8 +44,6 @@ class AppViewModel extends Cubit<AppState> {
     //     .get<KanoonHttp>()
     //     .addInterceptor(GetIt.I.get<RefreshTokenInterceptor>());
     // RefreshTokenInterceptorUseCase().invoke();
-
-    return Future.value(true);
   }
 
   void getUseData() {

@@ -8,11 +8,9 @@ class NetworkFactory {
         extraHeaders: AppConfiguration().extraHeaders,
       );
 
-  static KanoonHttp getKanoonHttp() {
+  static KanoonHttp getKanoonHttp(KanoonDio dio) {
     if (GetIt.I.isRegistered<KanoonDio>()) {
-      return KanoonHttp(
-        GetIt.I.get<KanoonDio>(),
-      );
+      return KanoonHttp(dio);
     } else {
       throw Exception(
           'Kanoon dio should be registered in get_it before the instance of kanoon http');

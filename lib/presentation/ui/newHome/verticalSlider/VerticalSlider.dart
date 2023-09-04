@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/calendar/UserCalendarResponse.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/newHome/CalendarItemUi.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 class
 VerticalSliderUi extends StatefulWidget {
@@ -91,7 +92,7 @@ class _VerticalSliderUiState extends State<VerticalSliderUi> {
   }
 
   bool isToday(DateTime someDate) {
-    var today = DateTime.now();
+    var today = Jalali.now();
     return someDate.day == today.day &&
         someDate.month == today.month &&
         someDate.year == today.year;
