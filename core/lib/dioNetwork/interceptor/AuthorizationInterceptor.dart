@@ -4,12 +4,17 @@ import 'package:dio/dio.dart';
 
 class AuthorizationInterceptor extends KanoonHttpInterceptor {
   String token;
+  Function? onFailAuth;
 
-  AuthorizationInterceptor({required this.token});
+  AuthorizationInterceptor({required this.token, this.onFailAuth});
 
   void setToken(String newToken) {
     Logger.d('setting new token is $newToken');
     token = newToken;
+  }
+
+  void setOnFailAuth(Function onFailAuth) {
+    this.onFailAuth = onFailAuth;
   }
 
   @override
@@ -18,4 +23,11 @@ class AuthorizationInterceptor extends KanoonHttpInterceptor {
     return handler.next(options);
   }
 
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    if (response.statusCode == 401) {
+      onFailAuth?.call();
+    }
+    super.onResponse(response, handler);
+  }
 }

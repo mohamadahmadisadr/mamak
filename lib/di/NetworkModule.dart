@@ -14,6 +14,11 @@ class NetworkModule {
         () => CultureInterceptor(culture: Get.locale?.toLanguageTag() ?? ''));
     var token =
         await sl.get<LocalSessionImpl>().getData(UserSessionConst.token);
-    sl.registerLazySingleton(() => AuthorizationInterceptor(token: token));
+    onFailAuth() {
+      sl.get<NavigationServiceImpl>().off(AppRoute.login);
+    }
+
+    sl.registerLazySingleton(
+        () => AuthorizationInterceptor(token: token, onFailAuth: onFailAuth()));
   }
 }
