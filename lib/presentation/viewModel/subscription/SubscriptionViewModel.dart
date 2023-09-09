@@ -121,7 +121,7 @@ class SubscriptionViewModel extends BaseViewModel with WidgetsBindingObserver {
     }
 
     if (codeController.text.isEmpty || codeController.text.length < 4) {
-      messageService.showSnackBar('enter_disount_code'.tr);
+      messageService.showSnackBar('enter_discount_code'.tr);
       return;
     }
 

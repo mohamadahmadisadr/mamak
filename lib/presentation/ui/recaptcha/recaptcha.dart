@@ -1,8 +1,11 @@
-import 'package:universal_html/html.dart' as html;
-import 'dart:ui_web';
+// ignore: undefined_prefixed_name
 
+import 'dart:io' if (dart.library.html) 'dart:ui_web' as ui;
+import 'package:universal_html/html.dart' as html;
 import 'package:core/utils/logger/Logger.dart';
 import 'package:flutter/material.dart';
+
+
 
 class Recaptcha extends StatefulWidget {
   const Recaptcha({
@@ -32,7 +35,8 @@ class _RecaptchaState extends State<Recaptcha> {
   @override
   void initState() {
     Logger.d('initializing');
-    platformViewRegistry.registerViewFactory(
+
+    ui.platformViewRegistry.registerViewFactory(
       createdViewId,
       (int viewId) => html.IFrameElement()
         ..style.height = '100%'
