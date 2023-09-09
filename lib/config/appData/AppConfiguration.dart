@@ -14,7 +14,7 @@ class AppConfiguration {
         'version': versionCode.toString(),
         'platform': kIsWeb ? 'WebApp' : 'Android',
         if (!kIsWeb)
-          'iWh1764CHWJuHERn++SqTsBdLkeXkTkgFr+MtRWLv6o':
+          'UserCheck':
               'encJw5GsbnGYNXmKtu5PiUOFPYeMX8sMDpfaZ31ksdq1KR5YtyfrvoaizJYfe866'
       };
 }

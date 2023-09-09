@@ -72,6 +72,7 @@ class RegisterUi extends StatelessWidget {
                     hint: 'email'.tr,
                     keyboardType: TextInputType.emailAddress,
                     onChangeValue: bloc.onEmailChange,
+                    helperText: 'email_helper_1'.tr,
                     // validator: EmailValidator(),
                   ),
                   10.dpv,

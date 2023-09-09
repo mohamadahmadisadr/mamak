@@ -8,6 +8,7 @@ class TextFormFieldHelper extends StatelessWidget {
     required this.label,
     required this.hint,
     this.icon,
+    this.helperText,
     required this.keyboardType,
     required this.onChangeValue,
     this.onCompleted,
@@ -26,6 +27,7 @@ class TextFormFieldHelper extends StatelessWidget {
   final String label;
   final String? initValue;
   final String hint;
+  final String? helperText;
   final IconData? icon;
   final Validator? validator;
   final TextInputType keyboardType;
@@ -55,6 +57,7 @@ class TextFormFieldHelper extends StatelessWidget {
         hintText: hint,
         prefixIcon: icon != null ? Icon(icon) : null,
         labelStyle: labelStyle,
+        helperText: helperText
       ),
       maxLength: maxLength,
       validator: (value) => validator?.validate(value ?? '').msg,

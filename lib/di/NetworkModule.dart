@@ -15,7 +15,7 @@ class NetworkModule {
     var token =
         await sl.get<LocalSessionImpl>().getData(UserSessionConst.token);
     onFailAuth() {
-      sl.get<NavigationServiceImpl>().off(AppRoute.login);
+      // sl.get<NavigationServiceImpl>().off(AppRoute.login);
     }
 
     sl.registerLazySingleton(
