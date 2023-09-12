@@ -29,6 +29,9 @@ class VerificationViewModel extends BaseViewModel {
     }
     if (formState.currentState?.validate() == true) {
       VerificationUseCase().invoke(MyFlow(flow: (appState) {
+        if (appState.isFailed) {
+          messageService.showSnackBar(appState.getErrorModel?.message ?? '');
+        }
         if (appState.isSuccess) {
           navigationService.replaceTo(AppRoute.login);
         }
@@ -37,7 +40,6 @@ class VerificationViewModel extends BaseViewModel {
       }), data: verificationFormState.createBody());
     }
   }
-
 
   void refresh() {
     updateScreen(time: DateTime.now().microsecondsSinceEpoch.toDouble());
@@ -49,7 +51,6 @@ class VerificationViewModel extends BaseViewModel {
       verificationFormState.mobile = mobile;
     }
   }
-
 
   void getContactUsData() {
     GetContactUsUseCase().invoke(MyFlow(flow: (appState) {

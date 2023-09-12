@@ -1,8 +1,9 @@
 import 'package:mamak/data/body/user/register/SignUpBody.dart';
 
 class RegisterFormState {
-  String firstName, lastName, email, password, confirmPassword;
+  String firstName, lastName, password, confirmPassword;
   String? mobile;
+  String? email;
   String? firstNameError,
       lastNameError,
       mobileError,

@@ -12,7 +12,7 @@ import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
-import 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
+// import 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
 import 'package:mamak/presentation/ui/register/text_with_link.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/presentation/viewModel/user/SignUpViewModel.dart';
@@ -50,7 +50,11 @@ class RegisterUi extends StatelessWidget {
                   ),
                   20.dpv,
                   if (Get.locale.isPersian)
-                    FormTitleWithStar(title: "mobile".tr),
+                    Text(
+                      'mobile'.tr,
+                      style: context.textTheme.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
                   if (Get.locale.isPersian) 4.dpv,
                   if (Get.locale.isPersian)
                     TextFormFieldHelper(
@@ -58,7 +62,6 @@ class RegisterUi extends StatelessWidget {
                       hint: "mobile".tr,
                       keyboardType: TextInputType.phone,
                       onChangeValue: bloc.onMobileChange,
-                      validator: MobileValidator(),
                     ),
                   10.dpv,
                   Text(
@@ -177,13 +180,13 @@ class RegisterUi extends StatelessWidget {
                       child: bloc.uiState.isLoading
                           ? const MyLoader(color: Colors.black)
                           : Text("next_step".tr)),
-                  if (kIsWeb)
-                    SizedBox(
-                        width: 100,
-                        height: 200,
-                        child: Recaptcha(
-                          onChangeToken: bloc.onChangeToken,
-                        ))
+                  // if (kIsWeb)
+                  //   SizedBox(
+                  //       width: 100,
+                  //       height: 200,
+                  //       child: Recaptcha(
+                  //         onChangeToken: bloc.onChangeToken,
+                  //       ))
                 ],
               ),
             ),

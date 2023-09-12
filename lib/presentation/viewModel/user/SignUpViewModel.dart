@@ -73,6 +73,12 @@ class SignUpViewModel extends BaseViewModel {
   Function() register() {
     return () {
       if (isValid) {
+
+        if(formState.email.isBlank == true && formState.mobile.isBlank == true){
+          messageService.showSnackBar("enter_username_or_mobile".tr);
+          return;
+        }
+
         if (formState.password != formState.confirmPassword) {
           messageService.showSnackBar('not_same_psw'.tr);
           return;
@@ -80,13 +86,14 @@ class SignUpViewModel extends BaseViewModel {
 
         if(kIsWeb){
           if(formState.token == null){
-            Logger.d('token is null');
+            messageService.showSnackBar("enter_captcha".tr);
+            return;
           }
         }
         SignUpUseCase().invoke(MyFlow(flow: (appState) {
           if (appState.isSuccess) {
             navigationServiceImpl.replaceTo(
-                AppRoute.verification, formState.mobile);
+                AppRoute.verification, formState.email ?? formState.mobile);
           }
           if (appState.isFailed) {
             messageService.showSnackBar(appState.getErrorModel?.message ?? '');
