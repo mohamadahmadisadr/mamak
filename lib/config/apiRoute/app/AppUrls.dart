@@ -6,4 +6,5 @@ class AppUrls{
   static const checkVersion = "/AppVersion/GetTheLastOfAppVersion";
   static const isThereNewAppVersion = "/AppVersion/IsThereNewAppVersion";
   static const setCurrentCulture = "/AppSettings/SetCurrentCulture";
+  static const getAboutUs = "/SiteSetting/GetAboutUs";
 }

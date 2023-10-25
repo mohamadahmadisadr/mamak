@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:core/utils/imageLoader/ImageLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,9 +46,9 @@ class WorkBookUi extends StatelessWidget {
                           SizedBox(
                               height: 30,
                               width: 30,
-                              child: ImageLoader(
-                                  url:
-                                      '${BaseUrls.storagePath}/categories/${data[index].workShopId}.png')),
+                              child: Image.memory(
+                                base64Decode(data[index].workShopFileContent ?? ''),
+                              )),
                           8.dph,
                           Text(data[index].workShopTitle ?? ''),
                           const Spacer(),

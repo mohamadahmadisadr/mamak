@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AppConfiguration {
-  static const versionCode = 19;
-  static const versionName = '1.1.9';
+  static const versionCode = 20;
+  static const versionName = '1.2.0';
   static const packageName = 'ir.mamakschool.mamak';
 
   static bool enableNetworkLog = false;
