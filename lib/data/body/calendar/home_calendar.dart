@@ -44,35 +44,37 @@ class _HomeCalendarUiState extends State<HomeCalendarUi> {
           onSuccess: (data) {
             data.calendarItems
                 ?.sort((a, b) => a.dayOfWeek!.compareTo(b.dayOfWeek!));
-            return Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                4.dpv,
-                DraggableCalendarUi(
-                  items: data.calendarItems ?? [],
-                  onClick: bloc.onSubmitClick,
-                ),
-                4.dpv,
-                VerticalSliderUi(
-                  items: data.calendarItems ?? [],
-                  todayClicked: (item) {
-                    AssessmentParamsModel assessmentParam =
-                        AssessmentParamsModel(
-                      name: widget.selectedChild.childFirstName ?? '',
-                      id: item.userChildWorkShopId?.toString() ??
-                          ''
-                              '',
-                      childId: widget.selectedChild.id?.toString() ?? '',
-                      workShopId: item.workShopId?.toString() ?? '',
-                      course: item.parentCategory?.title ?? '',
-                    );
-                    GetIt.I.get<NavigationServiceImpl>().navigateTo(
-                          AppRoute.assessments,
-                          assessmentParam,
-                        );
-                  },
-                ),
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  4.dpv,
+                  DraggableCalendarUi(
+                    items: data.calendarItems ?? [],
+                    onClick: bloc.onSubmitClick,
+                  ),
+                  4.dpv,
+                  VerticalSliderUi(
+                    items: data.calendarItems ?? [],
+                    todayClicked: (item) {
+                      AssessmentParamsModel assessmentParam =
+                          AssessmentParamsModel(
+                        name: widget.selectedChild.childFirstName ?? '',
+                        id: item.userChildWorkShopId?.toString() ??
+                            ''
+                                '',
+                        childId: widget.selectedChild.id?.toString() ?? '',
+                        workShopId: item.workShopId?.toString() ?? '',
+                        course: item.parentCategory?.title ?? '',
+                      );
+                      GetIt.I.get<NavigationServiceImpl>().navigateTo(
+                            AppRoute.assessments,
+                            assessmentParam,
+                          );
+                    },
+                  ),
+                ],
+              ),
             );
           },
         );

@@ -2,17 +2,21 @@ import 'package:core/chart/model/ChartModel.dart';
 import 'package:core/chart/radar_chart/radar_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mamak/data/body/calendar/home_calendar.dart';
+import 'package:mamak/data/serializer/child/WorkShopOfUserResponse.dart';
 import 'package:mamak/presentation/state/app_state.dart';
 import 'package:mamak/presentation/ui/Home/HomeUI.dart';
+import 'package:mamak/presentation/ui/bottomSheets/weekly_plan_sheet.dart';
 import 'package:mamak/presentation/ui/main/ConditionalUI.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakScaffold.dart';
+import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
 import 'package:mamak/presentation/ui/newHome/new_categories_ui.dart';
 import 'package:mamak/presentation/ui/newHome/segment_childs_ui.dart';
+import 'package:mamak/presentation/ui/workShop/MyWorkShops.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
 import 'package:mamak/presentation/viewModel/home/new_home_viewModel.dart';
+import 'package:mamak/presentation/viewModel/workBook/MyWorkShopsViewModel.dart';
 
 class NewHomeUi extends StatefulWidget {
   const NewHomeUi({Key? key}) : super(key: key);
@@ -40,8 +44,32 @@ class _NewHomeUiState extends State<NewHomeUi> {
                   state: bloc.childState,
                   selectedChild: bloc.selected,
                 ),
-                if (bloc.selected != null)
-                  HomeCalendarUi(selectedChild: bloc.selected!),
+                // HomeCalendarUi(selectedChild: bloc.selected!),
+                CubitProvider(
+                  create: (context) => MyWorkShopsViewModel(AppState.idle,
+                      selectedChild: bloc.selected),
+                  builder: (bloc, state) {
+                    return ConditionalUI<WorkShopOfUserResponse>(
+                      skeleton: const MyLoader(),
+                      state: state,
+                      onSuccess: (data) {
+                        List<ChildWorkShops> items =
+                            (data.activeUserChildWorkShops ?? []) +
+                                (data.inActiveUserChildWorkShops ?? []);
+                        return ListView.builder(
+                          padding: 8.dpeh,
+                          itemBuilder: (context, index) => MyWorkShopItemUi(
+                            item: items[index],
+                            childsItem: bloc.selectedChild!,
+                          ),
+                          itemCount: items.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                        );
+                      },
+                    );
+                  },
+                ),
                 if (bloc.selected != null)
                   ConditionalUI<WorkBookDetailUiModel>(
                     showError: false,
@@ -81,6 +109,19 @@ class _NewHomeUiState extends State<NewHomeUi> {
                         ],
                       );
                     },
+                  ),
+                8.dpv,
+                if (bloc.selected != null)
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Get.bottomSheet(
+                                isScrollControlled: true,
+                                WeeklyPlanSheet(childsItem: bloc.selected!));
+                          },
+                          child: Text('weekly plan')),
+                    ],
                   ),
                 8.dpv,
                 const NewCategoriesUi(),

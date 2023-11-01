@@ -2,6 +2,7 @@ import 'package:core/utils/logger/Logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/presentation/state/formState/user/RegisterFormState.dart';
 import 'package:mamak/presentation/ui/main/DropDownFormField.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -10,7 +11,17 @@ import 'package:mamak/useCase/location/provinces_use_case.dart';
 import 'package:mamak/useCase/subscribe/GetSubscribeUseCase.dart';
 import 'package:mamak/useCase/user/SignUpUseCase.dart';
 
+enum SignUpBy { email, mobile }
+
+extension SignUpByExtension on SignUpBy {
+  bool get isEmail => this == SignUpBy.email;
+
+  bool get isMobile => this == SignUpBy.mobile;
+}
+
 class SignUpViewModel extends BaseViewModel {
+  late SignUpBy signUpBy;
+
   NavigationServiceImpl navigationServiceImpl =
       GetIt.I.get<NavigationServiceImpl>();
 
@@ -24,6 +35,7 @@ class SignUpViewModel extends BaseViewModel {
   DropDownModel? selectedCity;
 
   SignUpViewModel(super.initialState) {
+    signUpBy = Get.locale.isPersian ? SignUpBy.mobile : SignUpBy.mobile;
     getRecaptchaToken();
     // fetchSubscribes();
     // fetchProvinces();
@@ -73,8 +85,8 @@ class SignUpViewModel extends BaseViewModel {
   Function() register() {
     return () {
       if (isValid) {
-
-        if(formState.email.isBlank == true && formState.mobile.isBlank == true){
+        if (formState.email.isBlank == true &&
+            formState.mobile.isBlank == true) {
           messageService.showSnackBar("enter_username_or_mobile".tr);
           return;
         }
@@ -84,16 +96,18 @@ class SignUpViewModel extends BaseViewModel {
           return;
         }
 
-        if(kIsWeb){
-          if(formState.token == null){
+        if (kIsWeb) {
+          if (formState.token == null) {
             messageService.showSnackBar("enter_captcha".tr);
             return;
           }
         }
         SignUpUseCase().invoke(MyFlow(flow: (appState) {
           if (appState.isSuccess) {
-            navigationServiceImpl.replaceTo(
-                AppRoute.verification, formState.email ?? formState.mobile);
+            navigationServiceImpl.replaceTo(AppRoute.verification, {
+              'username': formState.email ?? formState.mobile,
+              'id': appState.getData.toString()
+            });
           }
           if (appState.isFailed) {
             messageService.showSnackBar(appState.getErrorModel?.message ?? '');
@@ -147,5 +161,12 @@ class SignUpViewModel extends BaseViewModel {
   onChangeToken(String token) {
     Logger.d('received token that is $token');
     formState.token = token;
+  }
+
+  void onChangeSignUpBy(SignUpBy? value) {
+    if (value != null) {
+      signUpBy = value;
+      refresh();
+    }
   }
 }

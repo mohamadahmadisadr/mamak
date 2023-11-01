@@ -24,7 +24,8 @@ class LoginUseCase extends BaseUseCase {
       if (response.isSuccessful) {
         var result = response.result;
         if (result.resultCode == 406) {
-          flow.emitData(406);
+          print('data is ${result.result['id']}' );
+          flow.emitData(result.result['id'].toString() ?? '');
         } else {
           if (result.isSuccessFull) {
             flow.emitData(userFromJson(result.result ?? ''));

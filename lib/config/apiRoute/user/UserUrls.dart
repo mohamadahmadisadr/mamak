@@ -8,4 +8,5 @@ class UserUrls {
   static const verification = "/User/PostActivateAccount";
   static const setUserAvatar = "/User/SetUserAvatar";
   static const getUserProfile = "/User/GetUserProfile";
+  static const postSendActivationCode = "/User/PostSendActivationCode";
 }

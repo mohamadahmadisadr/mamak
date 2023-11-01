@@ -27,6 +27,7 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
     selected = newChild;
     getGeneralReportCard();
     _notification.publish('CalendarViewModel', newChild.id!);
+    _notification.publish('MyWorkShopsViewModel', newChild);
     refresh();
   }
 
@@ -61,8 +62,10 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
           List<ChildsItem> child = appState.getData;
           if (child.isNotEmpty) {
             selected = child.first;
-            onSelectNewChild(selected!);
+            onSelectNewChild(child.first);
             newUi = true;
+            _notification.publish('MyWorkShopsViewModel', child.first);
+            print('data has been send');
             // _notification.publish('NewHomeViewModel', selected);
           }
         }

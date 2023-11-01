@@ -65,7 +65,7 @@ class CalendarItems {
     userChildWorkShopId = json['userChildWorkShopId'];
     workShopId = json['workShopId'];
     nextAssessmentDate = json['nextAssessmentDate'] != null
-        ? DateTime.tryParse(json['nextAssessmentDate'])
+        ? DateTime.tryParse(json['nextAssessmentDate'])?.toLocal()
         : null;
   }
 

@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
 import 'package:mamak/core/form/validator/LastNameValidator.dart';
-import 'package:mamak/core/form/validator/MobileValidator.dart';
 import 'package:mamak/core/form/validator/NameValidator.dart';
-import 'package:mamak/core/locale/locale_extension.dart';
 import 'package:mamak/presentation/ui/main/CubitProvider.dart';
 import 'package:mamak/presentation/ui/main/MamakLogo.dart';
 import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
+import 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
+
 // import 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
 import 'package:mamak/presentation/ui/register/text_with_link.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
@@ -49,35 +49,65 @@ class RegisterUi extends StatelessWidget {
                     ],
                   ),
                   20.dpv,
-                  if (Get.locale.isPersian)
+                  Text(
+                    'signup by'.tr,
+                    style: context.textTheme.titleSmall
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  4.dpv,
+                  ButtonTheme(
+                    alignedDropdown: true,
+                    child: DropdownButtonFormField<SignUpBy>(
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(WidgetSize.textFieldRadiusSize)),
+                      hint: Text(
+                        'type',
+                        style: context.textTheme.bodySmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textScaleFactor: .9,
+                      ),
+                      value: bloc.signUpBy,
+                      items: [SignUpBy.email, SignUpBy.mobile].map((item) {
+                        return DropdownMenuItem<SignUpBy>(
+                          value: item,
+                          child: Text(item.name.tr),
+                        );
+                      }).toList(),
+                      onChanged: bloc.onChangeSignUpBy,
+                    ),
+                  ),
+                  10.dpv,
+                  if (bloc.signUpBy.isMobile)
                     Text(
                       'mobile'.tr,
                       style: context.textTheme.titleSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                  if (Get.locale.isPersian) 4.dpv,
-                  if (Get.locale.isPersian)
+                  if (bloc.signUpBy.isMobile) 4.dpv,
+                  if (bloc.signUpBy.isMobile)
                     TextFormFieldHelper(
                       label: "mobile".tr,
                       hint: "mobile".tr,
                       keyboardType: TextInputType.phone,
                       onChangeValue: bloc.onMobileChange,
                     ),
-                  10.dpv,
-                  Text(
-                    'email'.tr,
-                    style: context.textTheme.titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  4.dpv,
-                  TextFormFieldHelper(
-                    label: 'email'.tr,
-                    hint: 'email'.tr,
-                    keyboardType: TextInputType.emailAddress,
-                    onChangeValue: bloc.onEmailChange,
-                    helperText: 'email_helper_1'.tr,
-                    // validator: EmailValidator(),
-                  ),
+                  if (bloc.signUpBy.isEmail)
+                    Text(
+                      'email'.tr,
+                      style: context.textTheme.titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  if (bloc.signUpBy.isEmail) 4.dpv,
+                  if (bloc.signUpBy.isEmail)
+                    TextFormFieldHelper(
+                      label: 'email'.tr,
+                      hint: 'email'.tr,
+                      keyboardType: TextInputType.emailAddress,
+                      onChangeValue: bloc.onEmailChange,
+                      // helperText: 'email_helper_1'.tr,
+                      // validator: EmailValidator(),
+                    ),
                   10.dpv,
                   FormTitleWithStar(title: "mothers_name".tr),
                   4.dpv,
@@ -180,13 +210,13 @@ class RegisterUi extends StatelessWidget {
                       child: bloc.uiState.isLoading
                           ? const MyLoader(color: Colors.black)
                           : Text("next_step".tr)),
-                  // if (kIsWeb)
-                  //   SizedBox(
-                  //       width: 100,
-                  //       height: 200,
-                  //       child: Recaptcha(
-                  //         onChangeToken: bloc.onChangeToken,
-                  //       ))
+                  if (kIsWeb)
+                    SizedBox(
+                        width: 100,
+                        height: 200,
+                        child: Recaptcha(
+                          onChangeToken: bloc.onChangeToken,
+                        ))
                 ],
               ),
             ),

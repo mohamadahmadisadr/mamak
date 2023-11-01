@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mamak/data/serializer/user/User.dart';
 import 'package:mamak/presentation/state/formState/user/LoginFormState.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
-import 'package:mamak/useCase/BaseUseCase.dart';
 import 'package:mamak/useCase/user/LoginUseCase.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -50,12 +49,16 @@ class LoginViewModel extends BaseViewModel {
                   await saveUserData(user);
                   navigationService.replaceTo(AppRoute.home);
                 } else {
-                  navigationService.replaceTo(
-                      AppRoute.verification, loginFormState.value.username);
+                  navigationService.replaceTo(AppRoute.verification, {
+                    'username': loginFormState.value.username,
+                    'id': state.getData.toString()
+                  });
                 }
-              } else if (state.getData is int) {
-                navigationService.replaceTo(
-                    AppRoute.verification, loginFormState.value.username);
+              } else if (state.getData is String) {
+                navigationService.replaceTo(AppRoute.verification, {
+                  'username': loginFormState.value.username,
+                  'id': state.getData.toString()
+                });
               }
             } else if (state.isFailed) {
               messageService.showSnackBar(state.getErrorModel?.message ?? '');
@@ -91,5 +94,4 @@ class LoginViewModel extends BaseViewModel {
 
   Function() pushToVerificationPage(User user) =>
       () => navigationService.replaceTo(AppRoute.register, user);
-
 }

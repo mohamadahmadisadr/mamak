@@ -94,11 +94,11 @@ class CalendarItemUi extends StatelessWidget {
     //   nextAssessmentDate = Jalali(nextAssessmentDate.year,nextAssessmentDate.month,nextAssessmentDate.day).toDateTime();
     // }
     if (isToday(nextAssessmentDate)) return 'today'.tr;
-    var now = Jalali.now();
-    var nowDateTime = DateTime(now.year, now.month, now.day);
-    var days = nextAssessmentDate.difference(nowDateTime).inDays;
+    Jalali jalaliNow = Jalali.now();
+    DateTime now = Get.locale.isPersian ? DateTime(jalaliNow.year, jalaliNow.month, jalaliNow.day) : DateTime.now();
+    var days = nextAssessmentDate.difference(now).inDays;
     var hours =
-        nextAssessmentDate.difference(nowDateTime).inHours;
+        nextAssessmentDate.difference(now).inHours;
     if (days == 0) {}
     var ht = 'hours_till'.tr;
     var dt = 'days_till'.tr;
@@ -115,9 +115,10 @@ class CalendarItemUi extends StatelessWidget {
   }
 
   String getDateWithMonth(DateTime nextAssessmentDate) {
+    print(nextAssessmentDate);
     String date = '';
     if (Get.locale.isPersian) {
-      var f = nextAssessmentDate.toJalali().formatter;
+      var f = Jalali(nextAssessmentDate.year,nextAssessmentDate.month,nextAssessmentDate.day).formatter;
       date = '${f.d} ${f.mN}';
     } else {
       var localDate = nextAssessmentDate.toLocal();

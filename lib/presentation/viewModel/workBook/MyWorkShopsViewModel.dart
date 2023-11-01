@@ -10,9 +10,12 @@ class MyWorkShopsViewModel extends BaseViewModel
   final MyNotification _notification = GetIt.I.get();
   WorkBookParamsModel model = WorkBookParamsModel();
 
-  late ChildsItem selectedChild;
+  ChildsItem? selectedChild;
 
-  MyWorkShopsViewModel(super.initialState) {
+  MyWorkShopsViewModel(super.initialState,{this.selectedChild}) {
+    if(selectedChild != null){
+      getWorkShopsByChildId(selectedChild!.id!.toString());
+    }
     _notification.subscribeListener(this);
   }
 
@@ -25,6 +28,7 @@ class MyWorkShopsViewModel extends BaseViewModel
 
   @override
   void onReceiveData(data) {
+    print('data has been receive and is $data');
     if (data != null) {
       if (data is ChildsItem) {
         selectedChild = data;

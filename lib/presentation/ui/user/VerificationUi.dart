@@ -50,6 +50,26 @@ class VerificationUi extends StatelessWidget {
                         child: bloc.formUiState.isLoading
                             ? const MyLoader()
                             : Text('submit'.tr),),
+                    10.dpv,
+                    StreamBuilder<int>(
+                      stream: bloc.timerStream,
+                      initialData: 0,
+                      builder: (context, snapshot) {
+                        if (snapshot.data == 0) {
+                          return ElevatedButton(
+                              onPressed: bloc.sendCode,
+                              child: bloc.state.isLoading
+                                  ? const MyLoader()
+                                  : Text('send_code'.tr));
+                        }
+                        return bloc.state.isLoading
+                            ? const MyLoader()
+                            : Text(
+                          "'${'code_sent'.tr}' ${bloc.myTimer.formatTime()}",
+                          textAlign: TextAlign.center,
+                        );
+                      },
+                    ),
                     20.dpv,
                     if(bloc.numberData != null)
                       Text(bloc.numberData ?? '')

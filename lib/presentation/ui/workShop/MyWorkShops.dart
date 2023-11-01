@@ -74,7 +74,7 @@ class MyWorkShops extends StatelessWidget {
                       padding: 8.dpeh,
                       itemBuilder: (context, index) => MyWorkShopItemUi(
                         item: items[index],
-                        childsItem: bloc.selectedChild,
+                        childsItem: bloc.selectedChild!,
                       ),
                       itemCount: items.length,
                       shrinkWrap: true,
