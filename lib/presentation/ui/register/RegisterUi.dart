@@ -50,7 +50,7 @@ class RegisterUi extends StatelessWidget {
                   ),
                   20.dpv,
                   Text(
-                    'signup by'.tr,
+                    'choose_username'.tr,
                     style: context.textTheme.titleSmall
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
@@ -61,7 +61,7 @@ class RegisterUi extends StatelessWidget {
                       borderRadius: const BorderRadius.all(
                           Radius.circular(WidgetSize.textFieldRadiusSize)),
                       hint: Text(
-                        'type',
+                        'choose_username'.tr,
                         style: context.textTheme.bodySmall,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -78,28 +78,28 @@ class RegisterUi extends StatelessWidget {
                     ),
                   ),
                   10.dpv,
-                  if (bloc.signUpBy.isMobile)
+                  if (bloc.signUpBy?.isMobile == true)
                     Text(
                       'mobile'.tr,
                       style: context.textTheme.titleSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                  if (bloc.signUpBy.isMobile) 4.dpv,
-                  if (bloc.signUpBy.isMobile)
+                  if (bloc.signUpBy?.isMobile == true) 4.dpv,
+                  if (bloc.signUpBy?.isMobile == true)
                     TextFormFieldHelper(
                       label: "mobile".tr,
                       hint: "mobile".tr,
                       keyboardType: TextInputType.phone,
                       onChangeValue: bloc.onMobileChange,
                     ),
-                  if (bloc.signUpBy.isEmail)
+                  if (bloc.signUpBy?.isEmail == true)
                     Text(
                       'email'.tr,
                       style: context.textTheme.titleSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                  if (bloc.signUpBy.isEmail) 4.dpv,
-                  if (bloc.signUpBy.isEmail)
+                  if (bloc.signUpBy?.isEmail == true) 4.dpv,
+                  if (bloc.signUpBy?.isEmail == true)
                     TextFormFieldHelper(
                       label: 'email'.tr,
                       hint: 'email'.tr,

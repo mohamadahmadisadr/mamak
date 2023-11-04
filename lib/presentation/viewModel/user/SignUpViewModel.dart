@@ -20,7 +20,7 @@ extension SignUpByExtension on SignUpBy {
 }
 
 class SignUpViewModel extends BaseViewModel {
-  late SignUpBy signUpBy;
+  SignUpBy? signUpBy;
 
   NavigationServiceImpl navigationServiceImpl =
       GetIt.I.get<NavigationServiceImpl>();
@@ -35,7 +35,7 @@ class SignUpViewModel extends BaseViewModel {
   DropDownModel? selectedCity;
 
   SignUpViewModel(super.initialState) {
-    signUpBy = Get.locale.isPersian ? SignUpBy.mobile : SignUpBy.mobile;
+    // signUpBy = Get.locale.isPersian ? SignUpBy.mobile : SignUpBy.mobile;
     getRecaptchaToken();
     // fetchSubscribes();
     // fetchProvinces();
@@ -85,8 +85,8 @@ class SignUpViewModel extends BaseViewModel {
   Function() register() {
     return () {
       if (isValid) {
-        if (formState.email.isBlank == true &&
-            formState.mobile.isBlank == true) {
+        if (formState.email == null &&
+            formState.mobile == null) {
           messageService.showSnackBar("enter_username_or_mobile".tr);
           return;
         }

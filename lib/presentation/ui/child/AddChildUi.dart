@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/core/form/validator/LastNameValidator.dart';
@@ -33,11 +32,11 @@ class AddChildUi extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     16.dpv,
-                    MamakTitle(title: 'my_chils'.tr),//my_childs
+                    MamakTitle(title: 'my_chils'.tr), //my_childs
                     8.dpv,
                     Divider(),
                     8.dpv,
-                    FormTitleWithStar(title: 'childs_name'.tr),//childs_name
+                    FormTitleWithStar(title: 'childs_name'.tr), //childs_name
                     4.dpv,
                     TextFormFieldHelper(
                       label: 'childs_name'.tr,
@@ -65,8 +64,15 @@ class AddChildUi extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: DropDownFormField(
-                            selectedItem: DropDownModel(data: 2, name: 2.toString()),
-                            items: positiveIntegers.skip(1).take(31).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
+                            selectedItem:
+                                DropDownModel(data: 2, name: 2.toString()),
+                            items: positiveIntegers
+                                .skip(1)
+                                .take(31)
+                                .toList()
+                                .map((e) =>
+                                    DropDownModel(data: e, name: e.toString()))
+                                .toList(),
                             name: 'day'.tr,
                             onValueChange: bloc.onDayChange,
                           ),
@@ -75,8 +81,15 @@ class AddChildUi extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: DropDownFormField(
-                              selectedItem: DropDownModel(data: 10, name: 10.toString()),
-                              items: positiveIntegers.skip(1).take(12).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
+                              selectedItem:
+                                  DropDownModel(data: 10, name: 10.toString()),
+                              items: positiveIntegers
+                                  .skip(1)
+                                  .take(12)
+                                  .toList()
+                                  .map((e) => DropDownModel(
+                                      data: e, name: e.toString()))
+                                  .toList(),
                               name: 'month'.tr,
                               onValueChange: bloc.onMonthChange),
                         ),
@@ -84,9 +97,20 @@ class AddChildUi extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: DropDownFormField(
-                              selectedItem: DropDownModel(data: Get.locale == const Locale('fa','IR') ? 1398 : 2016, name: 1398.toString()),
-                              items:
-                                  positiveIntegers.skip(Get.locale == const Locale('fa','IR') ? 1395 : 2016).take(4).toList().map((e) => DropDownModel(data: e, name: e.toString())).toList(),
+                              selectedItem: DropDownModel(
+                                  data: Get.locale == const Locale('fa', 'IR')
+                                      ? 1398
+                                      : 2016,
+                                  name: 1398.toString()),
+                              items: positiveIntegers
+                                  .skip(Get.locale == const Locale('fa', 'IR')
+                                      ? 1395
+                                      : 2016)
+                                  .take(5)
+                                  .toList()
+                                  .map((e) => DropDownModel(
+                                      data: e, name: e.toString()))
+                                  .toList(),
                               name: 'year'.tr,
                               onValueChange: bloc.onYearChange),
                         ),
@@ -114,8 +138,9 @@ class AddChildUi extends StatelessWidget {
                     8.dpv,
                     ElevatedButton(
                         onPressed: bloc.submit,
-                        child:
-                            bloc.uiState.isLoading ? MyLoader() : Text('submit'.tr))
+                        child: bloc.uiState.isLoading
+                            ? MyLoader()
+                            : Text('submit'.tr))
                   ],
                 ),
               ),

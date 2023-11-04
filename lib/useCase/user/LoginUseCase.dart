@@ -22,10 +22,10 @@ class LoginUseCase extends BaseUseCase {
       var response =
           await apiServiceImpl.post(uri, data: jsonEncode(loginBody));
       if (response.isSuccessful) {
+        print('im here');
         var result = response.result;
         if (result.resultCode == 406) {
-          print('data is ${result.result['id']}' );
-          flow.emitData(result.result['id'].toString() ?? '');
+          flow.emitData(jsonDecode(result.result)['id'].toString() ?? '');
         } else {
           if (result.isSuccessFull) {
             flow.emitData(userFromJson(result.result ?? ''));

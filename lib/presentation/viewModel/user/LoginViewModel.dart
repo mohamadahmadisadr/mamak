@@ -4,6 +4,7 @@ import 'package:mamak/data/serializer/user/User.dart';
 import 'package:mamak/presentation/state/formState/user/LoginFormState.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/user/LoginUseCase.dart';
+import 'package:mamak/useCase/user/SendVerificationCodeUseCase.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginViewModel extends BaseViewModel {
@@ -49,12 +50,14 @@ class LoginViewModel extends BaseViewModel {
                   await saveUserData(user);
                   navigationService.replaceTo(AppRoute.home);
                 } else {
+                  SendVerificationUseCase().invoke(MyFlow(flow: (_){}),data: user.id?.toString());
                   navigationService.replaceTo(AppRoute.verification, {
                     'username': loginFormState.value.username,
-                    'id': state.getData.toString()
+                    'id': user.id?.toString()
                   });
                 }
               } else if (state.getData is String) {
+                SendVerificationUseCase().invoke(MyFlow(flow: (_){}),data: state.getData.toString());
                 navigationService.replaceTo(AppRoute.verification, {
                   'username': loginFormState.value.username,
                   'id': state.getData.toString()

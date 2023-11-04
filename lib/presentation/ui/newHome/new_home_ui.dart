@@ -115,12 +115,18 @@ class _NewHomeUiState extends State<NewHomeUi> {
                   Row(
                     children: [
                       TextButton(
-                          onPressed: () {
-                            Get.bottomSheet(
-                                isScrollControlled: true,
-                                WeeklyPlanSheet(childsItem: bloc.selected!));
-                          },
-                          child: Text('weekly plan')),
+                        onPressed: () {
+                          Get.bottomSheet(
+                            isScrollControlled: true,
+                            WeeklyPlanSheet(childsItem: bloc.selected!),
+                          );
+                        },
+                        child: Text(
+                          'weekly'.tr,
+                          style: const TextStyle(
+                              color: Colors.red, fontFamily: 'dana'),
+                        ),
+                      ),
                     ],
                   ),
                 8.dpv,

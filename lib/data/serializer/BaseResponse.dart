@@ -15,6 +15,7 @@ class BaseResponse {
   });
 
   BaseResponse.fromJson(dynamic json) {
+    resultCode = json['resultCode'];
     result = json['result'] != null ? jsonEncode(json['result']) : null;
     resultsList = json['resultsList'] != null ? jsonEncode(json['resultsList']) : null;
     errorMessages = json['errorMessages'] != null

@@ -46,10 +46,11 @@ class VerificationUi extends StatelessWidget {
                     ),
                     16.dpv,
                     ElevatedButton(
-                        onPressed: bloc.onSubmitCodeClick,
-                        child: bloc.formUiState.isLoading
-                            ? const MyLoader()
-                            : Text('submit'.tr),),
+                      onPressed: bloc.onSubmitCodeClick,
+                      child: bloc.formUiState.isLoading
+                          ? const MyLoader()
+                          : Text('submit'.tr),
+                    ),
                     10.dpv,
                     StreamBuilder<int>(
                       stream: bloc.timerStream,
@@ -58,21 +59,20 @@ class VerificationUi extends StatelessWidget {
                         if (snapshot.data == 0) {
                           return ElevatedButton(
                               onPressed: bloc.sendCode,
-                              child: bloc.state.isLoading
+                              child: bloc.activationCodeState.isLoading
                                   ? const MyLoader()
                                   : Text('send_code'.tr));
                         }
                         return bloc.state.isLoading
                             ? const MyLoader()
                             : Text(
-                          "'${'code_sent'.tr}' ${bloc.myTimer.formatTime()}",
-                          textAlign: TextAlign.center,
-                        );
+                                "${'code_sent'.tr} ${bloc.myTimer.formatTime()}",
+                                textAlign: TextAlign.center,
+                              );
                       },
                     ),
                     20.dpv,
-                    if(bloc.numberData != null)
-                      Text(bloc.numberData ?? '')
+                    if (bloc.numberData != null) Text(bloc.numberData ?? '')
                   ],
                 ),
               ),

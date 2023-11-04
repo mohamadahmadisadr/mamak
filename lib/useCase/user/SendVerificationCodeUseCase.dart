@@ -11,9 +11,9 @@ class SendVerificationUseCase extends BaseUseCase {
     try {
       assert(data != null && data is String);
       flow.emitLoading();
-      Uri uri = createUri(path: UserUrls.postSendActivationCode);
+      Uri uri = createUri(path: UserUrls.postSendActivationCode,body: {'userId':data});
       var response =
-          await apiServiceImpl.post(uri, data: jsonEncode({'userId':data}));
+          await apiServiceImpl.post(uri);
       if (response.isSuccessful) {
         var result = response.result;
         if (result.isSuccessFull) {

@@ -9,15 +9,15 @@ import 'package:feature/languages/germany.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:mamak/presentation/state/formState/user/RegisterFormState.dart';
 import 'package:mamak/presentation/translation.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 void main() {
   testWidgets('date test', (WidgetTester tester) async {
     TestWidgetsFlutterBinding.ensureInitialized();
-    var date = DateFormat('yyyy/mm/dd').parse('1402/7/5');
-    var gDate = Jalali(date.year,date.month,date.day).toDateTime().toString();
-    var formattedDate = DateFormat.yMMMd().parse(gDate);
-    expect(formattedDate, '27/9/2023');
+    RegisterFormState formState = RegisterFormState();
+    formState.mobile = 'email';
+    expect(formState.email ?? formState.mobile, 'email');
   });
 }

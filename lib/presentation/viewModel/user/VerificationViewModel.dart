@@ -10,7 +10,7 @@ import 'package:mamak/useCase/app/GetContactUsUseCase.dart';
 import 'package:mamak/useCase/user/SendVerificationCodeUseCase.dart';
 import 'package:mamak/useCase/user/VerificationUseCase.dart';
 
-class VerificationViewModel extends BaseViewModel implements OnTimerChange{
+class VerificationViewModel extends BaseViewModel implements OnTimerChange {
   VerificationViewModel(super.initialState) {
     myTimer.setOnChangeListener(this);
     myTimer.startTimer();
@@ -63,22 +63,27 @@ class VerificationViewModel extends BaseViewModel implements OnTimerChange{
       verificationFormState.mobile = data['username'];
       id = data['id'];
     }
+
+    if (data['id'] != null) {
+      id = data['id'];
+    }
   }
 
-  void sendActivationCode(){
-    if(id == null)return;
-    SendVerificationUseCase().invoke(MyFlow(flow: (appState){
+  void sendActivationCode() {
+    if (id == null) return;
+    SendVerificationUseCase().invoke(MyFlow(flow: (appState) {
       activationCodeState = appState;
       refresh();
       if (appState.isSuccess) {
         myTimer.startTimer();
+        messageService.showSnackBar(
+            "${'new_code_sent'.tr} ${verificationFormState.mobile}");
       }
-      if(appState.isFailed){
+      if (appState.isFailed) {
         messageService.showSnackBar(appState.getErrorModel?.message ?? '');
       }
-    }),data: id);
+    }), data: id);
   }
-
 
   void getContactUsData() {
     GetContactUsUseCase().invoke(MyFlow(flow: (appState) {
@@ -92,12 +97,10 @@ class VerificationViewModel extends BaseViewModel implements OnTimerChange{
 
   Stream<int> get timerStream => _controller.stream;
 
-
   @override
   void onchange(int value) {
     _controller.add(value);
   }
-
 
   @override
   Future<void> close() {

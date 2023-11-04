@@ -14,10 +14,10 @@ class SignUpUseCase extends BaseUseCase {
       if (response.isSuccessful) {
         var result = response.result;
         if (result.resultCode == 406) {
-          flow.emitData(result.result['id'].toString());
+          flow.emitData(jsonDecode(result.result)['id'].toString());
         } else {
           if (result.isSuccessFull) {
-            flow.emitData(result);
+            flow.emitData(jsonDecode(result.result)['id'].toString());
           } else {
             flow.throwMessage(result.concatErrorMessages);
           }

@@ -113,25 +113,25 @@ class _AssessmentItemUiState extends State<AssessmentItemUi> {
           ),
         ),
         8.dpv,
-        SizedBox(
-          height: 100,
-          child: TextFormFieldHelper(
-            hint: getDescriptionText(widget.item?.options?.indexWhere(
-                    (element) => element.optionId == selectedItem) ??
-                0),
-            keyboardType: TextInputType.text,
-            label: getDescriptionText(widget.item?.options?.indexWhere(
-                    (element) => element.optionId == selectedItem) ??
-                0),
-            onChangeValue: (value) {
-              context
-                  .read<AssessmentsViewModel>()
-                  .onChangeDesc(widget.item?.questionId?.toString(), value);
-            },
-            expand: true,
-            textAlign: TextAlign.start,
-          ),
-        ),
+        // SizedBox(
+        //   height: 100,
+        //   child: TextFormFieldHelper(
+        //     hint: getDescriptionText(widget.item?.options?.indexWhere(
+        //             (element) => element.optionId == selectedItem) ??
+        //         0),
+        //     keyboardType: TextInputType.text,
+        //     label: getDescriptionText(widget.item?.options?.indexWhere(
+        //             (element) => element.optionId == selectedItem) ??
+        //         0),
+        //     onChangeValue: (value) {
+        //       context
+        //           .read<AssessmentsViewModel>()
+        //           .onChangeDesc(widget.item?.questionId?.toString(), value);
+        //     },
+        //     expand: true,
+        //     textAlign: TextAlign.start,
+        //   ),
+        // ),
       ],
     );
   }
