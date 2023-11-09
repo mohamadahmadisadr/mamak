@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
@@ -10,7 +9,6 @@ import 'package:mamak/presentation/ui/main/MyLoader.dart';
 import 'package:mamak/presentation/ui/main/PasswordFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/TextFormFieldHelper.dart';
 import 'package:mamak/presentation/ui/main/UiExtension.dart';
-import 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
 
 // import 'package:mamak/presentation/ui/recaptcha/recaptcha.dart';
 import 'package:mamak/presentation/ui/register/text_with_link.dart';
@@ -210,13 +208,13 @@ class RegisterUi extends StatelessWidget {
                       child: bloc.uiState.isLoading
                           ? const MyLoader(color: Colors.black)
                           : Text("next_step".tr)),
-                  if (kIsWeb)
-                    SizedBox(
-                        width: 100,
-                        height: 200,
-                        child: Recaptcha(
-                          onChangeToken: bloc.onChangeToken,
-                        ))
+                  // if (kIsWeb)
+                  //   SizedBox(
+                  //       width: 100,
+                  //       height: 200,
+                  //       child: Recaptcha(
+                  //         onChangeToken: bloc.onChangeToken,
+                  //       ))
                 ],
               ),
             ),

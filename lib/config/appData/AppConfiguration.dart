@@ -7,7 +7,7 @@ class AppConfiguration {
   static const packageName = 'ir.mamakschool.mamak';
 
   static bool enableNetworkLog = false;
-  static bool cafeBazaar = false;
+  static bool cafeBazaar = true;
   static bool multiLanguage = false;
   static Locale? forceLocale = multiLanguage ? null : const Locale('fa', 'IR');
 
