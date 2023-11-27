@@ -165,6 +165,8 @@ class SignUpViewModel extends BaseViewModel {
 
   void onChangeSignUpBy(SignUpBy? value) {
     if (value != null) {
+      formState.email = '';
+      formState.mobile = '';
       signUpBy = value;
       refresh();
     }
