@@ -22,6 +22,8 @@ import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookParamsModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookTableModel.dart';
 
+import 'WorkShopReportItem.dart';
+
 WorkBookDetailResponse workBookDetailResponseFromJson(String str) =>
     WorkBookDetailResponse.fromJson(json.decode(str));
 
@@ -31,6 +33,10 @@ String workBookDetailResponseToJson(WorkBookDetailResponse data) =>
 class WorkBookDetailResponse {
   ReportCardHeader? reportCardHeader;
   WorkShopReportCard? workShopReportCard;
+  WorkShopReportItem? firstWorkShopReportCard;
+  WorkShopReportItem? lastWorkShopReportCard;
+  List<WorkShopReportItem>? firstWorkShopSubCategoryReportCards;
+  List<WorkShopReportItem>? lastWorkShopSubCategoryReportCards;
   List<WorkShopReportCardDetail>? workShopReportCardDetails;
   List<GeneralReportCard>? generalReportCards;
   GeneralReportCardDetails? generalReportCardDetails;
@@ -51,6 +57,10 @@ class WorkBookDetailResponse {
     this.errorMessages,
     this.statusCode,
     this.successfulMessages,
+    this.firstWorkShopReportCard,
+    this.lastWorkShopReportCard,
+    this.firstWorkShopSubCategoryReportCards,
+    this.lastWorkShopSubCategoryReportCards,
   });
 
   factory WorkBookDetailResponse.fromJson(Map<String, dynamic> json) =>
@@ -88,6 +98,16 @@ class WorkBookDetailResponse {
         successfulMessages: json["successfulMessages"] == null
             ? []
             : List<dynamic>.from(json["successfulMessages"]!.map((x) => x)),
+        firstWorkShopReportCard: json["firstWorkShopReportCard"] != null ?
+            workShopReportItemFromJson(jsonEncode(json["firstWorkShopReportCard"])) : null,
+        lastWorkShopReportCard: json["lastWorkShopReportCard"] != null ?
+            workShopReportItemFromJson(jsonEncode(json["lastWorkShopReportCard"])) : null,
+        firstWorkShopSubCategoryReportCards: json["firstWorkShopSubCategoryReportCards"] != null ? List<WorkShopReportItem>.from(
+            json["firstWorkShopSubCategoryReportCards"]
+                .map((x) => workShopReportItemFromJson(jsonEncode(x)))) : null,
+        lastWorkShopSubCategoryReportCards: json["lastWorkShopSubCategoryReportCards"] != null ? List<WorkShopReportItem>.from(
+            json["lastWorkShopSubCategoryReportCards"]
+                .map((x) => workShopReportItemFromJson(jsonEncode(x)))) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -303,6 +323,7 @@ class WorkShopReportCard {
 class ReportCardHeader {
   String? parentUserFullName;
   String? childUserFullName;
+  String? childFullAge;
   int? childAge;
   String? workShopCategoryTitle;
   int? id;
@@ -313,6 +334,7 @@ class ReportCardHeader {
   ReportCardHeader({
     this.parentUserFullName,
     this.childUserFullName,
+    this.childFullAge,
     this.childAge,
     this.workShopCategoryTitle,
     this.id,
@@ -325,6 +347,7 @@ class ReportCardHeader {
       ReportCardHeader(
         parentUserFullName: json["parentUserFullName"],
         childUserFullName: json["childUserFullName"],
+        childFullAge: json["childFullAge"],
         childAge: json["childAge"],
         workShopCategoryTitle: json["workShopCategoryTitle"],
         id: json["id"],
@@ -340,6 +363,7 @@ class ReportCardHeader {
   Map<String, dynamic> toJson() => {
         "parentUserFullName": parentUserFullName,
         "childUserFullName": childUserFullName,
+        "childFullAge": childFullAge,
         "childAge": childAge,
         "workShopCategoryTitle": workShopCategoryTitle,
         "id": id,
@@ -426,7 +450,7 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
     List<String> header = [
       reportCardHeader?.parentUserFullName ?? '',
       reportCardHeader?.childUserFullName ?? '',
-      '${reportCardHeader?.childAge?.toString() ?? ' '} $year',
+      (reportCardHeader?.childFullAge ?? ' '),
       reportCardHeader?.workShopCategoryTitle ?? '',
     ];
     List<WorkBookDetailReviews> reviews = workShopReportCardDetails
@@ -438,39 +462,60 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
             .toList() ??
         [];
 
-    var workShopName =
-        workShopReportCard?.workShopDictionary?.name ?? '';
-    var one = workShopReportCard?.firstRateAnswersCount?.toString() ?? '';
-    var two = workShopReportCard?.secondRateAnswersCount?.toString() ?? '';
-    var three = workShopReportCard?.thirdRateAnswersCount?.toString() ?? '';
-    var allQCount = workShopReportCard?.allQuestionsCount?.toString() ?? '';
+    var workShopName = reportCardHeader?.workShopCategoryTitle ?? '';
+    var one = lastWorkShopReportCard?.firstRateAnswersCount?.toString() ?? '';
+    var two = lastWorkShopReportCard?.secondRateAnswersCount?.toString() ?? '';
+    var three = lastWorkShopReportCard?.thirdRateAnswersCount?.toString() ?? '';
+    var allQCount = lastWorkShopReportCard?.allQuestionsCount?.toString() ?? '';
     var workShopWorkBookTitle =
         '${'chil_capability_in'.tr} $workShopName : $three ${'from'.tr} $allQCount';
 
     var workShopDescription =
         '${'according_your_assessment'.tr}, ${'between'.tr} $allQCount ${'ability'.tr} $workShopName ${'your_child_has_mastered'.tr} $three ${'abilities'.tr}, $two ${'ability_to_some_extent'.tr} ${'and'.tr} $one ${'has_not_started_yet'.tr}.';
 
-    int maxValue = workShopSubCategoryReportCards?.fold(
+    int maxValue = lastWorkShopSubCategoryReportCards?.fold(
             0,
             (previousValue, element) =>
-                (previousValue ?? 0) + (element.allQuestionsCount ?? 0)) ??
+                (previousValue ?? 0) + (element.allQuestionsCount?.toInt() ?? 0)) ??
         0;
-    List<String> names = workShopSubCategoryReportCards
-            ?.map((e) => e.categoryDictionary?.values.first.toString() ?? '')
+    lastWorkShopSubCategoryReportCards?.sort((a, b) =>
+        (int.tryParse(a.workShopDictionary!.keys.first) ?? 0)
+            .compareTo(num.tryParse(b.workShopDictionary!.keys.first) ?? 0));
+    firstWorkShopSubCategoryReportCards?.sort((a, b) =>
+        (int.tryParse(a.workShopDictionary!.keys.first) ?? 0)
+            .compareTo(num.tryParse(b.workShopDictionary!.keys.first) ?? 0));
+    List<String> names = lastWorkShopSubCategoryReportCards
+            ?.map((e) => e.workShopDictionary?.values.first.toString() ?? '')
             .toList() ??
         [];
+    print('names is $names');
     List<String> lableData = [];
-    List<double> values = workShopSubCategoryReportCards?.map((e) {
-          int all = e.allQuestionsCount ?? 0;
-          int correct = e.thirdRateAnswersCount ?? 0;
+    List<double> firstValues = firstWorkShopSubCategoryReportCards?.map((e) {
+          int all = (e.allQuestionsCount ?? 0).toInt();
+          int correct = (e.thirdRateAnswersCount ?? 0).toInt();
           lableData.add('$correct ${'from'.tr} $all');
           return (maxValue * correct) / all;
         }).toList() ??
         [];
+    print('first values is $firstValues');
 
+    List<double> lastValues = lastWorkShopSubCategoryReportCards?.map((e) {
+          int all = (e.allQuestionsCount ?? 0).toInt();
+          int correct = (e.thirdRateAnswersCount ?? 0).toInt();
+          lableData.add('$correct ${'from'.tr} $all');
+          return (maxValue * correct) / all;
+        }).toList() ??
+        [];
+    print('last values is $lastValues');
+
+    print('label data is $lableData');
+    print('max value is $maxValue');
     var cards = generalReportCards ?? [];
-    cards.sort((a, b) => a.id!.compareTo(b.id!),);
-    var totalWorkBookTitle = '${'comprehensive_assessment'.tr}: %s ${'area'.tr} ${'from'.tr} %s ${'area'.tr}';
+    cards.sort(
+      (a, b) => a.id!.compareTo(b.id!),
+    );
+    var totalWorkBookTitle =
+        '${'comprehensive_assessment'.tr}: %s ${'area'.tr} ${'from'.tr} %s ${'area'.tr}';
 
     List<List<WorkBookTableModel>> tableData = [];
     generalReportCards?.forEach((e) {
@@ -489,7 +534,10 @@ extension WorkBookDetailExtension on WorkBookDetailResponse {
     });
 
     ChartDataModel workShopChartData = ChartDataModel(
-        maxValue: maxValue, name: names, values: values, lableData: lableData);
+        maxValue: maxValue,
+        name: names,
+        values: [firstValues, lastValues],
+        lableData: lableData);
 
     var userParticipateAssessmentCount =
         workShopReportCard?.userParticipateAssessmentCount ?? 0;

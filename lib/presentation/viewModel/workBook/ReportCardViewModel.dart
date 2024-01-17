@@ -10,6 +10,7 @@ import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookParamsModel.dart';
 import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 import 'package:mamak/useCase/workBook/ReportCardUseCase.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReportCardViewModel extends BaseViewModel {
   final key = GlobalKey();
@@ -23,6 +24,7 @@ class ReportCardViewModel extends BaseViewModel {
   void getExtra() {
     model = _navigationServiceImpl.getArgs();
     if (model != null && model is WorkBookParamsModel) {
+      print('model is ${model?.toJson()}');
       getReportCard(model!);
     }
   }
@@ -47,11 +49,29 @@ class ReportCardViewModel extends BaseViewModel {
   }
 
   void getWorkBookShot() async {
-    var data = await takeSnapShot();
-    if (data != null) {
-      _navigationServiceImpl.navigateTo(AppRoute.shotViewer, data);
+    if (model != null) {
+      String path =
+          'http://62.106.95.127:8200/report/card/download/${model?.userChildId}/${model?.workShopId}/${Get.locale?.toLanguageTag()}';
+      _launchUrl(path);
     } else {
       messageService.showSnackBar('fail_receive_report_card'.tr);
+    }
+  }
+
+  void getLastWorkBook() async {
+    if (model != null) {
+      String path =
+          'http://62.106.95.127:8200/report/card/download/${model?.userChildId}/${model?.lastWorkShopId}/${Get.locale?.toLanguageTag()}';
+      _launchUrl(path);
+    } else {
+      messageService.showSnackBar('fail_receive_report_card'.tr);
+    }
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url),
+        mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
     }
   }
 

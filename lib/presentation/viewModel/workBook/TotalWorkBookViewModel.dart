@@ -6,7 +6,7 @@ import 'package:mamak/presentation/viewModel/baseViewModel.dart';
 class TotalWorkBookViewModel extends BaseViewModel {
   TotalWorkBookViewModel(super.initialState);
 
-  ChartDataModel getTotalChartData(
+  List<ChartDataModel> getTotalChartData(
       List<GeneralReportCard>? cards, List<WorkShopCategory> categories) {
     List<String> names = categories.map((e) => e.name).toList();
     var maxValue = cards?.fold(
@@ -18,6 +18,7 @@ class TotalWorkBookViewModel extends BaseViewModel {
         0;
 
     List<String> lableData = [];
+    List<ChartDataModel> charts = [];
     List<double> values = categories.map((e) {
       var id = e.id;
 
@@ -25,8 +26,8 @@ class TotalWorkBookViewModel extends BaseViewModel {
 
       var all = 0;
 
-      var currentValues = getTotalWorkBookThirdRate(id, cards);
-      currentValues?.map((e) {
+      var firstCurrentValues = getTotalWorkBookThirdRate(id, cards?.first);
+      firstCurrentValues?.map((e) {
         correct += e.thirdRateAnswersCount ?? 0;
         all += e.allQuestionsCount ?? 0;
       }).toList();
@@ -35,20 +36,47 @@ class TotalWorkBookViewModel extends BaseViewModel {
       return result;
     }).toList();
 
-    return ChartDataModel(
-        maxValue: maxValue, name: names, values: values, lableData: lableData);
+    charts.add(ChartDataModel(
+        maxValue: maxValue,
+        name: names,
+        values: [values],
+        lableData: lableData));
+
+    values = categories.map((e) {
+      var id = e.id;
+
+      var correct = 0;
+
+      var all = 0;
+
+      var firstCurrentValues = getTotalWorkBookThirdRate(id, cards?.last);
+      firstCurrentValues?.map((e) {
+        correct += e.thirdRateAnswersCount ?? 0;
+        all += e.allQuestionsCount ?? 0;
+      }).toList();
+      lableData.add('$correct ${'from'.tr} $all');
+      var result = (all == 0 ? 0 : (maxValue * correct) / all).toDouble();
+      return result;
+    }).toList();
+
+    charts.add(ChartDataModel(
+        maxValue: maxValue,
+        name: names,
+        values: [values],
+        lableData: lableData));
+
+    return charts;
   }
 
   List<WorkShopReportCard>? getTotalWorkBookThirdRate(
-      String id, List<GeneralReportCard>? cards) {
+      String id, GeneralReportCard? card) {
     List<WorkShopReportCard> values = [];
-    cards?.forEach((e) {
-      e.workShopReportCards?.forEach((element) {
-        if (id.toString() == element.workShopDictionary?.categoryId?.toString()) {
-          values.add(element);
-        }
-      });
+    card?.workShopReportCards?.forEach((element) {
+      if (id.toString() == element.workShopDictionary?.categoryId?.toString()) {
+        values.add(element);
+      }
     });
+
     return values;
   }
 

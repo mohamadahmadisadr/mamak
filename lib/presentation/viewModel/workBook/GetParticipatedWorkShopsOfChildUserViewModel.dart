@@ -30,9 +30,11 @@ class GetParticipatedWorkShopsOfChildUserViewModel extends BaseViewModel impleme
     }
   }
 
-  gotoDetailView(num? id) {
+  gotoDetailView(num? id, {num? lastId, String? lastAgeDomain}) {
     if (id != null) {
       model.workShopId = id.toString();
+      model.lastWorkShopId = lastId?.toString();
+      model.lastAgeDomain = lastAgeDomain?.toString();
       _navigationServiceImpl.navigateTo(AppRoute.workBookDetail, model);
     }
   }

@@ -97,7 +97,7 @@ class _NewHomeUiState extends State<NewHomeUi> {
                             strokeColor: Colors.grey,
                             values: [
                               ChartModel(
-                                  values: data.values, color: Colors.blue),
+                                  values: data.values.first, color: Colors.blue),
                             ],
                             labels: data.name,
                             maxValue: data.maxValue.toDouble(),

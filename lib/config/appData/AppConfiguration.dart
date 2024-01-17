@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AppConfiguration {
-  static const versionCode = 21;
-  static const versionName = '1.2.1';
+  static const versionCode = 23;
+  static const versionName = '1.2.3';
   static const packageName = 'ir.mamakschool.mamak';
 
   static bool enableNetworkLog = false;
-  static bool cafeBazaar = true;
+  static bool cafeBazaar = false;
   static bool multiLanguage = false;
   static Locale? forceLocale = multiLanguage ? null : const Locale('fa', 'IR');
 

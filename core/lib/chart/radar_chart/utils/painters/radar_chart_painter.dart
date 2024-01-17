@@ -68,10 +68,10 @@ class RadarChartPainter extends CustomPainter {
         // )
         //   ..layout(minWidth: 50)
         //   ..paint(canvas, Offset(x, y) + center);
-        canvas.drawCircle(Offset(x, y) + center, 6,
-            CommonPaintUtils.getStrokePaint(Colors.grey, 200, 1));
-        canvas.drawCircle(Offset(x, y) + center, 6,
-            CommonPaintUtils.getFillPaint(Colors.red, alpha: 80));
+        canvas.drawCircle(Offset(x, y) + center, 3,
+            CommonPaintUtils.getStrokePaint(Colors.white, 200, 1));
+        canvas.drawCircle(Offset(x, y) + center, 3,
+            CommonPaintUtils.getFillPaint(element.color, alpha: 100));
         // RadarChartDrawUtils.drawLabels(
         //     canvas,
         //     center,

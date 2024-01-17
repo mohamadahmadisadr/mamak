@@ -1,7 +1,7 @@
 class ChartDataModel {
   final int maxValue;
   final List<String> name;
-  final List<double> values;
+  final List<List<double>> values;
   List<String>? lableData;
 
   ChartDataModel({

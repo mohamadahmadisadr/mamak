@@ -24,7 +24,6 @@ class WorkBookDetailUi extends StatelessWidget {
         return ConditionalUI<WorkBookDetailUiModel>(
           state: state,
           onSuccess: (data) {
-            data.headerTitle.forEach((element) {print('title is $element');});
             return MamakScaffold(
               body: SingleChildScrollView(
                 child: RepaintBoundary(
@@ -65,7 +64,7 @@ class WorkBookDetailUi extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
-                                        BorderRadius.circular(32.0),
+                                            BorderRadius.circular(32.0),
                                         border: Border.all(
                                             color: Colors.grey, width: 1),
                                       ),
@@ -79,18 +78,20 @@ class WorkBookDetailUi extends StatelessWidget {
                                               alignment: Alignment.center,
                                               child: SizedBox(
                                                 width: (MediaQuery.of(context)
-                                                    .size
-                                                    .width ) /
-                                                    (data.headerTitle.length + 1),
+                                                        .size
+                                                        .width) /
+                                                    (data.headerTitle.length +
+                                                        1),
                                                 child: Padding(
-                                                  padding:
-                                                  const EdgeInsets.symmetric(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
                                                       vertical: 4.0,
                                                       horizontal: 2.0),
                                                   child: Text(
                                                     data.headerTitle[index],
                                                     textScaleFactor: 1,
-                                                    style: const TextStyle(fontSize: 10),
+                                                    style: const TextStyle(
+                                                        fontSize: 10),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ),
@@ -121,21 +122,23 @@ class WorkBookDetailUi extends StatelessWidget {
                                           padding: 8.dpe,
                                           itemBuilder: (context, index) {
                                             return Align(
-                                            alignment: Alignment.center,
+                                              alignment: Alignment.center,
                                               child: SizedBox(
                                                 width: (MediaQuery.of(context)
-                                                            .size
-                                                            .width ) /
+                                                        .size
+                                                        .width) /
                                                     (data.header.length + 1),
                                                 child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                          vertical: 4.0,
-                                                          horizontal: 2.0),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                    vertical: 4.0,
+                                                    horizontal: 2.0,
+                                                  ),
                                                   child: Text(
                                                     data.header[index],
                                                     textScaleFactor: 1,
-                                                    style: const TextStyle(fontSize: 10),
+                                                    style: const TextStyle(
+                                                        fontSize: 10),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ),
@@ -151,6 +154,13 @@ class WorkBookDetailUi extends StatelessWidget {
                                       ),
                                     ),
                                     4.dpv,
+                                    if (bloc.model?.lastWorkShopId != null)
+                                      Padding(
+                                        padding: 16.dpe,
+                                        child: ElevatedButton(
+                                            onPressed: bloc.getWorkBookShot,
+                                            child: Text('کارنامه بسته قبلی(${bloc.model?.lastAgeDomain})')),
+                                      )
                                   ],
                                 ),
                               ),
@@ -164,10 +174,10 @@ class WorkBookDetailUi extends StatelessWidget {
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  4.dph,
-                                  Directionality(
-                                      textDirection: TextDirection.ltr,
-                                      child: Text('(${data.counter})')),
+                                  // 4.dph,
+                                  // Directionality(
+                                  //     textDirection: TextDirection.ltr,
+                                  //     child: Text('(${data.counter})')),
                                 ],
                               ),
                             ),
@@ -232,33 +242,53 @@ class WorkBookDetailUi extends StatelessWidget {
                                 textScaleFactor: .03,
                                 strokeColor: Colors.grey,
                                 values: [
-                                  ChartModel(
-                                      values: data.workShpChartModel.values,
-                                      color: Colors.blue),
+                                  if (data.workShpChartModel.values.first
+                                      .isNotEmpty)
+                                    ChartModel(
+                                      values:
+                                          data.workShpChartModel.values.first,
+                                      color: Colors.blue,
+                                    ),
+                                  if (data.workShpChartModel.values.length > 1)
+                                    ChartModel(
+                                      values:
+                                          data.workShpChartModel.values.last,
+                                      color: Colors.green,
+                                    ),
                                 ],
                                 labels: data.workShpChartModel.name,
                                 maxValue:
                                     data.workShpChartModel.maxValue.toDouble(),
                                 fillColor: Colors.blue,
                                 maxLinesForLabels: 2,
-                                maxWidth: MediaQuery.of(context).size.width - 210,
-                                maxHeight: MediaQuery.of(context).size.width - 210,
+                                maxWidth:
+                                    MediaQuery.of(context).size.width - 210,
+                                maxHeight:
+                                    MediaQuery.of(context).size.width - 210,
                               ),
                             ),
                             8.dpv,
-                            // const WorkBookItemUi(
-                            //   name: 'کارنامه کلی',
-                            //   data: [
-                            //     WorkBookModel(
-                            //         name: 'ارزیابی ۱', color: Colors.green),
-                            //     WorkBookModel(
-                            //         name: 'ارزیابی ۱', color: Colors.blue),
-                            //   ],
-                            // ),
+                            const WorkBookItemUi(
+                              data: [
+                                WorkBookModel(
+                                    name: 'ارزیابی اول', color: Colors.blue),
+                                WorkBookModel(
+                                    name: 'ارزیابی آخر', color: Colors.green),
+                              ],
+                            ),
                             TotalWorkBookChartUi(
                               cards: data.cards,
                               categories: data.categories,
                               title: data.totalWorkBookTitle,
+                            ),
+                            8.dph,
+                            const WorkBookItemUi(
+                              data: [
+                                WorkBookModel(
+                                    name: 'ارزیابی اول', color: Colors.blue),
+                                WorkBookModel(
+                                    name: 'ارزیابی آخر', color: Colors.green),
+                              ],
                             ),
                           ],
                         ),
@@ -277,7 +307,9 @@ class WorkBookDetailUi extends StatelessWidget {
                           categories: data.categories),
                       Container(
                         padding: 8.dpe,
-                        child: Text('report_card_text'.tr,textAlign: TextAlign.center,
+                        child: Text(
+                          'report_card_text'.tr,
+                          textAlign: TextAlign.center,
                           style: context.textTheme.titleMedium
                               ?.copyWith(color: Colors.red),
                         ),
@@ -316,28 +348,24 @@ class WorkBookDetailUi extends StatelessWidget {
 }
 
 class WorkBookItemUi extends StatelessWidget {
-  const WorkBookItemUi({Key? key, required this.name, required this.data})
+  const WorkBookItemUi({Key? key, required this.data})
       : super(key: key);
-  final String name;
   final List<WorkBookModel> data;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: 8.dpe,
+      padding: 16.dpe,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            name,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: data.map((e) => WorkBookItemContentUi(model: e)).toList(),
-          )
+          ),
+          const SizedBox()
         ],
       ),
     );

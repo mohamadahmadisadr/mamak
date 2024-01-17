@@ -13,12 +13,14 @@ class WorkBook {
   String? packageAgeDomain;
   String? workShopFileContent;
   int? workShopId;
+  num? toAgeDomain;
 
   WorkBook({
     this.workShopTitle,
     this.packageAgeDomain,
     this.workShopId,
     this.workShopFileContent,
+    this.toAgeDomain,
   });
 
   factory WorkBook.fromJson(Map<String, dynamic> json) => WorkBook(
@@ -26,6 +28,7 @@ class WorkBook {
     packageAgeDomain: json["packageAgeDomain"],
     workShopId: json["workShopId"],
     workShopFileContent: json["workShopFileContent"],
+    toAgeDomain: json["toAgeDomain"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -33,5 +36,6 @@ class WorkBook {
     "packageAgeDomain": packageAgeDomain,
     "workShopFileContent": workShopFileContent,
     "workShopId": workShopId,
+    "toAgeDomain": toAgeDomain
   };
 }

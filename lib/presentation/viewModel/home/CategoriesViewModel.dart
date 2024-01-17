@@ -43,7 +43,7 @@ class CategoriesViewModel extends BaseViewModel {
       return result;
     }).toList();
 
-    return ChartDataModel(maxValue: maxValue, name: names, values: values,lableData: lableData);
+    return ChartDataModel(maxValue: maxValue, name: names, values: [values],lableData: lableData);
   }
 
   WorkShopReportCard? getTotalWorkBookThirdRate(

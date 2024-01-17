@@ -76,7 +76,7 @@ class TotalWorkBookChartUi extends StatelessWidget {
                             child: Text(
                               sprintf('learning_type_sprintf'.tr, [
                                 categories.length.toString(),
-                                categories.map((e) => e.name).toList().join(',')
+                                categories.map((e) => e.name).toList().join(', ')
                               ]),
                               style: context.textTheme.bodyMedium,
                             ),
@@ -106,30 +106,42 @@ class TotalWorkBookChartUi extends StatelessWidget {
                                         .toList()
                                         .length
                                         .toString(),
-                                    workShops.toSet().toList().join(',')
+                                    workShops.toSet().toList().join(', ')
                                   ]),
                               style: context.textTheme.bodyMedium,
                             ),
                           ),
                         ],
                       ),
+
                     ],
                   );
                 },
               ),
               8.dpv,
+              Row(
+                children: [
+                  Padding(
+                    padding: 16.dpeh,
+                    child: const Text('کارنامه کلی',style: TextStyle(fontFamily: 'dana',fontWeight: FontWeight.bold),),
+                  ),
+                ],
+              ),
+              4.dpv,
               FittedBox(
                 fit: BoxFit.fill,
                 child: RadarChart(
-                  spaceCount: data.maxValue ~/ 5,
+                  spaceCount: (data.last.maxValue ?? 1) ~/ 5,
                   textScaleFactor: .03,
                   strokeColor: Colors.grey,
                   values: [
-                    ChartModel(values: data.values, color: Colors.blue),
+                    if (data.first.values.first.isNotEmpty)
+                    ChartModel(values: data.first.values.first, color: Colors.blue),
+                    if (data.length > 1)
+                    ChartModel(values: data.last.values.first, color: Colors.green),
                   ],
-                  labels: data.name,
-                  maxValue: data.maxValue.toDouble(),
-                  fillColor: Colors.blue,
+                  labels: data.last.name,
+                  maxValue: data.last.maxValue.toDouble(),
                   maxLinesForLabels: 2,
                   maxWidth: MediaQuery.of(context).size.width - 100,
                   maxHeight: MediaQuery.of(context).size.width - 100,

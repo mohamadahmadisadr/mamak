@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/src/dialog/dialog_route.dart';
 import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/config/uiCommon/MyTheme.dart';
 import 'package:mamak/config/uiCommon/WidgetSize.dart';
@@ -106,77 +107,90 @@ class MyWorkShopItemUi extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Opacity(
-            opacity: item.isActive == true ? 1.0 : .5,
-            child: Container(
-              padding: 8.dpe,
-              margin: 8.dpe,
-              decoration: BoxDecoration(
-                  borderRadius: 8.bRadius,
-                  color: item.isActive == true
-                      ? MyTheme.purple
-                      : Colors.grey.shade100),
-              child: InkWell(
+          child: Container(
+            padding: 8.dpe,
+            margin: 8.dpe,
+            decoration: BoxDecoration(
                 borderRadius: 8.bRadius,
-                onTap: () {
-                  AssessmentParamsModel assessmentParam = AssessmentParamsModel(
-                    name: childsItem.childFirstName ?? '',
-                    id: item.id?.toString() ??
-                        ''
-                            '',
-                    childId: childsItem.id?.toString() ?? '',
-                    workShopId: item.workShopId?.toString() ?? '',
-                    course: item.workShopTitle ?? '',
-                  );
-                  GetIt.I
-                      .get<NavigationServiceImpl>()
-                      .navigateTo(AppRoute.assessments, assessmentParam);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                          item.workShopTitle ?? '',
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          textScaleFactor: 1.0,
-                          style:
-                              const TextStyle(fontSize: WidgetSize.smallTitle)),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: Text(
-                          item.packageAgeDomain ?? '',
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          textScaleFactor: 1.0,
-                          style: const TextStyle(
-                            fontSize: WidgetSize.smallTitle,
-                          ),
-                        ),
+                color: item.isActive == true
+                    ? MyTheme.purple
+                    : item.InActiveReasonId == 1 ? Colors.yellow.shade200 : Colors.green.shade200),
+            child: InkWell(
+              borderRadius: 8.bRadius,
+              onTap: () {
+                if(item.isActive == false){
+                  GetIt.I.get<NavigationServiceImpl>().dialog(Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0)),
+                    insetPadding: 32.dpe,
+                    alignment: Alignment.center,
+                    child: Container(
+                      decoration: BoxDecoration(borderRadius: 16.bRadius),
+                      child: Padding(
+                        padding: 16.dpe,
+                        child: Text(item.InActiveReason ?? ''),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        textAlign: Get.locale.isPersian ? TextAlign.left : TextAlign.right,
+                  ));
+                  return;
+                }
+                AssessmentParamsModel assessmentParam = AssessmentParamsModel(
+                  name: childsItem.childFirstName ?? '',
+                  id: item.id?.toString() ??
+                      ''
+                          '',
+                  childId: childsItem.id?.toString() ?? '',
+                  workShopId: item.workShopId?.toString() ?? '',
+                  course: item.workShopTitle ?? '',
+                );
+                GetIt.I
+                    .get<NavigationServiceImpl>()
+                    .navigateTo(AppRoute.assessments, assessmentParam);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                        item.workShopTitle ?? '',
+                        textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         textScaleFactor: 1.0,
-                        "${item.questionCount} ${'questions'.tr}",
-                        style: const TextStyle(fontSize: WidgetSize.smallTitle),
+                        style:
+                            const TextStyle(fontSize: WidgetSize.smallTitle)),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Text(
+                        item.packageAgeDomain ?? '',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        textScaleFactor: 1.0,
+                        style: const TextStyle(
+                          fontSize: WidgetSize.smallTitle,
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      textAlign: Get.locale.isPersian ? TextAlign.left : TextAlign.right,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      textScaleFactor: 1.0,
+                      "${item.questionCount} ${'questions'.tr}",
+                      style: const TextStyle(fontSize: WidgetSize.smallTitle),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

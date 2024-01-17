@@ -124,7 +124,7 @@ class NewHomeViewModel extends BaseViewModel with MyNotificationListener {
     }).toList();
 
     return ChartDataModel(
-        maxValue: maxValue, name: names, values: values, lableData: lableData);
+        maxValue: maxValue, name: names, values: [values], lableData: lableData);
   }
 
   List<WorkShopReportCard>? getTotalWorkBookThirdRate(

@@ -81,7 +81,9 @@ class ChildWorkShops {
     this.id,
     this.workShopId,
     this.statusCode,
-    this.isActive
+    this.isActive,
+    this.InActiveReasonId,
+    this.InActiveReason
   });
 
   ChildWorkShops.fromJson(dynamic json) {
@@ -94,6 +96,8 @@ class ChildWorkShops {
     parentCategoryId = json['parentCategoryId'];
     statusCode = json['statusCode'];
     isActive = json['isActive'];
+    InActiveReasonId = json['inActiveReasonId'];
+    InActiveReason = json['inActiveReason'];
   }
 
   String? workShopTitle;
@@ -105,6 +109,8 @@ class ChildWorkShops {
   num? parentCategoryId;
   num? statusCode;
   bool? isActive;
+  num? InActiveReasonId;
+  String? InActiveReason;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
