@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:mamak/config/apiRoute/BaseUrls.dart';
 import 'package:mamak/data/serializer/workBook/WorkBookDetailResponse.dart';
 import 'package:mamak/presentation/ui/workBook/DownloadFileDialog.dart';
 import 'package:mamak/presentation/uiModel/workBook/WorkBookDetailUiModel.dart';
@@ -51,7 +52,7 @@ class ReportCardViewModel extends BaseViewModel {
   void getWorkBookShot() async {
     if (model != null) {
       String path =
-          'http://62.106.95.127:8200/report/card/download/${model?.userChildId}/${model?.workShopId}/${Get.locale?.toLanguageTag()}';
+          'https://${BaseUrls.baseUrl}/report/card/download/${model?.userChildId}/${model?.workShopId}/${Get.locale?.toLanguageTag()}';
       _launchUrl(path);
     } else {
       messageService.showSnackBar('fail_receive_report_card'.tr);
@@ -61,7 +62,7 @@ class ReportCardViewModel extends BaseViewModel {
   void getLastWorkBook() async {
     if (model != null) {
       String path =
-          'http://62.106.95.127:8200/report/card/download/${model?.userChildId}/${model?.lastWorkShopId}/${Get.locale?.toLanguageTag()}';
+          'https://${BaseUrls.baseUrl}/report/card/download/${model?.userChildId}/${model?.lastWorkShopId}/${Get.locale?.toLanguageTag()}';
       _launchUrl(path);
     } else {
       messageService.showSnackBar('fail_receive_report_card'.tr);
